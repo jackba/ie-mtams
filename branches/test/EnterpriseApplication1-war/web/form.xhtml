@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml"	
+		xmlns:h="http://java.sun.com/jsf/html">
+		
+    
+    <h:body>
+       
+        <h:form>
+            <h3>Hello Please enter your details</h3>
+            <label>id</label>
+            <h:inputText value="#{registerEmp.id}"/>
+            <label>Name</label>
+            <h:inputText value="#{registerEmp.name}"/>
+            <label>Surname</label>
+            <h:inputText value="#{registerEmp.surname}"/>
+            <h:commandButton value="submit" action="#{registerEmp.createClient()}"/>
+        </h:form>
+        
+    </h:body>
+</html>
