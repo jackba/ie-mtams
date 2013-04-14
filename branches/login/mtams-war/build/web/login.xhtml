@@ -36,6 +36,7 @@
                                 <h:inputSecret id="password" value="#{sessionBean.password}" required="true" />
                                 <br/>
                                 <h:commandButton value="Login" action="#{sessionBean.validate}" />
+                                <h:outputText value="Incorrect username/password combination" rendered="#{sessionBean.logError}"/>
                             </h:form>
 			</fieldset>
 			<div id = "nav">

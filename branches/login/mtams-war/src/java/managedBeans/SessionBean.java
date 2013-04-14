@@ -23,6 +23,7 @@ public class SessionBean implements Serializable{
     private String password;
     private HttpSession session;
     private Accounts user;
+    private boolean logError = false;
     
     @EJB
     private LoginHandlerLocal handler;
@@ -48,25 +49,24 @@ public class SessionBean implements Serializable{
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean isLogError() {
+        return logError;
+    }
+
+    public void setLogError(boolean logError) {
+        this.logError = logError;
+    }
+    
+    
     
     public String greeting(){
         
          if(session != null){
             return "Hello " + username + " .Your authority level is: " + handler.getAccountRole(user.getRoleIdrole());
          }else{
-             return "You are not logged in. Please click on the link to take you to the login page";
+             return "You are not logged in or have performed a wrong navigation. Please click on the link to take you to the login page";
          }
-    }
-    
-    public void check(){
-        if(((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)) == null){
-            try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("nextPage.xhtml");
-            } catch (IOException ex) {
-                Logger.getLogger(SessionBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        //return "login.xhtml?faces-redirect=ture";
     }
     
     public String validate(){
@@ -75,12 +75,15 @@ public class SessionBean implements Serializable{
            if(user.getRoleIdrole() < 20){
                
                session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+               logError = false;
                return "userHome.xhtml";
             }else{
                session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+               logError = false;
                return "adminHome.xhtml";
             } 
         }else{
+            logError = true;
             return "login.xhtml";
         }
 
