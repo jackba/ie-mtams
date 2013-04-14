@@ -22,6 +22,7 @@ public class SessionBean implements Serializable{
     private String username;
     private String password;
     private HttpSession session;
+    private Accounts user;
     
     @EJB
     private LoginHandlerLocal handler;
@@ -48,8 +49,17 @@ public class SessionBean implements Serializable{
         this.password = password;
     }
     
+    public String greeting(){
+        
+         if(session != null){
+            return "Hello " + username + " .Your authority level is: " + handler.getAccountRole(user.getRoleIdrole());
+         }else{
+             return "You are not logged in. Please click on the link to take you to the login page";
+         }
+    }
+    
     public void check(){
-        if((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false) == null){
+        if(((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)) == null){
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("nextPage.xhtml");
             } catch (IOException ex) {
@@ -60,14 +70,15 @@ public class SessionBean implements Serializable{
     }
     
     public String validate(){
-        Accounts user = handler.authenticate(this.username, this.password);
+        user = handler.authenticate(this.username, this.password);
         if(user != null){
            if(user.getRoleIdrole() < 20){
                
-               
+               session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                return "userHome.xhtml";
             }else{
-                return "adminHome.xhtml";
+               session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+               return "adminHome.xhtml";
             } 
         }else{
             return "login.xhtml";
@@ -77,10 +88,27 @@ public class SessionBean implements Serializable{
     
     public String invalidate() {
         //HttpServletRequest request = (HttpServletRequest);
-         session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+         //session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         //HttpSession session = request.getSession(true);
-        session.invalidate();
+        try{
+            session.invalidate();
+        }catch (NullPointerException e){
+        }finally{
+            return "login.xhtml?faces-redirect=true";
+        }
         //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "login.xhtml?faces-redirect=true";
+        
+    }
+    
+    public boolean renderLogout(){
+        if(session == null){
+            return false;
+         }else{
+             return true;
+         }
+    }
+    
+    public boolean renderRevLogout(){
+        return !renderLogout();
     }
 }

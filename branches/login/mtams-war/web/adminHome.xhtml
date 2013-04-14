@@ -3,10 +3,48 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
-        <title>Administrator</title>
+        <title>Admin Page</title>
+        <link href="css/styles.css" rel="Stylesheet" type="text/css" />
     </h:head>
     <h:body>
-        Hello from Admins
+        <div id ="header">
+            <div id="logo">
+                    <img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
+            </div>
+
+            <ul>
+                    <li><a href="">Help</a></li>
+                    <li><h:link value="Logout"  outcome="#{sessionBean.invalidate()}" rendered="#{sessionBean.renderLogout()}" /></li>
+            </ul>
+        </div>
+        
+        <div>
+             <h:outputText value="#{sessionBean.greeting()}" />
+        </div>
+        <div>
+            <h:link value="Log in page"  outcome="#{sessionBean.invalidate()}" rendered="#{sessionBean.renderRevLogout()}" />
+        </div>
+        
+        <div id= "footer">
+            <div class="row group">
+                <div class="col">
+                    <h3>Quick links</h3>
+                    <ul>
+                            <li><a href="">Site Map</a></li>
+                            <li><a href="">FAQ</a></li>
+                            <li><a href="">Contact us</a></li>
+                    </ul>
+                </div>
+                
+                <h3>Legal</h3>
+                <p class="legal">Monash South Africa Incorporated in Australia External Non-Profit Company (Registration number 2005/009321/12), 
+                is a campus of Monash University, a public university, incorporated by an Act of Parliament in Victoria, Australia.</p>
+
+                <p class="legal">Monash South Africa NPC is registered with the Department of Education as a private higher education institution 
+                under the Higher Education Act of 1997. Certificate no. 00HF02 and is registered as a non-profit organisation, 
+                Registration number 054-109-NPO.</p>		
+            </div>
+        </div>
     </h:body>
 </html>
 
