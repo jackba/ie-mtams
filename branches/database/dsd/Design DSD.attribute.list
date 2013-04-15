@@ -1,0 +1,227 @@
+Approval
+{documentation = Persons who have to Approve sections of the application}
+Approval_ID
+Section approved (itineray/conference/costs)
+Application_ID
+Applicant
+Head of School / Administrative Unit
+Chair MSA Research Commitee
+
+Final Costing
+{documentation = Details of travel costs}
+Costing_ID
+Airfare Budgeted Cost
+Airfare actual  Cost
+Car rental Budgeted Cost
+Car rental actual  Cost
+Accommodation No. of days
+Accommodation Budgeted  Cost
+Accommodation actual  Cost
+Per diem No. of days
+Per diem Budgeted Cost
+Per diem Actual Cost
+Conference Registration Budgeted Cost
+Conference Registration actual Cost
+Visa Budgeted Cost
+Visa Actual Cost
+Other Cost Budgeted
+Other Cost Actual
+Total Cost budgeted
+Total Cost Actual
+Note
+Quote_ID
+
+Conference Section
+{documentation = Conference Details} 
+conference_ID
+Full Name Conference
+Web address
+City / State
+Country
+Are you presenting
+Yes / No
+Title of paper / presentation
+Authors and affiliations
+Other reason for attendance
+Date of MSA internal Presentation
+Conference duration
+days
+Date from 
+date to
+Do you need coverage for teach commitments
+Yes / No
+What arrangements need to be made
+
+Personal Details
+{documentation = Details of staff member / applicant}
+Person_ID
+Given Name
+Family Name
+Title
+School / Administrative Unit
+Position
+Secretary / Travel Booker
+Identity Number
+Business Address
+Business Phone
+Business Fax
+Home address
+Mobile Phone
+Home Phone
+Email Address
+Spouses Name
+Spouses Contact Number
+Spouse Email
+Doctors Name
+Doctors Contact Number
+Known Medical Conditions
+Document_ID (visa / passport)
+Attachment_ID
+
+Quotes 
+Quote_ID
+New / Amended
+Cost Center
+Note / Details
+Approved
+Flight_Quote
+Car_Quote
+Accomodation_Quote
+
+Flight Quotes 
+{documentation = Travel Information Flights}
+Fligh_Quote_ID
+Fligh from
+Flight to
+time
+time
+Quote source N Flight
+Quote source N cost
+airport transfers
+Yes / No
+attachement_ID
+
+Car_Quotes 
+{documentation = Travel Information Car / bus / train / ferry rental}
+Car_Quote_ID
+from
+to
+Date collect
+date return
+Quote source N Hire company
+Quote source N cost
+Attachement_ID
+
+Accomodation Quotes 
+{documentation = Travel Information Accomodation}
+Accom_Quote_ID
+Location
+Date in
+Date out
+Quote source N Hotel
+Quote source N cost
+Attachement_ID
+
+Travel summary
+{documentation = Summary Discription of Travel Program}
+Travel_ID
+Dates
+Business (days)
+Conference_ID
+Personal (days)
+Locations
+Reason for travel / expected outcomes
+Itineray_ID
+
+Itinerary
+{documentation = Detailed Itinerary of travel}
+Itineray_ID
+Departure
+Destination 
+Business Leave
+Other leave
+Travel day or non-workday
+Note
+Conference_ID
+Per_diem
+Quotes
+
+Application
+{documentation = Central table to track applications}
+Application_ID
+Person_ID
+Discription
+Costing_ID
+Conference_ID
+Travel_ID
+Approval_ID
+Attachement_ID
+
+Ledgend
+{documentation = Key to symbols &amp; text}
+ Underlined
+Primary Key
+FK
+Foriegn Key
+Currency_Symbol
+
+Per diem
+{documentation = Travel Allowances}
+Country
+Currency
+Amount
+
+Country 
+{documentation = Lookup Table to populate lists with}
+Country_ID
+Country
+
+Currency
+{documentation = Lookup Table to populate lists with}
+Currency_ID
+Currency
+Currency_Symbol
+
+Passport &amp; Visa Details
+{documentation = Travel Information Visas documents}
+Document_ID
+Passport Number
+Country
+Date of Issue
+Expiry Date
+Valid Visa in passport
+Person_ID
+Attachment_ID
+
+Attachment
+{documentation = Attachements} Attachment_ID int
+Country
+BLOB
+Discription
+
+Leave Types
+{documentation = Leave Types lookup table see travel application under section 3}
+Leave Types
+
+user
+{documentation = User password and group asscoications used for logins} 
+user_ID
+user_name
+password
+person_ID
+group
+
+Group
+{documentation = Groups to manage user access to differnt aspects of the systems approval process}
+group_ID
+group_name
+user_ID
+
+Permissions
+{documentation = Permission to user access to differnt aspects of the systems approval process}
+Permission_ID
+group_ID KF
+group_name
+user_ID
+Permission 
+system access
