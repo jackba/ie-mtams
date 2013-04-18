@@ -4,8 +4,9 @@
  */
 package business;
 
-import DataAccess.AbstractFacade;
+import DataAccess.StaffFacadeLocal;
 import Entity.Staff;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -16,13 +17,18 @@ import javax.ejb.Stateless;
 @Stateless
 public class clientServerImp implements clientServer
 {
-    @EJB
-    
-    private AbstractFacade dao;
+    @EJB    
+    private StaffFacadeLocal dao;
     
     @Override
     public void registerClient(Staff newStaff)
     {
 	dao.create(newStaff);
+    }
+    
+    @Override
+    public List<Staff> getAllStaff()
+    {
+        return dao.findAll();
     }
 }

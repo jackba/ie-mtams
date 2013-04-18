@@ -5,6 +5,7 @@
 package business;
 
 import Entity.Staff;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -15,4 +16,5 @@ import javax.ejb.Local;
 public interface clientServer 
 {
     public void registerClient(Staff newStaff);
+    public List<Staff> getAllStaff();
 }
