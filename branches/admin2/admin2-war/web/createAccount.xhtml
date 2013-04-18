@@ -37,7 +37,11 @@
     <br /> 
     <h3>Create Account</h3>
     <br />
-     <h:form>			
+     <h:form>	
+                <h:outputLabel>StaffID </h:outputLabel>
+                <h:inputText value="#{createBean.id}" />
+		<br/>
+                
 		<h:outputLabel>Username </h:outputLabel>
                 <h:inputText value="#{createBean.userName}" />
 		

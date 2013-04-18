@@ -36,6 +36,14 @@ public class createBean implements Serializable
     public createBean(){
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -54,7 +62,7 @@ public class createBean implements Serializable
     
     public String createStaff()
 	{
-		Staff newStaff = new Staff(4l,userName,password);		
+		Staff newStaff = new Staff(id,userName,password);		
 		csi.registerClient(newStaff);
 		return "adminHome";
 	}
