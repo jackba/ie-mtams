@@ -6,7 +6,9 @@ package Bean;
 
 import Entity.Staff;
 import business.clientServer;
+import java.io.Serializable;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 
 /**
@@ -15,14 +17,18 @@ import javax.faces.bean.ManagedBean;
  */
 
 @ManagedBean(name = "createBean")
-@EJB
-public class createBean 
+@SessionScoped
+public class createBean implements Serializable
 {
+    @EJB
     private clientServer csi;
     
     private String userName;
     private String password;
     private Long id;
+    
+    public createBean(){
+    }
 
     public String getUserName() {
         return userName;
@@ -42,7 +48,7 @@ public class createBean
     
     public String createStaff()
 	{
-		Staff newStaff = new Staff(id,userName,password);
+		Staff newStaff = new Staff(1l,userName,password);
 		
 		csi.registerClient(newStaff);
 		return "adminHome";

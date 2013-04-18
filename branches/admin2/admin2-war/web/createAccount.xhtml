@@ -17,7 +17,6 @@
                     <li><a href="">Help</a></li>
                     
             </ul> 
-    <p:growl id="messages"/>  
   
     <p:menubar>  
         <p:submenu label="Account" icon="ui-icon-document">  
@@ -40,16 +39,17 @@
     <br />
      <h:form>			
 		<h:outputLabel>Username </h:outputLabel>
-		<h:inputText value="#{createBean.userName}" />
+                <h:inputText value="#{createBean.userName}" />
 		
 		<br/>
 			
+                
 		<h:outputLabel>Password </h:outputLabel>
-		<h:inputSecret value="#{createBean.password}" />
+                <h:inputSecret value="#{createBean.password}" />
 		<br/>
 			
 			
-		<h:commandButton value = "Create" action="#"/>
+                <h:commandButton value = "Create" action="#{createBean.createStaff}"/>
 		<h:commandButton value = "Cancel" action="adminHome"/> 			
 	</h:form>
         
