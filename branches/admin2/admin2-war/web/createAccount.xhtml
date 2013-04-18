@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Create Account</title>
+        <link href="css/styles.css" rel="Stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <div id ="header">
+            <div id="logo">
+                    <img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
+            </div>
+
+            <ul>
+                    <li><a href="">Help</a></li>
+                    
+            </ul> 
+    <p:growl id="messages"/>  
+  
+    <p:menubar>  
+        <p:submenu label="Account" icon="ui-icon-document">  
+            <p:menuitem value="All Account" url="allAccount.xhtml" icon="ui-icon-arrowreturnthick-1-w"/> 
+            <p:menuitem value="Create Account" url="createAccount.xhtml" icon="ui-icon-arrowreturnthick-1-e"/>  
+        </p:submenu>  
+  
+        <p:submenu label="Application" icon="ui-icon-pencil">  
+            <p:menuitem value="Pending" url="#" icon="ui-icon-arrowreturnthick-1-w" />  
+            <p:menuitem value="History" url="#" icon="ui-icon-arrowreturnthick-1-e" />  
+        </p:submenu>  
+        
+         <p:menuitem value="help" url="#" />  
+         <p:menuitem value="logout" url="#" />            
+ </p:menubar>
+      
+        </div>
+        
+    <h3>Create Account</h3>
+    <br />
+     <h:form>			
+		<h:outputLabel>Username </h:outputLabel>
+		<h:inputText value="#{createBean.userName}" />
+		
+		<br/>
+			
+		<h:outputLabel>Password </h:outputLabel>
+		<h:inputSecret value="#{createBean.password}" />
+		<br/>
+			
+			
+		<h:commandButton value = "Create" action="#"/>
+		<h:commandButton value = "Cancel" action="adminHome"/> 			
+	</h:form>
+        
+        <div id= "footer">
+            <div class="row group">
+                <div class="col">
+                    <h3>Quick links</h3>
+                    <ul>
+                            <li><a href="">Site Map</a></li>
+                            <li><a href="">FAQ</a></li>
+                            <li><a href="">Contact us</a></li>
+                    </ul>
+                </div>
+                
+                <h3>Legal</h3>
+                <p class="legal">Created by school of IT, Monash University South Africa</p>		
+            </div>
+        </div>
+    </h:body>
+</html>
+
