@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>All Account</title>
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
@@ -22,7 +23,7 @@
     <p:menubar>  
         <p:submenu label="Account" icon="ui-icon-document">  
             <p:menuitem value="All Account" url="allAccount.xhtml" icon="ui-icon-arrowreturnthick-1-w"/> 
-            <p:menuitem value="Create Account" url="createAccount.xhtml" icon="ui-icon-arrowreturnthick-1-e"/>  
+            <p:menuitem value="Create" url="createAccount.xhtml" icon="ui-icon-arrowreturnthick-1-e"/>  
         </p:submenu>  
   
         <p:submenu label="Application" icon="ui-icon-pencil">  
@@ -33,8 +34,31 @@
          <p:menuitem value="help" url="#" />  
          <p:menuitem value="logout" url="#" />            
  </p:menubar>
-    
+    <br />
     <h3>All Account</h3>  
+    <br />
+    
+    <p:dataTable id="dataTable" var="staff" value="#{createBean.allStaff}"
+                binding = "#{createBean.dataTable}" >  
+  
+        <f:facet name="header">  
+            List of Account  
+        </f:facet>  
+  
+        <p:column headerText="StaffID">  
+            <h:outputText value="#{createBean.userName}" />  
+        </p:column> 
+  
+        <p:column headerText="UserName">  
+            <h:outputText value="#{createBean.userName}" />  
+        </p:column>  
+  
+        <p:column headerText="Password">  
+            <h:outputText value="#{createBean.password}" />  
+        </p:column>  
+  
+    </p:dataTable>  
+    
         </div>
 
         

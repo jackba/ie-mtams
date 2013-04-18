@@ -7,9 +7,12 @@ package Bean;
 import Entity.Staff;
 import business.clientServer;
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIData;
 
 /**
  *
@@ -26,6 +29,9 @@ public class createBean implements Serializable
     private String userName;
     private String password;
     private Long id;
+    private UIData dataTable;
+	private UIData dataTableN;
+	private UIData dataTableDetails;
     
     public createBean(){
     }
@@ -48,10 +54,39 @@ public class createBean implements Serializable
     
     public String createStaff()
 	{
-		Staff newStaff = new Staff(1l,userName,password);
-		
+		Staff newStaff = new Staff(4l,userName,password);		
 		csi.registerClient(newStaff);
 		return "adminHome";
 	}
+    
+    public List<Staff> getAllStaff()
+    {
+        return csi.getAllStaff();
+    }
+
+    public UIData getDataTable() {
+        return dataTable;
+    }
+
+    public void setDataTable(UIData dataTable) {
+        this.dataTable = dataTable;
+    }
+
+    public UIData getDataTableN() {
+        return dataTableN;
+    }
+
+    public void setDataTableN(UIData dataTableN) {
+        this.dataTableN = dataTableN;
+    }
+
+    public UIData getDataTableDetails() {
+        return dataTableDetails;
+    }
+
+    public void setDataTableDetails(UIData dataTableDetails) {
+        this.dataTableDetails = dataTableDetails;
+    }
+    
     
 }
