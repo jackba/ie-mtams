@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Create Account</title>
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
@@ -38,21 +39,24 @@
     <h3>Create Account</h3>
     <br />
      <h:form>	
-                <h:outputLabel>StaffID </h:outputLabel>
-                <h:inputText value="#{createBean.id}" />
-		<br/>
-                
+         <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5"> 
+
 		<h:outputLabel>Username </h:outputLabel>
-                <h:inputText value="#{createBean.userName}" />
-		
-		<br/>
-			
-                
-		<h:outputLabel>Password </h:outputLabel>
-                <h:inputSecret value="#{createBean.password}" />
-		<br/>
-			
-			
+                <p:inputText value="#{createBean.userName}" required="true"/>
+                                
+                <h:outputLabel for="pwd1" value="Password : *" />  
+                <p:password id="pwd1" value="#{createBean.password}" match="pwd2" label="Password " required="true"/>  
+
+                <h:outputLabel for="pwd2" value="Verify Password : *" />  
+                <p:password id="pwd2" value="#{createBean.password}" label="Verify Password " required="true"/>  
+
+                <h:outputText value="Select Role: " />  
+                <p:selectOneRadio id="roles" required="true" value="#{createBean.role}">  
+                    <f:selectItem itemLabel="Applicant" itemValue="Applicant" />  
+                    <f:selectItem itemLabel="authorizer" itemValue="Authorizer" />
+                </p:selectOneRadio>    
+                </h:panelGrid>  
+
                 <h:commandButton value = "Create" action="#{createBean.createStaff}"/>
 		<h:commandButton value = "Cancel" action="adminHome"/> 			
 	</h:form>
