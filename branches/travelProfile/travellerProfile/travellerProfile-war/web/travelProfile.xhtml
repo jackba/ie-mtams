@@ -172,23 +172,24 @@
                         
                         <h:outputText value="Car Company Preference:"/>
                         <h:panelGrid columns="2" columnClasses="label, itemValue">
-                            <h:outputText value="1. "/> <p:inputText required ="false" value="#{travel.profile.carCompPref1}"/>
-                            <h:outputText value="1. "/> <p:inputText required ="false" value="#{travel.profile.carCompPref2}"/>
+                            <h:outputText value="1. "/> <p:inputText required ="false" value="#{travel.carCompPref1}"/>
+                            <h:outputText value="2. "/> <p:inputText required ="false" value="#{travel.carCompPref2}"/>
                         </h:panelGrid>
                         
                         <h:panelGrid columns="2" columnClasses="label, itemValue">
-                            <h:outputText value="Car Group: "/> <p:inputText required ="false" value="#{travel.profile.carGroup}"/>
+                            <h:outputText value="Car Group: "/> <p:inputText required ="false" value="#{travel.carGroup}"/>
                         </h:panelGrid>
                         
                         <h:panelGrid columns="3" columnClasses="label, itemValue">
                             <h:outputText value="Transmission Type:"/>
-                            <h:selectOneRadio value="#{travel.profile.transmissionType}">
+                            <h:selectOneRadio value="#{travel.transmissionType}">
                                      <f:selectItem itemValue="Automatic" itemLabel="Automatic" />
                                      <f:selectItem itemValue="Manual" itemLabel="Manual" />
                             </h:selectOneRadio>
-
+                        </h:panelGrid>
+                        <h:panelGrid columns="3" columnClasses="label, itemValue">
                             <h:outputText value="Aircon?"/>
-                            <h:selectOneRadio value="#{travel.profile.aircon}">
+                            <h:selectOneRadio value="#{travel.aircon}">
                                      <f:selectItem itemValue="Yes" itemLabel="Yes" />
                                      <f:selectItem itemValue="No" itemLabel="No" />
                             </h:selectOneRadio>                          
@@ -196,37 +197,25 @@
                         
                         <h:outputText value="Hotel Details:"/>
                         <h:panelGrid columns="2" columnClasses="label, itemValue">
-                            <h:outputText value="Additional Requirements: "/> <p:inputText required ="false" value="#{travel.profile.carAdditionalReq}"/>
-                            <h:outputText value="Hotel Preference: "/> <p:inputText required ="false" value="#{travel.profile.hotelPreference}"/>
-                            <h:outputText value="Freq Guest Number: "/> <p:inputText required ="false" value="#{travel.profile.freqGuestNo}"/>
+                            <h:outputText value="Additional Requirements: "/> <p:inputText required ="false" value="#{travel.carAdditionalReq}"/>
+                            <h:outputText value="Hotel Preference: "/> <p:inputText required ="false" value="#{travel.hotelPreference}"/>
+                            <h:outputText value="Freq Guest Number: "/> <p:inputText required ="false" value="#{travel.freqGuestNo}"/>
                         </h:panelGrid>
                         
                         <h:panelGrid columns="3" columnClasses="label, itemValue">
                             <h:outputText value="Smoking? "/>
-                            <h:selectOneRadio value="#{travel.profile.smoking}">
+                            <h:selectOneRadio value="#{travel.smoking}">
                                      <f:selectItem itemValue="Yes" itemLabel="Yes" />
                                      <f:selectItem itemValue="No" itemLabel="No" />
                             </h:selectOneRadio>
                         </h:panelGrid>
                         
                         <h:panelGrid columns="2" columnClasses="label, itemValue">
-                            <h:outputText value="Additional Requirements: "/> <p:inputText required ="false" value="#{travel.profile.hotelAdditionalReq}"/>
+                            <h:outputText value="Additional Requirements: "/> <p:inputText required ="false" value="#{travel.hotelAdditionalReq}"/>
                         </h:panelGrid>
-
-                    </p:panel>                
-                </p:tab>
-                
-                <p:tab id="confirm" title="Confirmation">  
-                    <p:panel header="Confirmation">  
-
-                        <h:panelGrid columns="2" columnClasses="label, itemValue">
-                             
-                        </h:panelGrid>  
                         
-                        <p:commandButton value="Submit" update="growl"   
-                                    actionListener="#{travel.save}"/>  
-
-                    </p:panel>                    
+                        <p:commandButton value="Submit" update="growl" actionListener="#{travel.save}"/>
+                    </p:panel>                
                 </p:tab>
 
             </p:wizard>  

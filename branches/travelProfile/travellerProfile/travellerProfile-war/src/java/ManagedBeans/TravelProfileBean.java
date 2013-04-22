@@ -66,6 +66,19 @@ public class TravelProfileBean {
     private String cardNum2;
     private String cardNum3;
     
+    private String carCompPref1;
+    private String carCompPref2;
+    private String carCompPref3;
+    private String carGroup;
+    private String transmissionType;
+    private String aircon;
+            
+    private String carAdditionalReq;
+    private String hotelPreference;
+    private String freqGuestNo;
+    private String smoking;
+    private String hotelAdditionalReq;    
+    
     //private TravellerProfile profile = new TravellerProfile();
     public TravelProfileBean() {
         
@@ -427,5 +440,93 @@ public class TravelProfileBean {
 
     public void setCardNum3(String cardNum3) {
         this.cardNum3 = cardNum3;
-    }        
+    }
+
+    public String getCarCompPref1() {
+        return carCompPref1;
+    }
+
+    public void setCarCompPref1(String carCompPref1) {
+        this.carCompPref1 = carCompPref1;
+    }
+
+    public String getCarCompPref2() {
+        return carCompPref2;
+    }
+
+    public void setCarCompPref2(String carCompPref2) {
+        this.carCompPref2 = carCompPref2;
+    }
+
+    public String getCarCompPref3() {
+        return carCompPref3;
+    }
+
+    public void setCarCompPref3(String carCompPref3) {
+        this.carCompPref3 = carCompPref3;
+    }
+
+    public String getCarGroup() {
+        return carGroup;
+    }
+
+    public void setCarGroup(String carGroup) {
+        this.carGroup = carGroup;
+    }
+    
+    public String getTransmissionType() {
+        return transmissionType;
+    }
+
+    public void setTransmissionType(String transmissionType) {
+        this.transmissionType = transmissionType;
+    }
+
+    public String getAircon() {
+        return aircon;
+    }
+
+    public void setAircon(String aircon) {
+        this.aircon = aircon;
+    }
+        
+    public String getCarAdditionalReq() {
+        return carAdditionalReq;
+    }
+
+    public void setCarAdditionalReq(String carAdditionalReq) {
+        this.carAdditionalReq = carAdditionalReq;
+    }
+
+    public String getHotelPreference() {
+        return hotelPreference;
+    }
+
+    public void setHotelPreference(String hotelPreference) {
+        this.hotelPreference = hotelPreference;
+    }
+
+    public String getFreqGuestNo() {
+        return freqGuestNo;
+    }
+
+    public void setFreqGuestNo(String freqGuestNo) {
+        this.freqGuestNo = freqGuestNo;
+    }
+
+    public String getSmoking() {
+        return smoking;
+    }
+
+    public void setSmoking(String smoking) {
+        this.smoking = smoking;
+    }
+
+    public String getHotelAdditionalReq() {
+        return hotelAdditionalReq;
+    }
+
+    public void setHotelAdditionalReq(String hotelAdditionalReq) {
+        this.hotelAdditionalReq = hotelAdditionalReq;
+    }    
 }
