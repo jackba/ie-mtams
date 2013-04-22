@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Traveller Profile</title>
+    </h:head>
+    
+    <h:body>
+        <h:form>  
+
+            <p:growl id="growl" sticky="true" showDetail="true"/>  
+
+            <p:wizard widgetVar="wiz"  
+                flowListener="#{travel.onFlowProcess}">  
+
+                <p:tab id="personal" title="Personal">  
+
+                    <p:panel header="Personal Details">  
+
+                        <h:messages errorClass="error"/>  
+
+                        <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
+                            
+                            <h:outputText value="Department: *" />  
+                            <p:inputText required="true" value="#{travel.department}" />  
+
+                            <h:outputText value="Position:" />  
+                            <p:inputText required="true" value="#{travel.position}" />  
+
+                            <h:outputText value="Secretary/Travel Booker: " />  
+                            <p:inputText required="true" value="#{travel.travelBooker}" />
+                            
+                            <h:outputText value="First Name: " />  
+                            <p:inputText required="true" value="#{travel.firstName}" />  
+
+                            <h:outputText value="Surname: " />  
+                            <p:inputText required="true" value="#{travel.surname}" />  
+
+                            <h:outputText value="Middle Name " />  
+                            <p:inputText  value="#{travel.middleName}" />
+                            
+                            <h:outputText value="Title: " />  
+                            <p:inputText required="true" value="#{travel.title}" />  
+
+                            <h:outputText value="Identity Number: " />  
+                            <p:inputText required="true" value="#{travel.idNo}" />  
+
+                            <h:outputText value="Business Address: " />  
+                            <p:inputText required="true" value="#{travel.busAddress}" />
+                            
+                            <h:outputText value="Business Phone: " />  
+                            <p:inputText required="true" value="#{travel.busPhone}" />  
+
+                            <h:outputText value="Business Fax: " />  
+                            <p:inputText required="true" value="#{travel.busFax}" />  
+
+                            <h:outputText value="Home Address: " />  
+                            <p:inputText required="true" value="#{travel.homeAddress}" />
+                            
+                            <h:outputText value="Mobile Phone: " />  
+                            <p:inputText required="true" value="#{travel.mobilePhone}" />
+                            
+                            <h:outputText value="Home Phone: " />  
+                            <p:inputText required="true" value="#{travel.homePhone}" />
+                            
+                            <h:outputText value="Email Address: " />  
+                            <p:inputText required="true" value="#{travel.email}" />
+                            
+                            <h:outputText value="Spouse's Name: " />  
+                            <p:inputText required="true" value="#{travel.spouseName}" />
+                            
+                            <h:outputText value="Spouse's Contact Number: " />  
+                            <p:inputText required="true" value="#{travel.spouseContactNo}" />
+                            
+                            <h:outputText value="Spouse's Email: " />  
+                            <p:inputText required="true" value="#{travel.spouseEmail}" />
+                            
+                            <h:outputText value="Doctor's Name: " />  
+                            <p:inputText required="true" value="#{travel.docName}" />
+                            
+                            <h:outputText value="Doctor's Contact Number: " />  
+                            <p:inputText required="true" value="#{travel.docContactNo}" />
+                            
+                            <h:outputText value="Doctor's Email: " />  
+                            <p:inputText required="true" value="#{travel.docEmail}" />
+                            
+                            <h:outputText value="Known Medical Conditions: " />  
+                            <p:inputText required="true" value="#{travel.knownMedConditions}" />
+                            
+                        </h:panelGrid>  
+                    </p:panel>  
+                </p:tab>  
+
+                <p:tab id="visa" title="Passport and Visa">  
+                    <p:panel header="Passport and Visa Details">  
+
+                        <h:messages errorClass="error"/>  
+
+                        <h:panelGrid columns="2" columnClasses="label, value">  
+                            
+                            <h:outputText value="Passport Number: " />  
+                            <p:inputText required="true" value="#{travel.passportNo}" />
+                            
+                            <h:outputText value="Country: " />  
+                            <p:inputText required="true" value="#{travel.country}" />
+                            
+                            <h:outputText value="Date of issue: " />  
+                            <p:inputText required="true" value="#{travel.dateOfIssue}" />
+                            
+                            <h:outputText value="Expiry Date: " />  
+                            <p:inputText required="true" value="#{travel.expiryDate}" />
+                            
+                            <h:outputText value="Valid Visa's in passport: " />  
+                            <p:inputText required="true" value="#{travel.validVisas}" />
+                        
+                        </h:panelGrid>  
+                    </p:panel>  
+                </p:tab>  
+
+                <p:tab id="airline" title="Airline Details">  
+                    <p:panel header="Airline Details">  
+
+                        <h:messages errorClass="error"/>  
+                        <h4>Airline seating:</h4>
+                        <h:panelGrid columns="2" columnClasses="itemlabel, itemValue">  
+                                <h:selectOneRadio value="#{travel.seat}">
+                                    <f:selectItem itemValue="Aisle" itemLabel="Aisle" />
+                                    <f:selectItem itemValue="Window" itemLabel="Window" />
+                                </h:selectOneRadio>
+                        </h:panelGrid>
+                        
+                        <h:panelGrid columns="3" columnClasses="itemlabel, itemValue">
+                                <h:selectOneRadio value="#{travel.airPosition}">
+                                      <f:selectItem itemValue="Front" itemLabel="Front" />
+                                      <f:selectItem itemValue="Middle" itemLabel="Middle" />
+                                      <f:selectItem itemValue="Back" itemLabel="Back" />
+                                </h:selectOneRadio>
+                        </h:panelGrid>
+                        
+                        <h:panelGrid columns="2" columnClasses="label, itemValue">
+                                <h:outputText value="Class of Travel: Domestic " />  
+                                <p:inputText required="true" value="#{travel.classDomestic}" />
+
+                                <h:outputText value="Class of Travel: International " />  
+                                <p:inputText required="true" value="#{travel.classInternational}" />
+
+                                <h:outputText value="Special Meal Requirements " />  
+                                <p:inputText required="true" value="#{travel.specialMealReq}" />
+                            
+                                <h:outputText value="Additional Requirements: " />  
+                                <p:inputText required="true" value="#{travel.airAdditionalReq}" />
+                              
+                        </h:panelGrid>
+                        
+                        <h4>Membership Card Details:</h4>
+                        
+                        <h:panelGrid columns="3">
+                            <h:outputText value="Name on Membership Card:"/><h:outputText value="Airline Type and Status:"/><h:outputText value="Number:"/>
+                            <p:inputText required="false" value="#{travel.memOne}" /> <p:inputText required="false" value="#{travel.airTypeStatus1}" /> <p:inputText required="false" value="#{travel.cardNum1}" />
+                            <p:inputText required="false" value="#{travel.memTwo}" /> <p:inputText required="false" value="#{travel.airTypeStatus2}" /> <p:inputText required="false" value="#{travel.cardNum2}" />
+                            <p:inputText required="false" value="#{travel.memThree}" /> <p:inputText required="false" value="#{travel.airTypeStatus3}" /> <p:inputText required="false" value="#{travel.cardNum3}" />
+                        </h:panelGrid>
+                    
+                    </p:panel>  
+                </p:tab>
+                
+                <p:tab id="carHotel" title="Car and Hotel">  
+                    <p:panel header="Car and Hotel Details">  
+                        
+                        <h:outputText value="Car Company Preference:"/>
+                        <h:panelGrid columns="2" columnClasses="label, itemValue">
+                            <h:outputText value="1. "/> <p:inputText required ="false" value="#{travel.profile.carCompPref1}"/>
+                            <h:outputText value="1. "/> <p:inputText required ="false" value="#{travel.profile.carCompPref2}"/>
+                        </h:panelGrid>
+                        
+                        <h:panelGrid columns="2" columnClasses="label, itemValue">
+                            <h:outputText value="Car Group: "/> <p:inputText required ="false" value="#{travel.profile.carGroup}"/>
+                        </h:panelGrid>
+                        
+                        <h:panelGrid columns="3" columnClasses="label, itemValue">
+                            <h:outputText value="Transmission Type:"/>
+                            <h:selectOneRadio value="#{travel.profile.transmissionType}">
+                                     <f:selectItem itemValue="Automatic" itemLabel="Automatic" />
+                                     <f:selectItem itemValue="Manual" itemLabel="Manual" />
+                            </h:selectOneRadio>
+
+                            <h:outputText value="Aircon?"/>
+                            <h:selectOneRadio value="#{travel.profile.aircon}">
+                                     <f:selectItem itemValue="Yes" itemLabel="Yes" />
+                                     <f:selectItem itemValue="No" itemLabel="No" />
+                            </h:selectOneRadio>                          
+                        </h:panelGrid>
+                        
+                        <h:outputText value="Hotel Details:"/>
+                        <h:panelGrid columns="2" columnClasses="label, itemValue">
+                            <h:outputText value="Additional Requirements: "/> <p:inputText required ="false" value="#{travel.profile.carAdditionalReq}"/>
+                            <h:outputText value="Hotel Preference: "/> <p:inputText required ="false" value="#{travel.profile.hotelPreference}"/>
+                            <h:outputText value="Freq Guest Number: "/> <p:inputText required ="false" value="#{travel.profile.freqGuestNo}"/>
+                        </h:panelGrid>
+                        
+                        <h:panelGrid columns="3" columnClasses="label, itemValue">
+                            <h:outputText value="Smoking? "/>
+                            <h:selectOneRadio value="#{travel.profile.smoking}">
+                                     <f:selectItem itemValue="Yes" itemLabel="Yes" />
+                                     <f:selectItem itemValue="No" itemLabel="No" />
+                            </h:selectOneRadio>
+                        </h:panelGrid>
+                        
+                        <h:panelGrid columns="2" columnClasses="label, itemValue">
+                            <h:outputText value="Additional Requirements: "/> <p:inputText required ="false" value="#{travel.profile.hotelAdditionalReq}"/>
+                        </h:panelGrid>
+
+                    </p:panel>                
+                </p:tab>
+                
+                <p:tab id="confirm" title="Confirmation">  
+                    <p:panel header="Confirmation">  
+
+                        <h:panelGrid columns="2" columnClasses="label, itemValue">
+                             
+                        </h:panelGrid>  
+                        
+                        <p:commandButton value="Submit" update="growl"   
+                                    actionListener="#{travel.save}"/>  
+
+                    </p:panel>                    
+                </p:tab>
+
+            </p:wizard>  
+
+        </h:form>
+    </h:body>
+</html>
+
