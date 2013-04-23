@@ -11,9 +11,9 @@
 -- Table structure for table "Session"
 --
 
--- DROP TABLE IF EXISTS "Session";
+-- DROP TABLE  "Session";
 CREATE TABLE "Session" (
-  "idSessions" int NOT NULL,
+  "idSessions" int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) ,
   "accountid" int NOT NULL,
   "Date" timestamp  DEFAULT NULL,
   "Expires" timestamp  DEFAULT NULL,
@@ -24,9 +24,8 @@ CREATE TABLE "Session" (
 --
 -- Dumping data for table "Session"
 --
--- ORDER BY:  "idSessions","accountid"
 
-LOCK TABLE "Session" IN EXCLUSIVE MODE;
+-- LOCK TABLE "Session" IN EXCLUSIVE MODE;
 
 
--- Dump completed on 2013-04-15 22:28:43
+-- Dump completed on 2013-04-23 11:47:56

@@ -11,9 +11,9 @@
 -- Table structure for table "Permission"
 --
 
--- DROP TABLE IF EXISTS "Permission";
+-- DROP TABLE  "Permission";
 CREATE TABLE "Permission" (
-  "idpermissions" int NOT NULL,
+  "idpermissions" int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) ,
   "Permission" varchar(45) DEFAULT NULL,
   "Discritption" varchar(45) DEFAULT NULL,
   "CreatePerm" smallint DEFAULT 1,
@@ -31,9 +31,8 @@ CREATE TABLE "Permission" (
 --
 -- Dumping data for table "Permission"
 --
--- ORDER BY:  "idpermissions"
 
-LOCK TABLE "Permission" IN EXCLUSIVE MODE;
+-- LOCK TABLE "Permission" IN EXCLUSIVE MODE;
 
 
--- Dump completed on 2013-04-15 22:28:43
+-- Dump completed on 2013-04-23 11:47:56

@@ -11,9 +11,9 @@
 -- Table structure for table "TravelDocument"
 --
 
--- DROP TABLE IF EXISTS "TravelDocument";
+-- DROP TABLE  "TravelDocument";
 CREATE TABLE "TravelDocument" (
-  "idTravelDocuments" int NOT NULL,
+  "idTravelDocuments" int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) ,
   "PassportNumber" varchar(12) DEFAULT NULL,
   "Country" varchar(45) DEFAULT NULL,
   "DateOfIssue" timestamp  DEFAULT NULL,
@@ -27,9 +27,8 @@ CREATE TABLE "TravelDocument" (
 --
 -- Dumping data for table "TravelDocument"
 --
--- ORDER BY:  "idTravelDocuments"
 
-LOCK TABLE "TravelDocument" IN EXCLUSIVE MODE;
+-- LOCK TABLE "TravelDocument" IN EXCLUSIVE MODE;
 
 
--- Dump completed on 2013-04-15 22:28:43
+-- Dump completed on 2013-04-23 11:47:56

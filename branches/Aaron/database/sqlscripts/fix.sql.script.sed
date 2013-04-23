@@ -15,7 +15,7 @@ s/(11)//
 #/  KEY / s/KEY/FOREIGN KEY/
 # sed -ne '/  KEY / s/KEY ''[^ ]*''/FOREIGN KEY/p'
 #/  KEY / s/KEY "[^ ]*"/FOREIGN KEY/
-/  KEY /d
+/^  KEY /d
 
 
 #replacements
@@ -30,11 +30,13 @@ s/`/\"/g
 /CREATE SCHEMA/ s/^\(.\)/-- \1/
 #sed -ne '/IF EXISTS/ s/^\(.\)/-- \1/p' comment out drop table and if exists statements
 /IF EXISTS/ s/^\(.*\)/-- \1/
+s/IF EXISTS//
 #sed -ne 's/AUTO_INCREMENT/GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) /p'
 s/AUTO_INCREMENT/GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) /
 #sed -ne '/LOCK TABLES/ s/WRITE/EXCLUSIVE/
 /^LOCK TABLES/ s/WRITE/IN EXCLUSIVE MODE/
 /LOCK TABLES/ s/TABLES/TABLE/
+/LOCK TABLE/ s/\(^.\)/-- \1/
 #s/UNLOCK TABLES;/COMMIT;/
 /UNLOCK TABLE/d
 #sed -ne '/CONSTRAINT/ s/CONSTRAINT/-- CONSTRAINT/p'
@@ -47,3 +49,16 @@ s/AUTO_INCREMENT/GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) /
 #sed -ne '/VALUES/ s/VALUES ([^,]*/VALUES (DEFAULT/p' ./mtams_Role.sql
 /VALUES/ s/VALUES ([^,]*/VALUES (DEFAULT/
 s/INSERT/-- INSERT/
+
+# fix sql statments with ') ;' to ');'
+s/).*;/);/
+
+#sed -e "s/COMMENT/, --COMMENT/"
+# move the end of line ',' to before --comment
+s/COMMENT/, --COMMENT/
+
+#sed -e ":start;$!N;s/,\n)\;/\n);/;tstart;"
+# http://stackoverflow.com/questions/1251999/sed-how-can-i-replace-a-newline-n
+# http://backreference.org/2009/12/23/how-to-match-newlines-in-sed/
+# remove ',' char before the end of a sql creat statment ');'
+#:start;$!N;s/,\n)\;/\n)\;/;tstart;P;D;

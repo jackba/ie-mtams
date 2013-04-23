@@ -18,33 +18,30 @@ USE `mtams`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Role`
+-- Table structure for table `Account`
 --
 
-DROP TABLE IF EXISTS `Role`;
+DROP TABLE IF EXISTS `Account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Role` (
-  `idroles` int(11) NOT NULL,
-  `role` varchar(45) NOT NULL,
-  `discritption` varchar(512) DEFAULT NULL,
-  PRIMARY KEY (`idroles`)
-);
+CREATE TABLE `Account` (
+  `idAccount` int(11) NOT NULL AUTO_INCREMENT,
+  `Account` varchar(45) NOT NULL,
+  `Password` varchar(512) NOT NULL,
+  `Salt` varchar(45) DEFAULT NULL,
+  `DateCreated` timestamp NULL DEFAULT NULL,
+  `DateLogin` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`idAccount`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='Our user  / login details ';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Role`
+-- Dumping data for table `Account`
 --
--- ORDER BY:  `idroles`
 
-LOCK TABLES `Role` WRITE;
-/*!40000 ALTER TABLE `Role` DISABLE KEYS */;
-INSERT INTO `Role` (`idroles`, `role`, `discritption`) VALUES (1,'Super Admin','Full access to all functions');
-INSERT INTO `Role` (`idroles`, `role`, `discritption`) VALUES (2,'Admin','Admin functions only can not create applications');
-INSERT INTO `Role` (`idroles`, `role`, `discritption`) VALUES (3,'Applicant','Can only create application');
-INSERT INTO `Role` (`idroles`, `role`, `discritption`) VALUES (4,'Authorisor','Can authorise applications');
-INSERT INTO `Role` (`idroles`, `role`, `discritption`) VALUES (5,'Test','No login required');
-/*!40000 ALTER TABLE `Role` ENABLE KEYS */;
+LOCK TABLES `Account` WRITE;
+/*!40000 ALTER TABLE `Account` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Account` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-15 22:28:44
+-- Dump completed on 2013-04-23 11:47:55

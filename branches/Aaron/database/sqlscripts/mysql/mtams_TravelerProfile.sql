@@ -25,15 +25,19 @@ DROP TABLE IF EXISTS `TravelerProfile`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `TravelerProfile` (
-  `idTravelerProfile` int(11) NOT NULL,
+  `idTravelerProfile` int(11) NOT NULL AUTO_INCREMENT,
   `AccountID` int(11) NOT NULL,
+  `StaffID` varchar(45) DEFAULT NULL,
   `GivenName` varchar(45) DEFAULT NULL,
   `FamilyName` varchar(45) DEFAULT NULL,
   `Title` varchar(45) DEFAULT NULL,
   `Department` varchar(45) DEFAULT NULL,
   `Position` varchar(45) DEFAULT NULL,
-  `TravelBooker` varchar(45) DEFAULT NULL,
   `IDnumber` varchar(10) DEFAULT NULL,
+  `AttachmentID` varchar(45) DEFAULT NULL,
+  `DateCreated` timestamp NULL DEFAULT NULL,
+  `DateModified` timestamp NULL DEFAULT NULL,
+  `TravelBooker` varchar(45) DEFAULT NULL,
   `BusinessAddress` varchar(255) DEFAULT NULL,
   `BusinessPhone` varchar(12) DEFAULT NULL,
   `BusinessFax` varchar(12) DEFAULT NULL,
@@ -49,22 +53,31 @@ CREATE TABLE `TravelerProfile` (
   `DoctorsConctactNumber` varchar(45) DEFAULT NULL,
   `DoctorsEmail` varchar(45) DEFAULT NULL,
   `KnownMedicalConditions` varchar(512) DEFAULT NULL,
-  `AttachmentID` varchar(45) DEFAULT NULL,
-  `DateCreated` timestamp NULL DEFAULT NULL,
-  `DateModified` timestamp NULL DEFAULT NULL,
+  `HotelPrefrences` varchar(200) DEFAULT NULL,
+  `FrequentGuest` varchar(45) DEFAULT NULL,
+  `NonSmoking` varchar(45) DEFAULT NULL,
+  `CarPreferences` varchar(200) DEFAULT NULL,
+  `RentalCompany` varchar(45) DEFAULT NULL,
+  `ManualAutomatic` varchar(45) DEFAULT NULL,
+  `Aircon` varchar(45) DEFAULT NULL,
+  `AirlinePreferences` varchar(45) DEFAULT NULL,
+  `Seating` varchar(45) DEFAULT NULL,
+  `ClassDomestic` varchar(45) DEFAULT NULL,
+  `ClassInternational` varchar(45) DEFAULT NULL,
+  `MealRequirements` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idTravelerProfile`),
-  KEY `fk_TravlerProfile_users1_idx` (`AccountID`)
-);
+  KEY `fk_TravlerProfile_users1_idx` (`AccountID`),
+  KEY `fk_TravelerProfile_1` (`AccountID`),
+  CONSTRAINT `fk_TravelerProfile_1` FOREIGN KEY (`AccountID`) REFERENCES `Account` (`idAccount`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Details of staff member / applicant';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `TravelerProfile`
 --
--- ORDER BY:  `idTravelerProfile`
 
 LOCK TABLES `TravelerProfile` WRITE;
 /*!40000 ALTER TABLE `TravelerProfile` DISABLE KEYS */;
-INSERT INTO `TravelerProfile` (`idTravelerProfile`, `AccountID`, `GivenName`, `FamilyName`, `Title`, `Department`, `Position`, `TravelBooker`, `IDnumber`, `BusinessAddress`, `BusinessPhone`, `BusinessFax`, `BusinessEmail`, `HomeAddress`, `HomePhone`, `HomeEmail`, `MobilePhone`, `SpouseName`, `SpouseContactNumber`, `SpouseEmail`, `DoctorsName`, `DoctorsConctactNumber`, `DoctorsEmail`, `KnownMedicalConditions`, `AttachmentID`, `DateCreated`, `DateModified`) VALUES (1,3,'Test','Test','Test',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `TravelerProfile` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -77,4 +90,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-15 22:28:44
+-- Dump completed on 2013-04-23 11:47:56

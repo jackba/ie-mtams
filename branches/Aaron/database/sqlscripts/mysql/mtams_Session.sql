@@ -18,35 +18,30 @@ USE `mtams`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Account`
+-- Table structure for table `Session`
 --
 
-DROP TABLE IF EXISTS `Account`;
+DROP TABLE IF EXISTS `Session`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Account` (
-  `idAccount` int(11) NOT NULL,
-  `Account` varchar(45) NOT NULL,
-  `Password` varchar(512) NOT NULL,
-  `Salt` varchar(45) DEFAULT NULL,
-  `DateCreated` timestamp NULL DEFAULT NULL,
-  `DateLogin` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`idAccount`)
-);
+CREATE TABLE `Session` (
+  `idSessions` int(11) NOT NULL AUTO_INCREMENT,
+  `accountid` int(11) NOT NULL,
+  `Date` timestamp NULL DEFAULT NULL,
+  `Expires` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`idSessions`,`accountid`),
+  KEY `fk_Sessions_user_Idx` (`accountid`),
+  CONSTRAINT `fk_Sessions_users1` FOREIGN KEY (`accountid`) REFERENCES `Account` (`idAccount`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='manages the session infomation in the system';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Account`
+-- Dumping data for table `Session`
 --
--- ORDER BY:  `idAccount`
 
-LOCK TABLES `Account` WRITE;
-/*!40000 ALTER TABLE `Account` DISABLE KEYS */;
-INSERT INTO `Account` (`idAccount`, `Account`, `Password`, `Salt`, `DateCreated`, `DateLogin`) VALUES (1,'superadmin','super','1','0000-00-00 00:00:00','0000-00-00 00:00:00');
-INSERT INTO `Account` (`idAccount`, `Account`, `Password`, `Salt`, `DateCreated`, `DateLogin`) VALUES (2,'admin','admin','1','0000-00-00 00:00:00','0000-00-00 00:00:00');
-INSERT INTO `Account` (`idAccount`, `Account`, `Password`, `Salt`, `DateCreated`, `DateLogin`) VALUES (3,'testapplicant','test','1','0000-00-00 00:00:00','0000-00-00 00:00:00');
-INSERT INTO `Account` (`idAccount`, `Account`, `Password`, `Salt`, `DateCreated`, `DateLogin`) VALUES (4,'testauthoriser','test','1','0000-00-00 00:00:00','0000-00-00 00:00:00');
-/*!40000 ALTER TABLE `Account` ENABLE KEYS */;
+LOCK TABLES `Session` WRITE;
+/*!40000 ALTER TABLE `Session` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Session` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -58,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-15 22:28:43
+-- Dump completed on 2013-04-23 11:47:56

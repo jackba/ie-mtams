@@ -11,9 +11,9 @@
 -- Table structure for table "AccountRole"
 --
 
--- DROP TABLE IF EXISTS "AccountRole";
+-- DROP TABLE  "AccountRole";
 CREATE TABLE "AccountRole" (
-  "idUserRoles" int NOT NULL,
+  "idUserRoles" int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) ,
   "AccountID" int DEFAULT NULL,
   "RoleID" int DEFAULT NULL,
   PRIMARY KEY ("idUserRoles"),
@@ -24,12 +24,8 @@ CREATE TABLE "AccountRole" (
 --
 -- Dumping data for table "AccountRole"
 --
--- ORDER BY:  "idUserRoles"
 
-LOCK TABLE "AccountRole" IN EXCLUSIVE MODE;
--- INSERT INTO "AccountRole" ("idUserRoles", "AccountID", "RoleID") VALUES (DEFAULT,1,1);
--- INSERT INTO "AccountRole" ("idUserRoles", "AccountID", "RoleID") VALUES (DEFAULT,2,2);
--- INSERT INTO "AccountRole" ("idUserRoles", "AccountID", "RoleID") VALUES (DEFAULT,3,5);
+-- LOCK TABLE "AccountRole" IN EXCLUSIVE MODE;
 
 
--- Dump completed on 2013-04-15 22:28:43
+-- Dump completed on 2013-04-23 11:47:56

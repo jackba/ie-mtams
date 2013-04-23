@@ -11,17 +11,21 @@
 -- Table structure for table "TravelerProfile"
 --
 
--- DROP TABLE IF EXISTS "TravelerProfile";
+-- DROP TABLE  "TravelerProfile";
 CREATE TABLE "TravelerProfile" (
-  "idTravelerProfile" int NOT NULL,
+  "idTravelerProfile" int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) ,
   "AccountID" int NOT NULL,
+  "StaffID" varchar(45) DEFAULT NULL,
   "GivenName" varchar(45) DEFAULT NULL,
   "FamilyName" varchar(45) DEFAULT NULL,
   "Title" varchar(45) DEFAULT NULL,
   "Department" varchar(45) DEFAULT NULL,
   "Position" varchar(45) DEFAULT NULL,
-  "TravelBooker" varchar(45) DEFAULT NULL,
   "IDnumber" varchar(10) DEFAULT NULL,
+  "AttachmentID" varchar(45) DEFAULT NULL,
+  "DateCreated" timestamp  DEFAULT NULL,
+  "DateModified" timestamp  DEFAULT NULL,
+  "TravelBooker" varchar(45) DEFAULT NULL,
   "BusinessAddress" varchar(255) DEFAULT NULL,
   "BusinessPhone" varchar(12) DEFAULT NULL,
   "BusinessFax" varchar(12) DEFAULT NULL,
@@ -37,19 +41,27 @@ CREATE TABLE "TravelerProfile" (
   "DoctorsConctactNumber" varchar(45) DEFAULT NULL,
   "DoctorsEmail" varchar(45) DEFAULT NULL,
   "KnownMedicalConditions" varchar(512) DEFAULT NULL,
-  "AttachmentID" varchar(45) DEFAULT NULL,
-  "DateCreated" timestamp  DEFAULT NULL,
-  "DateModified" timestamp  DEFAULT NULL,
+  "HotelPrefrences" varchar(200) DEFAULT NULL,
+  "FrequentGuest" varchar(45) DEFAULT NULL,
+  "NonSmoking" varchar(45) DEFAULT NULL,
+  "CarPreferences" varchar(200) DEFAULT NULL,
+  "RentalCompany" varchar(45) DEFAULT NULL,
+  "ManualAutomatic" varchar(45) DEFAULT NULL,
+  "Aircon" varchar(45) DEFAULT NULL,
+  "AirlinePreferences" varchar(45) DEFAULT NULL,
+  "Seating" varchar(45) DEFAULT NULL,
+  "ClassDomestic" varchar(45) DEFAULT NULL,
+  "ClassInternational" varchar(45) DEFAULT NULL,
+  "MealRequirements" varchar(45) DEFAULT NULL,
   PRIMARY KEY ("idTravelerProfile"),
+  CONSTRAINT "fk_TravelerProfile_1" FOREIGN KEY ("AccountID") REFERENCES "Account" ("idAccount") ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 --
 -- Dumping data for table "TravelerProfile"
 --
--- ORDER BY:  "idTravelerProfile"
 
-LOCK TABLE "TravelerProfile" IN EXCLUSIVE MODE;
--- INSERT INTO "TravelerProfile" ("idTravelerProfile", "AccountID", "GivenName", "FamilyName", "Title", "Department", "Position", "TravelBooker", "IDnumber", "BusinessAddress", "BusinessPhone", "BusinessFax", "BusinessEmail", "HomeAddress", "HomePhone", "HomeEmail", "MobilePhone", "SpouseName", "SpouseContactNumber", "SpouseEmail", "DoctorsName", "DoctorsConctactNumber", "DoctorsEmail", "KnownMedicalConditions", "AttachmentID", "DateCreated", "DateModified") VALUES (DEFAULT,3,'Test','Test','Test',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+-- LOCK TABLE "TravelerProfile" IN EXCLUSIVE MODE;
 
 
--- Dump completed on 2013-04-15 22:28:44
+-- Dump completed on 2013-04-23 11:47:56

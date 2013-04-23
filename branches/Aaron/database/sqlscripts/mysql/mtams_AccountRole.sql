@@ -18,32 +18,31 @@ USE `mtams`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Task`
+-- Table structure for table `AccountRole`
 --
 
-DROP TABLE IF EXISTS `Task`;
+DROP TABLE IF EXISTS `AccountRole`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Task` (
-  `idtasks` int(11) NOT NULL,
-  `task` varchar(45) DEFAULT NULL,
-  `description` varchar(512) DEFAULT NULL,
-  PRIMARY KEY (`idtasks`)
-);
+CREATE TABLE `AccountRole` (
+  `idUserRoles` int(11) NOT NULL AUTO_INCREMENT,
+  `AccountID` int(11) DEFAULT NULL,
+  `RoleID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idUserRoles`),
+  KEY `fk_UserRoles_role` (`RoleID`),
+  KEY `fk_UserRoles_user` (`AccountID`),
+  CONSTRAINT `fk_UserRoles_1` FOREIGN KEY (`RoleID`) REFERENCES `Role` (`idroles`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_UserRoles_2` FOREIGN KEY (`AccountID`) REFERENCES `Account` (`idAccount`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Allows the formation of many to many relationships between a';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Task`
+-- Dumping data for table `AccountRole`
 --
--- ORDER BY:  `idtasks`
 
-LOCK TABLES `Task` WRITE;
-/*!40000 ALTER TABLE `Task` DISABLE KEYS */;
-INSERT INTO `Task` (`idtasks`, `task`, `description`) VALUES (1,'Application','Travel application');
-INSERT INTO `Task` (`idtasks`, `task`, `description`) VALUES (2,'Authorise','Authorise travel applications');
-INSERT INTO `Task` (`idtasks`, `task`, `description`) VALUES (3,'Attach','Attach document');
-INSERT INTO `Task` (`idtasks`, `task`, `description`) VALUES (4,'User','CRUD users');
-/*!40000 ALTER TABLE `Task` ENABLE KEYS */;
+LOCK TABLES `AccountRole` WRITE;
+/*!40000 ALTER TABLE `AccountRole` DISABLE KEYS */;
+/*!40000 ALTER TABLE `AccountRole` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-15 22:28:43
+-- Dump completed on 2013-04-23 11:47:56

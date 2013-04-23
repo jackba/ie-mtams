@@ -47,3 +47,9 @@ find ./mtams_*.sql | xargs -I{} sh -c "sed -i.old -f ../fix.sql.script.sed {}"
 
 default schema for create tables in a new derby database is the schema called
 app. 
+
+reverse the order grep finds drop statements to drop tables with foreign key constraints
+grep -i "DROP " ./mtams.create.sql | tac
+
+special order changes to allow for creation script to work
+Itinerary needs to come after Travel

@@ -18,35 +18,27 @@ USE `mtams`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `AccountRole`
+-- Table structure for table `Role`
 --
 
-DROP TABLE IF EXISTS `AccountRole`;
+DROP TABLE IF EXISTS `Role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `AccountRole` (
-  `idUserRoles` int(11) NOT NULL,
-  `AccountID` int(11) DEFAULT NULL,
-  `RoleID` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idUserRoles`),
-  KEY `fk_UserRoles_role` (`RoleID`),
-  KEY `fk_UserRoles_user` (`AccountID`),
-  CONSTRAINT `fk_UserRoles_1` FOREIGN KEY (`RoleID`) REFERENCES `Role` (`idroles`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_UserRoles_2` FOREIGN KEY (`AccountID`) REFERENCES `Account` (`idAccount`) ON DELETE NO ACTION ON UPDATE NO ACTION
-);
+CREATE TABLE `Role` (
+  `idroles` int(11) NOT NULL AUTO_INCREMENT,
+  `role` varchar(45) NOT NULL,
+  `discritption` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`idroles`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='User are grouped in to roles to simplify the permisions stru';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `AccountRole`
+-- Dumping data for table `Role`
 --
--- ORDER BY:  `idUserRoles`
 
-LOCK TABLES `AccountRole` WRITE;
-/*!40000 ALTER TABLE `AccountRole` DISABLE KEYS */;
-INSERT INTO `AccountRole` (`idUserRoles`, `AccountID`, `RoleID`) VALUES (1,1,1);
-INSERT INTO `AccountRole` (`idUserRoles`, `AccountID`, `RoleID`) VALUES (2,2,2);
-INSERT INTO `AccountRole` (`idUserRoles`, `AccountID`, `RoleID`) VALUES (3,3,5);
-/*!40000 ALTER TABLE `AccountRole` ENABLE KEYS */;
+LOCK TABLES `Role` WRITE;
+/*!40000 ALTER TABLE `Role` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -58,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-15 22:28:43
+-- Dump completed on 2013-04-23 11:47:56
