@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>MSA Travel Application</title>
+	<link href="css/styles.css" rel="Stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+       <div id ="header">
+			<div id="logo">
+				<img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
+			</div>
+			
+			<ul>
+				
+				<li><a href="">Help</a></li>
+				
+			</ul>
+		</div>
+
+		<div id = "content">
+                    <h3>Monash Travel Application System</h3>
+                        <fieldset>
+                            <legend><h4>Login</h4></legend>
+                            <h:form id="loginForm" >       
+                                <p:messages id="errorMessages" autoUpdate="true" closable="true" showDetail="true"/>
+                                <h:panelGrid id="panel" columns="3">
+                                    
+                                <h:outputLabel for="username"> 
+                                    Username:
+                                </h:outputLabel>
+                                <p:inputText id="username" value="#{sessionBean.username}" required="true" requiredMessage="Username missing"/>
+                                <p:message for="username" display="icon"/>
+
+                                <h:outputLabel for="password">
+                                    Password:
+                                </h:outputLabel>
+                                <p:password id="password" value="#{sessionBean.password}" required="true" requiredMessage="Password missing"/>
+                                <p:message for="password" display="icon"/>
+                                
+                                <p:commandButton value="Login" update="errorMessages" action="#{sessionBean.validate()}" />
+                                </h:panelGrid>
+
+                            </h:form>
+			</fieldset>
+			<div id = "nav">
+			</div>
+		</div>
+		
+		<div id= "footer">
+			<div class="row group">
+				<div class="col">
+					<h3>Quick links</h3>
+					<ul>
+						<li><a href="">Site Map</a></li>
+						<li><a href="">FAQ</a></li>
+						<li><a href="">Contact us</a></li>
+					</ul>
+				</div>
+				<h3>Legal</h3>
+					<p class="legal">Created by School of IT, Monash University South Africa</p>		
+			</div>
+		</div>
+    </h:body>
+</html>
+
