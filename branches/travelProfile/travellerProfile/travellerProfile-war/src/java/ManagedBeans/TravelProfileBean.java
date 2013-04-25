@@ -4,23 +4,31 @@
  */
 package ManagedBeans;
 
-import java.awt.event.ActionEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.faces.application.FacesMessage;
+import Entities.Rewardsprogram;
+import Entities.Traveldocument;
+import Entities.Travelerprofile;
+import ServiceLayer.TravelProfileHandlerLocal;
+import java.util.Date;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
 
 /**
  *
- * @author Sparda
+ * @author Alexandre Damasio!!!!
  */
 @ManagedBean(name = "travel")
 @ViewScoped
 public class TravelProfileBean {
-    private static final Logger logger = Logger.getLogger(TravelProfileBean.class.getName());
+    //======change===change=========change============change=========change====
+    //-------------------------------------------------------------------------
+    private int accountID =1;
+    //-------------------------------------------------------------------------
+    //======change========change=========change=============change=============
+    
+    //private static final Logger logger = Logger.getLogger(TravelProfileBean.class.getName());
     private String department; 
     private String position;
     private String travelBooker;
@@ -28,26 +36,41 @@ public class TravelProfileBean {
     private String surname;
     private String middleName;
     private String title;
+    @Pattern(message="Invalid ID", regexp="[0-9]{13,15}")
     private String idNo;
     private String busAddress;
+    @Pattern(message="Invalid Number", regexp="[0-9]{10}")
     private String busPhone;
+    @Pattern(message="Invalid Number", regexp="[0-9]{10}")
     private String busFax;
     private String homeAddress;
-    private String mobilePhone; 
+    @Pattern(message="Invalid Number", regexp="[0-9]{10}")
+    private String mobilePhone;
+    @Pattern(message="Invalid Number", regexp="[0-9]{10}")
     private String homePhone;
+    
+    @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String email;
+    
     private String spouseName;
+    @Pattern(message="Invalid Number", regexp="[0-9]{10}")
     private String spouseContactNo;
+    
+    @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String spouseEmail;
     private String docName;
+    @Pattern(message="Invalid Number", regexp="[0-9]{10}")
     private String docContactNo;
+    
+    @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String docEmail;
     private String knownMedConditions;
     
+    @Pattern(message="Invalid Passport ID", regexp="[0-9a-zA-Z]{8,10}")
     private String passportNo;
     private String country;
-    private String dateOfIssue;
-    private String expiryDate;
+    private Date dateOfIssue;
+    private Date expiryDate;
     private String validVisas;
     
     private String seat;
@@ -59,16 +82,20 @@ public class TravelProfileBean {
     private String memOne;
     private String memTwo;
     private String memThree;
-    private String airTypeStatus1;
-    private String airTypeStatus2;
-    private String airTypeStatus3;
+    private String airType1;
+    private String airType2;
+    private String airType3;
+    private String status1;
+    private String status2;
+    private String status3;
+    @Pattern(message="Invalid Card Number", regexp="[0-9]{0,15}")
     private String cardNum1;
+    @Pattern(message="Invalid Card Number", regexp="[0-9]{0,15}")
     private String cardNum2;
-    private String cardNum3;
-    
+    @Pattern(message="Invalid Card Number", regexp="[0-9]{0,15}")
+    private String cardNum3;    
     private String carCompPref1;
     private String carCompPref2;
-    private String carCompPref3;
     private String carGroup;
     private String transmissionType;
     private String aircon;
@@ -79,31 +106,130 @@ public class TravelProfileBean {
     private String smoking;
     private String hotelAdditionalReq;    
     
-    //private TravellerProfile profile = new TravellerProfile();
+    private Travelerprofile profile;
+    private Travelerprofile profileRef;
+    
+    private Traveldocument passport;
+    private Traveldocument passportRef;
+    
+    private Rewardsprogram reward1;
+    private Rewardsprogram reward2;
+    private Rewardsprogram reward3;
+    
+    @EJB
+    private TravelProfileHandlerLocal handler;
     public TravelProfileBean() {
         
     }
+    
+    public void save() {  
+        //Pesonal Details
+        profile = new Travelerprofile();
+        //Pesonal Details        
+        
+        profile.setDepartment(department);
+        profile.setPosition(position);
+        profile.setTravelbooker(travelBooker);
+        profile.setFirstname(firstName);
+        profile.setFamilyname(surname);
+        profile.setMiddlename(middleName);
+        profile.setTitle(title);
+        profile.setIdnumber(idNo);
+        profile.setBusinessaddress(busAddress);
+        profile.setBusinessphone(busPhone);
+        profile.setBusinessfax(busFax);
+        profile.setHomeaddress(homeAddress);
+        profile.setMobilephone(mobilePhone);
+        profile.setHomephone(homePhone);
+        profile.setHomeemail(email);
+        profile.setSpousename(spouseName);
+        profile.setSpousecontactnumber(spouseContactNo);
+        profile.setSpouseemail(spouseEmail);
+        profile.setDoctorsname(docName);
+        profile.setDoctorsconctactnumber(docContactNo);
+        profile.setDoctorsemail(docEmail);
+        profile.setKnownmedicalconditions(knownMedConditions);
+        //Airline
+        profile.setSeatingposition(seat);
+        profile.setSeatinglocation(airPosition);
+        profile.setClassdomestic(classDomestic);
+        profile.setClassinternational(classInternational);
+        profile.setMealrequirements(specialMealReq);
+        profile.setAiradditionalrequirements(airAdditionalReq);
+        //Car & Hotel
+        profile.setCarpreference1(carCompPref1);
+        profile.setCarpreference2(carCompPref2);
+        profile.setCargroup(carGroup);
+        profile.setManualautomatic(transmissionType);
+        profile.setAircon(aircon);
+        profile.setCaradditionalrequirements(carAdditionalReq);
+        profile.setHotelprefrence(hotelPreference);
+        profile.setFrequentguestnum(freqGuestNo);
+        profile.setSmoking(smoking);
+        profile.setHoteladditionalrequirements(hotelAdditionalReq);        
+        
+        //Passport & Visa
+        passport = new Traveldocument();
+        
+        passport.setPassportnumber(passportNo);
+        passport.setCountry(country);
+        passport.setDateofissue(dateOfIssue);
+        passport.setExpirydate(expiryDate);
+        passport.setValidvisa(validVisas);
+        handler.persist(profile,passport);        
+        
+        //Rewards Program (Airline)
+        reward1 = new Rewardsprogram();
+        reward2 = new Rewardsprogram();
+        reward3 = new Rewardsprogram();
+        
+        if(!memOne.isEmpty() && !airType1.isEmpty() && !status1.isEmpty() && !cardNum1.isEmpty()){
+            reward1.setMembershiptype(memOne);
+            reward1.setProvider(airType1);
+            reward1.setDescription(status1);
+            reward1.setMembershipnumber(cardNum1);
+            handler.persistReward(reward1);
+        }
+        if(!memTwo.isEmpty() && !airType2.isEmpty() && !status2.isEmpty() && !cardNum2.isEmpty()){
+            reward2.setMembershiptype(memTwo);
+            reward2.setProvider(airType2);
+            reward2.setDescription(status2);
+            reward2.setMembershipnumber(cardNum2);
+            handler.persistReward(reward2);
+        }
+        if(!memThree.isEmpty() && !airType3.isEmpty() && !status3.isEmpty() && !cardNum3.isEmpty()){
+            reward3.setMembershiptype(memThree);
+            reward3.setProvider(airType3);
+            reward3.setDescription(status3);
+            reward3.setMembershipnumber(cardNum3);
+            handler.persistReward(reward3);
+        }
+   }
 
-    /*public TravellerProfile getProfile() {
-        return profile;
+    public Traveldocument getPassportRef() {
+        int profileID = profileRef.getIdtravelerprofile();
+        passportRef = handler.findTravelDoc(profileID);
+        return passportRef;
     }
 
-    public void setProfile(TravellerProfile profile) {
-        this.profile = profile;
-    }*/
+    public void setPassportRef(Traveldocument passportRef) {
+        this.passportRef = passportRef;
+    }
     
-    public void save(ActionEvent actionEvent) {  
-        //Persist user          
-        //FacesMessage msg = new FacesMessage("Successful", "Welcome :" + .getFirstname());  
-        //FacesContext.getCurrentInstance().addMessage(null, msg);  
+    public Travelerprofile getProfileRef() {
+        profileRef = handler.findTravelProf(accountID);
+        return profileRef;
+    }
+
+    public void setProfileRef(Travelerprofile profileRef) {
+        this.profileRef = profileRef;
     }  
       
     public String onFlowProcess(FlowEvent event) {  
-        logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());  
-        logger.log(Level.INFO, "Next step:{0}", event.getNewStep());  
+        //logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());  
+        //logger.log(Level.INFO, "Next step:{0}", event.getNewStep());  
             
-        return event.getNewStep();  
-          
+        return event.getNewStep();          
     } 
 
     public String getDepartment() {
@@ -298,19 +424,19 @@ public class TravelProfileBean {
         this.country = country;
     }
 
-    public String getDateOfIssue() {
+    public Date getDateOfIssue() {
         return dateOfIssue;
     }
 
-    public void setDateOfIssue(String dateOfIssue) {
+    public void setDateOfIssue(Date dateOfIssue) {
         this.dateOfIssue = dateOfIssue;
     }
 
-    public String getExpiryDate() {
+    public Date getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(String expiryDate) {
+    public void setExpiryDate(Date expiryDate) {
         this.expiryDate = expiryDate;
     }
 
@@ -393,31 +519,55 @@ public class TravelProfileBean {
     public void setMemThree(String memThree) {
         this.memThree = memThree;
     }
+
+    public String getAirType1() {
+        return airType1;
+    }
+
+    public void setAirType1(String airType1) {
+        this.airType1 = airType1;
+    }
+
+    public String getAirType2() {
+        return airType2;
+    }
+
+    public void setAirType2(String airType2) {
+        this.airType2 = airType2;
+    }
+
+    public String getAirType3() {
+        return airType3;
+    }
+
+    public void setAirType3(String airType3) {
+        this.airType3 = airType3;
+    }
+
+    public String getStatus1() {
+        return status1;
+    }
+
+    public void setStatus1(String status1) {
+        this.status1 = status1;
+    }
+
+    public String getStatus2() {
+        return status2;
+    }
+
+    public void setStatus2(String status2) {
+        this.status2 = status2;
+    }
+
+    public String getStatus3() {
+        return status3;
+    }
+
+    public void setStatus3(String status3) {
+        this.status3 = status3;
+    }
     
-    public String getAirTypeStatus1() {
-        return airTypeStatus1;
-    }
-
-    public void setAirTypeStatus1(String airTypeStatus1) {
-        this.airTypeStatus1 = airTypeStatus1;
-    }
-
-    public String getAirTypeStatus2() {
-        return airTypeStatus2;
-    }
-
-    public void setAirTypeStatus2(String airTypeStatus2) {
-        this.airTypeStatus2 = airTypeStatus2;
-    }
-
-    public String getAirTypeStatus3() {
-        return airTypeStatus3;
-    }
-
-    public void setAirTypeStatus3(String airTypeStatus3) {
-        this.airTypeStatus3 = airTypeStatus3;
-    }
-
     public String getCardNum1() {
         return cardNum1;
     }
@@ -456,14 +606,6 @@ public class TravelProfileBean {
 
     public void setCarCompPref2(String carCompPref2) {
         this.carCompPref2 = carCompPref2;
-    }
-
-    public String getCarCompPref3() {
-        return carCompPref3;
-    }
-
-    public void setCarCompPref3(String carCompPref3) {
-        this.carCompPref3 = carCompPref3;
     }
 
     public String getCarGroup() {

@@ -5,125 +5,166 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Traveller Profile</title>
+        <title>Admin Page</title>
+        <link href="css/styles.css" rel="Stylesheet" type="text/css" />
     </h:head>
-    
     <h:body>
-        <h:form>  
+        <div id ="header">
+            <div id="logo">
+                    <img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
+            </div>
 
-            <p:growl id="growl" sticky="true" showDetail="true"/>  
+            <ul>
+                    <li><a href="">Help</a></li>
+                    
+            </ul>
+        </div>
+        <h:form>
 
             <p:wizard widgetVar="wiz"  
                 flowListener="#{travel.onFlowProcess}">  
 
                 <p:tab id="personal" title="Personal">  
 
-                    <p:panel header="Personal Details">  
+                    <p:panel header="Personal Details"> 
 
-                        <h:messages errorClass="error"/>  
-
-                        <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
+                        <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid">  
                             
                             <h:outputText value="Department: *" />  
-                            <p:inputText required="true" value="#{travel.department}" />  
-
-                            <h:outputText value="Position:" />  
-                            <p:inputText required="true" value="#{travel.position}" />  
-
-                            <h:outputText value="Secretary/Travel Booker: " />  
-                            <p:inputText required="true" value="#{travel.travelBooker}" />
+                            <p:selectOneMenu value="#{travel.department}">  
+                                <f:selectItem itemLabel="Financial" itemValue="Financial" />  
+                                <f:selectItem itemLabel="Information Technology" itemValue="Information Technology" />  
+                                <f:selectItem itemLabel="Health Sciences" itemValue="Health Sciences" />  
+                                <f:selectItem itemLabel="Business" itemValue="Business" />
+                                <f:selectItem itemLabel="Arts" itemValue="Arts" />
+                            </p:selectOneMenu>
+                            <h:message for=""/>
                             
-                            <h:outputText value="First Name: " />  
-                            <p:inputText required="true" value="#{travel.firstName}" />  
-
-                            <h:outputText value="Surname: " />  
-                            <p:inputText required="true" value="#{travel.surname}" />  
-
-                            <h:outputText value="Middle Name " />  
-                            <p:inputText  value="#{travel.middleName}" />
+                            <h:outputText value="Position: *" />  
+                            <p:inputText id="pos" required="true" value="#{travel.position}" requiredMessage="Required Field" />  
+                            <p:message for="pos"/>
                             
-                            <h:outputText value="Title: " />  
-                            <p:inputText required="true" value="#{travel.title}" />  
-
-                            <h:outputText value="Identity Number: " />  
-                            <p:inputText required="true" value="#{travel.idNo}" />  
-
-                            <h:outputText value="Business Address: " />  
-                            <p:inputText required="true" value="#{travel.busAddress}" />
+                            <h:outputText value="Secretary/Travel Booker: *" />  
+                            <p:inputText id="booker" required="true" value="#{travel.travelBooker}" requiredMessage="Required Field"/>
+                            <p:message for="booker"/>
                             
-                            <h:outputText value="Business Phone: " />  
-                            <p:inputText required="true" value="#{travel.busPhone}" />  
+                            <h:outputText value="First Name: *" />  
+                            <p:inputText id="fn" required="true" value="#{travel.firstName}" requiredMessage="Required Field"/>  
+                            <p:message for="fn"/>
+                            
+                            <h:outputText value="Surname: *" />  
+                            <p:inputText id="sn" required="true" value="#{travel.surname}" requiredMessage="Required Field"/>  
+                            <p:message for="sn"/>
+                            
+                            <h:outputText value="Middle Name" />  
+                            <p:inputText  value="#{travel.middleName}" requiredMessage="Required Field"/>
+                            <h:message for=""/>
+                            
+                            <h:outputText value="Title:"/>  
+                            <p:selectOneMenu value="#{travel.title}">  
+                                <f:selectItem itemLabel="Mr." itemValue="Mr" />  
+                                <f:selectItem itemLabel="Ms." itemValue="Ms" />  
+                                <f:selectItem itemLabel="Dr." itemValue="Dr" />  
+                                <f:selectItem itemLabel="Prof." itemValue="Prof" />
+                            </p:selectOneMenu>
+                            <h:message for=""/>
 
-                            <h:outputText value="Business Fax: " />  
-                            <p:inputText required="true" value="#{travel.busFax}" />  
-
-                            <h:outputText value="Home Address: " />  
-                            <p:inputText required="true" value="#{travel.homeAddress}" />
+                            <h:outputText value="Identity Number: *" />  
+                            <p:inputText id="identity" required="true" value="#{travel.idNo}" requiredMessage="Required Field"/>  
+                            <p:message for="identity"/>
                             
-                            <h:outputText value="Mobile Phone: " />  
-                            <p:inputText required="true" value="#{travel.mobilePhone}" />
+                            <h:outputText value="Business Address: *" />  
+                            <p:inputText id="businessAdd" value="#{travel.busAddress}" requiredMessage="Required Field"/>
+                            <p:message for="businessAdd"/>
                             
-                            <h:outputText value="Home Phone: " />  
-                            <p:inputText required="true" value="#{travel.homePhone}" />
+                            <h:outputText value="Business Phone: *" />  
+                            <p:inputText id="businessPhone" required="true" value="#{travel.busPhone}" requiredMessage="Required Field"/>  
+                            <p:message for="businessPhone"/>
                             
-                            <h:outputText value="Email Address: " />  
-                            <p:inputText required="true" value="#{travel.email}" />
+                            <h:outputText value="Business Fax:" />  
+                            <p:inputText value="#{travel.busFax}"/>  
+                            <h:message for=""/>
+                            
+                            <h:outputText value="Home Address: *" />  
+                            <p:inputText id="homeAdd" required="true" value="#{travel.homeAddress}" requiredMessage="Required Field"/>
+                            <p:message for="homeAdd"/>
+                            
+                            <h:outputText value="Mobile Phone: *" />  
+                            <p:inputText id="mobile" required="true" value="#{travel.mobilePhone}" requiredMessage="Required Field"/>
+                            <p:message for="mobile"/>
+                            
+                            <h:outputText value="Home Phone:" />  
+                            <p:inputText value="#{travel.homePhone}" />
+                            <h:message for=""/>
+                            
+                            <h:outputText value="Email Address: *" />  
+                            <p:inputText id="perEmail" required="true" value="#{travel.email}" requiredMessage="Required Field" validatorMessage="Invalid email format"/>
+                            <p:message for="perEmail"/>
                             
                             <h:outputText value="Spouse's Name: " />  
-                            <p:inputText required="true" value="#{travel.spouseName}" />
+                            <p:inputText value="#{travel.spouseName}" />
+                            <h:message for=""/>
                             
-                            <h:outputText value="Spouse's Contact Number: " />  
-                            <p:inputText required="true" value="#{travel.spouseContactNo}" />
+                            <h:outputText value="Spouse's Contact Number:" />  
+                            <p:inputText value="#{travel.spouseContactNo}" />
+                            <h:message for=""/>
                             
-                            <h:outputText value="Spouse's Email: " />  
-                            <p:inputText required="true" value="#{travel.spouseEmail}" />
+                            <h:outputText value="Spouse's Email:" />  
+                            <p:inputText value="#{travel.spouseEmail}" />
+                            <h:message for=""/>
                             
-                            <h:outputText value="Doctor's Name: " />  
-                            <p:inputText required="true" value="#{travel.docName}" />
+                            <h:outputText value="Doctor's Name:" />  
+                            <p:inputText value="#{travel.docName}" />
+                            <h:message for=""/>
                             
-                            <h:outputText value="Doctor's Contact Number: " />  
-                            <p:inputText required="true" value="#{travel.docContactNo}" />
+                            <h:outputText value="Doctor's Contact Number: *" />  
+                            <p:inputText id="docContactNum" required="true" value="#{travel.docContactNo}" requiredMessage="Required Field"/>
+                            <p:message for="docContactNum"/>
                             
-                            <h:outputText value="Doctor's Email: " />  
-                            <p:inputText required="true" value="#{travel.docEmail}" />
+                            <h:outputText value="Doctor's Email: *" />  
+                            <p:inputText id="docEmail" required="true" value="#{travel.docEmail}" requiredMessage="Required Field"/>
+                            <p:message for="docEmail"/>                      
                             
-                            <h:outputText value="Known Medical Conditions: " />  
-                            <p:inputText required="true" value="#{travel.knownMedConditions}" />
+                            <h:outputText value="Known Medical Conditions: *" />  
+                            <p:inputTextarea id="knowMedCon" required="true" value="#{travel.knownMedConditions}" requiredMessage="Required Field"/>
+                            <p:message for="knowMedCon"/>
                             
                         </h:panelGrid>  
                     </p:panel>  
                 </p:tab>  
 
                 <p:tab id="visa" title="Passport and Visa">  
-                    <p:panel header="Passport and Visa Details">  
+                    <p:panel header="Passport and Visa Details">
 
-                        <h:messages errorClass="error"/>  
-
-                        <h:panelGrid columns="2" columnClasses="label, value">  
+                        <h:panelGrid columns="3" columnClasses="label, value">  
                             
-                            <h:outputText value="Passport Number: " />  
-                            <p:inputText required="true" value="#{travel.passportNo}" />
+                            <h:outputText value="Passport Number: *" />  
+                            <p:inputText id="passport" required="true" value="#{travel.passportNo}" requiredMessage="Required Field"/>
+                            <p:message for="passport"/>
                             
-                            <h:outputText value="Country: " />  
-                            <p:inputText required="true" value="#{travel.country}" />
+                            <h:outputText value="Country: *" />  
+                            <p:inputText id="country" required="true" value="#{travel.country}" requiredMessage="Required Field"/>
+                            <p:message for="country"/>
                             
-                            <h:outputText value="Date of issue: " />  
-                            <p:inputText required="true" value="#{travel.dateOfIssue}" />
+                            <h:outputText value="Date of issue: *" />  
+                            <p:calendar id="cal" value="#{travel.dateOfIssue}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field"/>
+                            <p:message for="cal"/>
                             
-                            <h:outputText value="Expiry Date: " />  
-                            <p:inputText required="true" value="#{travel.expiryDate}" />
+                            <h:outputText value="Expiry Date: *" />  
+                            <p:calendar id="calender" value="#{travel.expiryDate}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field"/>
+                            <p:message for="calender"/>
                             
-                            <h:outputText value="Valid Visa's in passport: " />  
-                            <p:inputText required="true" value="#{travel.validVisas}" />
-                        
+                            <h:outputText value="Valid Visa's in passport: *" />  
+                            <p:inputTextarea id="validP" required="true" value="#{travel.validVisas}" requiredMessage="Required Field"/>
+                            <p:message for="validP"/>
+                            
                         </h:panelGrid>  
                     </p:panel>  
                 </p:tab>  
 
                 <p:tab id="airline" title="Airline Details">  
-                    <p:panel header="Airline Details">  
-
-                        <h:messages errorClass="error"/>  
+                    <p:panel header="Airline Details">
+                        
                         <h4>Airline seating:</h4>
                         <h:panelGrid columns="2" columnClasses="itemlabel, itemValue">  
                                 <h:selectOneRadio value="#{travel.seat}">
@@ -142,26 +183,34 @@
                         
                         <h:panelGrid columns="2" columnClasses="label, itemValue">
                                 <h:outputText value="Class of Travel: Domestic " />  
-                                <p:inputText required="true" value="#{travel.classDomestic}" />
+                                <p:selectOneMenu value="#{travel.classDomestic}">  
+                                    <f:selectItem itemLabel="First" itemValue="First" />  
+                                    <f:selectItem itemLabel="Business" itemValue="Business" />  
+                                    <f:selectItem itemLabel="Economy" itemValue="Economy" />  
+                                </p:selectOneMenu>
 
                                 <h:outputText value="Class of Travel: International " />  
-                                <p:inputText required="true" value="#{travel.classInternational}" />
+                                <p:selectOneMenu value="#{travel.classInternational}">  
+                                    <f:selectItem itemLabel="First" itemValue="First" />  
+                                    <f:selectItem itemLabel="Business" itemValue="Business" />  
+                                    <f:selectItem itemLabel="Economy" itemValue="Economy" />  
+                                </p:selectOneMenu>
 
                                 <h:outputText value="Special Meal Requirements " />  
-                                <p:inputText required="true" value="#{travel.specialMealReq}" />
+                                <p:inputText  value="#{travel.specialMealReq}" />
                             
                                 <h:outputText value="Additional Requirements: " />  
-                                <p:inputText required="true" value="#{travel.airAdditionalReq}" />
+                                <p:inputTextarea value="#{travel.airAdditionalReq}" />
                               
                         </h:panelGrid>
                         
                         <h4>Membership Card Details:</h4>
                         
-                        <h:panelGrid columns="3">
-                            <h:outputText value="Name on Membership Card:"/><h:outputText value="Airline Type and Status:"/><h:outputText value="Number:"/>
-                            <p:inputText required="false" value="#{travel.memOne}" /> <p:inputText required="false" value="#{travel.airTypeStatus1}" /> <p:inputText required="false" value="#{travel.cardNum1}" />
-                            <p:inputText required="false" value="#{travel.memTwo}" /> <p:inputText required="false" value="#{travel.airTypeStatus2}" /> <p:inputText required="false" value="#{travel.cardNum2}" />
-                            <p:inputText required="false" value="#{travel.memThree}" /> <p:inputText required="false" value="#{travel.airTypeStatus3}" /> <p:inputText required="false" value="#{travel.cardNum3}" />
+                        <h:panelGrid columns="4">
+                            <h:outputText value="Name on Membership Card:"/><h:outputText value="Airline Type:"/><h:outputText value="Status:"/><h:outputText value="Number:"/>
+                            <p:inputText required="false" value="#{travel.memOne}" /> <p:inputText required="false" value="#{travel.airType1}" /> <p:inputText required="false" value="#{travel.status1}" /> <p:inputText required="false" value="#{travel.cardNum1}" />
+                            <p:inputText required="false" value="#{travel.memTwo}" /> <p:inputText required="false" value="#{travel.airType2}" /> <p:inputText required="false" value="#{travel.status2}" /> <p:inputText required="false" value="#{travel.cardNum2}" />
+                            <p:inputText required="false" value="#{travel.memThree}" /> <p:inputText required="false" value="#{travel.airType3}" /> <p:inputText required="false" value="#{travel.status3}" /> <p:inputText required="false" value="#{travel.cardNum3}" />
                         </h:panelGrid>
                     
                     </p:panel>  
@@ -195,9 +244,13 @@
                             </h:selectOneRadio>                          
                         </h:panelGrid>
                         
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Additional Requirements: "/> <p:inputTextarea required ="false" value="#{travel.carAdditionalReq}"/>
+                        </h:panelGrid>
+                        
                         <h:outputText value="Hotel Details:"/>
                         <h:panelGrid columns="2" columnClasses="label, itemValue">
-                            <h:outputText value="Additional Requirements: "/> <p:inputText required ="false" value="#{travel.carAdditionalReq}"/>
+                            
                             <h:outputText value="Hotel Preference: "/> <p:inputText required ="false" value="#{travel.hotelPreference}"/>
                             <h:outputText value="Freq Guest Number: "/> <p:inputText required ="false" value="#{travel.freqGuestNo}"/>
                         </h:panelGrid>
@@ -211,16 +264,31 @@
                         </h:panelGrid>
                         
                         <h:panelGrid columns="2" columnClasses="label, itemValue">
-                            <h:outputText value="Additional Requirements: "/> <p:inputText required ="false" value="#{travel.hotelAdditionalReq}"/>
+                            <h:outputText value="Additional Requirements: "/> <p:inputTextarea required ="false" value="#{travel.hotelAdditionalReq}"/>
                         </h:panelGrid>
                         
-                        <p:commandButton value="Submit" update="growl" actionListener="#{travel.save}"/>
+                        <p:commandButton value="Submit" actionListener="#{travel.save()}"/>
                     </p:panel>                
                 </p:tab>
 
             </p:wizard>  
 
         </h:form>
+        
+        <div id= "footer">
+            <div class="row group">
+                <div class="col">
+                    <h3>Quick links</h3>
+                    <ul>
+                            <li><a href="">Site Map</a></li>
+                            <li><a href="">FAQ</a></li>
+                            <li><a href="">Contact us</a></li>
+                    </ul>
+                </div>
+                
+                <h3>Legal</h3>
+                <p class="legal">Created by school of IT, Monash University South Africa</p>  
+            </div>
+        </div>
     </h:body>
 </html>
-
