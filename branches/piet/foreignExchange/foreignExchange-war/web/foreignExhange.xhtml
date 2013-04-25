@@ -21,53 +21,63 @@
 
                     <p:panel header="Business Travel">  
 
-                        <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid" cellpadding="6">  
-                            <h:outputText value="Company name/Reg. number: *" />  
-                            <p:inputText id="compName" required="true" requiredMessage="Company Name required"   
-                                         value="#{foreignBean.companyNameRegNum}" />  
-                            <p:message for="compName" />
+                        <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid"> 
+                            <h:outputText value="Company name/Reg. number: "/>  
+                            <h:outputText value="Monash South Africa" /> 
+                            <h:message for=""/>
                             
-                            <h:outputText value="Passenger (Full name): *" />  
-                            <p:inputText required="true"
-                                         value="#{foreignBean.passengerName}" />  
-                         </h:panelGrid>
-                         <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">     
+                            <h:outputText value="Passenger (Full name) : " />  
+                            <h:outputText value="#{foreignBean.travelerP.givenname}" />
+                            <h:message for=""/>
+                             
                             <h:outputText value="Physical address: " />  
-                            <p:inputText value="#{foreignBean.physicalAddress}" /> 
+                            <h:outputText value="#{foreignBean.travelerP.homeaddress}" />
+                            <h:message for=""/>
 
                             <h:outputText value="Telephone number: " />  
-                            <p:inputText value="#{foreignBean.telNum}" />  
+                            <h:outputText value="#{foreignBean.travelerP.mobilephone}"/> 
+                            <h:message for=""/>
                             
                             <h:outputText value="Fax number: " />  
-                            <p:inputText value="#{foreignBean.faxNum}" /> 
+                            <h:outputText value="#{foreignBean.travelerP.businessfax}" />
+                            <h:message for=""/>
                             
                             <h:outputText value="I.D. number: " />  
-                            <p:inputText value="#{foreignBean.IDnum}" /> 
+                            <h:outputText value="#{foreignBean.travelerP.idnumber}" />
+                            <h:message for=""/>
                             
                             <h:outputText value="Nationality Of Passport: " />  
-                            <p:inputText value="#{foreignBean.nationality}" /> 
+                            <h:outputText value="#{foreignBean.travelD.country}" /> 
+                            <h:message for=""/>
                             
                             <h:outputText value="Passport Number: " />  
-                            <p:inputText value="#{foreignBean.passportNum}" /> 
+                            <h:outputText value="#{foreignBean.travelD.passportnumber}" />
+                            <h:message for=""/>
                             
                             <h:outputText value="Company contact name: " />  
-                            <p:inputText value="#{foreignBean.companyName}" /> 
-                            
+                            <h:outputText value="#{foreignBean.travelerP.businessphone}" />  
+                            <h:message for=""/>
+      
                             <h:outputText value="Destination: " />  
-                            <p:inputText value="#{foreignBean.distination}" /> 
+                            <p:inputText id="destination" value="#{foreignBean.distination}" required="true" requiredMessage="required field"/> 
+                            <p:message for="destination"/>
                             
                             <h:outputText value="Date of departure: " />  
-                            <p:inputText value="#{foreignBean.departure}" /> 
+                            <p:calendar id="dateDeparture" value="#{foreignBean.departure}" showButtonPanel="true" navigator="true" required="true" requiredMessage="required field"/>
+                            <p:message for="dateDeparture"/>
                             
                             <h:outputText value="Date of return: " />  
-                            <p:inputText value="#{foreignBean.returnDate}" /> 
+                            <p:calendar id="dateReturn" value="#{foreignBean.returnDate}" showButtonPanel="true" navigator="true" required="true" requiredMessage="required field"/>
+                            <p:message for="dateReturn"/>
                             
                             <h:outputText value="Ticket number/ reference number: " />  
-                            <p:inputText value="#{foreignBean.ticketNumber}" /> 
+                            <p:inputText id="ticketNum" value="#{foreignBean.ticketNumber}" required="true" requiredMessage="required field"/> 
+                            <p:message for="ticketNum"/>
                             
                             <h:outputText value="Voyager number: " />  
-                            <p:inputText value="#{foreignBean.voyagerNum}" />                            
-                           
+                            <p:inputText id="voyagerNum" value="#{foreignBean.voyagerNum}" required="true" requiredMessage="required field"/>                            
+                            <p:message for="voyagerNum"/>
+                            
                         </h:panelGrid>  
                     </p:panel>  
                 </p:tab>  
@@ -94,10 +104,10 @@
                             <p:inputText value="#{foreignBean.number}" /> 
                             
                             <h:outputText value="Last 3 digits on reverse of card : " />  
-                            <p:inputText value="#{foreignBean.last3}" /> 
+                            <p:inputText value="#{foreignBean.last3}"  maxlength="3"/> 
                             
                             <h:outputText value="Expiry date: " />  
-                            <p:inputText value="#{foreignBean.expire}" /> 
+                            <p:calendar id="ExpireDate" value="#{foreignBean.expire}" showButtonPanel="true" navigator="true"/>
                             
                             <h:outputText value="Amount: " />  
                             <p:inputText value="#{foreignBean.amount}" /> 
@@ -112,11 +122,11 @@
 
                         <h:panelGrid columns="2" columnClasses="label, value">  
                                               
-                            <h:outputText value="Date and time: required: " />  
-                            <p:inputText value="#{foreignBean.dateRequired}" /> 
+                            <h:outputText value="Date and time: required: " />                              
+                            <p:calendar id="dateRe" value="#{foreignBean.dateRequired}" showButtonPanel="true" navigator="true"/>
                             
                             <h:outputText value="Date and Time: Will be confirmed by Forex Consultant: " />  
-                            <p:inputText value="#{foreignBean.dateForex}" /> 
+                            <p:calendar id="forexCon" value="#{foreignBean.dateForex}" showButtonPanel="true" navigator="true"/>
                             
                         </h:panelGrid>  
                     </p:panel>  

@@ -4,6 +4,9 @@
  */
 package Bean;
 
+import Entity.Traveldocument;
+import Entity.Travelerprofile;
+import Service.clientServer;
 import java.io.Serializable;
 import java.util.Date;
 import javax.ejb.EJB;
@@ -25,9 +28,17 @@ import org.primefaces.event.FlowEvent;
 @SessionScoped
 public class ForeignBean implements Serializable
 {
-    //@EJB
-    //private clientServer csi;
+    @EJB
+    private clientServer csi;
     
+    //======change===change=========change============change=========change====
+    //-------------------------------------------------------------------------
+    int accountID =1;
+    //-------------------------------------------------------------------------
+    //======change========change=========change=============change=============
+    
+    private Travelerprofile travelerP;
+    private Traveldocument travelD;
     private String CompanyNameRegNum;
     private String passengerName;
     private String physicalAddress;
@@ -66,7 +77,26 @@ public class ForeignBean implements Serializable
         FacesMessage msg = new FacesMessage("Successful", "Welcome :" + user.getFirstname());  
         FacesContext.getCurrentInstance().addMessage(null, msg);  
     }  */
-      
+
+    public Travelerprofile getTravelerP() {
+        travelerP = csi.find(accountID);
+        return travelerP;
+    }
+
+    public void setTravelerP(Travelerprofile travelerP) {
+        this.travelerP = travelerP;
+    }
+
+    public Traveldocument getTravelD() {
+        int tID = travelerP.getIdtravelerprofile();
+        travelD = csi.findDocument(tID);
+        return travelD;
+    }
+
+    public void setTravelD(Traveldocument travelD) {
+        this.travelD = travelD;
+    }
+         
       
     public String onFlowProcess(FlowEvent event) {  
         logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());  
@@ -74,6 +104,7 @@ public class ForeignBean implements Serializable
   
         return event.getNewStep();  
     }  
+    
     
     public String createForm()
 	{
