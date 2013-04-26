@@ -1,4 +1,0 @@
-iduser,Account,Password,Salt,DateCreated,DateLogin
-1,super,super,NULL,NULL,NULL
-2,admin,admin,NULL,NULL,NULL
-3,authorisor,authorisor,NULL,NULL,NULL
