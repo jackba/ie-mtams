@@ -9,9 +9,13 @@ import Entities.Traveldocument;
 import Entities.Travelerprofile;
 import ServiceLayer.TravelProfileHandlerLocal;
 import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIData;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
 
@@ -28,7 +32,7 @@ public class TravelProfileBean {
     //-------------------------------------------------------------------------
     //======change========change=========change=============change=============
     
-    //private static final Logger logger = Logger.getLogger(TravelProfileBean.class.getName());
+    private static final Logger logger = Logger.getLogger(TravelProfileBean.class.getName());
     private String department; 
     private String position;
     private String travelBooker;
@@ -41,22 +45,21 @@ public class TravelProfileBean {
     private String busAddress;
     @Pattern(message="Invalid Number", regexp="[0-9]{10}")
     private String busPhone;
-    @Pattern(message="Invalid Number", regexp="[0-9]{10}")
+    @Pattern(message="Invalid Number", regexp="[0-9]{0,10}")
     private String busFax;
     private String homeAddress;
     @Pattern(message="Invalid Number", regexp="[0-9]{10}")
     private String mobilePhone;
-    @Pattern(message="Invalid Number", regexp="[0-9]{10}")
+    @Pattern(message="Invalid Number", regexp="[0-9]{0,10}")
     private String homePhone;
     
     @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String email;
     
     private String spouseName;
-    @Pattern(message="Invalid Number", regexp="[0-9]{10}")
+    @Pattern(message="Invalid Number", regexp="[0-9]{0,10}")
     private String spouseContactNo;
     
-    @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String spouseEmail;
     private String docName;
     @Pattern(message="Invalid Number", regexp="[0-9]{10}")
@@ -104,7 +107,9 @@ public class TravelProfileBean {
     private String hotelPreference;
     private String freqGuestNo;
     private String smoking;
-    private String hotelAdditionalReq;    
+    private String hotelAdditionalReq;
+    
+    private UIData dataTable;
     
     private Travelerprofile profile;
     private Travelerprofile profileRef;
@@ -226,12 +231,24 @@ public class TravelProfileBean {
     }  
       
     public String onFlowProcess(FlowEvent event) {  
-        //logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());  
-        //logger.log(Level.INFO, "Next step:{0}", event.getNewStep());  
+        logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());  
+        logger.log(Level.INFO, "Next step:{0}", event.getNewStep());  
             
         return event.getNewStep();          
-    } 
+    }
+    
+    public List<Rewardsprogram> getAllRewards(){
+        return handler.findRewards(profileRef.getIdtravelerprofile());
+    }
 
+    public UIData getDataTable() {
+        return dataTable;
+    }
+
+    public void setDataTable(UIData dataTable) {
+        this.dataTable = dataTable;
+    }
+    
     public String getDepartment() {
         return department;
     }

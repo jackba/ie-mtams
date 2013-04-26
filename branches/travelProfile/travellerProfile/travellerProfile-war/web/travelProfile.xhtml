@@ -30,7 +30,7 @@
 
                         <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid">  
                             
-                            <h:outputText value="Department: *" />  
+                            <h:outputText value="Department: *" id="dept"/>  
                             <p:selectOneMenu value="#{travel.department}">  
                                 <f:selectItem itemLabel="Financial" itemValue="Financial" />  
                                 <f:selectItem itemLabel="Information Technology" itemValue="Information Technology" />  
@@ -38,15 +38,15 @@
                                 <f:selectItem itemLabel="Business" itemValue="Business" />
                                 <f:selectItem itemLabel="Arts" itemValue="Arts" />
                             </p:selectOneMenu>
-                            <h:message for=""/>
+                            <p:message for="dept"/>
                             
                             <h:outputText value="Position: *" />  
                             <p:inputText id="pos" required="true" value="#{travel.position}" requiredMessage="Required Field" />  
-                            <p:message for="pos"/>
+                            <p:message for="pos"/>                            
                             
-                            <h:outputText value="Secretary/Travel Booker: *" />  
-                            <p:inputText id="booker" required="true" value="#{travel.travelBooker}" requiredMessage="Required Field"/>
-                            <p:message for="booker"/>
+                            <h:outputText value="Travel Booker: *" />  
+                            <p:inputText id="bookerS" required="true" value="#{travel.travelBooker}" requiredMessage="Required Field"/>
+                            <p:message for="bookerS"/>
                             
                             <h:outputText value="First Name: *" />  
                             <p:inputText id="fn" required="true" value="#{travel.firstName}" requiredMessage="Required Field"/>  
@@ -57,24 +57,24 @@
                             <p:message for="sn"/>
                             
                             <h:outputText value="Middle Name" />  
-                            <p:inputText  value="#{travel.middleName}" requiredMessage="Required Field"/>
-                            <h:message for=""/>
+                            <p:inputText  id="mn" value="#{travel.middleName}" requiredMessage="Required Field"/>
+                            <p:message for="mn"/>
                             
-                            <h:outputText value="Title:"/>  
+                            <h:outputText value="Title:" id="ttl"/>  
                             <p:selectOneMenu value="#{travel.title}">  
                                 <f:selectItem itemLabel="Mr." itemValue="Mr" />  
                                 <f:selectItem itemLabel="Ms." itemValue="Ms" />  
                                 <f:selectItem itemLabel="Dr." itemValue="Dr" />  
                                 <f:selectItem itemLabel="Prof." itemValue="Prof" />
                             </p:selectOneMenu>
-                            <h:message for=""/>
+                            <h:message for="ttl"/>
 
                             <h:outputText value="Identity Number: *" />  
                             <p:inputText id="identity" required="true" value="#{travel.idNo}" requiredMessage="Required Field"/>  
                             <p:message for="identity"/>
                             
                             <h:outputText value="Business Address: *" />  
-                            <p:inputText id="businessAdd" value="#{travel.busAddress}" requiredMessage="Required Field"/>
+                            <p:inputText id="businessAdd" value="#{travel.busAddress}" requiredMessage="Required Field" required="true"/>
                             <p:message for="businessAdd"/>
                             
                             <h:outputText value="Business Phone: *" />  
@@ -82,8 +82,8 @@
                             <p:message for="businessPhone"/>
                             
                             <h:outputText value="Business Fax:" />  
-                            <p:inputText value="#{travel.busFax}"/>  
-                            <h:message for=""/>
+                            <p:inputText id="bFax" value="#{travel.busFax}"/>  
+                            <h:message for="bFax"/>
                             
                             <h:outputText value="Home Address: *" />  
                             <p:inputText id="homeAdd" required="true" value="#{travel.homeAddress}" requiredMessage="Required Field"/>
@@ -94,28 +94,28 @@
                             <p:message for="mobile"/>
                             
                             <h:outputText value="Home Phone:" />  
-                            <p:inputText value="#{travel.homePhone}" />
-                            <h:message for=""/>
+                            <p:inputText id="hmP" value="#{travel.homePhone}" />
+                            <p:message for="hmP"/>
                             
                             <h:outputText value="Email Address: *" />  
                             <p:inputText id="perEmail" required="true" value="#{travel.email}" requiredMessage="Required Field" validatorMessage="Invalid email format"/>
                             <p:message for="perEmail"/>
                             
                             <h:outputText value="Spouse's Name: " />  
-                            <p:inputText value="#{travel.spouseName}" />
-                            <h:message for=""/>
+                            <p:inputText id="SpN" value="#{travel.spouseName}" />
+                            <p:message for="SpN"/>
                             
                             <h:outputText value="Spouse's Contact Number:" />  
-                            <p:inputText value="#{travel.spouseContactNo}" />
-                            <h:message for=""/>
+                            <p:inputText id="SpCN" value="#{travel.spouseContactNo}" />
+                            <p:message for="SpCN"/>
                             
                             <h:outputText value="Spouse's Email:" />  
-                            <p:inputText value="#{travel.spouseEmail}" />
-                            <h:message for=""/>
+                            <p:inputText id="SpE" value="#{travel.spouseEmail}"  />
+                            <p:message for="SpE"/>
                             
                             <h:outputText value="Doctor's Name:" />  
-                            <p:inputText value="#{travel.docName}" />
-                            <h:message for=""/>
+                            <p:inputText id="docN" value="#{travel.docName}" />
+                            <p:message for="docN"/>
                             
                             <h:outputText value="Doctor's Contact Number: *" />  
                             <p:inputText id="docContactNum" required="true" value="#{travel.docContactNo}" requiredMessage="Required Field"/>

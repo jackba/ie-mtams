@@ -169,7 +169,23 @@
                         </h:panelGrid>
                 </fieldset>
                 <fieldset><legend>Rewards Program</legend>
-                    
+                    <p:dataTable var="reward" value="#{travel.allRewards}">  
+                        <p:column headerText="Name on Membership Card">  
+                            <h:outputText value="#{reward.membershiptype}" />  
+                        </p:column>  
+
+                        <p:column headerText="Type">  
+                            <h:outputText value="#{reward.provider}" />  
+                        </p:column>  
+
+                        <p:column headerText="Status">  
+                            <h:outputText value="#{reward.description}" />  
+                        </p:column>  
+
+                        <p:column headerText="Membership Card Number">  
+                            <h:outputText value="#{reward.membershipnumber}" />  
+                        </p:column>  
+                    </p:dataTable> 
                 </fieldset>
             </p:panel>
         </h:form>
