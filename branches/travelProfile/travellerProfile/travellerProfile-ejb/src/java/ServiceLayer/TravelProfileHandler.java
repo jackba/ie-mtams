@@ -12,6 +12,7 @@ import Entities.Account;
 import Entities.Rewardsprogram;
 import Entities.Traveldocument;
 import Entities.Travelerprofile;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -68,8 +69,7 @@ public class TravelProfileHandler implements TravelProfileHandlerLocal {
      }
     @Override
     public Traveldocument findTravelDoc(Integer id)
-     {
-        //Travelerprofile prof = dao.find(id);
+     {        
         List<Traveldocument> all = daoPassport.findAll();
         for(Traveldocument each : all){
             if(each.getTravlerprofileIdtravlerprofile().getIdtravelerprofile().equals(id)){
@@ -79,4 +79,19 @@ public class TravelProfileHandler implements TravelProfileHandlerLocal {
         }
         return null;
      }
+             
+    @Override
+    public List<Rewardsprogram> findRewards(Integer id)
+     {        
+        List<Rewardsprogram> rewards = new ArrayList<Rewardsprogram>();
+        List<Rewardsprogram> all = daoReward.findAll();
+        
+        for(Rewardsprogram each : all){
+            if(each.getTravelerprofileIdtravelerprofile().getIdtravelerprofile().equals(id)){
+                rewards.add(each);
+                
+            }
+        }
+        return rewards;
+     }     
 }

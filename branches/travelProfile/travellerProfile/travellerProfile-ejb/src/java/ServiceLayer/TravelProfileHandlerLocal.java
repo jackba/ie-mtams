@@ -7,6 +7,7 @@ package ServiceLayer;
 import Entities.Rewardsprogram;
 import Entities.Traveldocument;
 import Entities.Travelerprofile;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -20,5 +21,6 @@ public interface TravelProfileHandlerLocal {
     public void persistReward(Rewardsprogram reward);
     public Travelerprofile findTravelProf(Integer id);
     public Traveldocument findTravelDoc(Integer id);
+    public List<Rewardsprogram> findRewards(Integer id);
     
 }
