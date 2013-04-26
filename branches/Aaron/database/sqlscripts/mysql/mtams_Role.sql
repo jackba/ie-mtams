@@ -35,6 +35,7 @@ CREATE TABLE `Role` (
 --
 -- Dumping data for table `Role`
 --
+-- ORDER BY:  `idroles`
 
 LOCK TABLES `Role` WRITE;
 /*!40000 ALTER TABLE `Role` DISABLE KEYS */;
@@ -50,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-23 11:47:56
+-- Dump completed on 2013-04-26 19:33:03

@@ -1,29 +1,30 @@
--- CREATE SCHEMA "mtams" ;
--- SET SCHEMA  "mtams";
--- MySQL dump 10.13  Distrib 5.5.29, for debian-linux-gnu (x86_64)
+-- CREATE SCHEMA "MTAMS" ;
+-- SET SCHEMA  "MTAMS";
+-- MYSQL DUMP 10.13  DISTRIB 5.5.29, FOR DEBIAN-LINUX-GNU (X86_64)
 --
--- Host: localhost    Database: mtams
+-- HOST: LOCALHOST    DATABASE: MTAMS
 -- ------------------------------------------------------
--- Server version	5.5.29-0ubuntu0.12.04.2
+-- SERVER VERSION	5.5.29-0UBUNTU0.12.04.2
 
 
 --
--- Table structure for table "Task"
+-- TABLE STRUCTURE FOR TABLE "TASK"
 --
 
--- DROP TABLE  "Task";
-CREATE TABLE "Task" (
-  "idtasks" int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) ,
-  "task" varchar(45) DEFAULT NULL,
-  "description" varchar(512) DEFAULT NULL,
-  PRIMARY KEY ("idtasks")
+-- DROP TABLE  "TASK";
+CREATE TABLE "TASK" (
+  "IDTASKS" INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) ,
+  "TASK" VARCHAR(45) DEFAULT NULL,
+  "DESCRIPTION" VARCHAR(512) DEFAULT NULL,
+  PRIMARY KEY ("IDTASKS")
 );
 
 --
--- Dumping data for table "Task"
+-- DUMPING DATA FOR TABLE "TASK"
 --
+-- ORDER BY:  "IDTASKS"
 
--- LOCK TABLE "Task" IN EXCLUSIVE MODE;
+-- LOCK TABLE "TASK" IN EXCLUSIVE MODE;
 
 
--- Dump completed on 2013-04-23 11:47:55
+-- DUMP COMPLETED ON 2013-04-26 19:33:02

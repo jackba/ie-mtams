@@ -38,7 +38,7 @@ CREATE TABLE `TravelerProfile` (
   `DateCreated` timestamp NULL DEFAULT NULL,
   `DateModified` timestamp NULL DEFAULT NULL,
   `TravelBooker` varchar(45) DEFAULT NULL,
-  `BusinessAddress` varchar(255) DEFAULT NULL,
+  `BusinessAddress` varchar(255) DEFAULT '144 Peter Road, Ruimsig, Johannesburg, South Africa',
   `BusinessPhone` varchar(12) DEFAULT NULL,
   `BusinessFax` varchar(12) DEFAULT NULL,
   `BusinessEmail` varchar(45) DEFAULT NULL,
@@ -69,12 +69,13 @@ CREATE TABLE `TravelerProfile` (
   KEY `fk_TravlerProfile_users1_idx` (`AccountID`),
   KEY `fk_TravelerProfile_1` (`AccountID`),
   CONSTRAINT `fk_TravelerProfile_1` FOREIGN KEY (`AccountID`) REFERENCES `Account` (`idAccount`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Details of staff member / applicant';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Details of staff member / applicant';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `TravelerProfile`
 --
+-- ORDER BY:  `idTravelerProfile`
 
 LOCK TABLES `TravelerProfile` WRITE;
 /*!40000 ALTER TABLE `TravelerProfile` DISABLE KEYS */;
@@ -90,4 +91,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-23 11:47:56
+-- Dump completed on 2013-04-26 19:33:03

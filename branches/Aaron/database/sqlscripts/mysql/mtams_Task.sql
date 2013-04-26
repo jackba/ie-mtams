@@ -35,6 +35,7 @@ CREATE TABLE `Task` (
 --
 -- Dumping data for table `Task`
 --
+-- ORDER BY:  `idtasks`
 
 LOCK TABLES `Task` WRITE;
 /*!40000 ALTER TABLE `Task` DISABLE KEYS */;
@@ -50,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-23 11:47:55
+-- Dump completed on 2013-04-26 19:33:02

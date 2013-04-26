@@ -39,6 +39,7 @@ CREATE TABLE `AccountRole` (
 --
 -- Dumping data for table `AccountRole`
 --
+-- ORDER BY:  `idUserRoles`
 
 LOCK TABLES `AccountRole` WRITE;
 /*!40000 ALTER TABLE `AccountRole` DISABLE KEYS */;
@@ -54,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-23 11:47:56
+-- Dump completed on 2013-04-26 19:33:03

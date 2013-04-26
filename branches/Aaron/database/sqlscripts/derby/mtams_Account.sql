@@ -1,32 +1,33 @@
--- CREATE SCHEMA "mtams" ;
--- SET SCHEMA  "mtams";
--- MySQL dump 10.13  Distrib 5.5.29, for debian-linux-gnu (x86_64)
+-- CREATE SCHEMA "MTAMS" ;
+-- SET SCHEMA  "MTAMS";
+-- MYSQL DUMP 10.13  DISTRIB 5.5.29, FOR DEBIAN-LINUX-GNU (X86_64)
 --
--- Host: localhost    Database: mtams
+-- HOST: LOCALHOST    DATABASE: MTAMS
 -- ------------------------------------------------------
--- Server version	5.5.29-0ubuntu0.12.04.2
+-- SERVER VERSION	5.5.29-0UBUNTU0.12.04.2
 
 
 --
--- Table structure for table "Account"
+-- TABLE STRUCTURE FOR TABLE "ACCOUNT"
 --
 
--- DROP TABLE  "Account";
-CREATE TABLE "Account" (
-  "idAccount" int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) ,
-  "Account" varchar(45) NOT NULL,
-  "Password" varchar(512) NOT NULL,
-  "Salt" varchar(45) DEFAULT NULL,
-  "DateCreated" timestamp  DEFAULT NULL,
-  "DateLogin" timestamp  DEFAULT NULL,
-  PRIMARY KEY ("idAccount")
+-- DROP TABLE  "ACCOUNT";
+CREATE TABLE "ACCOUNT" (
+  "IDACCOUNT" INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) ,
+  "ACCOUNT" VARCHAR(45) NOT NULL,
+  "PASSWORD" VARCHAR(512) NOT NULL,
+  "SALT" VARCHAR(45) DEFAULT NULL,
+  "DATECREATED" TIMESTAMP  DEFAULT NULL,
+  "DATELOGIN" TIMESTAMP  DEFAULT NULL,
+  PRIMARY KEY ("IDACCOUNT")
 );
 
 --
--- Dumping data for table "Account"
+-- DUMPING DATA FOR TABLE "ACCOUNT"
 --
+-- ORDER BY:  "IDACCOUNT"
 
--- LOCK TABLE "Account" IN EXCLUSIVE MODE;
+-- LOCK TABLE "ACCOUNT" IN EXCLUSIVE MODE;
 
 
--- Dump completed on 2013-04-23 11:47:55
+-- DUMP COMPLETED ON 2013-04-26 19:33:02
