@@ -14,5 +14,6 @@ import javax.ejb.Local;
 @Local
 public interface LoginHandlerLocal {
     public Account authenticate(String username, String password);
-    public String getAccountRole(Integer id);
+    public String getAccountRole(Account acc);
+    public void modifyAccount(Account acc);
 }

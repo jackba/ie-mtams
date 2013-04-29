@@ -22,11 +22,12 @@
     <br /> 
     <div class="nav">
             <p:breadCrumb>
-                <p:menuitem value="Home" url="#{adminBean.goHome()}"/>
+                
             </p:breadCrumb>
         </div>
         <div>
             <p:menubar>  
+                <p:menuitem value="Home" icon="ui-icon-home" outcome="#{adminBean.goHome()}"/>
                 <p:submenu label="Account" icon="ui-icon-document">  
                     <p:menuitem value="View All Accounts" outcome="#{adminBean.goViewAll()}" /> 
                     <p:menuitem value="Create New Account" outcome="#{adminBean.goCreate()}" />  
@@ -81,7 +82,7 @@
                 </div>
                 
                 <h3>Legal</h3>
-                <p class="legal">Created by school of IT, Monash University South Africa</p>		
+                <p class="legal">Created by school of IT, Monash South Africa</p>		
             </div>
         </div>
     </h:body>

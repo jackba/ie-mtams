@@ -25,7 +25,7 @@ public class AdminBean implements Serializable {
     
     private String username;
     private String password;
-    private int role;
+    private int role = 11;
     private List<Account> allAccounts;
     private UIData dataTable;
     private UIData dataTableDetails;
@@ -106,9 +106,8 @@ public class AdminBean implements Serializable {
             Account newAccount = new Account();
             newAccount.setUsername(getUsername());
             newAccount.setPassword(getPassword());
-            newAccount.setFkIdRole(getRole());
 
-            handler.registerNewAccount(newAccount);
+            handler.registerNewAccount(newAccount,getRole());
             
             return "./adminHome.xhtml";
         }        

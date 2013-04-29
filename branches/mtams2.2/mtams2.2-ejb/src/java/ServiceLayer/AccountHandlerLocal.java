@@ -5,6 +5,7 @@
 package ServiceLayer;
 
 import Entities.Account;
+import Entities.Accountrole;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,8 +15,9 @@ import javax.ejb.Local;
  */
 @Local
 public interface AccountHandlerLocal {
-    public void registerNewAccount(Account newAccount);
-    public void assignId(Account newAccount);
+    public void registerNewAccount(Account newAccount,int role);
+    public Accountrole assignId(Account newAccount, int role);
     public boolean checkUsername(String username);
     public List<Account> getAllAccounts();
+
 }

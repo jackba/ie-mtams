@@ -5,23 +5,25 @@
 package ServiceLayer;
 
 import DataAccess.AccountFacadeLocal;
-import DataAccess.RolesFacadeLocal;
+import DataAccess.AccountroleFacadeLocal;
 import Entities.Account;
+import Entities.Accountrole;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 
 /**
  *
  * @author Badger
  */
-@Stateless
+@Stateful
 public class LoginHandler implements LoginHandlerLocal {
 
     @EJB
     private AccountFacadeLocal accDao;
     @EJB
-    private RolesFacadeLocal roleDao;
+    private AccountroleFacadeLocal accRoleDao;
+    
     
     @Override
     public Account authenticate(String username, String password) {
@@ -35,8 +37,20 @@ public class LoginHandler implements LoginHandlerLocal {
         return null;
     }
     
-        @Override
-    public String getAccountRole(Integer id) {
-            return roleDao.find(id).getRoleName();
+    @Override
+    public String getAccountRole(Account acc){ 
+        List<Accountrole> all = accRoleDao.findAll();
+        for(Accountrole each : all){
+            if(each.getAccountid().equals(acc)){
+                return each.getRoleid().getRole();
+            }
+        }
+        return null;
     }
+    
+    @Override
+    public void modifyAccount(Account acc){
+        accDao.edit(acc);
+    }
+
 }

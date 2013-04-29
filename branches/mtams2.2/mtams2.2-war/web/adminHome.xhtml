@@ -15,10 +15,13 @@
 
             <ul>
                     <li><a href="">Help</a></li>
-                    <li><h:link value="Logout"  outcome="#{sessionBean.invalidate()}" /></li>
+                    <li><h:link value="Logout"  outcome="#{sessionBean.checkActive()}" /></li>
             </ul>
         </div>
-
+        <div>
+            <h:outputText value="#{sessionBean.greeting()}" />
+            
+        </div>
         <div class="content" >
             <p:menubar>  
                 <p:submenu label="Account" icon="ui-icon-document">  
@@ -45,7 +48,7 @@
                 </div>
                 
                 <h3>Legal</h3>
-                <p class="legal">Created by School of IT, Monash University South Africa</p>			
+                <p class="legal">Created by School of IT, Monash South Africa</p>			
             </div>
         </div>
     </h:body>
