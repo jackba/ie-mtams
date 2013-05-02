@@ -4,6 +4,8 @@
  */
 package Bean;
 
+import Entity.Forexorder;
+import Entity.Itinerary;
 import Entity.Traveldocument;
 import Entity.Travelerprofile;
 import Service.clientServer;
@@ -17,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
 
 /**
@@ -39,6 +42,9 @@ public class ForeignBean implements Serializable
     
     private Travelerprofile travelerP;
     private Traveldocument travelD;
+    private Forexorder forX;
+    private Forexorder viewForX;
+    private Itinerary itinerary;
     private String CompanyNameRegNum;
     private String passengerName;
     private String physicalAddress;
@@ -49,18 +55,26 @@ public class ForeignBean implements Serializable
     private int passportNum;
     private String companyName;
     private String Distination;
+   
     private Date departure;
-    private Date returnDate;
-    private int ticketNumber;
-    private double voyagerNum;
+    private Date returnDate;    
+    @Pattern(message="Invalid numbers only", regexp="[0-9]{0,}")
+    private String ticketNumber;
+    @Pattern(message="Invalid numbers only" , regexp="[0-9]{0,20}")
+    private String voyagerNum;
     private String travellerCheque;
+    @Pattern(message="Invalid numbers only", regexp="[0-9]{0,}")
     private String foreignCash;
     private String CashPassportCard;
+    @Pattern(message="Invalid type", regexp="[A-Za-z]{0,}")
     private String type;
-    private int number;
-    private int last3;
+    @Pattern(message="Invalid numbers only", regexp="[0-9]{0,}")
+    private String number;
+    @Pattern(message="Invalid Numbers only", regexp="[0-9]{0,3}")
+    private String last3;
     private Date expire;
-    private double amount;
+    @Pattern(message="Invalid Numbers only", regexp="[0-9]{0,}")
+    private String amount;
     private Date dateRequired;
     private Date dateForex;
     private String reasonForTravel;       
@@ -69,14 +83,24 @@ public class ForeignBean implements Serializable
     public ForeignBean()
     {
     }
-    
-    /*
-    public void save(ActionEvent actionEvent) {  
-        //Persist user  
-          
-        FacesMessage msg = new FacesMessage("Successful", "Welcome :" + user.getFirstname());  
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
-    }  */
+
+    public Forexorder getViewForX() {
+        viewForX = csi.findForX(accountID);
+        return viewForX;
+    }
+
+    public void setViewForX(Forexorder viewForX) {
+        this.viewForX = viewForX;
+    }
+
+    public Itinerary getItinerary() {
+        itinerary = csi.findItinerary(accountID);
+        return itinerary;
+    }
+
+    public void setItinerary(Itinerary itinerary) {
+        this.itinerary = itinerary;
+    }   
 
     public Travelerprofile getTravelerP() {
         travelerP = csi.find(accountID);
@@ -108,9 +132,24 @@ public class ForeignBean implements Serializable
     
     public String createForm()
 	{
-		//Staff newStaff = new Staff(userName,password);		
-		//csi.registerClient(newStaff);
-		return "adminHome";
+            forX = new Forexorder();
+            
+            forX.setDateofreturn(returnDate);
+            forX.setTicketnum(ticketNumber);
+            forX.setVoyagernum(voyagerNum);
+            forX.setTravelerscheques(travellerCheque);
+            forX.setCash(foreignCash);
+            forX.setCashpassport(CashPassportCard);
+            forX.setCctype(type);
+            forX.setCclast3(last3);
+            forX.setCcexpirydate(expire);
+            forX.setCcpaymentamount(amount);
+            forX.setDateofrequired(dateRequired);
+            forX.setDatewillbeconfirmed(dateForex);
+            forX.setReasonfortravel(reasonForTravel);
+            
+            csi.createForX(forX);
+            return "welcomePrimefaces";
 	}   
 
     public String getCompanyNameRegNum() {
@@ -209,19 +248,19 @@ public class ForeignBean implements Serializable
         this.returnDate = returnDate;
     }
 
-    public int getTicketNumber() {
+    public String getTicketNumber() {
         return ticketNumber;
     }
 
-    public void setTicketNumber(int ticketNumber) {
+    public void setTicketNumber(String ticketNumber) {
         this.ticketNumber = ticketNumber;
     }
 
-    public double getVoyagerNum() {
+    public String getVoyagerNum() {
         return voyagerNum;
     }
 
-    public void setVoyagerNum(double voyagerNum) {
+    public void setVoyagerNum(String voyagerNum) {
         this.voyagerNum = voyagerNum;
     }
 
@@ -257,19 +296,19 @@ public class ForeignBean implements Serializable
         this.type = type;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
-    public int getLast3() {
+    public String getLast3() {
         return last3;
     }
 
-    public void setLast3(int last3) {
+    public void setLast3(String last3) {
         this.last3 = last3;
     }
 
@@ -281,11 +320,11 @@ public class ForeignBean implements Serializable
         this.expire = expire;
     }
 
-    public double getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+   <h:head>
+        <title>Foreign Exh Page View</title>
+        <link href="css/styles.css" rel="Stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <div id ="header">
+            <div id="logo">
+                    <img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
+            </div>
+
+            <ul>
+                    <li><a href="">Help</a></li>
+            </ul> 
+        </div>
+        
+        <h:form>
+         <p:panel header="Foreign Exchange Form">  
+              <fieldset><legend>Business Travel</legend>
+          <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid">     
+        
+           
+                
+                <h:outputText value="Company name/Reg. number: "/>  
+                <h:outputText value="Monash South Africa" /> 
+                <h:message for=""/>
+                            
+                <h:outputText value="Passenger (Full name) : " />  
+                <h:outputText value="#{foreignBean.travelerP.givenname}" />
+                <h:message for=""/>
+                             
+                <h:outputText value="Physical address: " />  
+                <h:outputText value="#{foreignBean.travelerP.homeaddress}" />
+                <h:message for=""/>
+                
+                <h:outputText value="Telephone number: " />  
+                <h:outputText value="#{foreignBean.travelerP.mobilephone}"/> 
+                <h:message for=""/>
+                            
+                <h:outputText value="Fax number: " />  
+                <h:outputText value="#{foreignBean.travelerP.businessfax}" />
+                <h:message for=""/>
+                            
+                <h:outputText value="I.D. number: " />  
+                <h:outputText value="#{foreignBean.travelerP.idnumber}" />
+                <h:message for=""/>
+                            
+                <h:outputText value="Nationality Of Passport: " />  
+                <h:outputText value="#{foreignBean.travelD.country}" /> 
+                <h:message for=""/>
+                            
+                <h:outputText value="Passport Number: " />  
+                <h:outputText value="#{foreignBean.travelD.passportnumber}" />
+                <h:message for=""/>
+                            
+                <h:outputText value="Company contact name: " />  
+                <h:outputText value="#{foreignBean.travelerP.businessphone}" />  
+                <h:message for=""/>
+    
+                <h:outputText value="Destination: " />  
+                <h:outputText value="#{foreignBean.itinerary.destination}" /> 
+                <h:message for=""/>
+                            
+                <h:outputText value="Date of departure: " />  
+                <h:outputText value="#{foreignBean.viewForX.dateofdepart}" />
+                <h:message for=""/>
+                            
+                <h:outputText value="Date of return: " />  
+                <h:outputText value="#{foreignBean.viewForX.dateofreturn}"/>
+                <h:message for=""/>
+                            
+                <h:outputText value="Ticket number/ reference number: " />  
+                <h:outputText value="#{foreignBean.viewForX.ticketnum}" /> 
+                <h:message for=""/>
+                            
+                <h:outputText value="Voyager number: " />  
+                <h:outputText value="#{foreignBean.viewForX.voyagernum}" />                            
+                <h:message for="" />                
+           
+              </h:panelGrid>  
+              </fieldset> 
+              <fieldset><legend>Breakdown of Forex required</legend>
+                  <h:panelGrid columns="2" columnClasses="label, value">  
+                  <h:outputText value="Travellers cheques: " />  
+                  <h:outputText value="#{foreignBean.viewForX.travelerscheques}" /> 
+                           
+                  <h:outputText value="Foreign cash: " />  
+                  <h:outputText value="#{foreignBean.viewForX.cash}" /> 
+                            
+                  <h:outputText value="Cash passport Card:(GBP, USD, AUD, EURO): " />  
+                  <h:outputText value="#{foreignBean.viewForX.cashpassport}" /> 
+                            
+                  <h:outputText value="Type: (Visa, diners etc): " />  
+                  <h:outputText value="#{foreignBean.viewForX.cctype}" />
+                            
+                  <h:outputText value="Number: " />  
+                  <h:outputText value="#{foreignBean.viewForX.ccnumber}" /> 
+                            
+                  <h:outputText value="Last 3 digits on reverse of card : " />  
+                  <h:outputText value="#{foreignBean.viewForX.cclast3}" /> 
+                            
+                  <h:outputText value="Expiry date: " />  
+                  <h:outputText value="#{foreignBean.viewForX.ccexpirydate}" />
+                            
+                  <h:outputText value="Amount: " />  
+                  <h:outputText value="#{foreignBean.viewForX.ccpaymentamount}" /> 
+                  </h:panelGrid>  
+            </fieldset> 
+             
+            <fieldset><legend>Delivery Information</legend> 
+              <h:panelGrid columns="2" columnClasses="label, value">  
+                                              
+             <h:outputText value="Date and time: Required: " />                              
+             <h:outputText value="#{foreignBean.viewForX.dateofrequired}" />
+                            
+             <h:outputText value="Date and Time: Will be confirmed by Forex Consultant: " />  
+             <h:outputText value="#{foreignBean.viewForX.datewillbeconfirmed}" />
+                            
+             </h:panelGrid>                
+            </fieldset>  
+             
+            <fieldset><legend>Additional Information</legend> 
+                
+                <h:panelGrid columns="2" columnClasses="label, value">  
+                                              
+                 <h:outputText value="Reason for travel: " />  
+                 <h:outputText value="#{foreignBean.viewForX.reasonfortravel}" /> 
+                          
+                </h:panelGrid>   
+                
+            </fieldset>
+          </p:panel> 
+            
+        </h:form>
+        
+         <div id= "footer">
+            <div class="row group">
+                <div class="col">
+                    <h3>Quick links</h3>
+                    <ul>
+                            <li><a href="">Site Map</a></li>
+                            <li><a href="">FAQ</a></li>
+                            <li><a href="">Contact us</a></li>
+                    </ul>
+                </div>
+                
+                <h3>Legal</h3>
+                <p class="legal">Created by school of IT, Monash University South Africa</p>		
+            </div>
+        </div>
+        
+    </h:body>
+</html>

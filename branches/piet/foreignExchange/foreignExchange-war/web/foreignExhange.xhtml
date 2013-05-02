@@ -3,13 +3,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
        xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>foreign Exchange</title>
+   <h:head>
+        <title>Foreign Exh Page</title>
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
     </h:head>
-    
-    <h:body>  
-        
+    <h:body>
+        <div id ="header">
+            <div id="logo">
+                    <img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
+            </div>
+
+            <ul>
+                    <li><a href="">Help</a></li>
+                    
+            </ul> 
+        </div>
         
         <h:form>
             <p:growl id="growl" sticky="true" showDetail="true"/>  
@@ -59,8 +67,8 @@
                             <h:message for=""/>
       
                             <h:outputText value="Destination: " />  
-                            <p:inputText id="destination" value="#{foreignBean.distination}" required="true" requiredMessage="required field"/> 
-                            <p:message for="destination"/>
+                            <h:outputText value="#{foreignBean.itinerary.destination}" /> 
+                            <h:message for=""/>
                             
                             <h:outputText value="Date of departure: " />  
                             <p:calendar id="dateDeparture" value="#{foreignBean.departure}" showButtonPanel="true" navigator="true" required="true" requiredMessage="required field"/>
@@ -78,14 +86,13 @@
                             <p:inputText id="voyagerNum" value="#{foreignBean.voyagerNum}" required="true" requiredMessage="required field"/>                            
                             <p:message for="voyagerNum"/>
                             
+                            
                         </h:panelGrid>  
                     </p:panel>  
                 </p:tab>  
 
                 <p:tab id="Forex" title="Forex">  
                     <p:panel header="Breakdown of Forex required">  
-
-                        <h:messages errorClass="error"/>  
 
                         <h:panelGrid columns="2" columnClasses="label, value">  
                             <h:outputText value="Travellers cheques: " />  
@@ -104,7 +111,7 @@
                             <p:inputText value="#{foreignBean.number}" /> 
                             
                             <h:outputText value="Last 3 digits on reverse of card : " />  
-                            <p:inputText value="#{foreignBean.last3}"  maxlength="3"/> 
+                            <p:inputText value="#{foreignBean.last3}"  maxlength="3" /> 
                             
                             <h:outputText value="Expiry date: " />  
                             <p:calendar id="ExpireDate" value="#{foreignBean.expire}" showButtonPanel="true" navigator="true"/>
@@ -118,11 +125,9 @@
                 <p:tab id="Delivery" title="Delivery">  
                     <p:panel header="Delivery Information">  
 
-                        <h:messages errorClass="error"/>  
-
                         <h:panelGrid columns="2" columnClasses="label, value">  
                                               
-                            <h:outputText value="Date and time: required: " />                              
+                            <h:outputText value="Date and time: Required: " />                              
                             <p:calendar id="dateRe" value="#{foreignBean.dateRequired}" showButtonPanel="true" navigator="true"/>
                             
                             <h:outputText value="Date and Time: Will be confirmed by Forex Consultant: " />  
@@ -133,21 +138,38 @@
                 </p:tab>  
                 
                 <p:tab id="Additional" title="Additional Information">  
-                    <p:panel header="Additional Information ">  
-
-                        <h:messages errorClass="error"/>  
+                    <p:panel header="Additional Information "> 
 
                         <h:panelGrid columns="2" columnClasses="label, value">  
                                               
                             <h:outputText value="Reason for travel: " />  
                             <p:inputTextarea value="#{foreignBean.reasonForTravel}" /> 
                           
-                        </h:panelGrid>  
+                        </h:panelGrid>                         
+                        
+                        <p:commandButton value="Submit" ajax="false"
+                                         actionListener="#{foreignBean.createForm()}" />
                     </p:panel>  
                 </p:tab>  
 
             </p:wizard>   
         </h:form>  
+            
+            <div id= "footer">
+            <div class="row group">
+                <div class="col">
+                    <h3>Quick links</h3>
+                    <ul>
+                            <li><a href="">Site Map</a></li>
+                            <li><a href="">FAQ</a></li>
+                            <li><a href="">Contact us</a></li>
+                    </ul>
+                </div>
+                
+                <h3>Legal</h3>
+                <p class="legal">Created by school of IT, Monash University South Africa</p>		
+            </div>
+        </div>
          
     </h:body>
 </html>
