@@ -75,8 +75,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Travelerprofile.findByClassinternational", query = "SELECT t FROM Travelerprofile t WHERE t.classinternational = :classinternational"),
     @NamedQuery(name = "Travelerprofile.findByMealrequirements", query = "SELECT t FROM Travelerprofile t WHERE t.mealrequirements = :mealrequirements")})
 public class Travelerprofile implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travlerprofileIdtravlerprofile")
-    private Collection<Traveldocument> traveldocumentCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -197,9 +195,17 @@ public class Travelerprofile implements Serializable {
     @Size(max = 45)
     @Column(name = "MEALREQUIREMENTS")
     private String mealrequirements;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelerprofileIdtravelerprofile")
+    private Collection<Rewardsprogram> rewardsprogramCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelerprofileIdtravelerprofile")
+    private Collection<Application> applicationCollection;
     @JoinColumn(name = "ACCOUNTID", referencedColumnName = "IDACCOUNT")
     @ManyToOne(optional = false)
     private Account accountid;
+    @OneToMany(mappedBy = "travelerprofileIdtravelerprofile")
+    private Collection<Attachement> attachementCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travlerprofileIdtravlerprofile")
+    private Collection<Traveldocument> traveldocumentCollection;
 
     public Travelerprofile() {
     }
@@ -520,12 +526,48 @@ public class Travelerprofile implements Serializable {
         this.mealrequirements = mealrequirements;
     }
 
+    @XmlTransient
+    public Collection<Rewardsprogram> getRewardsprogramCollection() {
+        return rewardsprogramCollection;
+    }
+
+    public void setRewardsprogramCollection(Collection<Rewardsprogram> rewardsprogramCollection) {
+        this.rewardsprogramCollection = rewardsprogramCollection;
+    }
+
+    @XmlTransient
+    public Collection<Application> getApplicationCollection() {
+        return applicationCollection;
+    }
+
+    public void setApplicationCollection(Collection<Application> applicationCollection) {
+        this.applicationCollection = applicationCollection;
+    }
+
     public Account getAccountid() {
         return accountid;
     }
 
     public void setAccountid(Account accountid) {
         this.accountid = accountid;
+    }
+
+    @XmlTransient
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
+    }
+
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
+    }
+
+    @XmlTransient
+    public Collection<Traveldocument> getTraveldocumentCollection() {
+        return traveldocumentCollection;
+    }
+
+    public void setTraveldocumentCollection(Collection<Traveldocument> traveldocumentCollection) {
+        this.traveldocumentCollection = traveldocumentCollection;
     }
 
     @Override
@@ -551,15 +593,6 @@ public class Travelerprofile implements Serializable {
     @Override
     public String toString() {
         return "Entity.Travelerprofile[ idtravelerprofile=" + idtravelerprofile + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Traveldocument> getTraveldocumentCollection() {
-        return traveldocumentCollection;
-    }
-
-    public void setTraveldocumentCollection(Collection<Traveldocument> traveldocumentCollection) {
-        this.traveldocumentCollection = traveldocumentCollection;
     }
     
 }

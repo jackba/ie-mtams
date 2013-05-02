@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
     @NamedQuery(name = "Account.findByIdaccount", query = "SELECT a FROM Account a WHERE a.idaccount = :idaccount"),
-    @NamedQuery(name = "Account.findByUsername", query = "SELECT a FROM Account a WHERE a.username = :username"),
+    @NamedQuery(name = "Account.findByAccount", query = "SELECT a FROM Account a WHERE a.account = :account"),
     @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password"),
     @NamedQuery(name = "Account.findBySalt", query = "SELECT a FROM Account a WHERE a.salt = :salt"),
     @NamedQuery(name = "Account.findByDatecreated", query = "SELECT a FROM Account a WHERE a.datecreated = :datecreated"),
@@ -50,8 +50,8 @@ public class Account implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "USERNAME")
-    private String username;
+    @Column(name = "ACCOUNT")
+    private String account;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 512)
@@ -66,8 +66,16 @@ public class Account implements Serializable {
     @Column(name = "DATELOGIN")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datelogin;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountIdaccount")
+    private Collection<Application> applicationCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
     private Collection<Travelerprofile> travelerprofileCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private Collection<Session> sessionCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountIdaccount")
+    private Collection<Approval> approvalCollection;
+    @OneToMany(mappedBy = "accountid")
+    private Collection<Accountrole> accountroleCollection;
 
     public Account() {
     }
@@ -76,9 +84,9 @@ public class Account implements Serializable {
         this.idaccount = idaccount;
     }
 
-    public Account(Integer idaccount, String username, String password) {
+    public Account(Integer idaccount, String account, String password) {
         this.idaccount = idaccount;
-        this.username = username;
+        this.account = account;
         this.password = password;
     }
 
@@ -90,12 +98,12 @@ public class Account implements Serializable {
         this.idaccount = idaccount;
     }
 
-    public String getUsername() {
-        return username;
+    public String getAccount() {
+        return account;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public String getPassword() {
@@ -131,12 +139,48 @@ public class Account implements Serializable {
     }
 
     @XmlTransient
+    public Collection<Application> getApplicationCollection() {
+        return applicationCollection;
+    }
+
+    public void setApplicationCollection(Collection<Application> applicationCollection) {
+        this.applicationCollection = applicationCollection;
+    }
+
+    @XmlTransient
     public Collection<Travelerprofile> getTravelerprofileCollection() {
         return travelerprofileCollection;
     }
 
     public void setTravelerprofileCollection(Collection<Travelerprofile> travelerprofileCollection) {
         this.travelerprofileCollection = travelerprofileCollection;
+    }
+
+    @XmlTransient
+    public Collection<Session> getSessionCollection() {
+        return sessionCollection;
+    }
+
+    public void setSessionCollection(Collection<Session> sessionCollection) {
+        this.sessionCollection = sessionCollection;
+    }
+
+    @XmlTransient
+    public Collection<Approval> getApprovalCollection() {
+        return approvalCollection;
+    }
+
+    public void setApprovalCollection(Collection<Approval> approvalCollection) {
+        this.approvalCollection = approvalCollection;
+    }
+
+    @XmlTransient
+    public Collection<Accountrole> getAccountroleCollection() {
+        return accountroleCollection;
+    }
+
+    public void setAccountroleCollection(Collection<Accountrole> accountroleCollection) {
+        this.accountroleCollection = accountroleCollection;
     }
 
     @Override

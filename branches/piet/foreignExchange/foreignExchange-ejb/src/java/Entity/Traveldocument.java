@@ -5,6 +5,7 @@
 package Entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,11 +17,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -59,6 +62,8 @@ public class Traveldocument implements Serializable {
     @Size(max = 45)
     @Column(name = "VALIDVISA")
     private String validvisa;
+    @OneToMany(mappedBy = "traveldocumentIdtraveldocuments")
+    private Collection<Attachement> attachementCollection;
     @JoinColumn(name = "TRAVLERPROFILE_IDTRAVLERPROFILE", referencedColumnName = "IDTRAVELERPROFILE")
     @ManyToOne(optional = false)
     private Travelerprofile travlerprofileIdtravlerprofile;
@@ -116,6 +121,15 @@ public class Traveldocument implements Serializable {
 
     public void setValidvisa(String validvisa) {
         this.validvisa = validvisa;
+    }
+
+    @XmlTransient
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
+    }
+
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
     }
 
     public Travelerprofile getTravlerprofileIdtravlerprofile() {

@@ -5,6 +5,8 @@
 package Service;
 
 import Entity.Account;
+import Entity.Forexorder;
+import Entity.Itinerary;
 import Entity.Traveldocument;
 import Entity.Travelerprofile;
 import javax.ejb.Local;
@@ -16,6 +18,9 @@ import javax.ejb.Local;
 @Local
 public interface clientServer 
 {
+    public Itinerary findItinerary(Integer id);
     public Travelerprofile find(Integer id);
     public Traveldocument findDocument(Integer id);
+    public void createForX(Forexorder forerorder);
+    public Forexorder findForX(Integer id);
 }
