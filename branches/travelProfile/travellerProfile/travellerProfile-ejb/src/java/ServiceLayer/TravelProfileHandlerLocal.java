@@ -18,6 +18,7 @@ import javax.ejb.Local;
 public interface TravelProfileHandlerLocal {
 
     public void persist(Travelerprofile profile,Traveldocument passport);
+    public void persistProfileEdit(Travelerprofile profile, int accountID);
     public void persistReward(Rewardsprogram reward);
     public Travelerprofile findTravelProf(Integer id);
     public Traveldocument findTravelDoc(Integer id);
