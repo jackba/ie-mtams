@@ -8,14 +8,17 @@ import Entities.Rewardsprogram;
 import Entities.Traveldocument;
 import Entities.Travelerprofile;
 import ServiceLayer.TravelProfileHandlerLocal;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIData;
+import javax.faces.context.FacesContext;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
 
@@ -25,7 +28,7 @@ import org.primefaces.event.FlowEvent;
  */
 @ManagedBean(name = "travel")
 @ViewScoped
-public class TravelProfileBean {
+public class TravelProfileBean implements Serializable{
     //======change===change=========change============change=========change====
     //-------------------------------------------------------------------------
     private int accountID =1;
@@ -113,6 +116,7 @@ public class TravelProfileBean {
     
     private Travelerprofile profile;
     private Travelerprofile profileRef;
+    private Travelerprofile profileEditRef;
     
     private Traveldocument passport;
     private Traveldocument passportRef;
@@ -210,6 +214,10 @@ public class TravelProfileBean {
             handler.persistReward(reward3);
         }
    }
+    
+    public void update(){
+        handler.persistProfileEdit(profileRef,accountID);
+    }
 
     public Traveldocument getPassportRef() {
         int profileID = profileRef.getIdtravelerprofile();
@@ -220,11 +228,14 @@ public class TravelProfileBean {
     public void setPassportRef(Traveldocument passportRef) {
         this.passportRef = passportRef;
     }
-    
+    //========================================HERE==============================//
+    //--------------------------PROFILEREF GET() HERE!!!!!!---------------------//
     public Travelerprofile getProfileRef() {
         profileRef = handler.findTravelProf(accountID);
+        
         return profileRef;
     }
+    //=======================================HERE===============================//
 
     public void setProfileRef(Travelerprofile profileRef) {
         this.profileRef = profileRef;
@@ -247,6 +258,13 @@ public class TravelProfileBean {
 
     public void setDataTable(UIData dataTable) {
         this.dataTable = dataTable;
+    }
+    public void checkDate(){
+       long check;
+       check = expiryDate.getTime()-dateOfIssue.getTime();
+       if(check < 1){
+           FacesContext.getCurrentInstance().addMessage("calender", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Login Error","Incorrect username/password combination"));
+       }
     }
     
     public String getDepartment() {
@@ -454,6 +472,7 @@ public class TravelProfileBean {
     }
 
     public void setExpiryDate(Date expiryDate) {
+        checkDate();
         this.expiryDate = expiryDate;
     }
 

@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Traveller Profile</title>
+        <link href="css/styles.css" rel="Stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <div id ="header">
+            <div id="logo">
+                    <img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
+            </div>
+
+            <ul>
+                    <li><a href="">Help</a></li>
+                    
+            </ul>
+        </div>
+        <h:form>
+            <p:panel header="Traveller Profile">
+                <fieldset><legend>Personal Details</legend>
+                    <h:panelGrid columns="2">  
+
+                         <h:outputText value="Department: " />
+                         <p:inplace id="selectableInplace" >  
+                            <h:selectOneMenu value="#{travel.profileRef.department}">  
+                                <f:selectItem itemLabel="Financial" itemValue="Financial" />  
+                                <f:selectItem itemLabel="Information Technology" itemValue="Information Technology" />  
+                                <f:selectItem itemLabel="Health Sciences" itemValue="Health Sciences" />  
+                                <f:selectItem itemLabel="Business" itemValue="Business" />
+                                <f:selectItem itemLabel="Arts" itemValue="Arts" />  
+                            </h:selectOneMenu>  
+                         </p:inplace>                       
+
+                         <h:outputText value="Position: " />
+                         <p:inplace id="posE">  
+                            <p:inputText value="#{travel.profileRef.position}" />  
+                         </p:inplace>                         
+
+                         <h:outputText value="Secretary/Travel Booker: " />
+                         <p:inplace id="secretary">  
+                            <p:inputText value="#{travel.profileRef.travelbooker}" />  
+                         </p:inplace>                                                    
+
+                         <h:outputText value="First Name: " />  
+                         <p:inplace id="firstN">  
+                             <p:inputText value="#{travel.profileRef.firstname}" />  
+                         </p:inplace>                           
+                    </h:panelGrid>
+                    
+                </fieldset> 
+                
+            </p:panel>
+            <p:commandButton value="Submit" action="#{travel.update()}" ajax="false"/>
+        </h:form>
+        
+        <div id= "footer">
+            <div class="row group">
+                <div class="col">
+                    <h3>Quick links</h3>
+                    <ul>
+                            <li><a href="">Site Map</a></li>
+                            <li><a href="">FAQ</a></li>
+                            <li><a href="">Contact us</a></li>
+                    </ul>
+                </div>
+                
+                <h3>Legal</h3>
+                <p class="legal">Created by school of IT, Monash University South Africa</p>  
+            </div>
+        </div>
+    </h:body>
+</html>
+
