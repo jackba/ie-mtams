@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -120,6 +121,7 @@ public class TravelProfileBean implements Serializable{
     
     private Traveldocument passport;
     private Traveldocument passportRef;
+    private Traveldocument passportEditRef;
     
     private Rewardsprogram reward1;
     private Rewardsprogram reward2;
@@ -216,7 +218,56 @@ public class TravelProfileBean implements Serializable{
    }
     
     public void update(){
-        handler.persistProfileEdit(profileRef,accountID);
+        profileEditRef.setDepartment(department);
+        profileEditRef.setPosition(position);
+        profileEditRef.setTravelbooker(travelBooker);
+        profileEditRef.setFirstname(firstName);        
+                
+        profileEditRef.setFamilyname(surname);        
+        profileEditRef.setMiddlename(middleName);
+        profileEditRef.setTitle(title);
+        profileEditRef.setIdnumber(idNo);
+        
+        profileEditRef.setBusinessaddress(busAddress);
+        profileEditRef.setBusinessphone(busPhone);
+        profileEditRef.setBusinessfax(busFax);
+        
+        profileEditRef.setHomeaddress(homeAddress);
+        profileEditRef.setHomephone(homePhone);
+        profileEditRef.setHomeemail(email);
+        profileEditRef.setMobilephone(mobilePhone);
+        profileEditRef.setSpousename(spouseName);
+        profileEditRef.setSpousecontactnumber(spouseContactNo);
+        profileEditRef.setSpouseemail(spouseEmail);
+        
+        profileEditRef.setDoctorsname(docName);
+        profileEditRef.setDoctorsconctactnumber(docContactNo);
+        profileEditRef.setDoctorsemail(docEmail);
+        profileEditRef.setKnownmedicalconditions(knownMedConditions);
+        
+        //Airline
+        
+        profileEditRef.setSeatingposition(seat);
+        profileEditRef.setSeatinglocation(airPosition);
+        profileEditRef.setClassdomestic(classDomestic);
+        profileEditRef.setClassinternational(classInternational);
+        profileEditRef.setMealrequirements(specialMealReq);
+        profileEditRef.setAiradditionalrequirements(airAdditionalReq);
+        
+        //Hotel&Car
+        
+        profileEditRef.setManualautomatic(transmissionType);
+        profileEditRef.setAircon(aircon);
+        profileEditRef.setCarpreference1(carCompPref1);
+        profileEditRef.setCarpreference2(carCompPref2);
+        profileEditRef.setCargroup(carGroup);
+        profileEditRef.setCaradditionalrequirements(carAdditionalReq);
+        profileEditRef.setHotelprefrence(hotelPreference);
+        profileEditRef.setFrequentguestnum(freqGuestNo);
+        profileEditRef.setHoteladditionalrequirements(hotelAdditionalReq);
+        profileEditRef.setSmoking(smoking);
+        
+        handler.persistProfileEdit(profileEditRef,accountID);
     }
 
     public Traveldocument getPassportRef() {
@@ -707,4 +758,68 @@ public class TravelProfileBean implements Serializable{
     public void setHotelAdditionalReq(String hotelAdditionalReq) {
         this.hotelAdditionalReq = hotelAdditionalReq;
     }    
+
+    @PostConstruct
+    private void getProfile() {
+        Travelerprofile ref = handler.findTravelProf(accountID);
+        //Traveldocument pRef = handler.findTravelDoc(accountID);
+        setDepartment(ref.getDepartment());
+        setPosition(ref.getPosition());
+        setTravelBooker(ref.getTravelbooker());
+        setFirstName(ref.getFirstname());       
+        setSurname(ref.getFamilyname());
+         
+        setMiddleName(ref.getMiddlename());
+        setTitle(ref.getTitle());
+        setIdNo(ref.getIdnumber());
+        
+        setBusAddress(ref.getBusinessaddress());
+        setBusPhone(ref.getBusinessphone());
+        setBusFax(ref.getBusinessfax());
+        
+        setHomeAddress(ref.getHomeaddress());
+        setHomePhone(ref.getHomephone());
+        setMobilePhone(ref.getMobilephone());
+        setEmail(ref.getHomeemail());
+        setSpouseName(ref.getSpousename());
+        setSpouseContactNo(ref.getSpousecontactnumber());
+        setSpouseEmail(ref.getSpouseemail());
+        
+        setDocName(ref.getDoctorsname());
+        setDocContactNo(ref.getDoctorsconctactnumber());
+        setDocEmail(ref.getDoctorsemail());
+        setKnownMedConditions(ref.getKnownmedicalconditions());
+        
+        //Passport
+        /*
+        setPassportNo(pRef.getPassportnumber());
+        setCountry(pRef.getCountry());
+        setDateOfIssue(pRef.getDateofissue());
+        setExpiryDate(pRef.getExpirydate());
+        setValidVisas(pRef.getValidvisa());
+        */
+       
+        //Airline Details
+        setSeat(ref.getSeatingposition());
+        setAirPosition(ref.getSeatinglocation());
+        setClassDomestic(ref.getClassdomestic());
+        setClassInternational(ref.getClassinternational());
+        setSpecialMealReq(ref.getMealrequirements());
+        setAirAdditionalReq(ref.getAiradditionalrequirements());
+        
+        //Car and Hotel
+        setTransmissionType(ref.getManualautomatic());
+        setAircon(ref.getAircon());
+        setCarCompPref1(ref.getCarpreference1());
+        setCarCompPref2(ref.getCarpreference2());
+        setCarGroup(ref.getCargroup());
+        setCarAdditionalReq(ref.getCaradditionalrequirements());
+        setHotelPreference(ref.getHotelprefrence());
+        setFreqGuestNo(ref.getFrequentguestnum());
+        setHotelAdditionalReq(ref.getHoteladditionalrequirements());
+        setSmoking(ref.getSmoking());
+        // passportEditRef = pRef;
+        
+        profileEditRef = ref;
+    }
 }

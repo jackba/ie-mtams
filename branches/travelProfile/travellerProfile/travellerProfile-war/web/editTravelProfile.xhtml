@@ -22,36 +22,272 @@
         <h:form>
             <p:panel header="Traveller Profile">
                 <fieldset><legend>Personal Details</legend>
-                    <h:panelGrid columns="2">  
+                    <h:panelGrid columns="3">  
 
-                         <h:outputText value="Department: " />
+                         <h:outputText value="Department:* " />
                          <p:inplace id="selectableInplace" >  
-                            <h:selectOneMenu value="#{travel.profileRef.department}">  
+                            <h:selectOneMenu id="deptIP" value="#{travel.department}">  
                                 <f:selectItem itemLabel="Financial" itemValue="Financial" />  
                                 <f:selectItem itemLabel="Information Technology" itemValue="Information Technology" />  
                                 <f:selectItem itemLabel="Health Sciences" itemValue="Health Sciences" />  
                                 <f:selectItem itemLabel="Business" itemValue="Business" />
                                 <f:selectItem itemLabel="Arts" itemValue="Arts" />  
                             </h:selectOneMenu>  
-                         </p:inplace>                       
+                         </p:inplace>
+                         <h:message for="deptIP"/>
 
-                         <h:outputText value="Position: " />
+                         <h:outputText value="Position:* " />
                          <p:inplace id="posE">  
-                            <p:inputText value="#{travel.profileRef.position}" />  
-                         </p:inplace>                         
+                            <p:inputText id="posIP" value="#{travel.position}" required="true" requiredMessage="Required Field"/>  
+                         </p:inplace>
+                         <h:message for="posIP"/>
 
-                         <h:outputText value="Secretary/Travel Booker: " />
+                         <h:outputText value="Secretary/Travel Booker:* " />
                          <p:inplace id="secretary">  
-                            <p:inputText value="#{travel.profileRef.travelbooker}" />  
-                         </p:inplace>                                                    
+                             <p:inputText id="secretaryIP" value="#{travel.travelBooker}" />  
+                         </p:inplace>
+                         <h:message for="secretaryIP"/>
 
-                         <h:outputText value="First Name: " />  
+                         <h:outputText value="First Name:* " />  
                          <p:inplace id="firstN">  
-                             <p:inputText value="#{travel.profileRef.firstname}" />  
-                         </p:inplace>                           
+                             <p:inputText value="#{travel.firstName}" />  
+                         </p:inplace>
+                         <h:message for=""/>
+
+                         <h:outputText value="Surname:* " />
+                         <p:inplace id="sur">  
+                            <p:inputText value="#{travel.surname}" />  
+                         </p:inplace>
+                         <h:message for=""/>
+
+                         <h:outputText value="Middle Name" />
+                         <p:inplace id="midn">  
+                            <p:inputText value="#{travel.middleName}" />  
+                         </p:inplace>
+                         <h:message for=""/>
+
+                         <h:outputText value="Title:"/>
+                         <p:inplace id="titleE">  
+                            <p:selectOneMenu value="#{travel.title}">  
+                                <f:selectItem itemLabel="Mr." itemValue="Mr" />  
+                                <f:selectItem itemLabel="Ms." itemValue="Ms" />  
+                                <f:selectItem itemLabel="Dr." itemValue="Dr" />  
+                                <f:selectItem itemLabel="Prof." itemValue="Prof" />
+                            </p:selectOneMenu>                            
+                         </p:inplace>
+                         <h:message for=""/>
+
+                         <h:outputText value="Identity Number:* " />
+                         <p:inplace id="idNo">  
+                             <p:inputText value="#{travel.idNo}" />  
+                         </p:inplace>
+                         <h:message for=""/>
+
+                          <h:outputText value="Business Address:* " />
+                         <p:inplace id="bAdd">  
+                            <p:inputText id="bAddIP" value="#{travel.busAddress}" required="true" requiredMessage="Required Field"/>  
+                         </p:inplace>
+                         <h:message for="bAddIP"/>
+                          
+                         <h:outputText value="Business Phone:* " />
+                         <p:inplace id="bPhone">  
+                            <p:inputText value="#{travel.busPhone}" />  
+                         </p:inplace>
+                         <h:message for=""/>
+
+                         <h:outputText value="Business Fax:" />
+                         <p:inplace id="bFax">  
+                             <p:inputText value="#{travel.busFax}" />  
+                         </p:inplace>  
+                         <h:message for=""/>
+                         
+                         <h:outputText value="Home Address: " />
+                         <p:inplace id="hAdd">  
+                            <p:inputText value="#{travel.homeAddress}" />  
+                         </p:inplace>
+                         <h:message for=""/>
+
+                         <h:outputText value="Mobile Phone: " />
+                         <p:inplace id="mobileP">  
+                            <p:inputText value="#{travel.mobilePhone}" />  
+                         </p:inplace>
+                         <h:message for=""/>
+
+                         <h:outputText value="Home Phone:" /> 
+                         <p:inplace id="homeP">  
+                            <p:inputText value="#{travel.homePhone}" />  
+                         </p:inplace>
+                         <h:message for=""/>
+                         
+                         <h:outputText value="Email Address: " />
+                         <p:inplace id="eMail">  
+                             <p:inputText value="#{travel.email}" />  
+                         </p:inplace>
+                         <h:message for=""/>
+
+                         <h:outputText value="Spouse's Name: " />  
+                         <p:inplace id="spName">  
+                            <p:inputText value="#{travel.spouseName}" />  
+                         </p:inplace>
+                         <h:message for=""/>
+
+                         <h:outputText value="Spouse's Contact Number:" />  
+                         <p:inplace id="spCon">  
+                             <p:inputText value="#{travel.spouseContactNo}" />  
+                         </p:inplace>
+                         <h:message for=""/>
+                         
+                         <h:outputText value="Spouse's Email:" />  
+                         <p:inplace id="spEm">  
+                            <p:inputText value="#{travel.spouseEmail}" />  
+                         </p:inplace>
+                         <h:message for=""/>
+
+                         <h:outputText value="Doctor's Name:" />
+                         <p:inplace id="DoctN">  
+                            <p:inputText value="#{travel.docName}" />  
+                         </p:inplace>
+                         <h:message for=""/>
+
+                         <h:outputText value="Doctor's Contact Number: " /> 
+                         <p:inplace id="doctC">  
+                             <p:inputText value="#{travel.docContactNo}" />  
+                         </p:inplace>       
+                         <h:message for=""/>
+
+                         <h:outputText value="Doctor's Email: " /> 
+                         <p:inplace id="doctEm">  
+                             <p:inputText value="#{travel.docEmail}" />  
+                         </p:inplace>       
+                         <h:message for=""/>
+
+                         <h:outputText value="Known Medical Conditions: " />
+                         <p:inplace id="docKMC">  
+                             <p:inputTextarea value="#{travel.knownMedConditions}" />  
+                         </p:inplace>      
+                         <h:message for=""/>
+                         
+                    </h:panelGrid>                    
+                </fieldset>
+                <fieldset><legend>Airline Details</legend>
+                    <h:panelGrid columns="3">  
+                                <h:outputText value="Seat Position:"/>
+                                <p:inplace id="seatPos">  
+                                    <p:selectOneRadio value="#{travel.seat}">
+                                        <f:selectItem itemValue="Aisle" itemLabel="Aisle" />
+                                        <f:selectItem itemValue="Window" itemLabel="Window" />
+                                    </p:selectOneRadio>  
+                                </p:inplace>                                
+                    </h:panelGrid>
+                    <h:panelGrid columns="4">
+                                <h:outputText value="Seat Location:"/>
+                                <p:inplace id="seatLoc">
+                                    <p:selectOneRadio value="#{travel.airPosition}">
+                                          <f:selectItem itemValue="Front" itemLabel="Front" />
+                                          <f:selectItem itemValue="Middle" itemLabel="Middle" />
+                                          <f:selectItem itemValue="Back" itemLabel="Back" />
+                                    </p:selectOneRadio>
+                                </p:inplace>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                                <h:outputText value="Class of Travel: Domestic " /> 
+                                <p:inplace id="cotD">
+                                    <p:selectOneMenu value="#{travel.classDomestic}">  
+                                        <f:selectItem itemLabel="First" itemValue="First" />  
+                                        <f:selectItem itemLabel="Business" itemValue="Business" />  
+                                        <f:selectItem itemLabel="Economy" itemValue="Economy" />  
+                                    </p:selectOneMenu>                                  
+                                </p:inplace>
+                                
+                                <h:outputText value="Class of Travel: International " />
+                                <p:inplace id="cotI">
+                                    <p:selectOneMenu value="#{travel.classInternational}">  
+                                        <f:selectItem itemLabel="First" itemValue="First" />  
+                                        <f:selectItem itemLabel="Business" itemValue="Business" />  
+                                        <f:selectItem itemLabel="Economy" itemValue="Economy" />  
+                                    </p:selectOneMenu>
+                                </p:inplace>  
+
+                                <h:outputText value="Special Meal Requirements " />  
+                                <p:inplace id="specialMealReqs">
+                                    <p:inputText value="#{travel.specialMealReq}" />
+                                </p:inplace>
+
+                                <h:outputText value="Additional Requirements: " />  
+                                <p:inplace id="airAdditReq">
+                                    <p:inputText value="#{travel.airAdditionalReq}" />
+                                </p:inplace>
+                              
+                    </h:panelGrid>
+                </fieldset>
+                
+                <fieldset><legend>Car and Hotel Details</legend>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Transmission Type:"/>
+                        <p:inplace id="tansType">
+                            <p:selectOneRadio value="#{travel.transmissionType}">
+                                 <f:selectItem itemValue="Automatic" itemLabel="Automatic" />
+                                 <f:selectItem itemValue="Manual" itemLabel="Manual" />
+                            </p:selectOneRadio>
+                        </p:inplace>
+
+                        <h:outputText value="Aircon:"/>
+                        <p:inplace id="acYN">
+                            <p:selectOneRadio value="#{travel.aircon}">
+                             <f:selectItem itemValue="Yes" itemLabel="Yes" />
+                             <f:selectItem itemValue="No" itemLabel="No" />
+                            </p:selectOneRadio>
+                        </p:inplace>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Company Prefrence 1: "/>
+                        <p:inplace id="carComp1">
+                            <p:inputText value="#{travel.carCompPref1}" />
+                        </p:inplace>
+
+                        <h:outputText value="Company Prefrence 2: "/> 
+                        <p:inplace id="carComp2">
+                            <p:inputText value="#{travel.carCompPref2}" />
+                        </p:inplace>
+
+                        <h:outputText value="Car Group: "/>
+                        <p:inplace id="carGroup">
+                            <p:inputText value="#{travel.carGroup}" />
+                        </p:inplace>                           
+                    
+                        <h:outputText value="Additional Requirements: "/>
+                        <p:inplace id="carAdditionalReqs">
+                            <p:inputTextarea value="#{travel.carAdditionalReq}" />
+                        </p:inplace>
+
+                        <h:outputText value="Hotel Preference: "/>
+                        <p:inplace id="hotelPref">
+                            <p:inputText value="#{travel.hotelPreference}" />
+                        </p:inplace>
+                        
+                        <h:outputText value="Freq Guest Number: "/>
+                        <p:inplace id="freqGuestNum">
+                            <p:inputText value="#{travel.freqGuestNo}" />
+                        </p:inplace>
+
+                        <h:outputText value="Additional Requirements: "/>
+                        <p:inplace id="hotelAdditionalReqs">
+                            <p:inputTextarea value="#{travel.hotelAdditionalReq}" />
+                        </p:inplace>
+                    </h:panelGrid>
+                    
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Smoking? "/>
+                        <p:inplace id="smoking">
+                            <p:selectOneRadio value="#{travel.smoking}">
+                                     <f:selectItem itemValue="Yes" itemLabel="Yes" />
+                                     <f:selectItem itemValue="No" itemLabel="No" />
+                            </p:selectOneRadio>
+                        </p:inplace>
                     </h:panelGrid>
                     
                 </fieldset> 
+                
                 
             </p:panel>
             <p:commandButton value="Submit" action="#{travel.update()}" ajax="false"/>
