@@ -15,9 +15,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import javax.validation.constraints.Pattern;
@@ -28,7 +28,7 @@ import org.primefaces.event.FlowEvent;
  * @author Alexandre Damasio!!!!
  */
 @ManagedBean(name = "travel")
-@ViewScoped
+@SessionScoped
 public class TravelProfileBean implements Serializable{
     //======change===change=========change============change=========change====
     //-------------------------------------------------------------------------
@@ -47,29 +47,29 @@ public class TravelProfileBean implements Serializable{
     @Pattern(message="Invalid ID", regexp="[0-9]{13,15}")
     private String idNo;
     private String busAddress;
-    @Pattern(message="Invalid Number", regexp="[0-9]{10}")
+    @Pattern(message="Invalid Number", regexp="[0-9]{10,16}")
     private String busPhone;
-    @Pattern(message="Invalid Number", regexp="[0-9]{0,10}")
+    @Pattern(message="Invalid Number", regexp="[0-9]{0,16}")
     private String busFax;
     private String homeAddress;
-    @Pattern(message="Invalid Number", regexp="[0-9]{10}")
+    @Pattern(message="Invalid Number", regexp="[0-9]{10,16}")
     private String mobilePhone;
-    @Pattern(message="Invalid Number", regexp="[0-9]{0,10}")
+    @Pattern(message="Invalid Number", regexp="[0-9]{0,16}")
     private String homePhone;
     
-    @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
+    @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String email;
     
     private String spouseName;
-    @Pattern(message="Invalid Number", regexp="[0-9]{0,10}")
+    @Pattern(message="Invalid Number", regexp="[0-9]{0,16}")
     private String spouseContactNo;
     
     private String spouseEmail;
     private String docName;
-    @Pattern(message="Invalid Number", regexp="[0-9]{10}")
+    @Pattern(message="Invalid Number", regexp="[0-9]{10,16}")
     private String docContactNo;
     
-    @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
+    @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String docEmail;
     private String knownMedConditions;
     
@@ -267,7 +267,30 @@ public class TravelProfileBean implements Serializable{
         profileEditRef.setHoteladditionalrequirements(hotelAdditionalReq);
         profileEditRef.setSmoking(smoking);
         
+        //Passport
+        
+        passportEditRef.setPassportnumber(passportNo);
+        passportEditRef.setCountry(country);
+        passportEditRef.setDateofissue(dateOfIssue);
+        passportEditRef.setExpirydate(expiryDate);
+        passportEditRef.setValidvisa(validVisas);
+        
         handler.persistProfileEdit(profileEditRef,accountID);
+        FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success","Changes have been saved"));
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    //to be removed
+    ////////////////////////////////////////
+    public String goHome(){
+        return "viewTravelProfile";
+    }
+    
+    public String editProfile(){
+        return "editTravelProfile";
+    }
+    
+    public String viewProfile(){
+        return "viewTravelProfile";
     }
 
     public Traveldocument getPassportRef() {
@@ -310,6 +333,7 @@ public class TravelProfileBean implements Serializable{
     public void setDataTable(UIData dataTable) {
         this.dataTable = dataTable;
     }
+    /*
     public void checkDate(){
        long check;
        check = expiryDate.getTime()-dateOfIssue.getTime();
@@ -317,6 +341,7 @@ public class TravelProfileBean implements Serializable{
            FacesContext.getCurrentInstance().addMessage("calender", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Login Error","Incorrect username/password combination"));
        }
     }
+    */
     
     public String getDepartment() {
         return department;
@@ -523,7 +548,7 @@ public class TravelProfileBean implements Serializable{
     }
 
     public void setExpiryDate(Date expiryDate) {
-        checkDate();
+        //checkDate();
         this.expiryDate = expiryDate;
     }
 
@@ -761,8 +786,12 @@ public class TravelProfileBean implements Serializable{
 
     @PostConstruct
     private void getProfile() {
+        ///////////////////////////////////REMOVE/////////////////////////////////
+        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+
+        
         Travelerprofile ref = handler.findTravelProf(accountID);
-        //Traveldocument pRef = handler.findTravelDoc(accountID);
+        Traveldocument pRef = handler.findTravelDoc(ref.getIdtravelerprofile());
         setDepartment(ref.getDepartment());
         setPosition(ref.getPosition());
         setTravelBooker(ref.getTravelbooker());
@@ -791,14 +820,13 @@ public class TravelProfileBean implements Serializable{
         setKnownMedConditions(ref.getKnownmedicalconditions());
         
         //Passport
-        /*
+       
         setPassportNo(pRef.getPassportnumber());
         setCountry(pRef.getCountry());
         setDateOfIssue(pRef.getDateofissue());
         setExpiryDate(pRef.getExpirydate());
         setValidVisas(pRef.getValidvisa());
-        */
-       
+           
         //Airline Details
         setSeat(ref.getSeatingposition());
         setAirPosition(ref.getSeatinglocation());
@@ -818,8 +846,8 @@ public class TravelProfileBean implements Serializable{
         setFreqGuestNo(ref.getFrequentguestnum());
         setHotelAdditionalReq(ref.getHoteladditionalrequirements());
         setSmoking(ref.getSmoking());
-        // passportEditRef = pRef;
         
+        passportEditRef = pRef;
         profileEditRef = ref;
     }
 }

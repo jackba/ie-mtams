@@ -16,8 +16,22 @@
 
             <ul>
                     <li><a href="">Help</a></li>
-                    
+                    <li><a href="">Logout</a></li>
             </ul>
+        </div>
+        <div class="nav">
+        <p:menubar>
+            <p:menuitem value="Home" icon="ui-icon-home" outcome="#{travel.goHome()}"/>
+            
+            <p:submenu label="Profile" icon="ui-icon-person">
+                <p:menuitem value="View Profile" outcome="#{travel.viewProfile()}"/>
+                <p:menuitem value="Edit Profile" outcome="#{travel.editProfile()}"/>
+            </p:submenu>
+            <p:submenu label="Applications" icon="ui-icon-note">
+                <p:menuitem value="Start New Application" url="newApplications.xhtml"/>
+                <p:menuitem value="Edit Application" url="applications.xhtml"/>
+            </p:submenu>
+        </p:menubar>
         </div>
         <h:form>
             <p:panel header="Traveller Profile">
