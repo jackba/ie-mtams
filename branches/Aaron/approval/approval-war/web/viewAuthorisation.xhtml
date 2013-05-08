@@ -1,0 +1,499 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>View authorisation</title>
+        <link href="css/styles.css" rel="Stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <div id ="header">
+            <div id="logo">
+                <img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
+            </div>
+
+            <ul>
+                <li><a href="">Help</a></li>
+                <li><a href="">Logout</a></li>
+            </ul>
+        </div>
+        <div class="nav">
+            <p:menubar>
+                <p:menuitem value="Home" icon="ui-icon-home" outcome="#{authorisation.goHome()}"/>
+
+                <p:submenu label="authorisation" icon="ui-icon-person">
+                    <p:menuitem value="View authorisation" outcome="#{authorisation.viewauthorisation()}"/>
+                    <p:menuitem value="Edit authorisation" outcome="#{authorisation.editauthorisation()}"/>
+                </p:submenu>
+                <p:submenu label="Applications" icon="ui-icon-note">
+                    <p:menuitem value="Start New Application" url="newApplications.xhtml"/>
+                    <p:menuitem value="Edit Application" url="applications.xhtml"/>
+                </p:submenu>
+            </p:menubar>
+        </div>
+
+        <h:form id="authorisationForm">
+
+
+            <p:tab id="authtabdetails" title="authorisation">
+                <p:panel header="Authorisation Details">
+                    <h:panelGrid id="authoriseTopGrid" columns="3">
+                        <h:outputText value="Name: " />
+                        <p:inputText id="name" value="#{authorisation.fcostingRef.name}" required="true" requiredMessage="Name is a required Field" />
+                        <p:message for="name"/>
+
+                        <h:outputText value="School / Administrative Unit: " />
+                        <p:inputText id="administrativeunit" value="#{authorisation.fcostingRef.administrativeunit}" required="true" requiredMessage="School / Administrative Unit is a required Field" />
+                        <p:message for="administrativeunit"/>
+
+                        <h:outputText value="Period of absence for business: " />
+                        <p:inputText id="absencebussiness" value="#{authorisation.fcostingRef.absencebussiness}" required="true" requiredMessage="Period of absence for business is a required Field" />
+                        <p:message for="absencebussiness"/>
+
+                        <h:outputText value="Period of absence for private: " />
+                        <p:inputText id="absenceprivate" value="#{authorisation.fcostingRef.absenceprivate}" required="true" requiredMessage="Period of absence for private is a required Field" />
+                        <p:message for="absenceprivate"/>
+
+                        <h:outputText value="Destination countries: " />
+                        <p:inputTextarea id="countries" value="#{authorisation.fcostingRef.countries}" required="true" requiredMessage="Destination countries is a required Field" />
+                        <p:message for="countries"/>
+
+                        <h:outputText value="Destination citys: " />
+                        <p:inputTextarea id="citys" value="#{authorisation.fcostingRef.citys}" required="true" requiredMessage="Destination citys is a required Field" />
+                        <p:message for="citys"/>
+
+
+                    </h:panelGrid>
+
+                    <p:selectManyCheckbox id="policycheck" required="true" requiredMessage="authorisation check list must be completed" value="#{authorisation.approvalChecklist}" layout="pageDirection">
+                        <h:outputText value="authorisation check list: " />
+                        <f:selectItem itemLabel="I hereby certify that the attached application meets requirements of the MSA travel policy and procedures.: " itemValue="1" />
+                        <f:selectItem itemLabel="I hereby certify that the travel costs can be met within the specified budget. .: " itemValue="2" />
+                        <f:selectItem itemLabel="I hereby authorize the attached travel application.: " itemValue="3" />
+                    </p:selectManyCheckbox>
+                    <p:message for="policycheck"/>
+                </p:panel>
+            </p:tab>
+
+            <p:tab id="authotabCosting" title="authorisation">
+                <p:panel header="Authorisation Costing">
+
+                    <p:panelGrid id="authoriseFinalCostin" >
+
+                        <p:row>
+                            <p:column colspan="1">Final Costing</p:column>
+
+                            <p:column colspan="1">Budgeted Costs </p:column>
+
+                            <p:column colspan="1">Actual Costs</p:column>
+
+                            <p:column colspan="1">Message</p:column>
+
+                        </p:row>
+
+                        <p:row>
+
+                            <p:column>
+                                <h:outputText value="Airfare :" />
+                            </p:column>
+
+                            <p:column>
+                                <p:inputTextarea id="airfareBudget" value="#{authorisation.fcostingRef.airfareBudget}" required="true" requiredMessage="Airfare budgeted Cost is a required Field" />
+                            </p:column>
+
+                            <p:column>
+                                <p:inputTextarea id="airfareCost" value="#{authorisation.fcostingRef.airfareCost}" required="true" requiredMessage="Airfare actual Cost is a required Field" />
+                            </p:column>
+                            <p:column>
+                                <p:message for="airfareBudget"/>
+
+                                <p:message for="airfareCost"/>
+                            </p:column>
+
+                        </p:row>
+
+                        <p:row>
+
+                            <p:column>
+                                <h:outputText value="Car rental: " />
+                            </p:column>
+
+                            <p:column>
+                                <p:inputTextarea id="carRentalBudget" value="#{authorisation.fcostingRef.carRentalBudget}" required="true" requiredMessage="Car rental budgeted Cost is a required Field" />
+                            </p:column>
+
+                            <p:column>
+                                <p:inputTextarea id="carRentalCost" value="#{authorisation.fcostingRef.carRentalCost}" required="true" requiredMessage="Car rental actual Cost is a required Field" />
+                            </p:column>
+                            <p:column>
+                                <p:message for="airfareBudget"/>
+
+                                <p:message for="airfareCost"/>
+                            </p:column>
+
+                        </p:row>
+
+                        <p:row>
+
+                            <p:column>
+                                <h:outputText value="Accomodation: " />
+                            </p:column>
+                            <p:column>
+                                <p:inputTextarea id="accomodationBudget" value="#{authorisation.fcostingRef.accomodationBudget}" required="true" requiredMessage="Accomodation budgeted Cost is a required Field" />
+
+                            </p:column>
+
+                            <p:column>
+
+                                <p:inputTextarea id="accomodationCost" value="#{authorisation.fcostingRef.accomodationCost}" required="true" requiredMessage="Accomodation actual Cost is a required Field" />
+                            </p:column>
+                            <p:column>
+                                <p:message for="accomodationBudget"/>
+                                <p:message for="accomodationCost"/>
+                            </p:column>
+
+
+                        </p:row>
+                        <p:row>
+
+
+                            <p:column>
+                                <h:outputText value="Accomodation number of days: " />
+                            </p:column>
+
+                            <p:column >
+                                <p:inputTextarea id="accomodationDays" value="#{authorisation.fcostingRef.accommodatedays}" required="true" requiredMessage="Accomodation number of days is a required Field" />
+                            </p:column>
+
+                            <p:column>
+                            </p:column>
+
+                            <p:column>
+                                <p:message for="accomodationDays"/>
+                            </p:column>
+
+
+                        </p:row>
+                        <p:row>
+
+
+
+
+
+                            <p:column>
+                                <h:outputText value="Per diem " />
+                            </p:column>
+
+                            <p:column>
+                                <p:inputTextarea id="PerdiemBudget" value="#{authorisation.fcostingRef.perdiembudget}" required="true" requiredMessage="Per diem budgeted Cost is a required Field" />
+
+                            </p:column>
+
+                            <p:column>
+                                <p:inputTextarea id="PerdiemCost" value="#{authorisation.fcostingRef.perdiemcost}" required="true" requiredMessage="Per diem actual Cost is a required Field" />
+                            </p:column>
+
+                            <p:column>
+                                <p:message for="PerdiemBudget"/>
+                                <p:message for="PerdiemCost"/>
+                            </p:column>
+
+
+                        </p:row>
+                        <p:row>
+
+
+                            <p:column>
+                                <h:outputText value="Per diem number of days: " />
+                            </p:column>
+
+                            <p:column>
+                                <p:inputTextarea id="PerdiemDays" value="#{authorisation.fcostingRef.perdiemdays}" required="true" requiredMessage="Per diem number of days is a required Field" />
+                            </p:column>
+
+
+                            <p:column>
+                            </p:column>
+
+                            <p:column>
+                                <p:message for="PerdiemDays"/>
+                            </p:column>
+
+
+                        </p:row>
+                        <p:row>
+
+
+
+                            <p:column>
+                                <h:outputText value="Conference: " />
+                            </p:column>
+
+                            <p:column>
+                                <p:inputTextarea id="ConferenceBudget" value="#{authorisation.fcostingRef.conferencebudget}" required="true" requiredMessage="Conference budgeted Cost is a required Field" />
+
+                            </p:column>
+
+
+
+                            <p:column>
+                                <p:inputTextarea id="ConferenceCost" value="#{authorisation.fcostingRef.conferencecost}" required="true" requiredMessage="Conference actual Cost is a required Field" />
+                            </p:column>
+
+                            <p:column>
+                                <p:message for="ConferenceBudget"/>
+                                <p:message for="ConferenceCost"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+
+
+                            <p:column>
+                                <h:outputText value="Visa Cost: " />
+                            </p:column>
+
+                            <p:column>
+                                <p:inputTextarea id="VisaBudget" value="#{authorisation.fcostingRef.visabudget}" required="true" requiredMessage="Visa budgeted Cost is a required Field" />
+
+                            </p:column>
+
+                            <p:column>
+
+
+                                <p:inputTextarea id="VisaCost" value="#{authorisation.fcostingRef.visacost}" required="true" requiredMessage="Visa actual Cost is a required Field" />
+                            </p:column>
+
+                            <p:column>
+                                <p:message for="VisaBudget"/>
+                                <p:message for="VisaCost"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+
+
+                            <p:column>
+                                <h:outputText value="Other Costs: " />
+                            </p:column>
+
+                            <p:column>
+                                <p:inputTextarea id="otherBudget" value="#{authorisation.fcostingRef.otherbudget}" required="false" requiredMessage="Other budgeted Cost is a required Field" />
+
+                            </p:column>
+
+                            <p:column>
+
+
+                                <p:inputTextarea id="otherCost" value="#{authorisation.fcostingRef.othercost}" required="false" requiredMessage="Other actual Cost is a required Field" />
+                            </p:column>
+
+                            <p:column>
+                                <p:message for="otherBudget"/>
+                                <p:message for="otherCost"/>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Other cost Description: " />
+                            </p:column>
+
+                            <p:column>
+                                <p:inputTextarea id="otherDescription" value="#{authorisation.fcostingRef.otherdiscription}" required="false" requiredMessage="Other cost Description is a required Field" />
+                            </p:column>
+                            <p:column>
+                            </p:column>
+                            <p:column>
+                                <p:message for="otherDescription"/>
+                            </p:column>
+
+                        </p:row>
+                        <p:row>
+
+
+                            <p:column>
+                                <h:outputText value="Total budgeted Cost: " />
+                            </p:column>
+
+                            <p:column>
+                                <p:inputTextarea id="TotalBudget" value="#{authorisation.fcostingRef.approvedbudget}" required="true" requiredMessage="Total budgeted Cost is a required Field" />
+
+                            </p:column>
+
+                            <p:column>
+
+                                <p:inputTextarea id="TotalCost" value="#{authorisation.fcostingRef.approvedcost}" required="true" requiredMessage="Total actual Cost is a required Field" />
+                            </p:column>
+
+                            <p:column>
+                                <p:message for="TotalBudget"/>
+                                <p:message for="TotalCost"/>
+                            </p:column>
+
+
+                        </p:row>
+
+                    </p:panelGrid>
+
+                </p:panel>
+            </p:tab>
+
+            <p:tab id="authofromOz" title="authorisation">
+                <p:panel header="Authorisation Cost From Australia">
+
+                    <p:panelGrid id="authoriseFromOz" >
+
+                        <p:row>
+
+
+                            <p:column>
+                                <p:selectManyCheckbox id="CostFromOz" required="false" requiredMessage="Recovered cost from Australia" value="#{authorisation.fcostingRef.fromoz}" layout="pageDirection">
+
+                                    <f:selectItem itemLabel="Recovered cost from Australia " itemValue="1" />
+                                </p:selectManyCheckbox>
+                            </p:column>
+                            <p:column>
+                            </p:column>
+                            <p:column>
+                                <p:message for="CostFromOz"/>
+                            </p:column>
+
+
+                        </p:row>
+                        <p:row>
+
+                            <p:column>
+                                <h:outputText value="Contact Name: " />
+                            </p:column>
+                            <p:column>    
+
+                                <p:inputTextarea id="ozname" value="#{authorisation.fcostingRef.ozname}" required="false" requiredMessage="Contact Name: is a required Field" />
+                            </p:column>
+                            <p:column>    
+                                <p:message for="ozname"/>
+                            </p:column>
+
+                        </p:row>
+                        <p:row>
+
+                            <p:column>
+                                <h:outputText value="Contact Telephone: " />
+                            </p:column>
+                            <p:column>    
+
+                                <p:inputTextarea id="oztel" value="#{authorisation.fcostingRef.oztel}" required="false" requiredMessage="Contact Telephone should be a phone number" />
+                            </p:column>
+                            <p:column>    
+                                <p:message for="oztel"/>
+                            </p:column>
+
+                        </p:row>
+                        <p:row>
+
+                            <p:column>
+                                <h:outputText value="Contact email: " />
+                            </p:column>
+                            <p:column>    
+
+                                <p:inputTextarea id="ozemail" value="#{authorisation.fcostingRef.ozemail}" required="false" requiredMessage="Contact email should be an email address" />
+                            </p:column>
+                            <p:column>    
+                                <p:message for="ozemail"/>
+                            </p:column>
+
+                        </p:row>
+                    </p:panelGrid>
+
+                </p:panel>
+            </p:tab>
+
+            <p:tab id="authotabfinal" title="authorisation">
+                <p:panel header="Authorisation authorisation">
+
+                    <p:panelGrid id="authoriseFrom" >
+
+                        <p:row>
+
+
+                            <p:column>
+                                <p:selectManyCheckbox id="approvedCheck" required="false" requiredMessage="Is this form approved " value="#{authorisation.approvalRef.sectionapproved}" layout="pageDirection">
+                                    <f:selectItem itemLabel="Approved " itemValue="0" />
+
+                                    <f:selectItem itemLabel="Not Approved " itemValue="1" />
+                                </p:selectManyCheckbox>
+                            </p:column>
+                            <p:column>
+                            </p:column>
+                            <p:column>
+                                <p:message for="approvedCheck"/>
+                            </p:column>
+
+                        </p:row>
+                        <p:row>
+
+                            <p:column>
+                                <h:outputText value="Name: " />
+                            </p:column>
+                            <p:column>    
+
+                                <p:inputTextarea id="authname" value="#{authorisation.approvalRef.name}" required="false" requiredMessage="Contact Name: is a required Field" />
+                            </p:column>
+                            <p:column>    
+                                <p:message for="authname"/>
+                            </p:column>
+
+                        </p:row>
+                        <p:row>
+
+                            <p:column>
+                                <h:outputText value="Date: " />
+                            </p:column>
+                            <p:column>    
+
+                                <p:inputTextarea id="authdate" value="#{authorisation.approvalRef.dateStamp}" required="false" requiredMessage="Contact Telephone should be a phone number" />
+                            </p:column>
+                            <p:column>    
+                                <p:message for="authdate"/>
+                            </p:column>
+
+                        </p:row>
+                        <p:row>
+
+                            <p:column>
+                                <h:outputText value="Notes: " />
+                            </p:column>
+                            <p:column>    
+
+                                <p:inputTextarea id="authNotes" value="#{authorisation.approvalRef.notes}" required="false" requiredMessage="Contact email should be an email address" />
+                            </p:column>
+                            <p:column>    
+                                <p:message for="authNotes"/>
+                            </p:column>
+
+                        </p:row>
+                    </p:panelGrid>
+
+                    
+                </p:panel>
+            </p:tab>
+
+        </h:form>
+
+        <div id= "footer">
+            <div class="row group">
+                <div class="col">
+                    <h3>Quick links</h3>
+                    <ul>
+                        <li><a href="">Site Map</a></li>
+                        <li><a href="">FAQ</a></li>
+                        <li><a href="">Contact us</a></li>
+                    </ul>
+                </div>
+
+                <h3>Legal</h3>
+                <p class="legal">Created by school of IT, Monash University South Africa</p>
+            </div>
+        </div>
+    </h:body>
+</html>
