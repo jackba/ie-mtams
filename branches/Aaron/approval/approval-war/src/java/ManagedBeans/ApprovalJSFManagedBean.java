@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
@@ -26,38 +27,35 @@ import javax.faces.context.FacesContext;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
 
-
 /**
  *
  * @author aaron
  */
-
 @ManagedBean(name = "authorisation")
 @SessionScoped
-public class ApprovalJSFManagedBean implements Serializable{
-    
+public class ApprovalJSFManagedBean implements Serializable {
+
+    @EJB
+    private ApprovalHandlerLocal approvalHandler;
     //======change===change=========change============change=========change====
     //-------------------------------------------------------------------------
-    private int accountIDhack =1;
-    private int approvalIDhack =1;
-    private int applicationIDhack =1;
+    private int accountIDhack = 1;
+    private int approvalIDhack = 1;
+    private int applicationIDhack = 1;
+    private int quoteIDhack = 1;
     //-------------------------------------------------------------------------
     //======change========change=========change=============change=============
-    
-    
     private static final Logger logger = Logger.getLogger(ApprovalJSFManagedBean.class.getName());
-    
     private Approval approval;
     // instance variables for approval
-    private Integer idapproval;
+    private int idapproval;
     private String fromsection;
-    private Integer sectionid;
-    private Integer sectionapproved; 
+    private int sectionid;
+    private int sectionapproved;
     private String Notes;
     private Date DateStamp;
     private int ApplicationID;
     private int AccountID;
-     
     private Finalcosting Fcosting;
     // instance variables for finalcosting
     private int IDFinalcosting;
@@ -67,78 +65,86 @@ public class ApprovalJSFManagedBean implements Serializable{
     private int absenceprivate;
     private String countries;
     private String citys;
-    private int checks;  
-
+    private int checks;
     private double AirfareBudget;
     private double AirfareCost;
     private double CarRentalBudget;
     private double CarRentalCost;
     private double AccomodationBudget;
     private double AccomodationCost;
-    private int accommodatedays;    
-    private Double perdiembudget;
-    private Double perdiemcost;    
-    private int perdiemdays;   
-    private Double conferencebudget;    
-    private Double conferencecost;    
-    private Double visabudget;    
-    private Double visacost;    
-    private Double otherbudget;
-    private Double othercost;    
+    private int accommodatedays;
+    private double perdiembudget;
+    private double perdiemcost;
+    private int perdiemdays;
+    private double conferencebudget;
+    private double conferencecost;
+    private double visabudget;
+    private double visacost;
+    private double otherbudget;
+    private double othercost;
     private String otherdiscription;
-    private Double approvedbudget;
-    private Double approvedcost;
-    private Integer fromoz;
+    private double approvedbudget;
+    private double approvedcost;
+    private int fromoz;
     private String ozname;
     private String oztel;
     private String ozemail;
-    
-    private int QuotesID;
-    
-    
-    private UIData dataTable;
-
-    private Account accountRef = new Account(accountIDhack);
-    private Application applicationRef = new Application(applicationIDhack);    
-    private Quotes quotesRef = new Quotes(QuotesID);
-    
+    //private Quotes quotesRef; 
     private Approval approvalRef;
     private Finalcosting fcostingRef;
-    //private Account accountEntity;
-    
-    // special form element handlers
-    private List<Integer> approvalChecks;
+    /*
+     private int QuotesID;
     
     
+     private UIData dataTable;
+
+     private Account accountRef;// = new Account(accountIDhack);
+     private Application applicationRef;// = new Application(applicationIDhack);    
+     
     
-    @EJB
-    private ApprovalHandlerLocal approvalHandler;
+     
+     //private Account accountEntity;
+    
+     // special form element handlers
+     private List<Integer> approvalChecks;
     
     
     
+
+    
+    
+     */
+
     /**
      * Creates a new instance of ApprovalJSFManagedBean
      */
     public ApprovalJSFManagedBean() {
-        
     }
-    
+
+    @PostConstruct
+    private void setSession() {
+        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+    }
+
     public void save() {
-    
-        FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"getting there",null));
-        
+
+        //FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"getting there",null));
+
         approval = new Approval();
-        approval.setIdapproval(idapproval);
+        //approval.setIdapproval(idapproval);
         approval.setNotes(Notes);
         approval.setDate(DateStamp);
+        approval.setSectionapproved(sectionapproved);
+        approval.setFromsection(fromsection);
         // need to fix for app intergration
-        approval.setAccountIdaccount(accountRef);
-        approval.setApplicationIdapplication(applicationRef);
+        //approval.setAccountIdaccount(accountRef);
+        //approval.setApplicationIdapplication(applicationRef);
         approvalHandler.persistApproval(approval);
-        
-        
+
+
         Fcosting = new Finalcosting();
-        Fcosting.setIdfinalcosting(IDFinalcosting);
+
+        //Fcosting.setIdfinalcosting(IDFinalcosting);
         Fcosting.setName(Name);
         Fcosting.setAdministrativeunit(administrativeunit);
         Fcosting.setAbsencebussiness(absencebussiness);
@@ -146,8 +152,8 @@ public class ApprovalJSFManagedBean implements Serializable{
         Fcosting.setCountries(countries);
         Fcosting.setCitys(citys);
         Fcosting.setChecks(checks);
-        
-        
+
+
         Fcosting.setAccommodationbudget(AccomodationBudget);
         Fcosting.setAccommodationcost(AccomodationCost);
         Fcosting.setAccommodatedays(accommodatedays);
@@ -167,62 +173,61 @@ public class ApprovalJSFManagedBean implements Serializable{
         Fcosting.setOtherdiscription(otherdiscription);
         Fcosting.setApprovedbudget(approvedbudget);
         Fcosting.setApprovedcost(approvedcost);
-        
+
         Fcosting.setFromoz(fromoz);
         Fcosting.setOzname(ozname);
         Fcosting.setOztel(oztel);
         Fcosting.setOzemail(ozemail);
         // need to fix for app intergration
-        Fcosting.setQuotesIdquotes(quotesRef);
-                
+        //quotesRef = new Quotes(quoteIDhack);
+        //Fcosting.setQuotesIdquotes(quotesRef);
+
+
         approvalHandler.persistFinalcosting(Fcosting);
-    
+
         //Fcosting.setQuotesIdquotes(QuotesID);
-        FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success","Changes have been saved"));
+        //FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success","Changes have been saved"));
     }
-    
-    public String goHome(){
+
+    public String goHome() {
         return "viewAuthorisation";
     }
-    
-    public String editauthorisation(){
+
+    public String editauthorisation() {
         //need to change this to edit once I build edit
         return "viewAuthorisation";
     }
-    
-    public String viewauthorisation(){
+
+    public String viewauthorisation() {
         return "viewAuthorisation";
     }
-    
-    public List<Integer> getApprovalChecklist() {
-        return approvalChecks;
-    }
+    /*
+     public List<Integer> getApprovalChecklist() {
+     return approvalChecks;
+     }
 
-    public void setApprovalChecks(List<Integer> approvalChecks) {
-        this.approvalChecks = approvalChecks;
-    }
-    
-    
+     public void setApprovalChecks(List<Integer> approvalChecks) {
+     this.approvalChecks = approvalChecks;
+     }
+     */
+
     // probably don't need this might get rid of it
-    public String onFlowProcess(FlowEvent event) {  
-        logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());  
-        logger.log(Level.INFO, "Next step:{0}", event.getNewStep());  
-            
-        return event.getNewStep();          
-    }
-    
+    public String onFlowProcess(FlowEvent event) {
+        logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());
+        logger.log(Level.INFO, "Next step:{0}", event.getNewStep());
 
-    public UIData getDataTable() {
-        return dataTable;
+        return event.getNewStep();
     }
 
-    public void setDataTable(UIData dataTable) {
-        this.dataTable = dataTable;
-    }    
-    
+//    public UIData getDataTable() {
+//        return dataTable;
+//    }
+//
+//    public void setDataTable(UIData dataTable) {
+//        this.dataTable = dataTable;
+//    }    
+//    
     // getters and setters from here
-
-
     public Approval getApproval() {
         return approval;
     }
@@ -519,44 +524,13 @@ public class ApprovalJSFManagedBean implements Serializable{
         this.ozemail = ozemail;
     }
 
-    public int getQuotesID() {
-        return QuotesID;
-    }
-
-    public void setQuotesID(int QuotesID) {
-        this.QuotesID = QuotesID;
-    }
-
-    public Account getAccountRef() {
-        return accountRef;
-    }
-
-    public void setAccountRef(Account accountRef) {
-        this.accountRef = accountRef;
-    }
-
-    public Application getApplicationRef() {
-        return applicationRef;
-    }
-
-    public void setApplicationRef(Application applicationRef) {
-        this.applicationRef = applicationRef;
-    }
-
-    public Quotes getQuotesRef() {
-        return quotesRef;
-    }
-
-    public void setQuotesRef(Quotes quotesRef) {
-        this.quotesRef = quotesRef;
-    }
-
     public Approval getApprovalRef() {
+        approvalRef = approvalHandler.findApproval(approvalIDhack);
         return approvalRef;
     }
 
     public void setApprovalRef(Approval approvalRef) {
-        approvalRef = approvalHandler.findApproval(approvalIDhack);
+
         this.approvalRef = approvalRef;
     }
 
@@ -569,6 +543,41 @@ public class ApprovalJSFManagedBean implements Serializable{
         this.fcostingRef = fcostingRef;
     }
 
+    /*
+     public int getQuotesID() {
+     return QuotesID;
+     }
+
+     public void setQuotesID(int QuotesID) {
+     this.QuotesID = QuotesID;
+     }
+
+     public Account getAccountRef() {
+     return accountRef;
+     }
+
+     public void setAccountRef(Account accountRef) {
+     this.accountRef = accountRef;
+     }
+
+     public Application getApplicationRef() {
+     return applicationRef;
+     }
+
+     public void setApplicationRef(Application applicationRef) {
+     this.applicationRef = applicationRef;
+     }
+
+     public Quotes getQuotesRef() {
+     return quotesRef;
+     }
+
+     public void setQuotesRef(Quotes quotesRef) {
+     this.quotesRef = quotesRef;
+     }
+
+
+     */
     public ApprovalHandlerLocal getApprovalHandler() {
         return approvalHandler;
     }
@@ -616,7 +625,4 @@ public class ApprovalJSFManagedBean implements Serializable{
     public void setSectionapproved(Integer sectionapproved) {
         this.sectionapproved = sectionapproved;
     }
-
-    
-   
 }
