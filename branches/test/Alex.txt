@@ -1,2 +1,0 @@
-Alexandre Damasio
-Test Hello World
