@@ -13,12 +13,11 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.ejb.EJB;
 
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
 
@@ -44,6 +43,7 @@ public class ForeignBean implements Serializable
     private Traveldocument travelD;
     private Forexorder forX;
     private Forexorder viewForX;
+    private Forexorder editForX;
     private Itinerary itinerary;
     private String CompanyNameRegNum;
     private String passengerName;
@@ -127,13 +127,13 @@ public class ForeignBean implements Serializable
         logger.log(Level.INFO, "Next step:{0}", event.getNewStep());  
   
         return event.getNewStep();  
-    }  
-    
+    }      
     
     public String createForm()
 	{
-            forX = new Forexorder();
+            forX = new Forexorder();            
             
+            forX.setDateofdepart(departure);
             forX.setDateofreturn(returnDate);
             forX.setTicketnum(ticketNumber);
             forX.setVoyagernum(voyagerNum);
@@ -150,7 +150,58 @@ public class ForeignBean implements Serializable
             
             csi.createForX(forX);
             return "welcomePrimefaces";
-	}   
+	} 
+    
+    @PostConstruct
+    public void getForm()
+    {   
+         viewForX = csi.findForX(accountID);
+         setDeparture(viewForX.getDateofdepart());
+         setReturnDate(viewForX.getDateofreturn());
+         setTicketNumber(viewForX.getTicketnum());
+         setVoyagerNum(viewForX.getVoyagernum());
+         setTravellerCheque(viewForX.getTravelerscheques());
+         setForeignCash(viewForX.getCash());
+         setCashPassportCard(viewForX.getCashpassport());
+         setType(viewForX.getCctype());
+         setLast3(viewForX.getCclast3());
+         setExpire(viewForX.getCcexpirydate());
+         setAmount(viewForX.getCash());
+         setDateRequired(viewForX.getDateofrequired());
+         setDateForex(viewForX.getDatewillbeconfirmed());
+         setReasonForTravel(viewForX.getReasonfortravel()); 
+    }
+    
+    public String updateForm()
+    { 
+        editForX = new Forexorder();   
+        
+        editForX.setDateofdepart(departure);
+        editForX.setDateofreturn(returnDate);
+        editForX.setTicketnum(ticketNumber);
+        editForX.setVoyagernum(voyagerNum);
+        editForX.setTravelerscheques(travellerCheque);
+        editForX.setCash(foreignCash);
+        editForX.setCashpassport(CashPassportCard);
+        editForX.setCctype(type);
+        editForX.setCclast3(last3);
+        editForX.setCcexpirydate(expire);
+        editForX.setCcpaymentamount(amount);
+        editForX.setDateofrequired(dateRequired);
+        editForX.setDatewillbeconfirmed(dateForex);
+        editForX.setReasonfortravel(reasonForTravel);
+        
+        csi.updateForex(editForX, accountID);
+        return "foreignExhangeView";
+    }
+
+    public Forexorder getEditForX() {
+        return editForX;
+    }
+
+    public void setEditForX(Forexorder editForX) {
+        this.editForX = editForX;
+    }
 
     public String getCompanyNameRegNum() {
         return CompanyNameRegNum;
@@ -287,7 +338,7 @@ public class ForeignBean implements Serializable
     public void setCashPassportCard(String CashPassportCard) {
         this.CashPassportCard = CashPassportCard;
     }
-
+    
     public String getType() {
         return type;
     }
