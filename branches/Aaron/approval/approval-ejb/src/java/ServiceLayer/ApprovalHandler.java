@@ -8,6 +8,7 @@ import DataAccess.AccountFacadeLocal;
 import DataAccess.ApplicationFacadeLocal;
 import DataAccess.ApprovalFacadeLocal;
 import DataAccess.FinalcostingFacadeLocal;
+import DataAccess.QuotesFacadeLocal;
 //import DataAccess.QuotesFacadeLocal;
 import Entities.Account;
 import Entities.Application;
@@ -35,8 +36,8 @@ public class ApprovalHandler implements ApprovalHandlerLocal{
     private ApprovalFacadeLocal daoApproval;
     @EJB
     private FinalcostingFacadeLocal daoFinal;
-    //@EJB
-    //private QuotesFacadeLocal daoQuotesFacadeLocal;
+    @EJB
+    private QuotesFacadeLocal daoQuotesFacadeLocal;
     
     private Account account = new Account();
     private Application app = new Application();
@@ -63,8 +64,8 @@ public class ApprovalHandler implements ApprovalHandlerLocal{
         // set global references for approval for persistant use 
         approvalRef = approval;
         // set the approval account / application to the curretly logged in account
-        account.setIdaccount(1);
-        app.setIdapplication(1);
+        account = daoAccount.find(1);
+        app = daoApplication.find(1);
         approval.setAccountIdaccount(account);
         approval.setApplicationIdapplication(app);
         daoApproval.create(approval);
@@ -81,7 +82,8 @@ public class ApprovalHandler implements ApprovalHandlerLocal{
         fcostingRef = finalcosting;
         // set the approval account / application to the curretly logged in account               
         // set the final costing to quotes selected
-        quotes.setIdquotes(1);
+        //quotes.setIdquotes(1);
+        quotes = daoQuotesFacadeLocal.find(1);
         finalcosting.setQuotesIdquotes(quotes);
         daoFinal.create(finalcosting);       
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
