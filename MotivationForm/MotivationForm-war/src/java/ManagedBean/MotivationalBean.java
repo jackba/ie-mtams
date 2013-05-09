@@ -8,6 +8,7 @@ import Entities.Motivation;
 import ServiceLayer.MotivationFormHandlerLocal;
 import java.io.Serializable;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -40,6 +41,7 @@ private Integer budget;
 private String budget2;
 private Motivation motivational;
 private Motivation motiView;
+private Motivation motiEdit;
 @EJB
 private MotivationFormHandlerLocal handler;
 
@@ -48,8 +50,6 @@ public MotivationalBean() {
 
 public String save() 
     {  
-        
-    
         
         FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"getting there",null));
          motivational = new Motivation();
@@ -65,7 +65,8 @@ public String save()
          return null;
     } 
 
-    public Motivation getMotiView() {
+    public Motivation getMotiView() 
+    {
         motiView = handler.findMotivation(accountID);
         return motiView;
     }
@@ -73,6 +74,39 @@ public String save()
     public void setMotiView(Motivation motiView) {
         this.motiView = motiView;
     }
+    
+    @PostConstruct
+    public void editMoti()
+    {
+        motiView = handler.findMotivation(accountID);
+        setSupplier(motiView.getSupplier());
+        setAmount(motiView.getAmount());
+        setCostCode(motiView.getCostcenter());
+        setMotivationLetter(motiView.getMotivation());
+        setBudget(motiView.getBudget());
+    }
+    
+    public String updateMoti()
+    {
+        motiEdit = new Motivation();
+        motiEdit.setSupplier(supplier);
+        motiEdit.setAmount(amount);
+        motiEdit.setCostcenter(costCode);
+        motiEdit.setMotivation(motivationLetter);
+        motiEdit.setBudget(budget);
+        
+        handler.updateMoti(motiEdit, accountID);
+        return "MotivationalEdit";
+    }
+
+    public Motivation getMotiEdit() {
+        return motiEdit;
+    }
+
+    public void setMotiEdit(Motivation motiEdit) {
+        this.motiEdit = motiEdit;
+    }
+    
 
     public String getSupplier() {
         return supplier;
