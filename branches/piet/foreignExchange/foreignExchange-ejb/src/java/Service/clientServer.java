@@ -23,4 +23,5 @@ public interface clientServer
     public Traveldocument findDocument(Integer id);
     public void createForX(Forexorder forerorder);
     public Forexorder findForX(Integer id);
+    public void updateForex(Forexorder forexorder, Integer id);
 }

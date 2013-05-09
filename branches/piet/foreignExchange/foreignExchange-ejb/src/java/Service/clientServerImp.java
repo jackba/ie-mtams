@@ -44,6 +44,30 @@ public class clientServerImp implements clientServer
     @EJB
     private TravelFacadeLocal tfl;
     
+    @Override
+    public void updateForex(Forexorder forexorder, Integer id)
+    {
+       Integer forexID = null;
+        Forexorder forexformNew = forexorder;
+        Forexorder forexformOld = null;
+        List<Application> allApp = appf.findAll();
+        for(Application eachApp : allApp)
+        {
+            if(eachApp.getAccountIdaccount().getIdaccount().equals(id))
+            {  
+                forexID = eachApp.getForexorderIdforexorder().getIdforexorder();
+            }
+        }
+        
+        List<Forexorder> allForex = forex.findAll();
+        for(Forexorder eachFor : allForex)
+        {
+            if(eachFor.getIdforexorder().equals(forexID))
+                forexformOld = eachFor;
+                forexformNew.setIdforexorder(forexformOld.getIdforexorder());
+                forex.edit(forexformNew);              
+        }          
+    }
     
     @Override
     public Itinerary findItinerary(Integer id) // passing in the Account ID
