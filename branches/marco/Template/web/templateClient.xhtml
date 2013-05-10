@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+
+        <ui:composition template="./template.xhtml">
+
+<!--            EDIT MENU, ADD OUTCOMES AND PROPER URLs!-->
+            <ui:define name="menu">
+                <p:menuitem value="Home" icon="ui-icon-home" url="#"/>
+                
+                <p:submenu label="Profile" icon="ui-icon-person">
+                    <p:menuitem value="View Profile" url="#"/>
+                    <p:menuitem value="Edit Profile" url="#"/>
+                </p:submenu>
+                <p:submenu label="Applications" icon="ui-icon-note">
+                    <p:menuitem value="Start New Application" url="newApplications.xhtml"/>
+                    <p:menuitem value="Edit Application" url="applications.xhtml"/>
+                </p:submenu>
+            </ui:define>
+
+
+            <ui:define name="content">
+                <h:outputText styleClass="h3" value="Welcome to my fucking Template :P"/>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

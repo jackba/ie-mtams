@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="styles.css"/>
+        <title>MSA Travel Application Management System</title>
+    </h:head>
+
+    <h:body>        
+        <div id="header">
+            <div id="logo">
+                <h:graphicImage value="img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy AUstralia"/>
+            </div>
+
+            <ul>
+                <li><h:link value="">Help</h:link></li>
+                <li><h:link value="">Logout</h:link></li>
+            </ul>
+        </div>
+
+        <div id="nav">
+            <p:menubar styleClass="menuBar">
+                <ui:insert name="menu"/>
+            </p:menubar>
+        </div>
+
+        <div id="content">
+            <ui:insert name="content"/>
+        </div>
+
+        <div id="footer">
+            <div class="col">
+                <h:outputText styleClass="h3" value="Quick Links"/>
+                <ul>
+                    <li><h:link value="">Site Map</h:link></li>
+                    <li><h:link value="">FAQ</h:link></li>
+                    <li><h:link value="">Contact Us</h:link></li>                    
+                </ul>
+            </div>
+            <h:outputText styleClass="h3" value="Legal"/>
+
+            <p class="legal">Created by the School of IT, Monash South Africa 2013</p>
+            <p class="legal">Monash South Africa Incorporated in Australia External Non-Profit Company (Registration number 2005/009321/12), 
+                is a campus of Monash University, a public university, incorporated by an Act of Parliament in Victoria, Australia.</p>
+
+            <p class="legal">Monash South Africa NPC is registered with the Department of Education as a private higher education institution 
+                under the Higher Education Act of 1997. Certificate no. 00HF02 and is registered as a non-profit organisation, 
+                Registration number 054-109-NPO.</p>	
+        </div>
+    </h:body>
+
+</html>
