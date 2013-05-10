@@ -11,14 +11,40 @@
         </h:head>
         <h:body>
             <h:form>
-                <p:growl id="growl" sticky="true" showDetail="true"/>  
+                <p:growl id="growl" sticky="true" showDetail="true"/>
 
-                <p:wizard widgetVar="conf_request" 
+                <p:wizard widgetVar="conf_request"
                           flowListener="#{conference.onFlowProcess}">
+
+                    <p:tab id="personal" title="Personal">
+                        <p:panel header="Personal Details">
+
+                            <h:panelGrid columns="2">
+                                <h:outputLabel for="schoolUnit" value="School/Administrative Unit:"/>
+                                <p:inputText id="schoolUnit" value="#{conference.travelerP.familyname}"/>
+
+                                <p:outputLabel for="staffNum" value="Staff Number:"/>
+                                <p:inputText id="staffNum" value=""/>
+
+                                <h:outputText value="Title:"/>
+                                <p:selectOneMenu value="">
+                                    <f:selectItem itemValue="Miss" itemLabel="Miss"/>
+                                    <f:selectItem itemValue="Mr" itemLabel="Mr"/>
+                                    <f:selectItem itemValue="Mrs" itemLabel="Mrs"/>
+                                    <f:selectItem itemValue="Ms" itemLabel="Ms"/>
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="fName" value="Family Name:"/>
+                                <p:inputText id="fName" value=""/>
+
+                                <p:outputLabel for="lName" value="Given Names:"/>
+                                <p:inputText id="lName" value=""/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
 
                     <p:tab id="confDetails" title="Conference Details">
                         <p:panel header="Conference Details">
-
 
                             <h:panelGrid columns="2">
                                 <p:outputLabel for="confName" value="Conference Name:"/>
@@ -35,83 +61,86 @@
                                 <p:outputLabel for="city" value="City/State:"/>
                                 <p:inputText id="city" value="#{conference.city}"/>
 
-                                <h:outputText value="Are you presenting a paper?"/>      
-
-                                <p:selectOneRadio id="paperOptions" value="#{conference.paperOption}">  
-                                    <f:selectItem itemLabel="Yes" itemValue="1"/>  
+                                <h:outputText value="Are you presenting a paper?"/>
+                                <p:selectOneRadio id="paperOptions" value="#{conference.paperOption}">
+                                    <f:selectItem itemLabel="Yes" itemValue="1"/>
                                     <f:selectItem itemLabel="No" itemValue="2" />
-                                    <p:ajax event="change" update="test"/>
+                                    <p:ajax event="change" update="ajaxGrid1"/>
                                 </p:selectOneRadio>
+                            </h:panelGrid>
 
-                                <h:panelGrid columns="2" id="test">
-                                    <p:outputLabel rendered="#{conference.paperOption eq '1'}" for="yesReason" value="Title of paper:"/>
-                                    <p:inputText rendered="#{conference.paperOption eq '1'}" id="yesReason" value="#{conference.yesReason}"/>   
+                            <h:panelGrid columns="2" id="ajaxGrid1">
+                                <p:outputLabel rendered="#{conference.paperOption eq '1'}" for="yesReason" value="Title of paper:"/>
+                                <p:inputText rendered="#{conference.paperOption eq '1'}" id="yesReason" value="#{conference.yesReason}"/>
 
-                                    <p:outputLabel rendered="#{conference.paperOption eq '1'}" for="author" value="Specify all authors and affiliations:"/>
-                                    <h:inputTextarea rendered="#{conference.paperOption eq '1'}" id="author" value="#{conference.author}"/>
+                                <p:outputLabel rendered="#{conference.paperOption eq '1'}" for="author" value="Specify all authors and affiliations:"/>
+                                <h:inputTextarea rendered="#{conference.paperOption eq '1'}" id="author" value="#{conference.author}"/>
 
-                                    <p:outputLabel rendered="#{conference.paperOption eq '2'}" for="noReason" value="Special reason for attendance:"/>
-                                    <p:inputText rendered="#{conference.paperOption eq '2'}" id="noReason" value="#{conference.noReason}" required="false"/>                                
-                                </h:panelGrid>
+                                <p:outputLabel rendered="#{conference.paperOption eq '2'}" for="noReason" value="Special reason for attendance:"/>
+                                <p:inputText rendered="#{conference.paperOption eq '2'}" id="noReason" value="#{conference.noReason}" required="false"/>
+                            </h:panelGrid>
 
-                                <p:outputLabel for="presentationDate" value="Date of internal MSA presentation:"/>  
-                                <p:calendar id="presentationDate" showOn="button" value="#{conference.presentationDate}" navigator="true"/> 
+                            <h:panelGrid columns="2">
+                                <p:outputLabel for="presentationDate" value="Date of internal MSA presentation:"/>
+                                <p:calendar id="presentationDate" showOn="button" value="#{conference.presentationDate}" navigator="true"/>
                             </h:panelGrid>
 
                         </p:panel>
                     </p:tab>
 
-
-                    <p:tab id="confDuration" title="Conference Duration">                        
+                    <p:tab id="confDuration" title="Conference Duration">
                         <p:panel header="Conference Duration">
 
-
                             <h:panelGrid columns="2">
-                                <p:outputLabel for="fromDate" value="Date From:"/>  
+                                <p:outputLabel for="fromDate" value="Date From:"/>
                                 <p:calendar id="fromDate" showOn="button" value="#{conference.toDate}" navigator="true"/>
 
-                                <p:outputLabel for="toDate" value="Date To:"/>  
+                                <p:outputLabel for="toDate" value="Date To:"/>
                                 <p:calendar id="toDate" showOn="button" value="#{conference.fromDate}" navigator="true"/>
 
-                                <p:outputLabel for="diffDays" value="Days:"/>  
-                                <p:inputText id="diffDays" value="#{conference.diffDays}"/>         
+                                <p:outputLabel for="diffDays" value="Days:"/>
+                                <p:inputText id="diffDays" value="#{conference.diffDays}"/>
 
                                 <h:outputText value="Do you need coverage for teaching commitments?: " />
-                                <p:selectOneRadio id="coverOptions" value="#{conference.coverOptions}"> 
-                                    <f:selectItem itemLabel="Yes" itemValue="yes" />  
+                                <p:selectOneRadio id="coverOptions" value="#{conference.coverOptions}">
+                                    <f:selectItem itemLabel="Yes" itemValue="yes" />
                                     <f:selectItem itemLabel="No" itemValue="no" />
                                     <f:selectItem itemLabel="N/A" itemValue="na" />
-                                    <p:ajax event="change" update="test2" />
-                                </p:selectOneRadio>    
-
-                                <h:panelGrid columns="2" id="test2">
-                                    <p:outputLabel rendered="#{conference.coverOptions eq 'yes'}" for="arrangements" value="What arrangements do you propose to cover teaching commitments? "/>
-                                    <h:inputTextarea rendered="#{conference.coverOptions eq  'yes'}" id="arrangements" value="#{conference.coverDetails}"/> 
-                                </h:panelGrid>
-
+                                    <p:ajax event="change" update="ajaxGrid2" />
+                                </p:selectOneRadio>
                             </h:panelGrid>
+
+                            <h:panelGrid columns="2" id="ajaxGrid2">
+                                <p:outputLabel rendered="#{conference.coverOptions eq 'yes'}" for="arrangements" value="What arrangements do you propose to cover teaching commitments? "/>
+                                <h:inputTextarea rendered="#{conference.coverOptions eq  'yes'}" id="arrangements" value="#{conference.coverDetails}"/>
+                            </h:panelGrid>
+
+
                             <p:commandButton value="Submit" update="growl" action="#{conference.save()}" ajax="false"/>
 
                         </p:panel>
                     </p:tab>
 
 
-                    <p:tab id="funding" title="Funding">                        
-                        <p:panel header="Funding">                           
+                    <p:tab id="funding" title="Funding">
+                        <p:panel header="Funding">
 
-                            <h:panelGrid columns="2" cellpadding="5"> 
+                            <h:panelGrid columns="2">
                                 <p:outputLabel for="fundingOptions" value="Sources of funding:"/>
-                                <p:selectOneRadio id="fundingOptions" value="#{conference.fundingOptions}">  
-                                    <f:selectItem itemLabel="School/Admin Unit" itemValue="1" />  
-                                    <f:selectItem itemLabel="Research Grant" itemValue="2" />  
+                                <p:selectOneRadio id="fundingOptions" value="#{conference.fundingOptions}">
+                                    <f:selectItem itemLabel="School/Admin Unit" itemValue="1" />
+                                    <f:selectItem itemLabel="Research Grant" itemValue="2" />
                                     <f:selectItem itemLabel="Other (Specify below)" itemValue="3" />
-                                    <p:ajax event="change" update="test3"/>
+                                    <p:ajax event="change" update="ajaxGrid3"/>
                                 </p:selectOneRadio>
-                                
-                                <h:panelGrid>
-                                    <p:outputLabel rendered="#{conference.paperOption eq '3'}" for="otherSources" value="Other sources of funding:"/>
-                                    <p:inputText rendered="#{conference.paperOption eq '3'}" id="otherSources" value="#{conference.otherSources}"/>
-                                </h:panelGrid>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2" id="ajaxGrid3" >
+                                <p:outputLabel rendered="#{conference.fundingOptions eq '3'}" for="otherSources" value="Other sources of funding:"/>
+                                <p:inputText rendered="#{conference.fundingOptions eq '3'}" id="otherSources" value="#{conference.otherSources}"/>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2">
                                 <p:outputLabel for="costCentre" value="Cost centre:"/>
                                 <p:inputText id="costCentre" value="#{conference.costCentre}"/>
 
@@ -119,7 +148,7 @@
                                 <p:inputText id="fundName" value="#{conference.fundName}"/>
                             </h:panelGrid>
 
-                        </p:panel>                        
+                        </p:panel>
                     </p:tab>
 
                 </p:wizard>

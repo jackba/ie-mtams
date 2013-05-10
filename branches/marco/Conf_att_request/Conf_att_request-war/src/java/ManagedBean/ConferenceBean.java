@@ -5,6 +5,7 @@
 package ManagedBean;
 
 import Entities.Conference;
+import Entities.Travelerprofile;
 import ServiceLayer.ConferenceHandlerLocal;
 import java.io.Serializable;
 import java.util.Date;
@@ -27,13 +28,15 @@ public class ConferenceBean implements Serializable {
 
     @EJB
     private ConferenceHandlerLocal handler;
+                    
+    int accountID = 1;
+    
     private Conference conf;
     private Conference confView;
     private Conference confEdit;
-    //private Travelerprofile travelP;
+    private Travelerprofile travelerP;
     
     private static final Logger logger = Logger.getLogger(ConferenceBean.class.getName());
-    
     //Section A - Personal Details
     private String schoolUnit;
     private String staffNum;
@@ -74,7 +77,7 @@ public class ConferenceBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
 
         conf = new Conference();
-        
+
         conf.setConferencename((this.getConfName()));
         conf.setWebpage((this.getWebsite()));
         conf.setCountry((this.getCountry()));
@@ -84,7 +87,7 @@ public class ConferenceBean implements Serializable {
         conf.setAuthors(this.getAuthor());
         conf.setOtherreasonattendance(this.getNoReason());
         conf.setDatemsapresentation(this.getPresentationDate());
-        
+
         conf.setDatefrom(this.getFromDate());
         conf.setDateto(this.getToDate());
         conf.setConferenceduration(this.getDiffDays());
@@ -94,6 +97,17 @@ public class ConferenceBean implements Serializable {
         handler.persist(conf);
 
     }
+    
+    public Travelerprofile getTravelerP() {
+        travelerP = handler.findTravelerProfile(accountID);
+        return travelerP;
+    }
+
+    public void setTravelerP(Travelerprofile travelerP) {
+        this.travelerP = travelerP;
+    }
+
+
 
     public String getSchoolUnit() {
         return schoolUnit;
