@@ -59,7 +59,7 @@ public String save()
          motivational.setCostcenter(costCode);
          motivational.setMotivation(motivationLetter);
          motivational.setBudget(budget);
-         handler.persist(motivational);
+         handler.updateMoti(motivational, accountID);
          
          FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Success", "Created"));
          return null;

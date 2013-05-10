@@ -22,8 +22,9 @@
         <h:form id="motivform">
                     <p:tab id="moti" title="Motivation">  
                         <p:panel header="Motivational Form - All fields are required">  
-
+                            
                             <fieldset><legend>Motivation</legend>
+                            <p:messages id="submitConfirm" closable="true" autoUpdate="true" severity="info"/>
                             <h:panelGrid id="motivate" columns="3">  
                                 <h:outputText value="Supplier/Service Provider: " />  
                                 <p:inplace id="supplierIP" emptyLabel="Click here to Edit">
