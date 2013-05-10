@@ -46,55 +46,109 @@
 
                 <p:tab id="authtabdetails" title="authorisation">
                     <p:panel header="Authorisation Details">
-                        <h:panelGrid id="authoriseTopGrid" columns="3">
-                            <h:outputText value="Name: " />
-                            <p:inputText id="name" value="#{authorisation.name}" required="false" requiredMessage="Name is a required Field" />
-                            <p:message for="name"/>
+                        <p:panelGrid id="authoriseTopGrid" styleClass="noborders" >
 
-                            <h:outputText value="School / Administrative Unit: " />
-                            <p:inputText id="administrativeunit" value="#{authorisation.administrativeunit}" required="false" requiredMessage="School / Administrative Unit is a required Field" />
-                            <p:message for="administrativeunit"/>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Name: " />
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="name" value="#{authorisation.name}" required="true" requiredMessage="Name is a required Field" />                          
+                                </p:column>
+                                <p:column>
+                                    <p:message for="name"/>
+                                </p:column>
+                            </p:row>
 
-                            <h:outputText value="Period of absence for business: " />
-                            <p:inputText id="absencebussiness" value="#{authorisation.absencebussiness}" required="false" requiredMessage="Period of absence for business is a required Field" />
-                            <p:message for="absencebussiness"/>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="School / Administrative Unit: " />
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="administrativeunit" value="#{authorisation.administrativeunit}" required="false" requiredMessage="School / Administrative Unit is a required Field" />
+                                </p:column>
+                                <p:column>
+                                    <p:message for="administrativeunit"/>
+                                </p:column>
+                            </p:row>
 
-                            <h:outputText value="Period of absence for private: " />
-                            <p:inputText id="absenceprivate" value="#{authorisation.absenceprivate}" required="false" requiredMessage="Period of absence for private is a required Field" />
-                            <p:message for="absenceprivate"/>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Period of absence for business: " />
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="absencebussiness" value="#{authorisation.absencebussiness}" required="true" requiredMessage="Period of absence for business is a required Field" />
+                                </p:column>
+                                <p:column>
+                                    <p:message for="absencebussiness"/>
+                                </p:column>
+                            </p:row>
 
-                            <h:outputText value="Destination countries: " />
-                            <p:inputText id="countries" value="#{authorisation.countries}" required="false" requiredMessage="Destination countries is a required Field" />
-                            <p:message for="countries"/>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Period of absence for private: " />
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="absenceprivate" value="#{authorisation.absenceprivate}" required="true" requiredMessage="Period of absence for private is a required Field" />
+                                </p:column>
+                                <p:column>
+                                    <p:message for="absenceprivate"/>
+                                </p:column>
+                            </p:row>
 
-                            <h:outputText value="Destination citys: " />
-                            <p:inputText id="citys" value="#{authorisation.citys}" required="false" requiredMessage="Destination citys is a required Field" />
-                            <p:message for="citys"/>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Destination countries: " />
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="countries" value="#{authorisation.countries}" required="false" requiredMessage="Destination countries is a required Field" />
+                                </p:column>
+                                <p:column>
+                                    <p:message for="countries"/>
+                                </p:column>
+                            </p:row>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Destination citys: " />
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="citys" value="#{authorisation.citys}" required="false" requiredMessage="Destination citys is a required Field" />
+                                </p:column>
+                                <p:column>
+                                    <p:message for="citys"/>
+                                </p:column>
+                            </p:row>
+
+                            <p:row >
+                                <p:column  rowspan="4"> 
+                                    <p:selectOneRadio id="policycheck" required="true" requiredMessage="authorisation check list must be completed" value="#{authorisation.checks}">
+                                        <f:selectItem itemValue="1" itemLabel="Yes" />
+                                        <f:selectItem itemValue="0" itemLabel="No" />
+                                    </p:selectOneRadio>
+                                </p:column>
+
+                                <p:column colspan="1">
+                                    <h:outputText value="I hereby certify that the attached application meets requirements of the MSA travel policy and procedures. " />
+                                </p:column>
+                                <p:column rowspan="4">
+                                    <p:message for="policycheck"/>
+                                </p:column>                                
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1" >
+                                    <h:outputText value="I hereby certify that the travel costs can be met within the specified budget. "  />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1" >
+                                    <h:outputText value="I hereby authorize the attached travel application." />
+                                </p:column>
+                            </p:row>
 
 
-                            <h:outputText value="" />
-                            <h:outputText value="I hereby certify that the attached application meets requirements of the MSA travel policy and procedures.: " />
-                            <!-- So every thing is correctly spaced. -->
 
-                            <h:outputText value="" />
-                            <h:outputText value="I hereby certify that the travel costs can be met within the specified budget. .: "  />
-
-                            <!-- So every thing is correctly spaced. -->
-
-                            <h:outputText value="" />
-                            <h:outputText value="I hereby authorize the attached travel application.:" />
-
-                            <h:outputText value="" />
-                            <h:outputText value="" />
-
-                            <p:selectOneRadio id="policycheck" required="true" requiredMessage="authorisation check list must be completed" value="#{authorisation.checks}">
-                                <f:selectItem itemValue="1" itemLabel="Yes" />
-                                <f:selectItem itemValue="0" itemLabel="No" />
-                            </p:selectOneRadio>
-
-                            <p:message for="policycheck"/>
-
-                        </h:panelGrid>
+                        </p:panelGrid>
 
                     </p:panel>
                 </p:tab>
@@ -435,7 +489,7 @@
                 </p:tab>
 
                 <p:tab id="authotabfinal" title="authorisation">
-                    <p:panel header="Authorisation authorisation">
+                    <p:panel header="Authorisation">
 
                         <p:panelGrid id="authoriseFrom" >
 
@@ -447,7 +501,7 @@
                                 </p:column>
                                 <p:column>
 
-                                    <p:inputTextarea id="authfromsection" value="#{authorisation.fromsection}" required="false" requiredMessage="Contact Name: is a required Field" />
+                                    <p:inputText id="authfromsection" value="#{authorisation.fromsection}" required="false" requiredMessage="Contact Name: is a required Field" />
                                 </p:column>
                                 <p:column>
                                     <p:message for="authfromsection"/>
@@ -479,7 +533,7 @@
                                 </p:column>
                                 <p:column>
 
-                                    <p:inputTextarea id="authname" value="#{authorisation.name}" required="false" requiredMessage="Contact Name: is a required Field" />
+                                    <p:inputText id="authname" value="#{authorisation.name}" required="false" requiredMessage="Contact Name: is a required Field" />
                                 </p:column>
                                 <p:column>
                                     <p:message for="authname"/>
@@ -492,8 +546,8 @@
                                     <h:outputText value="Date: " />
                                 </p:column>
                                 <p:column>
+                                    <p:calendar id="authdate" value="#{authorisation.dateStamp.date}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field" />
 
-                                    <p:inputTextarea id="authdate" value="#{authorisation.dateStamp}" required="false" requiredMessage="Contact Telephone should be a phone number" />
                                 </p:column>
                                 <p:column>
                                     <p:message for="authdate"/>

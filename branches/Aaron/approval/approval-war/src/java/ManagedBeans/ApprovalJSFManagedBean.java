@@ -46,6 +46,7 @@ public class ApprovalJSFManagedBean implements Serializable {
     //-------------------------------------------------------------------------
     //======change========change=========change=============change=============
     private static final Logger logger = Logger.getLogger(ApprovalJSFManagedBean.class.getName());
+    
     private Approval approval;
     // instance variables for approval
     private int idapproval;
@@ -56,6 +57,7 @@ public class ApprovalJSFManagedBean implements Serializable {
     private Date DateStamp;
     private int ApplicationID;
     private int AccountID;
+    
     private Finalcosting Fcosting;
     // instance variables for finalcosting
     private int IDFinalcosting;
@@ -86,8 +88,11 @@ public class ApprovalJSFManagedBean implements Serializable {
     private double approvedbudget;
     private double approvedcost;
     private int fromoz;
+    
     private String ozname;
+    @Pattern(message="Invalid Number", regexp="[0-9]{10,16}")
     private String oztel;
+    @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String ozemail;
     //private Quotes quotesRef; 
     private Approval approvalRef;
@@ -190,7 +195,7 @@ public class ApprovalJSFManagedBean implements Serializable {
     }
 
     public String goHome() {
-        return "viewAuthorisation";
+        return "authorisation";
     }
 
     public String editauthorisation() {

@@ -91,3 +91,14 @@ h3 {
 a:link, a:visited {
 	color: #094c93;
 }
+
+/*
+need to ask Marco how to fix the table boarders
+http://stackoverflow.com/questions/9892654/primefaces-overrides-my-custom-css-style
+http://stackoverflow.com/questions/8578494/how-to-override-stylesheets-of-primefaces
+for approval
+table {
+    border-width: 0 !important;
+    border-color: white !important;
+}
+*/
