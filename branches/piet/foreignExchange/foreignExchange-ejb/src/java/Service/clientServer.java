@@ -21,7 +21,7 @@ public interface clientServer
     public Itinerary findItinerary(Integer id);
     public Travelerprofile find(Integer id);
     public Traveldocument findDocument(Integer id);
-    public void createForX(Forexorder forerorder);
+    //public void createForX(Forexorder forerorder, Integer id);
     public Forexorder findForX(Integer id);
     public void updateForex(Forexorder forexorder, Integer id);
 }
