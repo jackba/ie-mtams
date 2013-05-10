@@ -15,7 +15,7 @@ import javax.ejb.Local;
 @Local
 public interface ConferenceHandlerLocal {
     public void persist(Conference conference);
-    public Travelerprofile find(Integer id);
+    public Travelerprofile findTravelerProfile(Integer id);
     public Conference findForX(Integer id);
     public void updateConf(Conference c, Integer id);
 }

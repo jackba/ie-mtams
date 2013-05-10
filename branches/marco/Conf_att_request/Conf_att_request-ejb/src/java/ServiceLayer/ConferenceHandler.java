@@ -5,8 +5,10 @@
 package ServiceLayer;
 
 import DataAccess.ConferenceFacadeLocal;
+import DataAccess.TravelerprofileFacadeLocal;
 import Entities.Conference;
 import Entities.Travelerprofile;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -16,21 +18,27 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class ConferenceHandler implements ConferenceHandlerLocal {
-    
+
+    @EJB
+    private TravelerprofileFacadeLocal travelerDA;
     @EJB
     private ConferenceFacadeLocal dao;
-    
+
     @Override
     public void persist(Conference conference) {
         dao.create(conference);
     }
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
-
     @Override
-    public Travelerprofile find(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Travelerprofile findTravelerProfile(Integer id) {
+        List<Travelerprofile> all = travelerDA.findAll();
+        for (Travelerprofile each : all) {
+            if (each.getAccountid().getIdaccount().equals(id)) {
+                System.out.println(each.getAircon());
+                return each;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -42,5 +50,5 @@ public class ConferenceHandler implements ConferenceHandlerLocal {
     public void updateConf(Conference c, Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
 }
