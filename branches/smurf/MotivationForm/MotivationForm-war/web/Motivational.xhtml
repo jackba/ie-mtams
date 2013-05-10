@@ -22,7 +22,7 @@
         <h:form id="motivform">
                     <p:tab id="moti" title="Motivation">  
                         <p:panel header="Motivational Form - All fields are required">  
-
+                            <p:messages id="submitConfirm" closable="true" autoUpdate="true" severity="info"/>
                             <h:panelGrid id="motivate" columns="3">  
                                 <h:outputText value="Supplier/Service Provider: " />  
                                 <p:inputText id="supplier" value="#{motivBean.supplier}" required="true" requiredMessage="Supplier is a required Field" />  
