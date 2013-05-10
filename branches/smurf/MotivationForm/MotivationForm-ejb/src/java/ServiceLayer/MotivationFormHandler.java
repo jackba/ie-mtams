@@ -30,6 +30,31 @@ public class MotivationFormHandler implements MotivationFormHandlerLocal
         moti.create(motivation);
     }
     
+    @Override
+    public void updateMoti(Motivation MotivEdit, Integer id)
+    {
+       Integer motiID = null;
+        Motivation motiformNew = MotivEdit;
+        Motivation motiformOld = null;
+        List<Application> allApp = app.findAll();
+        for(Application eachApp : allApp)
+        {
+            if(eachApp.getAccountIdaccount().getIdaccount().equals(id))
+            {  
+                motiID = eachApp.getForexorderIdforexorder().getIdforexorder();
+            }
+        }
+        
+        List<Motivation> allMoti = moti.findAll();
+        for(Motivation eachFor : allMoti)
+        {
+            if(eachFor.getIdmotivation().equals(motiID))
+                motiformOld = eachFor;
+                motiformNew.setIdmotivation(motiformOld.getIdmotivation());
+                moti.edit(motiformNew);              
+        }          
+    }
+    
     public Motivation findMotivation(Integer id)
     {
         Integer motivationId = null;

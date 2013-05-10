@@ -19,5 +19,6 @@ public interface MotivationFormHandlerLocal
     
     public void persist(Motivation motivation);
     public Motivation findMotivation(Integer id);
+    public void updateMoti(Motivation MotivEdit, Integer id);
     
 }
