@@ -141,6 +141,7 @@ public class ForeignBean implements Serializable
             forX.setCash(foreignCash);
             forX.setCashpassport(CashPassportCard);
             forX.setCctype(type);
+            forX.setCcnumber(number);
             forX.setCclast3(last3);
             forX.setCcexpirydate(expire);
             forX.setCcpaymentamount(amount);
@@ -148,8 +149,8 @@ public class ForeignBean implements Serializable
             forX.setDatewillbeconfirmed(dateForex);
             forX.setReasonfortravel(reasonForTravel);
             
-            csi.createForX(forX);
-            return "welcomePrimefaces";
+            csi.updateForex(forX, accountID);
+            return "foreignExhange";
 	} 
     
     @PostConstruct
@@ -165,6 +166,7 @@ public class ForeignBean implements Serializable
          setCashPassportCard(viewForX.getCashpassport());
          setType(viewForX.getCctype());
          setLast3(viewForX.getCclast3());
+         setNumber(viewForX.getCcnumber());
          setExpire(viewForX.getCcexpirydate());
          setAmount(viewForX.getCash());
          setDateRequired(viewForX.getDateofrequired());
@@ -184,6 +186,7 @@ public class ForeignBean implements Serializable
         editForX.setCash(foreignCash);
         editForX.setCashpassport(CashPassportCard);
         editForX.setCctype(type);
+        editForX.setCcnumber(number);
         editForX.setCclast3(last3);
         editForX.setCcexpirydate(expire);
         editForX.setCcpaymentamount(amount);

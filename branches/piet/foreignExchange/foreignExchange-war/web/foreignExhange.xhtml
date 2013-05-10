@@ -35,7 +35,7 @@
                             <h:message for=""/>
                             
                             <h:outputText value="Passenger (Full name) : " />  
-                            <h:outputText value="#{foreignBean.travelerP.givenname}" />
+                            <h:outputText value="#{foreignBean.travelerP.firstname}" />
                             <h:message for=""/>
                              
                             <h:outputText value="Physical address: " />  
@@ -111,7 +111,7 @@
                             <p:inputText value="#{foreignBean.number}" /> 
                             
                             <h:outputText value="Last 3 digits on reverse of card : " />  
-                            <p:inputText value="#{foreignBean.last3}"  maxlength="3" /> 
+                            <p:inputText value="#{foreignBean.last3}" /> 
                             
                             <h:outputText value="Expiry date: " />  
                             <p:calendar id="ExpireDate" value="#{foreignBean.expire}" showButtonPanel="true" navigator="true"/>
