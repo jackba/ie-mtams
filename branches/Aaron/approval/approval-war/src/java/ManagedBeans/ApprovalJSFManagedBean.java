@@ -90,9 +90,9 @@ public class ApprovalJSFManagedBean implements Serializable {
     private int fromoz;
     
     private String ozname;
-    @Pattern(message="Invalid Number", regexp="[0-9]{10,16}")
+    //@Pattern(message="Invalid Number", regexp="[0-9]{10,16}")
     private String oztel;
-    @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
+    //@Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String ozemail;
     //private Quotes quotesRef; 
     private Approval approvalRef;
