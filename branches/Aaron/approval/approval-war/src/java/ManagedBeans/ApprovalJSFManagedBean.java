@@ -50,9 +50,11 @@ public class ApprovalJSFManagedBean implements Serializable {
     private Approval approval;
     // instance variables for approval
     private int idapproval;
+    @Pattern(message="Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp="[a-zA-Z -]{0,}") 
     private String fromsection;
     private int sectionid;
     private int sectionapproved;
+    @Pattern(message="Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp="[a-zA-Z -]{0,}") 
     private String Notes;
     private Date DateStamp;
     private int ApplicationID;
@@ -61,12 +63,16 @@ public class ApprovalJSFManagedBean implements Serializable {
     private Finalcosting Fcosting;
     // instance variables for finalcosting
     private int IDFinalcosting;
+    @Pattern(message="Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp="[a-zA-Z -]{0,}") 
     private String Name;
+    @Pattern(message="Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp="[a-zA-Z -]{0,}") 
     private String administrativeunit;
     private int absencebussiness;
     private int absenceprivate;
+    @Pattern(message="Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp="[a-zA-Z -]{0,}") 
     private String countries;
-    private String citys;
+    @Pattern(message="Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp="[a-zA-Z -]{0,}") 
+    private String cities;
     private int checks;
     private double AirfareBudget;
     private double AirfareCost;
@@ -87,37 +93,32 @@ public class ApprovalJSFManagedBean implements Serializable {
     private String otherdiscription;
     private double approvedbudget;
     private double approvedcost;
-    private int fromoz;
     
+    private int fromoz;
+    @Pattern(message="Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp="[a-zA-Z -]{0,}")
     private String ozname;
     //@Pattern(message="Invalid Number", regexp="[0-9]{10,16}")
     private String oztel;
     //@Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String ozemail;
+    
+    
     //private Quotes quotesRef; 
     private Approval approvalRef;
     private Finalcosting fcostingRef;
     /*
      private int QuotesID;
-    
-    
+
      private UIData dataTable;
 
      private Account accountRef;// = new Account(accountIDhack);
      private Application applicationRef;// = new Application(applicationIDhack);    
      
-    
-     
      //private Account accountEntity;
     
      // special form element handlers
      private List<Integer> approvalChecks;
-    
-    
-    
 
-    
-    
      */
 
     /**
@@ -155,7 +156,7 @@ public class ApprovalJSFManagedBean implements Serializable {
         Fcosting.setAbsencebussiness(absencebussiness);
         Fcosting.setAbsenceprivate(absenceprivate);
         Fcosting.setCountries(countries);
-        Fcosting.setCitys(citys);
+        Fcosting.setCitys(cities);
         Fcosting.setChecks(checks);
 
 
@@ -329,12 +330,12 @@ public class ApprovalJSFManagedBean implements Serializable {
         this.countries = countries;
     }
 
-    public String getCitys() {
-        return citys;
+    public String getCities() {
+        return cities;
     }
 
-    public void setCitys(String citys) {
-        this.citys = citys;
+    public void setCities(String cities) {
+        this.cities = cities;
     }
 
     public int getChecks() {
