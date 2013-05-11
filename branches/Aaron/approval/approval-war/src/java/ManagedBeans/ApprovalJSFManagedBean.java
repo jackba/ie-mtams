@@ -78,8 +78,8 @@ public class ApprovalJSFManagedBean implements Serializable {
     private double AirfareCost;
     private double CarRentalBudget;
     private double CarRentalCost;
-    private double AccomodationBudget;
-    private double AccomodationCost;
+    private double AccommodationBudget;
+    private double AccommodationCost;
     private int accommodatedays;
     private double perdiembudget;
     private double perdiemcost;
@@ -160,8 +160,8 @@ public class ApprovalJSFManagedBean implements Serializable {
         Fcosting.setChecks(checks);
 
 
-        Fcosting.setAccommodationbudget(AccomodationBudget);
-        Fcosting.setAccommodationcost(AccomodationCost);
+        Fcosting.setAccommodationbudget(AccommodationBudget);
+        Fcosting.setAccommodationcost(AccommodationCost);
         Fcosting.setAccommodatedays(accommodatedays);
         Fcosting.setAirfarebudget(AirfareBudget);
         Fcosting.setAirfarecost(AirfareCost);
@@ -378,20 +378,20 @@ public class ApprovalJSFManagedBean implements Serializable {
         this.CarRentalCost = CarRentalCost;
     }
 
-    public double getAccomodationBudget() {
-        return AccomodationBudget;
+    public double getAccommodationBudget() {
+        return AccommodationBudget;
     }
 
-    public void setAccomodationBudget(double AccomodationBudget) {
-        this.AccomodationBudget = AccomodationBudget;
+    public void setAccommodationBudget(double AccommodationBudget) {
+        this.AccommodationBudget = AccommodationBudget;
     }
 
-    public double getAccomodationCost() {
-        return AccomodationCost;
+    public double getAccommodationCost() {
+        return AccommodationCost;
     }
 
-    public void setAccomodationCost(double AccomodationCost) {
-        this.AccomodationCost = AccomodationCost;
+    public void setAccommodationCost(double AccommodationCost) {
+        this.AccommodationCost = AccommodationCost;
     }
 
     public int getAccommodatedays() {
