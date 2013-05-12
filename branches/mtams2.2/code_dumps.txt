@@ -31,3 +31,5 @@
                 <p:menuitem value="Conference Attendance" url="#" icon="ui-icon-wrench" disabled="true"/>
                 <p:menuitem value="Social" url="#" icon="ui-icon-person" disabled="true"/>
             </p:tabMenu> -->
+
+<p:commandButton id="btn_add" value="+" update="itinPanel" action="#{appBean.reinit()}"/>
