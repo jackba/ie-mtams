@@ -33,3 +33,7 @@
             </p:tabMenu> -->
 
 <p:commandButton id="btn_add" value="+" update="itinPanel" action="#{appBean.reinit()}"/>
+
+<p:commandButton id="selectButton" update="applications" oncomplete="#{appBean.viewThis()}" icon="ui-icon-search" title="View">  
+                        <f:setPropertyActionListener value="#{app}" target="#{appBean.selectedApp}" />  
+                    </p:commandButton>
