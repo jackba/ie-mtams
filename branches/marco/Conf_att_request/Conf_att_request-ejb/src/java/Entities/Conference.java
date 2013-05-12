@@ -49,10 +49,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Conference.findByReplacement", query = "SELECT c FROM Conference c WHERE c.replacement = :replacement"),
     @NamedQuery(name = "Conference.findByReplacementarrangments", query = "SELECT c FROM Conference c WHERE c.replacementarrangments = :replacementarrangments")})
 public class Conference implements Serializable {
-    @OneToMany(mappedBy = "conferenceIdconference")
-    private Collection<Attachement> attachementCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "conferenceIdconference")
-    private Collection<Travel> travelCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -99,6 +95,10 @@ public class Conference implements Serializable {
     @Size(max = 45)
     @Column(name = "REPLACEMENTARRANGMENTS")
     private String replacementarrangments;
+    @OneToMany(mappedBy = "conferenceIdconference")
+    private Collection<Attachement> attachementCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "conferenceIdconference")
+    private Collection<Travel> travelCollection;
 
     public Conference() {
     }
@@ -227,6 +227,24 @@ public class Conference implements Serializable {
         this.replacementarrangments = replacementarrangments;
     }
 
+    @XmlTransient
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
+    }
+
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
+    }
+
+    @XmlTransient
+    public Collection<Travel> getTravelCollection() {
+        return travelCollection;
+    }
+
+    public void setTravelCollection(Collection<Travel> travelCollection) {
+        this.travelCollection = travelCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -250,24 +268,6 @@ public class Conference implements Serializable {
     @Override
     public String toString() {
         return "Entities.Conference[ idconference=" + idconference + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Attachement> getAttachementCollection() {
-        return attachementCollection;
-    }
-
-    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
-        this.attachementCollection = attachementCollection;
-    }
-
-    @XmlTransient
-    public Collection<Travel> getTravelCollection() {
-        return travelCollection;
-    }
-
-    public void setTravelCollection(Collection<Travel> travelCollection) {
-        this.travelCollection = travelCollection;
     }
     
 }
