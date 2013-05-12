@@ -43,7 +43,7 @@
 
                             <h:panelGrid columns="2">
                                 <p:outputLabel for="confName" value="Conference Name:"/>
-                                <p:inputText id="confName" value="#{conference.confName}"/>
+                                <p:inputText id="confName" value="#{conference.confName}" required="true"/>
 
                                 <p:outputLabel for="website" value="Web Adress:"/>
                                 <p:inputText id="website" value="#{conference.website}"/>
@@ -57,7 +57,7 @@
                                 <p:inputText id="city" value="#{conference.city}"/>
 
                                 <h:outputText value="Are you presenting a paper?"/>
-                                <p:selectOneRadio id="paperOptions" value="#{conference.paperOption}">
+                                <p:selectOneRadio id="paperOptions" value="#{conference.paperOption}" required="true">
                                     <f:selectItem itemLabel="Yes" itemValue="1"/>
                                     <f:selectItem itemLabel="No" itemValue="2" />
                                     <p:ajax event="change" update="ajaxGrid1"/>
@@ -66,18 +66,18 @@
 
                             <h:panelGrid columns="2" id="ajaxGrid1">
                                 <p:outputLabel rendered="#{conference.paperOption eq '1'}" for="yesReason" value="Title of paper:"/>
-                                <p:inputText rendered="#{conference.paperOption eq '1'}" id="yesReason" value="#{conference.yesReason}"/>
+                                <p:inputText rendered="#{conference.paperOption eq '1'}" id="yesReason" value="#{conference.yesReason}" required="true"/>
 
                                 <p:outputLabel rendered="#{conference.paperOption eq '1'}" for="author" value="Specify all authors and affiliations:"/>
-                                <h:inputTextarea rendered="#{conference.paperOption eq '1'}" id="author" value="#{conference.author}"/>
+                                <h:inputTextarea rendered="#{conference.paperOption eq '1'}" id="author" value="#{conference.author}" required="true"/>
 
                                 <p:outputLabel rendered="#{conference.paperOption eq '2'}" for="noReason" value="Special reason for attendance:"/>
-                                <p:inputText rendered="#{conference.paperOption eq '2'}" id="noReason" value="#{conference.noReason}" required="false"/>
+                                <p:inputText rendered="#{conference.paperOption eq '2'}" id="noReason" value="#{conference.noReason}" required="true"/>
                             </h:panelGrid>
 
                             <h:panelGrid columns="2">
                                 <p:outputLabel for="presentationDate" value="Date of internal MSA presentation:"/>
-                                <p:calendar id="presentationDate" showOn="button" value="#{conference.presentationDate}" navigator="true"/>
+                                <p:calendar id="presentationDate" value="#{conference.presentationDate}" navigator="true" showOn="button" required="true"/>
                             </h:panelGrid>
 
                         </p:panel>
@@ -88,16 +88,16 @@
 
                             <h:panelGrid columns="2">
                                 <p:outputLabel for="fromDate" value="Date From:"/>
-                                <p:calendar id="fromDate" showOn="button" value="#{conference.toDate}" navigator="true"/>
+                                <p:calendar id="fromDate" value="#{conference.toDate}" navigator="true" showOn="button" required="true"/>
 
                                 <p:outputLabel for="toDate" value="Date To:"/>
-                                <p:calendar id="toDate" showOn="button" value="#{conference.fromDate}" navigator="true"/>
+                                <p:calendar id="toDate" value="#{conference.fromDate}" navigator="true" showOn="button" required="true"/>
 
                                 <p:outputLabel for="diffDays" value="Days:"/>
                                 <p:inputText id="diffDays" value="#{conference.diffDays}"/>
 
                                 <h:outputText value="Do you need coverage for teaching commitments?: " />
-                                <p:selectOneRadio id="coverOptions" value="#{conference.coverOptions}">
+                                <p:selectOneRadio id="coverOptions" value="#{conference.coverOptions}" required="true">
                                     <f:selectItem itemLabel="Yes" itemValue="yes" />
                                     <f:selectItem itemLabel="No" itemValue="no" />
                                     <f:selectItem itemLabel="N/A" itemValue="na" />
@@ -107,7 +107,7 @@
 
                             <h:panelGrid columns="2" id="ajaxGrid2">
                                 <p:outputLabel rendered="#{conference.coverOptions eq 'yes'}" for="arrangements" value="What arrangements do you propose to cover teaching commitments? "/>
-                                <h:inputTextarea rendered="#{conference.coverOptions eq  'yes'}" id="arrangements" value="#{conference.coverDetails}"/>
+                                <h:inputTextarea rendered="#{conference.coverOptions eq  'yes'}" id="arrangements" value="#{conference.coverDetails}" required="true"/>
                             </h:panelGrid>
                         </p:panel>
                     </p:tab>
@@ -118,7 +118,7 @@
 
                             <h:panelGrid columns="2">
                                 <p:outputLabel for="fundingOptions" value="Sources of funding:"/>
-                                <p:selectOneRadio id="fundingOptions" value="#{conference.fundingOptions}">
+                                <p:selectOneRadio id="fundingOptions" value="#{conference.fundingOptions}" required="true">
                                     <f:selectItem itemLabel="School/Admin Unit" itemValue="1" />
                                     <f:selectItem itemLabel="Research Grant" itemValue="2" />
                                     <f:selectItem itemLabel="Other (Specify below)" itemValue="3" />
@@ -128,7 +128,7 @@
 
                             <h:panelGrid columns="2" id="ajaxGrid3" >
                                 <p:outputLabel rendered="#{conference.fundingOptions eq '3'}" for="otherSources" value="Other sources of funding:"/>
-                                <p:inputText rendered="#{conference.fundingOptions eq '3'}" id="otherSources" value="#{conference.otherSources}"/>
+                                <p:inputText rendered="#{conference.fundingOptions eq '3'}" id="otherSources" value="#{conference.otherSources}" required="true"/>
                             </h:panelGrid>
 
                             <h:panelGrid columns="2">
