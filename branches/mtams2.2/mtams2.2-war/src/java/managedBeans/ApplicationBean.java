@@ -22,9 +22,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.ApplicationScoped;
 //import javax.faces.bean.SessionScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.*;
 import javax.faces.context.FacesContext;
@@ -32,254 +33,273 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
 
-
 /**
  *
  * @author Badger
  */
 @Named(value = "appBean")
-@SessionScoped
+@ApplicationScoped
 public class ApplicationBean implements Serializable {
+
     @EJB
     private TravelProfileHandlerLocal travelProfileHandler;
     @EJB
     private ApplicationHandlerLocal appHandler;
-    
     private static final Logger logger = Logger.getLogger(TravelProfileBean.class.getName());
     private List<Application> allApps;
     private Application selectedApp;
-    
-    private Integer accountID = 1;
-    private Travelerprofile profileRef = new Travelerprofile();//travelProfileHandler.findTravelProf(accountID);
+    private Integer accountID;// = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+    private Travelerprofile profileRef;//travelProfileHandler.findTravelProf(accountID);
     private Date modifiedDate;
     @Future
     private Date departureDate;
     @Future
     private Date returnDate;
-    
     private String description;
     private Travel newTravel;
-    
     private Itinerary tempItin;
+    @Future
     private Date tempDate;
+    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
     private String tempDest;
+    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
     private String tempLeaveType;
+    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
     private String tempTravelDay;
     
     private String costCentre;
     private Quotes newQuote;
-    @Pattern(message="Invalid Entry", regexp="[a-zA-Z']{0,}")
+    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
     private String fQFrom;
-    @Pattern(message="Invalid Entry", regexp="[a-zA-Z']{0,}")
+    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
     private String fQTo;
     @Future
     private Date fQDate;
-    
-    
-    
     private String fQTime;
-    @Pattern(message="Invalid Entry", regexp="[a-zA-Z']{0,}")
+    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
     private String fQFlight1;
-    @Pattern(message="Invalid Number", regexp="[0-9,'$]{0,10}")
+    @Pattern(message = "Invalid Number", regexp = "[0-9]{0,10}")
     private String fQCost1;
-    @Pattern(message="Invalid Entry", regexp="[a-zA-Z']{0,}")
+    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
     private String fQFlight2;
-    @Pattern(message="Invalid Number", regexp="[0-9,'$]{0,10}")
+    @Pattern(message = "Invalid Number", regexp = "[0-9]{0,10}")
     private String fQCost2;
-    
     private List<Flightquotes> flightQuotes;
     private Flightquotes newFlight;
-    
-    @Pattern(message="Invalid Entry", regexp="[a-zA-Z']{0,}")
+    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
     private String cQFrom;
-    @Pattern(message="Invalid Entry", regexp="[a-zA-Z']{0,}")
+    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
     private String cQTo;
     @Future
     private Date cQDateCollected;
     @Future
     private Date cQDateReturned;
-    @Pattern(message="Invalid Entry", regexp="[a-zA-Z']{0,}")
+    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
     private String cQHire1;
-    @Pattern(message="Invalid Number", regexp="[0-9,'$]{0,10}")
+    @Pattern(message = "Invalid Number", regexp = "[0-9]{0,10}")
     private String cQCost1;
-    @Pattern(message="Invalid Entry", regexp="[a-zA-Z']{0,}")
+    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
     private String cQHire2;
-    @Pattern(message="Invalid Number", regexp="[0-9,'$]{0,10}")
+    @Pattern(message = "Invalid Number", regexp = "[0-9]{0,10}")
     private String cQCost2;
-    
     private List<Carquotes> carQuotes;
     private Carquotes newCar;
-    
-    @Pattern(message="Invalid Entry", regexp="[a-zA-Z']{0,}")
+    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
     private String hQLocation;
     @Future
     private Date hQDateIn;
     @Future
     private Date hQDateOut;
-    @Pattern(message="Invalid Entry", regexp="[a-zA-Z']{0,}")
+    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
     private String hQHotel1;
-    @Pattern(message="Invalid Number", regexp="[0-9,'$]{0,10}")
+    @Pattern(message = "Invalid Number", regexp = "[0-9]{0,10}")
     private String hQCost1;
-    @Pattern(message="Invalid Entry", regexp="[a-zA-Z']{0,}")
+    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
     private String hQHotel2;
-    @Pattern(message="Invalid Number", regexp="[0-9,'$]{0,10}")
+    @Pattern(message = "Invalid Number", regexp = "[0-9]{0,10}")
     private String hQCost2;
-    
     private List<Accomodationquotes> accQuotes;
     private Accomodationquotes newAcc;
-    
     private List<Itinerary> hops = new ArrayList<Itinerary>();
     private UIData hopTable;
     private UIForm form;
     private UIPanel panel;
-    private UIInput input = new UIInput();;
+    private UIInput input = new UIInput();
+    
     private int idNum = 0;
+    private List<Flightquotes> flights;
+    private List<Accomodationquotes> hotels;
+    private List<Carquotes> cars;
+    private Application appRef;
+    private Travel travelRef;
+    private Itinerary itinRef;
+    private Quotes quoteRef;
     
     private String reasonForTravel;
     private Application newApplication;
+
     /**
      * Creates a new instance of ApplicationBean
      */
     public ApplicationBean() {
-        
     }
-    
-    /*@PostConstruct
-    public void initialize(){
+
+    @PostConstruct
+    public void initialize() {
         //FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        
-        Application tempApp = new Application();
-        tempApp.setDescription("going somewhere");
-        tempApp.setDatemodified(new Date());
-        
-        allApps.add(tempApp);
-    }*/
-        
-    public String createApplication(){
+
+//        Application tempApp = new Application();
+//        tempApp.setDescription("going somewhere");
+//        tempApp.setDatemodified(new Date());
+//        
+//        allApps.add(tempApp);
+        accountID = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+        //profileRef = travelProfileHandler.findTravelProf(accountID);
+        profileRef = travelProfileHandler.findTravelProf(accountID);
+        getValues();
+    }
+
+    public String createApplication() {
         modifiedDate = new Date();
         newApplication = new Application();
-        
+
         newApplication.setDatemodified(modifiedDate);
         newApplication.setDescription(description);
         newApplication.setTravelerprofileIdtravelerprofile(profileRef);
-        
+        //newApplication.setAccountIdaccount(accountID);
+
         newTravel = new Travel();
         newTravel.setDatedeparture(departureDate);
         newTravel.setDatereturn(returnDate);
         newTravel.setDescription(reasonForTravel);
-        
+
         newQuote = new Quotes();
         newQuote.setCostcenter(costCentre);
-        
+
         accQuotes = new ArrayList<Accomodationquotes>();
         newAcc = new Accomodationquotes();
-        
+
         newAcc.setAccomodationprovider(hQHotel1);
         newAcc.setQuotecost(hQCost1);
         newAcc.setCity(hQLocation);
         newAcc.setDatecheckin(hQDateIn);
         newAcc.setDatecheckout(hQDateOut);
-        
+
         accQuotes.add(newAcc);
-        
+
         newAcc = new Accomodationquotes();
-        
+
         newAcc.setAccomodationprovider(hQHotel2);
         newAcc.setQuotecost(hQCost2);
         newAcc.setCity(hQLocation);
         newAcc.setDatecheckin(hQDateIn);
         newAcc.setDatecheckout(hQDateOut);
-        
+
         accQuotes.add(newAcc);
-        
+
         carQuotes = new ArrayList<Carquotes>();
         newCar = new Carquotes();
-        
+
         newCar.setDatecollect(cQDateCollected);
         newCar.setDatereturn(cQDateReturned);
         newCar.setProvider(cQHire1);
         newCar.setQuotecost(cQCost1);
-        
+
         carQuotes.add(newCar);
-        
+
         newCar = new Carquotes();
-        
+
         newCar.setDatecollect(cQDateCollected);
         newCar.setDatereturn(cQDateReturned);
         newCar.setProvider(cQHire2);
         newCar.setQuotecost(cQCost2);
-        
+
         carQuotes.add(newCar);
-        
+
         flightQuotes = new ArrayList<Flightquotes>();
         newFlight = new Flightquotes();
-        
+
         newFlight.setFlightfrom(fQFrom);
         newFlight.setFlightto(fQTo);
         newFlight.setDatedeparture(fQDate);
         newFlight.setQuotesource(fQFlight1);
         newFlight.setQuotecost(fQCost1);
-        
+
         flightQuotes.add(newFlight);
-        
+
         newFlight = new Flightquotes();
-        
+
         newFlight.setFlightfrom(fQFrom);
         newFlight.setFlightto(fQTo);
         newFlight.setDatedeparture(fQDate);
         newFlight.setQuotesource(fQFlight2);
         newFlight.setQuotecost(fQCost2);
-        
+
         flightQuotes.add(newFlight);
-        
+
         tempItin = new Itinerary();
         tempItin.setDate(getTempDate());
         tempItin.setDestination(getTempDest());
         tempItin.setLeavetype(getTempLeaveType());
         tempItin.setTravelday(getTempTravelDay());
 
-        appHandler.persistApplication(newApplication, newQuote, accQuotes,carQuotes, flightQuotes, tempItin, newTravel);
-        FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success","Application Created"));
+        appHandler.persistApplication(newApplication, newQuote, accQuotes, carQuotes, flightQuotes, tempItin, newTravel, profileRef);
+        FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Application Created"));
         return "userHome";
     }
-    
-    public String onFlowProcess(FlowEvent event){
-        logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());  
-        logger.log(Level.INFO, "Next step:{0}", event.getNewStep());  
-        
+
+    public String onFlowProcess(FlowEvent event) {
+        logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());
+        logger.log(Level.INFO, "Next step:{0}", event.getNewStep());
+
 
         return event.getNewStep();
     }
-    
-    public String reinit(){
+
+    public String reinit() {
         tempItin.setDate(getTempDate());
         tempItin.setDestination(getTempDest());
         tempItin.setLeavetype(getTempLeaveType());
         tempItin.setTravelday(getTempTravelDay());
         hops.add(tempItin);
         tempItin = new Itinerary();
-        
+
         createNewRow();
-        
+
         return null;
     }
-    
-    private void createNewRow(){
+
+    private void createNewRow() {
         //List<Object> row = new ArrayList<Object>();
-        
+
         input.setRendererType("text");
         input.setRendered(true);
         input.setId("element" + ++idNum);
         panel.getChildren().add(input);
         input = new UIInput();
         //uiInput.
+
+    }
+
+    public String viewThis() {
+        getValues();
+        return "viewApplication";
+    }
+    //dada
+    public void getValues(){
+        appRef = appHandler.getApplication(6);
+        description = appRef.getDescription();
+        quoteRef = appRef.getQuotesIdquotes();
+        hotels = appHandler.getAccomodationQuotes(quoteRef.getIdquotes());
+        cars = appHandler.getCarQuotes(quoteRef.getIdquotes());
+        flights = appHandler.getFlightQuotes(quoteRef.getIdquotes());
+        travelRef = appRef.getTravelIdtravel();
+        itinRef = appHandler.getItinerary(travelRef.getIdtravel());
         
     }
-    
-    
 
     public Travelerprofile getProfileRef() {
-        profileRef = travelProfileHandler.findTravelProf(accountID);
+
         return profileRef;
     }
 
@@ -318,7 +338,6 @@ public class ApplicationBean implements Serializable {
     public void setHops(List<Itinerary> hops) {
         this.hops = hops;
     }
-
 
     public Itinerary getTempItin() {
         return tempItin;
@@ -600,8 +619,68 @@ public class ApplicationBean implements Serializable {
     public void sethQCost2(String hQCost2) {
         this.hQCost2 = hQCost2;
     }
-    
-    
-    
 
+    public List<Flightquotes> getFlights() {
+        flights = appHandler.getFlightQuotes(quoteRef.getIdquotes());
+        return flights;
+    }
+
+    public void setFlights(List<Flightquotes> flights) {
+        this.flights = flights;
+    }
+
+    public List<Accomodationquotes> getHotels() {
+        hotels = appHandler.getAccomodationQuotes(quoteRef.getIdquotes());
+        return hotels;
+    }
+
+    public void setHotels(List<Accomodationquotes> hotels) {
+        this.hotels = hotels;
+    }
+
+    public List<Carquotes> getCars() {
+        cars = appHandler.getCarQuotes(quoteRef.getIdquotes());
+        return cars;
+    }
+
+    public void setCars(List<Carquotes> cars) {
+        this.cars = cars;
+    }
+
+    public Application getAppRef() {
+        appRef = appHandler.getApplication(5);
+        //description = appRef.getDescription();
+        return appRef;
+    }
+
+    public void setAppRef(Application appRef) {
+        this.appRef = appRef;
+    }
+//dada
+    public Travel getTravelRef() {
+        travelRef = appRef.getTravelIdtravel();
+        return travelRef;
+    }
+
+    public void setTravelRef(Travel travelRef) {
+        this.travelRef = travelRef;
+    }
+
+    public Itinerary getItinRef() {
+        itinRef = appHandler.getItinerary(travelRef.getIdtravel());
+        return itinRef;
+    }
+
+    public void setItinRef(Itinerary itinRef) {
+        this.itinRef = itinRef;
+    }
+
+    public Quotes getQuoteRef() {
+        quoteRef = appRef.getQuotesIdquotes();
+        return quoteRef;
+    }
+
+    public void setQuoteRef(Quotes quoteRef) {
+        this.quoteRef = quoteRef;
+    }
 }

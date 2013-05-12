@@ -67,24 +67,24 @@
 
                             <p:panel id="travelPanel" header="Details of proposed travel program">
 
-                                <p:messages id="travelError" severity="error" autoUpdate="true"/>
+                                <p:messages id="travelError" severity="error" autoUpdate="true" globalOnly="true"/>
 
                                 <h:panelGrid columns="3" columnClasses="label, value, error" styleClass="grid">
                                     <h:outputText value="Application Name: *" />
-                                    <p:inputText id="desc" value="#{appBean.description}" required="false" requiredMessage="Name of application missing" title="How would you like to remember this application"/>
+                                    <p:inputText id="desc" value="#{appBean.description}" required="true" requiredMessage="Name of application missing" title="How would you like to remember this application"/>
                                     <p:message for="desc" />
 
                                     <h:outputText value="Date of initial departure: *" />
-                                    <p:calendar id="departDate" required="false" requiredMessage="Date required" value="#{appBean.departureDate}" />
-                                    <p:message for="departDate"  />
+                                    <p:calendar id="departDate" required="true" requiredMessage="Date required" value="#{appBean.departureDate}" />
+                                    <p:message for="departDate" />
 
                                     <h:outputText value="Date of final return: *" />
-                                    <p:calendar id="returnDate" required="false" requiredMessage="Date required" value="#{appBean.returnDate}" />
-                                    <p:message for="returnDate"  />
+                                    <p:calendar id="returnDate" required="true" requiredMessage="Date required" value="#{appBean.returnDate}" />
+                                    <p:message for="returnDate" />
 
                                     <h:outputText value="Description of purpose of travel: *" />
-                                    <p:inputTextarea id="description" value="#{appBean.reasonForTravel}" required="false" requiredMessage="Reason is required" />
-                                    <p:message for="description"  />
+                                    <p:inputTextarea id="description" value="#{appBean.reasonForTravel}" required="true" requiredMessage="Reason is required" />
+                                    <p:message for="description" />
 
                                 </h:panelGrid>
                             </p:panel>
@@ -101,10 +101,10 @@
                                     <h:outputText value="Travel day/work day:" />
                                     <h:outputText value="" />
 
-                                    <p:calendar value="#{appBean.tempDate}" /> 
-                                    <p:inputText value="#{appBean.tempDest}" /> 
-                                    <p:inputText value="#{appBean.tempLeaveType}" /> 
-                                    <p:inputText value="#{appBean.tempTravelDay}" />
+                                    <p:calendar value="#{appBean.tempDate}" required="true" requiredMessage="Date required"/> 
+                                    <p:inputText value="#{appBean.tempDest}" required="true" requiredMessage="Entry required"/> 
+                                    <p:inputText value="#{appBean.tempLeaveType}" required="true" requiredMessage="Entry required"/> 
+                                    <p:inputText value="#{appBean.tempTravelDay}" required="true" requiredMessage="Entry required"/>
                                     <p:button value="+" />
                                 </h:panelGrid>
 
@@ -117,11 +117,11 @@
                                 
                                 <h:panelGrid columns="3">
                                     <h:outputText value="Cost Centre:" />
-                                    <p:inputMask mask="999999-9999" id="costCentre" value="#{appBean.costCentre}" required="false" requiredMessage="Cost centre code required" />
+                                    <p:inputMask mask="999999-9999" id="costCentre" value="#{appBean.costCentre}" required="true" requiredMessage="Cost centre code required" />
                                     <p:message for="costCentre" />
                                 </h:panelGrid>
                                 
-                                <p:messages for="flight quotes" id="flightQuoteError" severity="error" autoUpdate="true"/>
+                                <p:messages for="flightQuotes" id="flightQuoteError" severity="error" autoUpdate="true"/>
                                 
                                 <h4>Flight quotes</h4>
                                 <h:panelGrid id="flightQuotes" columns="4">
@@ -130,20 +130,20 @@
                                     <h:outputText value="Date:" />
                                     <h:outputText value="Time:" />
                                     
-                                    <p:inputText value="#{appBean.fQFrom}" />
-                                    <p:inputText value="#{appBean.fQTo}" />
-                                    <p:calendar value="#{appBean.fQDate}" /> 
-                                    <p:inputText type="time" value="#{appBean.fQTime}" /> 
+                                    <p:inputText value="#{appBean.fQFrom}" required="true" requiredMessage="Entry required"/>
+                                    <p:inputText value="#{appBean.fQTo}" required="true" requiredMessage="Entry required"/>
+                                    <p:calendar value="#{appBean.fQDate}" required="true" requiredMessage="Entry required"/> 
+                                    <p:inputText type="time" value="#{appBean.fQTime}" required="true" requiredMessage="Entry required"/> 
                                     
                                     <h:outputText value="Flight Option #1" />
                                     <h:outputText value="Cost of Option #1" />
                                     <h:outputText value="Flight Option #2" />
                                     <h:outputText value="Cost of Option #2" />
                                     
-                                    <p:inputText value="#{appBean.fQFlight1}" />
-                                    <p:inputText value="#{appBean.fQCost1}" />
-                                    <p:inputText value="#{appBean.fQFlight2}" />
-                                    <p:inputText value="#{appBean.fQCost2}" />
+                                    <p:inputText value="#{appBean.fQFlight1}" required="true" requiredMessage="Entry required"/>
+                                    <p:inputText value="#{appBean.fQCost1}" required="true" requiredMessage="Entry required"/>
+                                    <p:inputText value="#{appBean.fQFlight2}" required="true" requiredMessage="Entry required"/>
+                                    <p:inputText value="#{appBean.fQCost2}" required="true" requiredMessage="Entry required"/>
                                 </h:panelGrid>
                                 
                                 <p:messages for="carQuotes" id="carQuoteError" severity="error" autoUpdate="true"/>
@@ -154,20 +154,20 @@
                                     <h:outputText value="Date Collect:" />
                                     <h:outputText value="Date Returned:" />
                                     
-                                    <p:inputText value="#{appBean.cQFrom}" />
-                                    <p:inputText value="#{appBean.cQTo}" />
-                                    <p:calendar value="#{appBean.cQDateCollected}" /> 
-                                    <p:calendar value="#{appBean.cQDateReturned}" /> 
+                                    <p:inputText value="#{appBean.cQFrom}" required="true" requiredMessage="Entry required"/>
+                                    <p:inputText value="#{appBean.cQTo}" required="true" requiredMessage="Entry required"/>
+                                    <p:calendar value="#{appBean.cQDateCollected}" required="true" requiredMessage="Entry required" /> 
+                                    <p:calendar value="#{appBean.cQDateReturned}" required="true" requiredMessage="Entry required"/> 
                                     
                                     <h:outputText value="Care Hire Option #1" />
                                     <h:outputText value="Cost of Option #1" />
                                     <h:outputText value="Care Hire Option #2" />
                                     <h:outputText value="Cost of Option #2" />
                                     
-                                    <p:inputText value="#{appBean.cQHire1}" />
-                                    <p:inputText value="#{appBean.cQCost1}" />
-                                    <p:inputText value="#{appBean.cQHire2}" />
-                                    <p:inputText value="#{appBean.cQCost2}" />
+                                    <p:inputText value="#{appBean.cQHire1}" required="true" requiredMessage="Entry required"/>
+                                    <p:inputText value="#{appBean.cQCost1}" required="true" requiredMessage="Entry required"/>
+                                    <p:inputText value="#{appBean.cQHire2}" required="true" requiredMessage="Entry required"/>
+                                    <p:inputText value="#{appBean.cQCost2}" required="true" requiredMessage="Entry required"/>
                                 </h:panelGrid>
                                 
                                 <p:messages for="hotelQuotes" id="hotelQuoteError" severity="error" autoUpdate="true"/>
@@ -178,9 +178,9 @@
                                     <h:outputText value="Date Out:" />
                                     <h:outputText value="" />
                                     
-                                    <p:inputText value="#{appBean.hQLocation}" />
-                                    <p:calendar value="#{appBean.hQDateIn}" /> 
-                                    <p:calendar value="#{appBean.hQDateOut}" />
+                                    <p:inputText value="#{appBean.hQLocation}" required="true" requiredMessage="Entry required"/>
+                                    <p:calendar value="#{appBean.hQDateIn}" required="true" requiredMessage="Entry required"/> 
+                                    <p:calendar value="#{appBean.hQDateOut}" required="true" requiredMessage="Entry required"/>
                                     <h:inputHidden />
                                     
                                     <h:outputText value="Hotel Option #1" />
@@ -188,13 +188,13 @@
                                     <h:outputText value="Hotel Option #2" />
                                     <h:outputText value="Cost of Option #2" />
                                     
-                                    <p:inputText value="#{appBean.hQHotel1}" />
-                                    <p:inputText value="#{appBean.hQCost1}" />
-                                    <p:inputText value="#{appBean.hQHotel2}" />
-                                    <p:inputText value="#{appBean.hQCost2}" />
+                                    <p:inputText value="#{appBean.hQHotel1}" required="true" requiredMessage="Entry required"/>
+                                    <p:inputText value="#{appBean.hQCost1}" required="true" requiredMessage="Entry required"/>
+                                    <p:inputText value="#{appBean.hQHotel2}" required="true" requiredMessage="Entry required"/>
+                                    <p:inputText value="#{appBean.hQCost2}" required="true" requiredMessage="Entry required"/>
                                 </h:panelGrid>
                                 
-                                <p:commandButton action="#{appBean.createApplication()}" value="Create" update="Quotes" />
+                                <p:commandButton action="#{appBean.createApplication()}" value="Create" update="quotePanel" />
                             </p:panel>
 
                         </p:tab>

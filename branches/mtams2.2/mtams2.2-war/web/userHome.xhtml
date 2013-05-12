@@ -55,9 +55,7 @@
                 </p:column>
                     
                 <p:column style="width:4%">  
-                        <p:commandButton id="selectButton" update="applications" icon="ui-icon-search" title="View">  
-                        <f:setPropertyActionListener value="#{app}" target="#{appBean.selectedApp}" />  
-                    </p:commandButton>  
+                    <p:button outcome="#{appBean.viewThis()}" icon="ui-icon-search" />  
                 </p:column>  
 
                 </p:dataTable>
