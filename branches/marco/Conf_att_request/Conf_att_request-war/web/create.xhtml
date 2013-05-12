@@ -21,24 +21,19 @@
 
                             <h:panelGrid columns="2">
                                 <h:outputLabel for="schoolUnit" value="School/Administrative Unit:"/>
-                                <p:inputText id="schoolUnit" value="#{conference.travelerP.familyname}"/>
+                                <p:inputText id="schoolUnit" value="#{conference.travelerP.department}"/>
 
                                 <p:outputLabel for="staffNum" value="Staff Number:"/>
-                                <p:inputText id="staffNum" value=""/>
+                                <p:inputText id="staffNum" value="#{conference.travelerP.staffid}"/>
 
-                                <h:outputText value="Title:"/>
-                                <p:selectOneMenu value="">
-                                    <f:selectItem itemValue="Miss" itemLabel="Miss"/>
-                                    <f:selectItem itemValue="Mr" itemLabel="Mr"/>
-                                    <f:selectItem itemValue="Mrs" itemLabel="Mrs"/>
-                                    <f:selectItem itemValue="Ms" itemLabel="Ms"/>
-                                </p:selectOneMenu>
+                                <h:outputLabel for="staffTitle" value="Title:"/>
+                                <p:inputText id="staffTitle" value="#{conference.travelerP.title}"/>
 
                                 <p:outputLabel for="fName" value="Family Name:"/>
-                                <p:inputText id="fName" value=""/>
+                                <p:inputText id="fName" value="#{conference.travelerP.familyname}"/>
 
                                 <p:outputLabel for="lName" value="Given Names:"/>
-                                <p:inputText id="lName" value=""/>
+                                <p:inputText id="lName" value="#{conference.travelerP.firstname}"/>
                             </h:panelGrid>
                         </p:panel>
                     </p:tab>

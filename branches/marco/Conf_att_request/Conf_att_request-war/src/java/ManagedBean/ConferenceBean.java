@@ -108,7 +108,6 @@ public class ConferenceBean implements Serializable {
     }
 
 
-
     public String getSchoolUnit() {
         return schoolUnit;
     }
