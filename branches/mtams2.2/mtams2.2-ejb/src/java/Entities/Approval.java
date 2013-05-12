@@ -35,6 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Approval.findAll", query = "SELECT a FROM Approval a"),
     @NamedQuery(name = "Approval.findByIdapproval", query = "SELECT a FROM Approval a WHERE a.idapproval = :idapproval"),
+    @NamedQuery(name = "Approval.findByFromsection", query = "SELECT a FROM Approval a WHERE a.fromsection = :fromsection"),
+    @NamedQuery(name = "Approval.findBySectionid", query = "SELECT a FROM Approval a WHERE a.sectionid = :sectionid"),
     @NamedQuery(name = "Approval.findBySectionapproved", query = "SELECT a FROM Approval a WHERE a.sectionapproved = :sectionapproved"),
     @NamedQuery(name = "Approval.findByNotes", query = "SELECT a FROM Approval a WHERE a.notes = :notes"),
     @NamedQuery(name = "Approval.findByDate", query = "SELECT a FROM Approval a WHERE a.date = :date")})
@@ -45,9 +47,14 @@ public class Approval implements Serializable {
     @Basic(optional = false)
     @Column(name = "IDAPPROVAL")
     private Integer idapproval;
+    @Size(max = 30)
+    @Column(name = "FROMSECTION")
+    private String fromsection;
+    @Column(name = "SECTIONID")
+    private Integer sectionid;
     @Column(name = "SECTIONAPPROVED")
     private Integer sectionapproved;
-    @Size(max = 200)
+    @Size(max = 300)
     @Column(name = "NOTES")
     private String notes;
     @Column(name = "DATE")
@@ -75,6 +82,22 @@ public class Approval implements Serializable {
 
     public void setIdapproval(Integer idapproval) {
         this.idapproval = idapproval;
+    }
+
+    public String getFromsection() {
+        return fromsection;
+    }
+
+    public void setFromsection(String fromsection) {
+        this.fromsection = fromsection;
+    }
+
+    public Integer getSectionid() {
+        return sectionid;
+    }
+
+    public void setSectionid(Integer sectionid) {
+        this.sectionid = sectionid;
     }
 
     public Integer getSectionapproved() {

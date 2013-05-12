@@ -144,6 +144,10 @@ public class UserBean implements Serializable{
     public String viewProfile(){
         return "viewTravelProfile";
     }
+    
+    public String goNewApp(){
+        return "createApplication";
+    }
 
     public String save() {  
         

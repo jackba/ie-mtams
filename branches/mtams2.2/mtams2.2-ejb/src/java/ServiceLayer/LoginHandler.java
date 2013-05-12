@@ -38,11 +38,11 @@ public class LoginHandler implements LoginHandlerLocal {
     }
     
     @Override
-    public String getAccountRole(Account acc){ 
+    public Integer getAccountRole(Account acc){ 
         List<Accountrole> all = accRoleDao.findAll();
         for(Accountrole each : all){
             if(each.getAccountid().equals(acc)){
-                return each.getRoleid().getRole();
+                return each.getRoleid().getIdroles();
             }
         }
         return null;

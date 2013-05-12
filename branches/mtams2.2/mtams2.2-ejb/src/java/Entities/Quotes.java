@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Quotes.findAll", query = "SELECT q FROM Quotes q"),
     @NamedQuery(name = "Quotes.findByIdquotes", query = "SELECT q FROM Quotes q WHERE q.idquotes = :idquotes"),
-    @NamedQuery(name = "Quotes.findByNew1", query = "SELECT q FROM Quotes q WHERE q.new1 = :new1"),
+    @NamedQuery(name = "Quotes.findByAmended", query = "SELECT q FROM Quotes q WHERE q.amended = :amended"),
     @NamedQuery(name = "Quotes.findByCostcenter", query = "SELECT q FROM Quotes q WHERE q.costcenter = :costcenter"),
-    @NamedQuery(name = "Quotes.findByDiscritption", query = "SELECT q FROM Quotes q WHERE q.discritption = :discritption")})
+    @NamedQuery(name = "Quotes.findByDescription", query = "SELECT q FROM Quotes q WHERE q.description = :description")})
 public class Quotes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,15 +41,14 @@ public class Quotes implements Serializable {
     @Basic(optional = false)
     @Column(name = "IDQUOTES")
     private Integer idquotes;
-    @Size(max = 45)
-    @Column(name = "NEW")
-    private String new1;
+    @Column(name = "AMENDED")
+    private Integer amended;
     @Size(max = 45)
     @Column(name = "COSTCENTER")
     private String costcenter;
     @Size(max = 45)
-    @Column(name = "DISCRITPTION")
-    private String discritption;
+    @Column(name = "DESCRIPTION")
+    private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "quotesIdquotes")
     private Collection<Carquotes> carquotesCollection;
     @OneToMany(mappedBy = "quotesIdquotes")
@@ -78,12 +77,12 @@ public class Quotes implements Serializable {
         this.idquotes = idquotes;
     }
 
-    public String getNew1() {
-        return new1;
+    public Integer getAmended() {
+        return amended;
     }
 
-    public void setNew1(String new1) {
-        this.new1 = new1;
+    public void setAmended(Integer amended) {
+        this.amended = amended;
     }
 
     public String getCostcenter() {
@@ -94,12 +93,12 @@ public class Quotes implements Serializable {
         this.costcenter = costcenter;
     }
 
-    public String getDiscritption() {
-        return discritption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDiscritption(String discritption) {
-        this.discritption = discritption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @XmlTransient

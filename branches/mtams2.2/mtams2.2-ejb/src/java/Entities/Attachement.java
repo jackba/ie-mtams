@@ -8,13 +8,14 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -28,18 +29,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Attachement.findAll", query = "SELECT a FROM Attachement a"),
     @NamedQuery(name = "Attachement.findByIdattachement", query = "SELECT a FROM Attachement a WHERE a.idattachement = :idattachement"),
-    @NamedQuery(name = "Attachement.findByDiscription", query = "SELECT a FROM Attachement a WHERE a.discription = :discription"),
+    @NamedQuery(name = "Attachement.findByDescription", query = "SELECT a FROM Attachement a WHERE a.description = :description"),
     @NamedQuery(name = "Attachement.findByDocumentlocation", query = "SELECT a FROM Attachement a WHERE a.documentlocation = :documentlocation")})
 public class Attachement implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "IDATTACHEMENT")
     private Integer idattachement;
     @Size(max = 45)
-    @Column(name = "DISCRIPTION")
-    private String discription;
+    @Column(name = "DESCRIPTION")
+    private String description;
     @Size(max = 45)
     @Column(name = "DOCUMENTLOCATION")
     private String documentlocation;
@@ -104,12 +105,12 @@ public class Attachement implements Serializable {
         this.idattachement = idattachement;
     }
 
-    public String getDiscription() {
-        return discription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDiscription(String discription) {
-        this.discription = discription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getDocumentlocation() {

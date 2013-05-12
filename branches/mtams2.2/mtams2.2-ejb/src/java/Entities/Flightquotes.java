@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +21,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -39,14 +40,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Flightquotes.findByFlightto", query = "SELECT f FROM Flightquotes f WHERE f.flightto = :flightto"),
     @NamedQuery(name = "Flightquotes.findByDatedeparture", query = "SELECT f FROM Flightquotes f WHERE f.datedeparture = :datedeparture"),
     @NamedQuery(name = "Flightquotes.findByDatearrival", query = "SELECT f FROM Flightquotes f WHERE f.datearrival = :datearrival"),
-    @NamedQuery(name = "Flightquotes.findByQuotesourcediscription", query = "SELECT f FROM Flightquotes f WHERE f.quotesourcediscription = :quotesourcediscription"),
+    @NamedQuery(name = "Flightquotes.findByQuotesourcedescription", query = "SELECT f FROM Flightquotes f WHERE f.quotesourcedescription = :quotesourcedescription"),
     @NamedQuery(name = "Flightquotes.findByQuotesource", query = "SELECT f FROM Flightquotes f WHERE f.quotesource = :quotesource"),
     @NamedQuery(name = "Flightquotes.findByQuotecost", query = "SELECT f FROM Flightquotes f WHERE f.quotecost = :quotecost")})
 public class Flightquotes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "IDFLIGHTQUOTES")
     private Integer idflightquotes;
     @Size(max = 45)
@@ -65,8 +66,8 @@ public class Flightquotes implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date datearrival;
     @Size(max = 45)
-    @Column(name = "QUOTESOURCEDISCRIPTION")
-    private String quotesourcediscription;
+    @Column(name = "QUOTESOURCEDESCRIPTION")
+    private String quotesourcedescription;
     @Size(max = 45)
     @Column(name = "QUOTESOURCE")
     private String quotesource;
@@ -134,12 +135,12 @@ public class Flightquotes implements Serializable {
         this.datearrival = datearrival;
     }
 
-    public String getQuotesourcediscription() {
-        return quotesourcediscription;
+    public String getQuotesourcedescription() {
+        return quotesourcedescription;
     }
 
-    public void setQuotesourcediscription(String quotesourcediscription) {
-        this.quotesourcediscription = quotesourcediscription;
+    public void setQuotesourcedescription(String quotesourcedescription) {
+        this.quotesourcedescription = quotesourcedescription;
     }
 
     public String getQuotesource() {

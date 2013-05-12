@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Countrylookup.findAll", query = "SELECT c FROM Countrylookup c"),
     @NamedQuery(name = "Countrylookup.findByIdcountrylookup", query = "SELECT c FROM Countrylookup c WHERE c.idcountrylookup = :idcountrylookup"),
+    @NamedQuery(name = "Countrylookup.findByContinent", query = "SELECT c FROM Countrylookup c WHERE c.continent = :continent"),
     @NamedQuery(name = "Countrylookup.findByCountry", query = "SELECT c FROM Countrylookup c WHERE c.country = :country")})
 public class Countrylookup implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -38,6 +39,9 @@ public class Countrylookup implements Serializable {
     @NotNull
     @Column(name = "IDCOUNTRYLOOKUP")
     private Integer idcountrylookup;
+    @Size(max = 45)
+    @Column(name = "CONTINENT")
+    private String continent;
     @Size(max = 45)
     @Column(name = "COUNTRY")
     private String country;
@@ -57,6 +61,14 @@ public class Countrylookup implements Serializable {
 
     public void setIdcountrylookup(Integer idcountrylookup) {
         this.idcountrylookup = idcountrylookup;
+    }
+
+    public String getContinent() {
+        return continent;
+    }
+
+    public void setContinent(String continent) {
+        this.continent = continent;
     }
 
     public String getCountry() {

@@ -10,8 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -33,12 +31,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r"),
     @NamedQuery(name = "Role.findByIdroles", query = "SELECT r FROM Role r WHERE r.idroles = :idroles"),
     @NamedQuery(name = "Role.findByRole", query = "SELECT r FROM Role r WHERE r.role = :role"),
-    @NamedQuery(name = "Role.findByDiscritption", query = "SELECT r FROM Role r WHERE r.discritption = :discritption")})
+    @NamedQuery(name = "Role.findByDescription", query = "SELECT r FROM Role r WHERE r.description = :description")})
 public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(name = "IDROLES")
     private Integer idroles;
     @Basic(optional = false)
@@ -47,8 +45,8 @@ public class Role implements Serializable {
     @Column(name = "ROLE")
     private String role;
     @Size(max = 512)
-    @Column(name = "DISCRITPTION")
-    private String discritption;
+    @Column(name = "DESCRIPTION")
+    private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rolesIdroles")
     private Collection<Permission> permissionCollection;
     @OneToMany(mappedBy = "roleid")
@@ -82,12 +80,12 @@ public class Role implements Serializable {
         this.role = role;
     }
 
-    public String getDiscritption() {
-        return discritption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDiscritption(String discritption) {
-        this.discritption = discritption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @XmlTransient

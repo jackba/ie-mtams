@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +21,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -37,13 +38,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Carquotes.findByDatecollect", query = "SELECT c FROM Carquotes c WHERE c.datecollect = :datecollect"),
     @NamedQuery(name = "Carquotes.findByDatereturn", query = "SELECT c FROM Carquotes c WHERE c.datereturn = :datereturn"),
     @NamedQuery(name = "Carquotes.findByProvider", query = "SELECT c FROM Carquotes c WHERE c.provider = :provider"),
-    @NamedQuery(name = "Carquotes.findByDiscritption", query = "SELECT c FROM Carquotes c WHERE c.discritption = :discritption"),
+    @NamedQuery(name = "Carquotes.findByDescription", query = "SELECT c FROM Carquotes c WHERE c.description = :description"),
     @NamedQuery(name = "Carquotes.findByQuotecost", query = "SELECT c FROM Carquotes c WHERE c.quotecost = :quotecost")})
 public class Carquotes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "IDCARQUOTES")
     private Integer idcarquotes;
     @Column(name = "DATECOLLECT")
@@ -56,8 +57,8 @@ public class Carquotes implements Serializable {
     @Column(name = "PROVIDER")
     private String provider;
     @Size(max = 45)
-    @Column(name = "DISCRITPTION")
-    private String discritption;
+    @Column(name = "DESCRIPTION")
+    private String description;
     @Size(max = 45)
     @Column(name = "QUOTECOST")
     private String quotecost;
@@ -106,12 +107,12 @@ public class Carquotes implements Serializable {
         this.provider = provider;
     }
 
-    public String getDiscritption() {
-        return discritption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDiscritption(String discritption) {
-        this.discritption = discritption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getQuotecost() {

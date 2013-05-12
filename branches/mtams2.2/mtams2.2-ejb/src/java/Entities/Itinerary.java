@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Itinerary.findByDatefrom", query = "SELECT i FROM Itinerary i WHERE i.datefrom = :datefrom"),
     @NamedQuery(name = "Itinerary.findByDateto", query = "SELECT i FROM Itinerary i WHERE i.dateto = :dateto"),
     @NamedQuery(name = "Itinerary.findByLeavetype", query = "SELECT i FROM Itinerary i WHERE i.leavetype = :leavetype"),
-    @NamedQuery(name = "Itinerary.findByLeavediscritption", query = "SELECT i FROM Itinerary i WHERE i.leavediscritption = :leavediscritption"),
+    @NamedQuery(name = "Itinerary.findByLeavedescription", query = "SELECT i FROM Itinerary i WHERE i.leavedescription = :leavedescription"),
     @NamedQuery(name = "Itinerary.findByTravelday", query = "SELECT i FROM Itinerary i WHERE i.travelday = :travelday"),
     @NamedQuery(name = "Itinerary.findByDestination", query = "SELECT i FROM Itinerary i WHERE i.destination = :destination")})
 public class Itinerary implements Serializable {
@@ -62,8 +62,8 @@ public class Itinerary implements Serializable {
     @Column(name = "LEAVETYPE")
     private String leavetype;
     @Size(max = 45)
-    @Column(name = "LEAVEDISCRITPTION")
-    private String leavediscritption;
+    @Column(name = "LEAVEDESCRIPTION")
+    private String leavedescription;
     @Size(max = 45)
     @Column(name = "TRAVELDAY")
     private String travelday;
@@ -123,12 +123,12 @@ public class Itinerary implements Serializable {
         this.leavetype = leavetype;
     }
 
-    public String getLeavediscritption() {
-        return leavediscritption;
+    public String getLeavedescription() {
+        return leavedescription;
     }
 
-    public void setLeavediscritption(String leavediscritption) {
-        this.leavediscritption = leavediscritption;
+    public void setLeavedescription(String leavedescription) {
+        this.leavedescription = leavedescription;
     }
 
     public String getTravelday() {

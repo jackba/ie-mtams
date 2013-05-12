@@ -26,12 +26,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Citylookup.findAll", query = "SELECT c FROM Citylookup c"),
     @NamedQuery(name = "Citylookup.findByIdcitylookup", query = "SELECT c FROM Citylookup c WHERE c.citylookupPK.idcitylookup = :idcitylookup"),
+    @NamedQuery(name = "Citylookup.findByRegion", query = "SELECT c FROM Citylookup c WHERE c.region = :region"),
     @NamedQuery(name = "Citylookup.findByCity", query = "SELECT c FROM Citylookup c WHERE c.city = :city"),
     @NamedQuery(name = "Citylookup.findByCountrylookupIdcountrylookup", query = "SELECT c FROM Citylookup c WHERE c.citylookupPK.countrylookupIdcountrylookup = :countrylookupIdcountrylookup")})
 public class Citylookup implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CitylookupPK citylookupPK;
+    @Size(max = 45)
+    @Column(name = "REGION")
+    private String region;
     @Size(max = 45)
     @Column(name = "CITY")
     private String city;
@@ -56,6 +60,14 @@ public class Citylookup implements Serializable {
 
     public void setCitylookupPK(CitylookupPK citylookupPK) {
         this.citylookupPK = citylookupPK;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public String getCity() {

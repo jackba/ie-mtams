@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Permission.findAll", query = "SELECT p FROM Permission p"),
     @NamedQuery(name = "Permission.findByIdpermissions", query = "SELECT p FROM Permission p WHERE p.idpermissions = :idpermissions"),
     @NamedQuery(name = "Permission.findByPermission", query = "SELECT p FROM Permission p WHERE p.permission = :permission"),
-    @NamedQuery(name = "Permission.findByDiscritption", query = "SELECT p FROM Permission p WHERE p.discritption = :discritption"),
+    @NamedQuery(name = "Permission.findByDescription", query = "SELECT p FROM Permission p WHERE p.description = :description"),
     @NamedQuery(name = "Permission.findByCreateperm", query = "SELECT p FROM Permission p WHERE p.createperm = :createperm"),
     @NamedQuery(name = "Permission.findByDeleteperm", query = "SELECT p FROM Permission p WHERE p.deleteperm = :deleteperm"),
     @NamedQuery(name = "Permission.findByUpdateperm", query = "SELECT p FROM Permission p WHERE p.updateperm = :updateperm"),
@@ -47,8 +47,8 @@ public class Permission implements Serializable {
     @Column(name = "PERMISSION")
     private String permission;
     @Size(max = 45)
-    @Column(name = "DISCRITPTION")
-    private String discritption;
+    @Column(name = "DESCRIPTION")
+    private String description;
     @Column(name = "CREATEPERM")
     private Short createperm;
     @Column(name = "DELETEPERM")
@@ -89,12 +89,12 @@ public class Permission implements Serializable {
         this.permission = permission;
     }
 
-    public String getDiscritption() {
-        return discritption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDiscritption(String discritption) {
-        this.discritption = discritption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Short getCreateperm() {

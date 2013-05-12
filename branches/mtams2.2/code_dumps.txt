@@ -1,0 +1,33 @@
+<p:collector value="#{appBean.tempItin}" addTo="#{appBean.hops}" />
+
+<p:dataTable id="itinTable" value="#{appBean.hops}" binding="#{appBean.hopTable}" var="dop">
+
+                                <p:column headerText="Date">
+                                    <h:outputText value="#{dop.date}" />
+                                </p:column>
+
+                                <p:column headerText="Destination">
+                                        <h:outputText value="#{dop.destination}" />
+                                </p:column>
+                                <p:column headerText="Business Leave/ Other">
+                                    <h:outputText value="#{dop.leavetype}" />
+                                </p:column>
+                                <p:column headerText="Travel day/work day:">
+                                    <h:outputText value="#{dop.travelday}" />
+                                </p:column>
+
+                                <p:column headerText="Operation" >
+                                        <p:commandLink value="Remove"   >
+                                                <p:collector value="#{dop}" removeFrom="#{createBookBean.hops}" />
+                                        </p:commandLink>
+                                </p:column>
+
+                                </p:dataTable>
+
+            <!--<p:tabMenu activeIndex="1">
+                <p:menuitem value="Application" url="#" icon="ui-icon-star"/>
+                <p:menuitem value="Foreign Exchange" url="#" icon="ui-icon-search" disabled="true" />
+                <p:menuitem value="Motivation" url="#" icon="ui-icon-document" disabled="true"/>
+                <p:menuitem value="Conference Attendance" url="#" icon="ui-icon-wrench" disabled="true"/>
+                <p:menuitem value="Social" url="#" icon="ui-icon-person" disabled="true"/>
+            </p:tabMenu> -->

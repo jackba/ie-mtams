@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -18,7 +20,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -50,8 +51,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Conference implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "IDCONFERENCE")
     private Integer idconference;
     @Size(max = 45)
@@ -67,7 +68,7 @@ public class Conference implements Serializable {
     @Column(name = "CITY")
     private String city;
     @Column(name = "PRESENTING")
-    private Short presenting;
+    private Integer presenting;
     @Size(max = 45)
     @Column(name = "PRESENTATIONTITLE")
     private String presentationtitle;
@@ -146,11 +147,11 @@ public class Conference implements Serializable {
         this.city = city;
     }
 
-    public Short getPresenting() {
+    public Integer getPresenting() {
         return presenting;
     }
 
-    public void setPresenting(Short presenting) {
+    public void setPresenting(Integer presenting) {
         this.presenting = presenting;
     }
 

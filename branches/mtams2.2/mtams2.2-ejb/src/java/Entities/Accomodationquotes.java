@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +21,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -38,15 +39,15 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Accomodationquotes.findByDatecheckout", query = "SELECT a FROM Accomodationquotes a WHERE a.datecheckout = :datecheckout"),
     @NamedQuery(name = "Accomodationquotes.findByCountry", query = "SELECT a FROM Accomodationquotes a WHERE a.country = :country"),
     @NamedQuery(name = "Accomodationquotes.findByCity", query = "SELECT a FROM Accomodationquotes a WHERE a.city = :city"),
-    @NamedQuery(name = "Accomodationquotes.findByDiscritption", query = "SELECT a FROM Accomodationquotes a WHERE a.discritption = :discritption"),
+    @NamedQuery(name = "Accomodationquotes.findByDescription", query = "SELECT a FROM Accomodationquotes a WHERE a.description = :description"),
     @NamedQuery(name = "Accomodationquotes.findByAccomodationprovider", query = "SELECT a FROM Accomodationquotes a WHERE a.accomodationprovider = :accomodationprovider"),
     @NamedQuery(name = "Accomodationquotes.findByQuotesource", query = "SELECT a FROM Accomodationquotes a WHERE a.quotesource = :quotesource"),
     @NamedQuery(name = "Accomodationquotes.findByQuotecost", query = "SELECT a FROM Accomodationquotes a WHERE a.quotecost = :quotecost")})
 public class Accomodationquotes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "IDACCOMODATIONQUOTES")
     private Integer idaccomodationquotes;
     @Column(name = "DATECHECKIN")
@@ -62,8 +63,8 @@ public class Accomodationquotes implements Serializable {
     @Column(name = "CITY")
     private String city;
     @Size(max = 45)
-    @Column(name = "DISCRITPTION")
-    private String discritption;
+    @Column(name = "DESCRIPTION")
+    private String description;
     @Size(max = 45)
     @Column(name = "ACCOMODATIONPROVIDER")
     private String accomodationprovider;
@@ -126,12 +127,12 @@ public class Accomodationquotes implements Serializable {
         this.city = city;
     }
 
-    public String getDiscritption() {
-        return discritption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDiscritption(String discritption) {
-        this.discritption = discritption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getAccomodationprovider() {

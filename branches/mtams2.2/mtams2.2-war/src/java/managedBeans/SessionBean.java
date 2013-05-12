@@ -82,13 +82,17 @@ public class SessionBean implements Serializable{
         handler.modifyAccount(user);
     }
     
+    private void setSessionVariables(){
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", user.getIdaccount());
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username",user.getUsername());
+    }
+    
     public String validate(){
         user = handler.authenticate(this.username, this.password);
         if(user != null){
-           FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", user.getIdaccount());
-           FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username",user.getUsername());
-           if(handler.getAccountRole(user).charAt(0) < '2'){
-               
+           int roleNum = handler.getAccountRole(user); 
+           if(roleNum < 20){
+               setSessionVariables();
                //session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                if(user.getDatelogin() == null){
                    addDate();
@@ -101,12 +105,16 @@ public class SessionBean implements Serializable{
                }
                //logError = false;
                
-            }else{
+            }else if(roleNum < 30){
+               setSessionVariables();
                addDate();
                //session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                //logError = false;
                return "adminHome";
-            } 
+            } else{
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Login Error","Account has been deactivated. Please contact admin."));
+                return "login";
+            }
         }else{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Login Error","Incorrect username/password combination"));
             return "login";
@@ -120,10 +128,10 @@ public class SessionBean implements Serializable{
         //HttpSession session = request.getSession(true);
         try{
             
-            session.invalidate();
+        //((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).invalidate();
         }catch (NullPointerException e){
         }finally{
-            return "login.xhtml?faces-redirect=true";
+            return "login";
         }
         //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         

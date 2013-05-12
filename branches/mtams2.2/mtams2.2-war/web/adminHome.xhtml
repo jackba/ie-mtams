@@ -15,12 +15,8 @@
 
             <ul>
                     <li><a href="">Help</a></li>
-                    <li><h:link value="Logout"  outcome="#{sessionBean.checkActive()}" /></li>
+                    <li><h:link value="Logout"  outcome="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}"/></li>
             </ul>
-        </div>
-        <div>
-            <h:outputText value="#{sessionBean.greeting()}" />
-            
         </div>
         <div class="content" >
             <p:menubar>  

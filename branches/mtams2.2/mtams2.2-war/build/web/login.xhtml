@@ -3,7 +3,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      >
     <h:head>
         <title>MSA Travel Application</title>
 	<link href="css/styles.css" rel="Stylesheet" type="text/css" />
@@ -14,10 +15,8 @@
 				<img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
 			</div>
 			
-			<ul>
-				
-				<li><a href="">Help</a></li>
-				
+			<ul>				
+				<li><a href="">Help</a></li>				
 			</ul>
 		</div>
 
@@ -26,22 +25,26 @@
                         <fieldset>
                             <legend><h4>Login</h4></legend>
                             <h:form id="loginForm" >       
-                                <p:messages id="errorMessages" autoUpdate="true" closable="true" showDetail="true"/>
-                                <h:panelGrid id="panel" columns="3">
-                                    
+                                <p:messages id="loginMessage" showDetail="true" closable="true" autoUpdate="true" globalOnly="true" />
+                                <p:focus context="loginPanel"/> 
+                                
+                                <h:panelGrid id="loginPanel" columns="3">
+                                
+                                
                                 <h:outputLabel for="username"> 
                                     Username:
                                 </h:outputLabel>
-                                <p:inputText id="username" value="#{sessionBean.username}" required="true" requiredMessage="Username missing"/>
-                                <p:message for="username" display="icon"/>
+                                <p:inputText id="username" value="#{sessionBean.username}" required="true" requiredMessage="Username missing" />
+                                <p:message for="username" />
 
                                 <h:outputLabel for="password">
                                     Password:
                                 </h:outputLabel>
-                                <p:password id="password" value="#{sessionBean.password}" required="true" requiredMessage="Password missing"/>
-                                <p:message for="password" display="icon"/>
+                                <p:password id="password" value="#{sessionBean.password}" required="true" requiredMessage="Password missing" >
+                                </p:password>
+                                <p:message for="password" />
                                 
-                                <p:commandButton value="Login" update="errorMessages" action="#{sessionBean.validate()}" />
+                                <p:commandButton id="loginButton" value="Login" update="loginForm" action="#{sessionBean.validate()}" />
                                 </h:panelGrid>
 
                             </h:form>
@@ -61,7 +64,7 @@
 					</ul>
 				</div>
 				<h3>Legal</h3>
-					<p class="legal">Created by School of IT, Monash University South Africa</p>		
+					<p class="legal">Created by School of IT, Monash South Africa</p>		
 			</div>
 		</div>
     </h:body>

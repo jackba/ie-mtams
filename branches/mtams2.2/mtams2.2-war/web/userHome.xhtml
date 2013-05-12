@@ -3,7 +3,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>User Page</title>
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
@@ -16,7 +17,7 @@
 
             <ul>
                     <li><a href="">Help</a></li>
-                    <li><h:link value="Logout"  outcome="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}" /></li>
+                    <li><h:link value="Logout" outcome="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}" /></li>
             </ul>
         </div>
         <br />
@@ -31,12 +32,39 @@
         <p:menubar rendered="#{sessionBean.checkNotFirstTime()}">
             <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goHome()}"/>
             <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
-            <p:submenu label="Applications" icon="ui-icon-note">
-                <p:menuitem value="Start New Application" url="newApplications.xhtml"/>
-                <p:menuitem value="Edit Application" url="applications.xhtml"/>
-            </p:submenu>
+            <!--<p:menuitem value="Applications" icon="ui-icon-note" outcome="" />-->
         </p:menubar>
-        </div>    
+        </div>
+        <div id="content">
+            
+            <p:panel header="Current Applications">
+                <p:button outcome="#{userBean.goNewApp()}" icon="ui-icon-note" id="createButton"  title="Create Button" value="Create New" />
+                
+                <p:dataTable id="applications" var="app" value="#{appBean.allApps}">  
+  
+                <p:column headerText="Description" style="width:32%">  
+                    <h:outputText value="#{app.description}" />  
+                </p:column>  
+
+                <p:column headerText="Last date modified" style="width:32%">  
+                    <h:outputText value="#{app.datemodified}" />  
+                </p:column>  
+                    
+                <p:column headerText="Status" style="width:32%">  
+                    <h:outputText value="Pending completion" />  
+                </p:column>
+                    
+                <p:column style="width:4%">  
+                        <p:commandButton id="selectButton" update="applications" icon="ui-icon-search" title="View">  
+                        <f:setPropertyActionListener value="#{app}" target="#{appBean.selectedApp}" />  
+                    </p:commandButton>  
+                </p:column>  
+
+                </p:dataTable>
+            </p:panel>
+            
+        
+        </div>
         <div id= "footer">
             <div class="row group">
                 <div class="col">
