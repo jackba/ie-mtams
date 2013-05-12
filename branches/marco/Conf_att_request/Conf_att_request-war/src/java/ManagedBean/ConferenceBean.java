@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -28,21 +29,12 @@ public class ConferenceBean implements Serializable {
 
     @EJB
     private ConferenceHandlerLocal handler;
-                    
     int accountID = 1;
-    
     private Conference conf;
     private Conference confView;
     private Conference confEdit;
     private Travelerprofile travelerP;
-    
     private static final Logger logger = Logger.getLogger(ConferenceBean.class.getName());
-    //Section A - Personal Details
-    private String schoolUnit;
-    private String staffNum;
-    private String title;
-    private String firstName;
-    private String lastName;
     //Section B - ConferenceBean Details
     private String confName;
     private String website;
@@ -72,10 +64,6 @@ public class ConferenceBean implements Serializable {
     }
 
     public void save() {
-        FacesMessage msg;
-        msg = new FacesMessage("Sucessfull", "Welcome " + this.getFirstName() + "" + this.getLastName());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-
         conf = new Conference();
 
         conf.setConferencename((this.getConfName()));
@@ -95,9 +83,54 @@ public class ConferenceBean implements Serializable {
         conf.setReplacementarrangments(this.getCoverDetails());
 
         handler.persist(conf);
-
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sucessfull", this.getConfName() + " Added!"));
     }
-    
+
+    @PostConstruct
+    public void view() {
+        confView = handler.findConference(1);
+        logger.log(Level.INFO, "Conference ID:", confView.getIdconference());
+
+        this.setConfName(confView.getConferencename());
+        this.setWebsite(confView.getWebpage());
+        this.setCountry(confView.getCountry());
+        this.setCity(confView.getCity());
+        this.setPaperOption(confView.getPresenting());
+        this.setYesReason(confView.getPresentationtitle());
+        this.setAuthor(confView.getAuthors());
+        this.setNoReason(confView.getOtherreasonattendance());
+        this.setPresentationDate(confView.getDatemsapresentation());
+
+        this.setFromDate(confView.getDatefrom());
+        this.setToDate(confView.getDateto());
+        this.setDiffDays(confView.getConferenceduration());
+        this.setCoverOptions(confView.getReplacement());
+        this.setCoverDetails(confView.getReplacementarrangments());
+    }
+
+    public void update() {
+        confEdit = new Conference();
+
+        confEdit.setConferencename((this.getConfName()));
+        confEdit.setWebpage((this.getWebsite()));
+        confEdit.setCountry((this.getCountry()));
+        confEdit.setCity((this.getCity()));
+        confEdit.setPresenting(this.getPaperOption());
+        confEdit.setPresentationtitle(this.getYesReason());
+        confEdit.setAuthors(this.getAuthor());
+        confEdit.setOtherreasonattendance(this.getNoReason());
+        confEdit.setDatemsapresentation(this.getPresentationDate());
+
+        confEdit.setDatefrom(this.getFromDate());
+        confEdit.setDateto(this.getToDate());
+        confEdit.setConferenceduration(this.getDiffDays());
+        confEdit.setReplacement(this.getCoverOptions());
+        confEdit.setReplacementarrangments(this.getCoverDetails());
+
+        handler.updateConference(confEdit, accountID);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sucessfull", "Changes have been saved!"));
+    }
+
     public Travelerprofile getTravelerP() {
         travelerP = handler.findTravelerProfile(accountID);
         return travelerP;
@@ -105,51 +138,6 @@ public class ConferenceBean implements Serializable {
 
     public void setTravelerP(Travelerprofile travelerP) {
         this.travelerP = travelerP;
-    }
-
-
-    public String getSchoolUnit() {
-        return schoolUnit;
-    }
-
-    public void setSchoolUnit(String schoolUnit) {
-        this.schoolUnit = schoolUnit;
-    }
-
-    public String getStaffNum() {
-        return staffNum;
-    }
-
-    public void setStaffNum(String staffNum) {
-        this.staffNum = staffNum;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    /**
-     *
-     * @param lastName
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getConfName() {

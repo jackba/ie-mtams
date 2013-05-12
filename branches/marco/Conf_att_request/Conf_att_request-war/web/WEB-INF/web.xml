@@ -19,6 +19,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/conf_att_request.xhtml</welcome-file>
+        <welcome-file>faces/create.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>

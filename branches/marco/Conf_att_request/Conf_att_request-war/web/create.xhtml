@@ -21,19 +21,19 @@
 
                             <h:panelGrid columns="2">
                                 <h:outputLabel for="schoolUnit" value="School/Administrative Unit:"/>
-                                <p:inputText id="schoolUnit" value="#{conference.travelerP.department}"/>
+                                <p:inputText id="schoolUnit" value="#{conference.travelerP.department}" readonly="true"/>
 
                                 <p:outputLabel for="staffNum" value="Staff Number:"/>
-                                <p:inputText id="staffNum" value="#{conference.travelerP.staffid}"/>
+                                <p:inputText id="staffNum" value="#{conference.travelerP.staffid}" readonly="true"/>
 
                                 <h:outputLabel for="staffTitle" value="Title:"/>
-                                <p:inputText id="staffTitle" value="#{conference.travelerP.title}"/>
+                                <p:inputText id="staffTitle" value="#{conference.travelerP.title}" readonly="true"/>
 
                                 <p:outputLabel for="fName" value="Family Name:"/>
-                                <p:inputText id="fName" value="#{conference.travelerP.familyname}"/>
+                                <p:inputText id="fName" value="#{conference.travelerP.familyname}" readonly="true"/>
 
                                 <p:outputLabel for="lName" value="Given Names:"/>
-                                <p:inputText id="lName" value="#{conference.travelerP.firstname}"/>
+                                <p:inputText id="lName" value="#{conference.travelerP.firstname}" readonly="true"/>
                             </h:panelGrid>
                         </p:panel>
                     </p:tab>
@@ -109,10 +109,6 @@
                                 <p:outputLabel rendered="#{conference.coverOptions eq 'yes'}" for="arrangements" value="What arrangements do you propose to cover teaching commitments? "/>
                                 <h:inputTextarea rendered="#{conference.coverOptions eq  'yes'}" id="arrangements" value="#{conference.coverDetails}"/>
                             </h:panelGrid>
-
-
-                            <p:commandButton value="Submit" update="growl" action="#{conference.save()}" ajax="false"/>
-
                         </p:panel>
                     </p:tab>
 
@@ -142,7 +138,8 @@
                                 <p:outputLabel for="fundName" value="Fund:"/>
                                 <p:inputText id="fundName" value="#{conference.fundName}"/>
                             </h:panelGrid>
-
+                            
+                            <p:commandButton value="Submit" update="growl" action="#{conference.save()}" ajax="false"/>
                         </p:panel>
                     </p:tab>
 

@@ -1,12 +1,89 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h:form>
+            <p:growl id="growl" sticky="true" showDetail="true"/>
+
+            <p:panel header="Conference Attendance Request Form">
+                <p:fieldset legend="Conference Details">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Conference Name:"  />  
+                        <p:inplace editor="true">  
+                            <p:inputText value="#{conference.confName}"/> 
+                        </p:inplace>
+
+                        <h:outputLabel value="Web Adress:"/>
+                        <p:inplace editor="true"> 
+                            <p:inputText value="#{conference.website}"/>
+                        </p:inplace>
+
+                        <h:outputLabel value="Country:"/>
+                        <p:inplace editor="true"> 
+                            <p:inputText value="#{conference.country}"/>
+                        </p:inplace>
+
+                        <h:outputLabel value="City/State:"/>
+                        <p:inplace editor="true"> 
+                            <p:inputText value="#{conference.city}"/>
+                        </p:inplace>
+
+                        <h:outputLabel value="Presenting a paper?"/>
+                        <p:inplace editor="true"> 
+                            <p:selectOneRadio value="#{conference.paperOption}">
+                                <f:selectItem itemLabel="Yes" itemValue="1"/>
+                                <f:selectItem itemLabel="No" itemValue="2" />
+                            </p:selectOneRadio>
+                        </p:inplace>
+
+                        <h:outputLabel value="Date of internal MSA presentation:"/>
+                        <p:inplace editor="true"> 
+                            <p:calendar navigator="true" value="#{conference.presentationDate}"/>
+                        </p:inplace>
+                    </h:panelGrid>
+                </p:fieldset>
+
+                <p:fieldset legend="Conference Duration">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Date From:"/>
+                        <p:inplace editor="true"> 
+                            <p:calendar navigator="true" value="#{conference.fromDate}"/>
+                        </p:inplace>
+
+                        <h:outputLabel value="Date To:"/>
+                        <p:inplace editor="true"> 
+                            <p:calendar navigator="true" value="#{conference.toDate}"/>
+                        </p:inplace>
+
+                        <h:outputLabel value="Do you need coverage for teaching commitments?"/>
+                        <p:inplace editor="true"> 
+                            <p:selectOneRadio id="coverOptions" value="#{conference.coverOptions}">
+                                <f:selectItem itemLabel="Yes" itemValue="yes" />
+                                <f:selectItem itemLabel="No" itemValue="no" />
+                                <f:selectItem itemLabel="N/A" itemValue="na" />
+                            </p:selectOneRadio>
+                        </p:inplace>
+                    </h:panelGrid>
+
+                </p:fieldset>
+
+                <!--                <p:fieldset legend="Funding">
+                                    <h:panelGrid columns="2">
+                                        <h:outputText value="Coming Soon...."/>
+                                    </h:panelGrid>
+                                </p:fieldset>-->
+                <br />
+                <p:commandButton value="Submit" ajax="false" action="#{conference.update()}" />
+            </p:panel>
+        </h:form>
+
     </h:body>
+
 </html>
 
