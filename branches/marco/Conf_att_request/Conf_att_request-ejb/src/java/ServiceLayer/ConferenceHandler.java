@@ -4,10 +4,10 @@
  */
 package ServiceLayer;
 
-import DataAccess.AccountFacadeLocal;
+import DataAccess.ApplicationFacadeLocal;
 import DataAccess.ConferenceFacadeLocal;
 import DataAccess.TravelerprofileFacadeLocal;
-import Entities.Account;
+import Entities.Application;
 import Entities.Conference;
 import Entities.Travelerprofile;
 import java.util.List;
@@ -20,22 +20,22 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class ConferenceHandler implements ConferenceHandlerLocal {
+
     @EJB
-    private AccountFacadeLocal accountDA;
+    private ApplicationFacadeLocal applicationDA;
 
     @EJB
     private TravelerprofileFacadeLocal travelerDA;
     @EJB
-    private ConferenceFacadeLocal dao;
+    private ConferenceFacadeLocal conferenceDA;
 
     @Override
     public void persist(Conference conference) {
-        dao.create(conference);
+        conferenceDA.create(conference);
     }
 
     @Override
     public Travelerprofile findTravelerProfile(Integer id) {
-        Account acc = accountDA.find(id);
         List<Travelerprofile> all = travelerDA.findAll();
         for (Travelerprofile each : all) {
             if (each.getAccountid().getIdaccount().equals(id)) {
@@ -47,12 +47,51 @@ public class ConferenceHandler implements ConferenceHandlerLocal {
     }
 
     @Override
-    public Conference findForX(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Conference findConference(Integer id) {
+        Integer conferenceID = null;
+        Conference conferenceForm = null;
+
+        //Start by looking at Application Table. Application -> Travel ID -> ID Conference
+        List<Application> allApp = applicationDA.findAll();
+        for (Application eachApp : allApp) {
+            if (eachApp.getAccountIdaccount().getIdaccount().equals(id)) {
+                conferenceID = eachApp.getTravelIdtravel().getConferenceIdconference().getIdconference();
+            }
+        }
+
+        //Try and match conferenceID to passed id
+        List<Conference> allConferences = conferenceDA.findAll();
+        for (Conference eachConf : allConferences) {
+            if (eachConf.getIdconference().equals(conferenceID)) {
+                conferenceForm = eachConf;
+            }
+        }
+        return conferenceForm;
     }
 
     @Override
-    public void updateConf(Conference c, Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateConference(Conference c, Integer id) {
+        Integer conferenceID = null;
+        Conference newForm = c;
+        Conference oldForm = null;
+
+        //Start by looking at Application Table. Application -> Travel ID -> ID Conference
+        List<Application> allApp = applicationDA.findAll();
+        for (Application eachApp : allApp) {
+            if (eachApp.getAccountIdaccount().getIdaccount().equals(id)) {
+                conferenceID = eachApp.getTravelIdtravel().getConferenceIdconference().getIdconference();
+            }
+        }
+
+        //Try and match conferenceID to passed id
+        List<Conference> allConferences = conferenceDA.findAll();
+        for (Conference eachConf : allConferences) {
+            if (eachConf.getIdconference().equals(conferenceID)) {
+                oldForm = eachConf;
+                //move conferenceID of old conference entry to new entry.
+                newForm.setIdconference(oldForm.getIdconference());
+                conferenceDA.edit(newForm);
+            }
+        }
     }
 }
