@@ -67,9 +67,9 @@ public class ForeignBean implements Serializable
     private String travellerCheque;
     @Pattern(message="Invalid numbers only", regexp="[0-9]{0,}")
     private String foreignCash;
-    @Pattern(message="Invalid type", regexp="[A-Za-z]{0,}")
+    @Pattern(message="Invalid type", regexp="[a-zA-Z -]{0,}")
     private String CashPassportCard;
-    @Pattern(message="Invalid type", regexp="[A-Za-z]{0,}")
+    @Pattern(message="Invalid type", regexp="[a-zA-Z -]{0,}")
     private String type;
     @Pattern(message="Invalid numbers", regexp="[0-9]{0,}")
     private String number;
