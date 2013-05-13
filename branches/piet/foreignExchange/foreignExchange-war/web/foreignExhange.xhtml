@@ -28,7 +28,8 @@
                 <p:tab id="BusinessTravel" title="Business Travel">  
 
                     <p:panel header="Business Travel">  
-
+                        
+                        <p:messages id="submitConfirm" showDetail="true" closable="true" autoUpdate="true" severity="info"/>
                         <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid"> 
                             <h:outputText value="Company name/Reg. number: "/>  
                             <h:outputText value="Monash South Africa" /> 
@@ -94,30 +95,38 @@
                 <p:tab id="Forex" title="Forex">  
                     <p:panel header="Breakdown of Forex required">  
 
-                        <h:panelGrid columns="2" columnClasses="label, value">  
+                        <h:panelGrid columns="3" columnClasses="label, value">  
                             <h:outputText value="Travellers cheques: " />  
-                            <p:inputText value="#{foreignBean.travellerCheque}" /> 
+                            <p:inputText id="travelC" value="#{foreignBean.travellerCheque}" required="true" requiredMessage="required field"/> 
+                            <p:message for="travelC"/>
                             
                             <h:outputText value="Foreign cash: " />  
-                            <p:inputText value="#{foreignBean.foreignCash}" /> 
+                            <p:inputText id="fcash" value="#{foreignBean.foreignCash}" required="true" requiredMessage="required field"/> 
+                            <p:message for="fcash"/>
                             
                             <h:outputText value="Cash passport Card:(GBP, USD, AUD, EURO): " />  
-                            <p:inputText value="#{foreignBean.cashPassportCard}" /> 
+                            <p:inputText id="cashPass" value="#{foreignBean.cashPassportCard}" required="true" requiredMessage="required field"/> 
+                            <p:message for="cashPass"/>
                             
                             <h:outputText value="Type: (Visa, diners etc): " />  
-                            <p:inputText value="#{foreignBean.type}" />
+                            <p:inputText id="type" value="#{foreignBean.type}" required="true" requiredMessage="required field"/>
+                            <p:message for="type"/>
                             
                             <h:outputText value="Number: " />  
-                            <p:inputText value="#{foreignBean.number}" /> 
+                            <p:inputText id="number" value="#{foreignBean.number}" required="true" requiredMessage="required field"/> 
+                            <p:message for="number"/>
                             
                             <h:outputText value="Last 3 digits on reverse of card : " />  
-                            <p:inputText value="#{foreignBean.last3}" /> 
+                            <p:inputText id="last3cc" value="#{foreignBean.last3}" required="true" requiredMessage="required field"/> 
+                            <p:message for="last3cc"/>
                             
                             <h:outputText value="Expiry date: " />  
-                            <p:calendar id="ExpireDate" value="#{foreignBean.expire}" showButtonPanel="true" navigator="true"/>
+                            <p:calendar id="ExpireDate" value="#{foreignBean.expire}" showButtonPanel="true" navigator="true" required="true"/>
+                            <p:message for="ExpireDate"/>
                             
                             <h:outputText value="Amount: " />  
-                            <p:inputText value="#{foreignBean.amount}" /> 
+                            <p:inputText id="amount" value="#{foreignBean.amount}" required="true" requiredMessage="required field"/>
+                            <p:message for="amount"/>
                         </h:panelGrid>  
                     </p:panel>  
                 </p:tab>  
@@ -125,13 +134,15 @@
                 <p:tab id="Delivery" title="Delivery">  
                     <p:panel header="Delivery Information">  
 
-                        <h:panelGrid columns="2" columnClasses="label, value">  
+                        <h:panelGrid columns="3" columnClasses="label, value">  
                                               
                             <h:outputText value="Date and time: Required: " />                              
-                            <p:calendar id="dateRe" value="#{foreignBean.dateRequired}" showButtonPanel="true" navigator="true"/>
+                            <p:calendar id="dateRe" value="#{foreignBean.dateRequired}" showButtonPanel="true" navigator="true" required="true"/>
+                            <p:message for="dateRe"/>
                             
                             <h:outputText value="Date and Time: Will be confirmed by Forex Consultant: " />  
-                            <p:calendar id="forexCon" value="#{foreignBean.dateForex}" showButtonPanel="true" navigator="true"/>
+                            <p:calendar id="forexCon" value="#{foreignBean.dateForex}" showButtonPanel="true" navigator="true" required="true"/>
+                            <p:message for="forexCon"/>
                             
                         </h:panelGrid>  
                     </p:panel>  
@@ -140,10 +151,12 @@
                 <p:tab id="Additional" title="Additional Information">  
                     <p:panel header="Additional Information "> 
 
-                        <h:panelGrid columns="2" columnClasses="label, value">  
+                        <h:panelGrid columns="3" columnClasses="label, value">  
                                               
                             <h:outputText value="Reason for travel: " />  
-                            <p:inputTextarea value="#{foreignBean.reasonForTravel}" /> 
+                            <p:inputTextarea id="reasonTr" value="#{foreignBean.reasonForTravel}" required="true" requiredMessage="required field"/> 
+                            <p:message for="reasonTr"/>
+                            
                           
                         </h:panelGrid>                         
                         

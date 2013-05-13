@@ -17,7 +17,9 @@ import javax.faces.bean.SessionScoped;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
 
@@ -68,9 +70,9 @@ public class ForeignBean implements Serializable
     private String CashPassportCard;
     @Pattern(message="Invalid type", regexp="[A-Za-z]{0,}")
     private String type;
-    @Pattern(message="Invalid numbers only", regexp="[0-9]{0,}")
+    @Pattern(message="Invalid numbers", regexp="[0-9]{0,}")
     private String number;
-    @Pattern(message="Invalid Numbers only", regexp="[0-9]{0,3}")
+    @Pattern(message="Invalid Numbers only", regexp="[0-9]{3}")
     private String last3;
     private Date expire;
     @Pattern(message="Invalid Numbers only", regexp="[0-9]{0,}")
@@ -150,6 +152,7 @@ public class ForeignBean implements Serializable
             forX.setReasonfortravel(reasonForTravel);
             
             csi.updateForex(forX, accountID);
+            FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success","Changes have been saved"));
             return "foreignExhange";
 	} 
     
