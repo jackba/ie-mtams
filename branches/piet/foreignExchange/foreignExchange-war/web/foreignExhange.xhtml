@@ -121,7 +121,7 @@
                             <p:message for="last3cc"/>
                             
                             <h:outputText value="Expiry date: " />  
-                            <p:calendar id="ExpireDate" value="#{foreignBean.expire}" showButtonPanel="true" navigator="true" required="true"/>
+                            <p:calendar id="ExpireDate" value="#{foreignBean.expire}" showButtonPanel="true" navigator="true" required="true" requiredMessage="required field"/>
                             <p:message for="ExpireDate"/>
                             
                             <h:outputText value="Amount: " />  
@@ -137,11 +137,11 @@
                         <h:panelGrid columns="3" columnClasses="label, value">  
                                               
                             <h:outputText value="Date and time: Required: " />                              
-                            <p:calendar id="dateRe" value="#{foreignBean.dateRequired}" showButtonPanel="true" navigator="true" required="true"/>
+                            <p:calendar id="dateRe" value="#{foreignBean.dateRequired}" showButtonPanel="true" navigator="true" required="true" requiredMessage="required field"/>
                             <p:message for="dateRe"/>
                             
                             <h:outputText value="Date and Time: Will be confirmed by Forex Consultant: " />  
-                            <p:calendar id="forexCon" value="#{foreignBean.dateForex}" showButtonPanel="true" navigator="true" required="true"/>
+                            <p:calendar id="forexCon" value="#{foreignBean.dateForex}" showButtonPanel="true" navigator="true" required="true" requiredMessage="required field"/>
                             <p:message for="forexCon"/>
                             
                         </h:panelGrid>  
