@@ -46,32 +46,30 @@ public class ApprovalJSFManagedBean implements Serializable {
     //-------------------------------------------------------------------------
     //======change========change=========change=============change=============
     private static final Logger logger = Logger.getLogger(ApprovalJSFManagedBean.class.getName());
-    
     private Approval approval;
     // instance variables for approval
     private int idapproval;
-    @Pattern(message="Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp="[a-zA-Z -]{0,}") 
+    @Pattern(message = "Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
     private String fromsection;
     private int sectionid;
     private int sectionapproved;
-    @Pattern(message="Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp="[a-zA-Z -]{0,}") 
+    @Pattern(message = "Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
     private String Notes;
     private Date DateStamp;
     private int ApplicationID;
     private int AccountID;
-    
     private Finalcosting Fcosting;
     // instance variables for finalcosting
     private int IDFinalcosting;
-    @Pattern(message="Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp="[a-zA-Z -]{0,}") 
+    @Pattern(message = "Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
     private String Name;
-    @Pattern(message="Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp="[a-zA-Z -]{0,}") 
+    @Pattern(message = "Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
     private String administrativeunit;
     private int absencebussiness;
     private int absenceprivate;
-    @Pattern(message="Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp="[a-zA-Z -]{0,}") 
+    @Pattern(message = "Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
     private String countries;
-    @Pattern(message="Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp="[a-zA-Z -]{0,}") 
+    @Pattern(message = "Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
     private String cities;
     private int checks;
     private double AirfareBudget;
@@ -93,16 +91,13 @@ public class ApprovalJSFManagedBean implements Serializable {
     private String otherdiscription;
     private double approvedbudget;
     private double approvedcost;
-    
     private int fromoz;
-    @Pattern(message="Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp="[a-zA-Z -]{0,}")
+    @Pattern(message = "Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
     private String ozname;
     //@Pattern(message="Invalid Number", regexp="[0-9]{10,16}")
     private String oztel;
     //@Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String ozemail;
-    
-    
     //private Quotes quotesRef; 
     private Approval approvalRef;
     private Finalcosting fcostingRef;
@@ -130,22 +125,54 @@ public class ApprovalJSFManagedBean implements Serializable {
     @PostConstruct
     private void setSession() {
         FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        fcostingRef = approvalHandler.findFinalcosting(accountIDhack);
+
+        setName(fcostingRef.getName());
+        setAdministrativeunit(fcostingRef.getAdministrativeunit());
+        setAbsencebussiness(fcostingRef.getAbsencebussiness());
+        setAbsenceprivate(fcostingRef.getAbsenceprivate());
+        setCountries(fcostingRef.getCountries());
+        setCities(fcostingRef.getCitys());// getCities());
+        setChecks(fcostingRef.getChecks());
+
+
+        setAccommodationBudget(fcostingRef.getAccommodationbudget());
+        setAccommodationCost(fcostingRef.getAccommodationcost());
+        setAccommodatedays(fcostingRef.getAccommodatedays());
+        setAirfareBudget(fcostingRef.getAirfarebudget());
+        setAirfareCost(fcostingRef.getAirfarecost());
+        setCarRentalBudget(fcostingRef.getCarrentalbudget());
+        setCarRentalCost(fcostingRef.getCarrentalcost());
+        setPerdiembudget(fcostingRef.getPerdiembudget());
+        setPerdiemcost(fcostingRef.getPerdiemcost());
+        setPerdiemdays(fcostingRef.getPerdiemdays());
+        setConferencebudget(fcostingRef.getConferencebudget());
+        setConferencecost(fcostingRef.getConferencecost());
+        setVisabudget(fcostingRef.getVisabudget());
+        setVisacost(fcostingRef.getVisacost());
+        setOtherbudget(fcostingRef.getOtherbudget());
+        setOthercost(fcostingRef.getOthercost());
+        setOtherdiscription(fcostingRef.getOtherdiscription());
+        setApprovedbudget(fcostingRef.getApprovedbudget());
+        setApprovedcost(fcostingRef.getApprovedcost());
+
+        setFromoz(fcostingRef.getFromoz());
+        setOzname(fcostingRef.getOzname());
+        setOztel(fcostingRef.getOztel());
+        setOzemail(fcostingRef.getOzemail());
+
+        approvalRef = approvalHandler.findApproval(approvalIDhack);
+        setNotes(approvalRef.getNotes());
+        setDateStamp(approvalRef.getDate());
+        setSectionapproved(approvalRef.getSectionapproved());
+        setFromsection(approvalRef.getFromsection());
+
     }
 
     public void save() {
 
         //FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"getting there",null));
 
-        approval = new Approval();
-        //approval.setIdapproval(idapproval);
-        approval.setNotes(Notes);
-        approval.setDate(DateStamp);
-        approval.setSectionapproved(sectionapproved);
-        approval.setFromsection(fromsection);
-        // need to fix for app intergration
-        //approval.setAccountIdaccount(accountRef);
-        //approval.setApplicationIdapplication(applicationRef);
-        approvalHandler.persistApproval(approval);
 
 
         Fcosting = new Finalcosting();
@@ -189,8 +216,20 @@ public class ApprovalJSFManagedBean implements Serializable {
         //Fcosting.setQuotesIdquotes(quotesRef);
 
 
-        approvalHandler.persistFinalcosting(Fcosting);
+        approval = new Approval();
+        //approval.setIdapproval(idapproval);
+        approval.setNotes(Notes);
+        approval.setDate(DateStamp);
+        approval.setSectionapproved(sectionapproved);
+        approval.setFromsection(fromsection);
+        // need to fix for app intergration
+        //approval.setAccountIdaccount(accountRef);
+        //approval.setApplicationIdapplication(applicationRef);
+        approvalHandler.persistApproval(approval);
 
+
+        approvalHandler.persistFinalcosting(Fcosting);
+        FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Changes have been saved"));
         //Fcosting.setQuotesIdquotes(QuotesID);
         //FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success","Changes have been saved"));
     }
@@ -233,7 +272,30 @@ public class ApprovalJSFManagedBean implements Serializable {
 //        this.dataTable = dataTable;
 //    }    
 //    
+    public Approval getApprovalRef() {
+        approvalRef = approvalHandler.findApproval(approvalIDhack);
+        return approvalRef;
+    }
+
+    public void setApprovalRef(Approval approvalRef) {
+
+        this.approvalRef = approvalRef;
+    }
+
+    public Finalcosting getFcostingRef() {
+        fcostingRef = approvalHandler.findFinalcosting(accountIDhack);
+        return fcostingRef;
+    }
+
+    public void setFcostingRef(Finalcosting fcostingRef) {
+        this.fcostingRef = fcostingRef;
+    }
+
+    // ******************************************
+    //
     // getters and setters from here
+    //
+    // ******************************************
     public Approval getApproval() {
         return approval;
     }
@@ -528,25 +590,6 @@ public class ApprovalJSFManagedBean implements Serializable {
 
     public void setOzemail(String ozemail) {
         this.ozemail = ozemail;
-    }
-
-    public Approval getApprovalRef() {
-        approvalRef = approvalHandler.findApproval(approvalIDhack);
-        return approvalRef;
-    }
-
-    public void setApprovalRef(Approval approvalRef) {
-
-        this.approvalRef = approvalRef;
-    }
-
-    public Finalcosting getFcostingRef() {
-        fcostingRef = approvalHandler.findFinalcosting(accountIDhack);
-        return fcostingRef;
-    }
-
-    public void setFcostingRef(Finalcosting fcostingRef) {
-        this.fcostingRef = fcostingRef;
     }
 
     /*
