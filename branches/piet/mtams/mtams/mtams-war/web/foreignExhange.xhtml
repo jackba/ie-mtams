@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui">
+   <h:head>
+        <title>Foreign Exh Page</title>
+        <link href="css/styles.css" rel="Stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <div id ="header">
+            <div id="logo">
+                    <img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
+            </div>
+
+            <ul>
+                    <li><a href="">Help</a></li>
+                    
+            </ul> 
+        </div>
+        
+        <h:form>
+            <p:growl id="growl" sticky="true" showDetail="true"/>  
+
+            <p:wizard widgetVar="wiz"  
+                    flowListener="#{foreignBean.onFlowProcess}">  
+
+                <p:tab id="BusinessTravel" title="Business Travel">  
+
+                    <p:panel header="Business Travel">  
+                        
+                        <p:messages id="submitConfirm" showDetail="true" closable="true" autoUpdate="true" severity="info"/>
+                        <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid"> 
+                            <h:outputText value="Company name/Reg. number: "/>  
+                            <h:outputText value="Monash South Africa" /> 
+                            <h:message for=""/>
+                            
+                            <h:outputText value="Passenger (Full name) : " />  
+                            <h:outputText value="#{foreignBean.travelerP.firstname}" />
+                            <h:message for=""/>
+                             
+                            <h:outputText value="Physical address: " />  
+                            <h:outputText value="#{foreignBean.travelerP.homeaddress}" />
+                            <h:message for=""/>
+
+                            <h:outputText value="Telephone number: " />  
+                            <h:outputText value="#{foreignBean.travelerP.mobilephone}"/> 
+                            <h:message for=""/>
+                            
+                            <h:outputText value="Fax number: " />  
+                            <h:outputText value="#{foreignBean.travelerP.businessfax}" />
+                            <h:message for=""/>
+                            
+                            <h:outputText value="I.D. number: " />  
+                            <h:outputText value="#{foreignBean.travelerP.idnumber}" />
+                            <h:message for=""/>
+                            
+                            <h:outputText value="Nationality Of Passport: " />  
+                            <h:outputText value="#{foreignBean.travelD.country}" /> 
+                            <h:message for=""/>
+                            
+                            <h:outputText value="Passport Number: " />  
+                            <h:outputText value="#{foreignBean.travelD.passportnumber}" />
+                            <h:message for=""/>
+                            
+                            <h:outputText value="Company contact name: " />  
+                            <h:outputText value="#{foreignBean.travelerP.businessphone}" />  
+                            <h:message for=""/>
+      
+                            <h:outputText value="Destination: " />  
+                            <h:outputText value="#{foreignBean.itinerary.destination}" /> 
+                            <h:message for=""/>
+                            
+                            <h:outputText value="Date of departure: " />  
+                            <p:calendar id="dateDeparture" value="#{foreignBean.departure}" showButtonPanel="true" navigator="true" required="true" requiredMessage="required field"/>
+                            <p:message for="dateDeparture"/>
+                            
+                            <h:outputText value="Date of return: " />  
+                            <p:calendar id="dateReturn" value="#{foreignBean.returnDate}" showButtonPanel="true" navigator="true" required="true" requiredMessage="required field"/>
+                            <p:message for="dateReturn"/>
+                            
+                            <h:outputText value="Ticket number/ reference number: " />  
+                            <p:inputText id="ticketNum" value="#{foreignBean.ticketNumber}" required="true" requiredMessage="required field"/> 
+                            <p:message for="ticketNum"/>
+                            
+                            <h:outputText value="Voyager number: " />  
+                            <p:inputText id="voyagerNum" value="#{foreignBean.voyagerNum}" required="true" requiredMessage="required field"/>                            
+                            <p:message for="voyagerNum"/>
+                            
+                            
+                        </h:panelGrid>  
+                    </p:panel>  
+                </p:tab>  
+
+                <p:tab id="Forex" title="Forex">  
+                    <p:panel header="Breakdown of Forex required">  
+
+                        <h:panelGrid columns="3" columnClasses="label, value">  
+                            <h:outputText value="Travellers cheques: " />  
+                            <p:inputText id="travelC" value="#{foreignBean.travellerCheque}" required="true" requiredMessage="required field"/> 
+                            <p:message for="travelC"/>
+                            
+                            <h:outputText value="Foreign cash: " />  
+                            <p:inputText id="fcash" value="#{foreignBean.foreignCash}" required="true" requiredMessage="required field"/> 
+                            <p:message for="fcash"/>
+                            
+                            <h:outputText value="Cash passport Card:(GBP, USD, AUD, EURO): " />  
+                            <p:inputText id="cashPass" value="#{foreignBean.cashPassportCard}" required="true" requiredMessage="required field"/> 
+                            <p:message for="cashPass"/>
+                            
+                            <h:outputText value="Type: (Visa, diners etc): " />  
+                            <p:inputText id="type" value="#{foreignBean.type}" required="true" requiredMessage="required field"/>
+                            <p:message for="type"/>
+                            
+                            <h:outputText value="Number: " />  
+                            <p:inputText id="number" value="#{foreignBean.number}" required="true" requiredMessage="required field"/> 
+                            <p:message for="number"/>
+                            
+                            <h:outputText value="Last 3 digits on reverse of card : " />  
+                            <p:inputText id="last3cc" value="#{foreignBean.last3}" required="true" requiredMessage="required field"/> 
+                            <p:message for="last3cc"/>
+                            
+                            <h:outputText value="Expiry date: " />  
+                            <p:calendar id="ExpireDate" value="#{foreignBean.expire}" showButtonPanel="true" navigator="true" required="true" requiredMessage="required field"/>
+                            <p:message for="ExpireDate"/>
+                            
+                            <h:outputText value="Amount: " />  
+                            <p:inputText id="amount" value="#{foreignBean.amount}" required="true" requiredMessage="required field"/>
+                            <p:message for="amount"/>
+                        </h:panelGrid>  
+                    </p:panel>  
+                </p:tab>  
+
+                <p:tab id="Delivery" title="Delivery">  
+                    <p:panel header="Delivery Information">  
+
+                        <h:panelGrid columns="3" columnClasses="label, value">  
+                                              
+                            <h:outputText value="Date and time: Required: " />                              
+                            <p:calendar id="dateRe" value="#{foreignBean.dateRequired}" showButtonPanel="true" navigator="true" required="true" requiredMessage="required field"/>
+                            <p:message for="dateRe"/>
+                            
+                            <h:outputText value="Date and Time: Will be confirmed by Forex Consultant: " />  
+                            <p:calendar id="forexCon" value="#{foreignBean.dateForex}" showButtonPanel="true" navigator="true" required="true" requiredMessage="required field"/>
+                            <p:message for="forexCon"/>
+                            
+                        </h:panelGrid>  
+                    </p:panel>  
+                </p:tab>  
+                
+                <p:tab id="Additional" title="Additional Information">  
+                    <p:panel header="Additional Information "> 
+
+                        <h:panelGrid columns="3" columnClasses="label, value">  
+                                              
+                            <h:outputText value="Reason for travel: " />  
+                            <p:inputTextarea id="reasonTr" value="#{foreignBean.reasonForTravel}" required="true" requiredMessage="required field"/> 
+                            <p:message for="reasonTr"/>
+                            
+                          
+                        </h:panelGrid>                         
+                        
+                        <p:commandButton value="Submit" ajax="false"
+                                         actionListener="#{foreignBean.createForm()}" />
+                    </p:panel>  
+                </p:tab>  
+
+            </p:wizard>   
+        </h:form>  
+            
+            <div id= "footer">
+            <div class="row group">
+                <div class="col">
+                    <h3>Quick links</h3>
+                    <ul>
+                            <li><a href="">Site Map</a></li>
+                            <li><a href="">FAQ</a></li>
+                            <li><a href="">Contact us</a></li>
+                    </ul>
+                </div>
+                
+                <h3>Legal</h3>
+                <p class="legal">Created by school of IT, Monash University South Africa</p>		
+            </div>
+        </div>
+         
+    </h:body>
+</html>
+
