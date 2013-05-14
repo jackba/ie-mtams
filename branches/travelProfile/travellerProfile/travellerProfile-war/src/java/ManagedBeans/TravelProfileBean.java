@@ -38,6 +38,8 @@ public class TravelProfileBean implements Serializable{
     
     private static final Logger logger = Logger.getLogger(TravelProfileBean.class.getName());
     private String department; 
+    @Pattern(message="Invalid ID", regexp="[0-9]{8}")
+    private String staffID;
     private String position;
     private String travelBooker;
     private String firstName;
@@ -47,26 +49,26 @@ public class TravelProfileBean implements Serializable{
     @Pattern(message="Invalid ID", regexp="[0-9]{13,15}")
     private String idNo;
     private String busAddress;
-    @Pattern(message="Invalid Number", regexp="[0-9]{10,16}")
+    @Pattern(message="Invalid Number", regexp="[+0-9]{10,16}")
     private String busPhone;
-    @Pattern(message="Invalid Number", regexp="[0-9]{0,16}")
+    @Pattern(message="Invalid Number", regexp="[+0-9]{0,16}")
     private String busFax;
     private String homeAddress;
-    @Pattern(message="Invalid Number", regexp="[0-9]{10,16}")
+    @Pattern(message="Invalid Number", regexp="[+0-9]{10,16}")
     private String mobilePhone;
-    @Pattern(message="Invalid Number", regexp="[0-9]{0,16}")
+    @Pattern(message="Invalid Number", regexp="[+0-9]{0,16}")
     private String homePhone;
     
     @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String email;
     
     private String spouseName;
-    @Pattern(message="Invalid Number", regexp="[0-9]{0,16}")
+    @Pattern(message="Invalid Number", regexp="[+0-9]{0,16}")
     private String spouseContactNo;
     
     private String spouseEmail;
     private String docName;
-    @Pattern(message="Invalid Number", regexp="[0-9]{10,16}")
+    @Pattern(message="Invalid Number", regexp="[+0-9]{10,16}")
     private String docContactNo;
     
     @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
@@ -140,6 +142,9 @@ public class TravelProfileBean implements Serializable{
         
         profile.setDepartment(department);
         profile.setPosition(position);
+        //NEW
+        profile.setStaffid(staffID);
+        //
         profile.setTravelbooker(travelBooker);
         profile.setFirstname(firstName);
         profile.setFamilyname(surname);
@@ -193,7 +198,7 @@ public class TravelProfileBean implements Serializable{
         reward1 = new Rewardsprogram();
         reward2 = new Rewardsprogram();
         reward3 = new Rewardsprogram();
-        
+        /*
         if(!memOne.isEmpty() && !airType1.isEmpty() && !status1.isEmpty() && !cardNum1.isEmpty()){
             reward1.setMembershiptype(memOne);
             reward1.setProvider(airType1);
@@ -215,6 +220,7 @@ public class TravelProfileBean implements Serializable{
             reward3.setMembershipnumber(cardNum3);
             handler.persistReward(reward3);
         }
+        */
    }
     
     public void update(){
@@ -351,6 +357,14 @@ public class TravelProfileBean implements Serializable{
         this.department = department;
     }
 
+    public String getStaffID() {
+        return staffID;
+    }
+
+    public void setStaffID(String staffID) {
+        this.staffID = staffID;
+    }
+    
     public String getPosition() {
         return position;
     }
@@ -788,11 +802,12 @@ public class TravelProfileBean implements Serializable{
     private void getProfile() {
         ///////////////////////////////////REMOVE/////////////////////////////////
         FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-
+    
         
         Travelerprofile ref = handler.findTravelProf(accountID);
         Traveldocument pRef = handler.findTravelDoc(ref.getIdtravelerprofile());
         setDepartment(ref.getDepartment());
+        setStaffID(ref.getStaffid());
         setPosition(ref.getPosition());
         setTravelBooker(ref.getTravelbooker());
         setFirstName(ref.getFirstname());       
@@ -849,5 +864,7 @@ public class TravelProfileBean implements Serializable{
         
         passportEditRef = pRef;
         profileEditRef = ref;
+    
     }
+    
 }

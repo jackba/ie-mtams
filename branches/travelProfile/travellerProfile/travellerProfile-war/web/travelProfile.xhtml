@@ -40,6 +40,10 @@
                             </p:selectOneMenu>
                             <p:message for="dept"/>
                             
+                            <h:outputText value="Staff ID: *" />  
+                            <p:inputText id="staffID" value="#{travel.staffID}" required="true" requiredMessage="Required Field"/>  
+                            <p:message for="staffID"/>
+                            
                             <h:outputText value="Position: *" />  
                             <p:inputText id="pos" required="true" value="#{travel.position}" requiredMessage="Required Field" />  
                             <p:message for="pos"/>                            

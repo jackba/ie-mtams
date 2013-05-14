@@ -52,7 +52,13 @@
                             </h:selectOneMenu>  
                          </p:inplace>
                          <p:message for="deptIP"/>
-
+                         
+                         <h:outputText value="Staff ID: *" />  
+                         <p:inplace id="staffID">
+                            <p:inputText id="staffIDIP" value="#{travel.staffID}" required="true" requiredMessage="Required Field"/>
+                         </p:inplace>
+                         <p:message for="staffIDIP"/>
+                         
                          <h:outputText value="Position:* " />
                          <p:inplace id="posE">  
                             <p:inputText id="posIP" value="#{travel.position}" required="true" requiredMessage="Required Field"/>  
