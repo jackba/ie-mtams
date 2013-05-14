@@ -31,6 +31,7 @@
         <div class="nav">
         <p:menubar rendered="#{sessionBean.checkNotFirstTime()}">
             <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goHome()}"/>
+            <p:menuitem value="Foreign Exchange" icon="ui-icon-home" outcome="foreignExhange"/>
             <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
             <p:menuitem value="Applications" icon="ui-icon-note" outcome="#{userBean.goAppHome()}" />
         </p:menubar>
