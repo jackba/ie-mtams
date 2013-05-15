@@ -27,22 +27,23 @@ import org.primefaces.event.FlowEvent;
 @ViewScoped
 public class ConferenceBean implements Serializable {
 
+    private static final Logger logger = Logger.getLogger(ConferenceBean.class.getName());
+    //Persistence Crap
     @EJB
     private ConferenceHandlerLocal handler;
-    int accountID = 1;
     private Conference conf;
     private Conference confView;
     private Conference confEdit;
     private Travelerprofile travelerP;
-    private static final Logger logger = Logger.getLogger(ConferenceBean.class.getName());
+    int accountID = 1;
     //Section B - ConferenceBean Details
     private String confName;
     private String website;
     private String country;
     private String city;
-    private int paperOption;
-    private String yesReason;
-    private String noReason;
+    private int isPresenting;
+    private String paperTitle;
+    private String specialReason;
     private String author;
     private Date presentationDate;
     //Section C - ConferenceBean Duration
@@ -53,7 +54,7 @@ public class ConferenceBean implements Serializable {
     private String coverDetails;
     //Section D - Funding
     private String fundingOptions;
-    private String otherSources;
+    private String otherFunding;
     private String costCentre;
     private String fundName;
 
@@ -70,10 +71,10 @@ public class ConferenceBean implements Serializable {
         conf.setWebpage((this.getWebsite()));
         conf.setCountry((this.getCountry()));
         conf.setCity((this.getCity()));
-        conf.setPresenting(this.getPaperOption());
-        conf.setPresentationtitle(this.getYesReason());
+        conf.setPresenting(this.getIsPresenting());
+        conf.setPresentationtitle(this.getPaperTitle());
         conf.setAuthors(this.getAuthor());
-        conf.setOtherreasonattendance(this.getNoReason());
+        conf.setOtherreasonattendance(this.getSpecialReason());
         conf.setDatemsapresentation(this.getPresentationDate());
 
         conf.setDatefrom(this.getFromDate());
@@ -95,10 +96,10 @@ public class ConferenceBean implements Serializable {
         this.setWebsite(confView.getWebpage());
         this.setCountry(confView.getCountry());
         this.setCity(confView.getCity());
-        this.setPaperOption(confView.getPresenting());
-        this.setYesReason(confView.getPresentationtitle());
+        this.setIsPresenting(confView.getPresenting());
+        this.setPaperTitle(confView.getPresentationtitle());
         this.setAuthor(confView.getAuthors());
-        this.setNoReason(confView.getOtherreasonattendance());
+        this.setSpecialReason(confView.getOtherreasonattendance());
         this.setPresentationDate(confView.getDatemsapresentation());
 
         this.setFromDate(confView.getDatefrom());
@@ -115,10 +116,10 @@ public class ConferenceBean implements Serializable {
         confEdit.setWebpage((this.getWebsite()));
         confEdit.setCountry((this.getCountry()));
         confEdit.setCity((this.getCity()));
-        confEdit.setPresenting(this.getPaperOption());
-        confEdit.setPresentationtitle(this.getYesReason());
+        confEdit.setPresenting(this.getIsPresenting());
+        confEdit.setPresentationtitle(this.getPaperTitle());
         confEdit.setAuthors(this.getAuthor());
-        confEdit.setOtherreasonattendance(this.getNoReason());
+        confEdit.setOtherreasonattendance(this.getSpecialReason());
         confEdit.setDatemsapresentation(this.getPresentationDate());
 
         confEdit.setDatefrom(this.getFromDate());
@@ -172,28 +173,28 @@ public class ConferenceBean implements Serializable {
         this.city = city;
     }
 
-    public int getPaperOption() {
-        return paperOption;
+    public int getIsPresenting() {
+        return isPresenting;
     }
 
-    public void setPaperOption(int paperOption) {
-        this.paperOption = paperOption;
+    public void setIsPresenting(int isPresenting) {
+        this.isPresenting = isPresenting;
     }
 
-    public String getYesReason() {
-        return yesReason;
+    public String getPaperTitle() {
+        return paperTitle;
     }
 
-    public void setYesReason(String yesReason) {
-        this.yesReason = yesReason;
+    public void setPaperTitle(String paperTitle) {
+        this.paperTitle = paperTitle;
     }
 
-    public String getNoReason() {
-        return noReason;
+    public String getSpecialReason() {
+        return specialReason;
     }
 
-    public void setNoReason(String noReason) {
-        this.noReason = noReason;
+    public void setSpecialReason(String specialReason) {
+        this.specialReason = specialReason;
     }
 
     public String getAuthor() {
@@ -260,12 +261,12 @@ public class ConferenceBean implements Serializable {
         this.fundingOptions = fundingOptions;
     }
 
-    public String getOtherSources() {
-        return otherSources;
+    public String getOtherFunding() {
+        return otherFunding;
     }
 
-    public void setOtherSources(String otherSources) {
-        this.otherSources = otherSources;
+    public void setOtherFunding(String otherFunding) {
+        this.otherFunding = otherFunding;
     }
 
     public String getCostCentre() {
