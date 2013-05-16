@@ -19,6 +19,20 @@
                     <!--<li><h:link value="Logout"  outcome="" rendered="" /></li>-->
             </ul>
         </div>
+        <div class="nav">
+        <p:menubar>
+            
+            
+            <p:submenu label="Profile" icon="ui-icon-person">
+                <p:menuitem value="View Profile" outcome="#{userBean.viewProfile()}"/>
+                <p:menuitem value="View Profile" outcome="#{userBean.editProfile()}"/>                
+            </p:submenu>
+            <p:submenu label="Applications" icon="ui-icon-note">
+                <p:menuitem value="Start New Application" url="newApplications.xhtml"/>
+                <p:menuitem value="Edit Application" url="applications.xhtml"/>
+            </p:submenu>
+        </p:menubar>
+        </div>
         <h:form id="travelForm">
 
             <p:wizard widgetVar="wiz" flowListener="#{userBean.onFlowProcess}" id="travelWiz" >  
@@ -38,6 +52,10 @@
                                 <f:selectItem itemLabel="Arts" itemValue="Arts" />
                             </p:selectOneMenu>
                             <p:message for="dept"/>
+                            
+                            <h:outputText value="Staff ID: *" />  
+                            <p:inputText id="staffID" value="#{userBean.staffID}" required="true" requiredMessage="Required Field"/>  
+                            <p:message for="staffID"/>
                             
                             <h:outputText value="Position: *" />  
                             <p:inputText id="pos" required="true" value="#{userBean.position}" requiredMessage="Required Field" />  
@@ -164,7 +182,7 @@
                 <p:tab id="airline" title="Airline Details">  
                     <p:panel header="Airline Details">
                         
-                        <h4>Airline seating:</h4>
+                        <fieldset><legend>Airline Details</legend>
                         <h:panelGrid columns="2" columnClasses="itemlabel, itemValue">  
                                 <h:selectOneRadio value="#{userBean.seat}">
                                     <f:selectItem itemValue="Aisle" itemLabel="Aisle" />
@@ -202,8 +220,8 @@
                                 <p:inputTextarea value="#{userBean.airAdditionalReq}" />
                               
                         </h:panelGrid>
-                        
-                        <h4>Membership Card Details:</h4>
+                        </fieldset>
+                        <fieldset><legend>Reward Program</legend>
                         
                         <h:panelGrid columns="4">
                             <h:outputText value="Name on Membership Card:"/><h:outputText value="Airline Type:"/><h:outputText value="Status:"/><h:outputText value="Number:"/>
@@ -211,13 +229,13 @@
                             <p:inputText required="false" value="#{userBean.memTwo}" /> <p:inputText required="false" value="#{userBean.airType2}" /> <p:inputText required="false" value="#{userBean.status2}" /> <p:inputText required="false" value="#{userBean.cardNum2}" />
                             <p:inputText required="false" value="#{userBean.memThree}" /> <p:inputText required="false" value="#{userBean.airType3}" /> <p:inputText required="false" value="#{userBean.status3}" /> <p:inputText required="false" value="#{userBean.cardNum3}" />
                         </h:panelGrid>
-                    
+                        </fieldset>
                     </p:panel>  
                 </p:tab>
                 
                 <p:tab id="carHotel" title="Car and Hotel">  
                     <p:panel header="Car and Hotel Details">  
-                        
+                        <fieldset><legend>Car Hire Details</legend>
                         <h:outputText value="Car Company Preference:"/>
                         <h:panelGrid columns="2" columnClasses="label, itemValue">
                             <h:outputText value="1. "/> <p:inputText required ="false" value="#{userBean.carCompPref1}"/>
@@ -246,8 +264,9 @@
                         <h:panelGrid columns="2" columnClasses="label, itemValue">
                             <h:outputText value="Additional Requirements: "/> <p:inputTextarea required ="false" value="#{userBean.carAdditionalReq}"/>
                         </h:panelGrid>
+                        </fieldset>
                         
-                        <h:outputText value="Hotel Details:"/>
+                        <fieldset><legend>Hotel Details</legend>
                         <h:panelGrid columns="2" columnClasses="label, itemValue">
                             
                             <h:outputText value="Hotel Preference: "/> <p:inputText required ="false" value="#{userBean.hotelPreference}"/>
@@ -265,8 +284,9 @@
                         <h:panelGrid columns="2" columnClasses="label, itemValue">
                             <h:outputText value="Additional Requirements: "/> <p:inputTextarea required ="false" value="#{userBean.hotelAdditionalReq}"/>
                         </h:panelGrid>
-                        
+                        </fieldset>
                         <p:commandButton value="Submit" update="travelForm" action="#{userBean.save()}"/>
+                        
                     </p:panel>                
                 </p:tab>
 

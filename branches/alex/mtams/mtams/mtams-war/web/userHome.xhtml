@@ -20,48 +20,17 @@
                     <li><h:link value="Logout" outcome="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}" /></li>
             </ul>
         </div>
-        <br />
-        <div>
-            <h:outputText value="As this is your first time, please fill in your " rendered="#{sessionBean.checkFirstTime()}" />
-            <h:link value="travel profile." outcome="#{userBean.goToProfile()}" rendered="#{sessionBean.checkFirstTime()}" />
-        </div>
-        <br />
         <p:messages autoUpdate="true" id="userTop" closable="true" showDetail="true" />
         <br />
         <div class="nav">
-        <p:menubar rendered="#{sessionBean.checkNotFirstTime()}">
+        <p:menubar>
             <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goHome()}"/>
-            <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
+            <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.editProfile()}"/>
             <!--<p:menuitem value="Applications" icon="ui-icon-note" outcome="" />-->
         </p:menubar>
         </div>
         <div id="content">
-            
-            <p:panel header="Current Applications">
-                <p:button outcome="#{userBean.goNewApp()}" icon="ui-icon-note" id="createButton"  title="Create Button" value="Create New" />
-                
-                <p:dataTable id="applications" var="app" value="#{appBean.allApps}">  
-  
-                <p:column headerText="Description" style="width:32%">  
-                    <h:outputText value="#{app.description}" />  
-                </p:column>  
 
-                <p:column headerText="Last date modified" style="width:32%">  
-                    <h:outputText value="#{app.datemodified}" />  
-                </p:column>  
-                    
-                <p:column headerText="Status" style="width:32%">  
-                    <h:outputText value="Pending completion" />  
-                </p:column>
-                    
-                <p:column style="width:4%">  
-                    <p:button outcome="#{appBean.viewThis()}" icon="ui-icon-search" />  
-                </p:column>  
-
-                </p:dataTable>
-            </p:panel>
-            
-        
         </div>
         <div id= "footer">
             <div class="row group">
