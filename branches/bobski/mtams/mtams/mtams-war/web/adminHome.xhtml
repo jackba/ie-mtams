@@ -15,23 +15,17 @@
 
             <ul>
                     <li><a href="">Help</a></li>
-                    <li><h:link value="Logout"  outcome="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}"/></li>
+                    <li><h:link value="Logout"  outcome="#{sessionBean.invalidate()}" /></li>
             </ul>
         </div>
-        <div class="content" >
+        
+        <div class="nav">
             <p:menubar>  
-                <p:submenu label="Account" icon="ui-icon-document">  
-                    <p:menuitem value="View All Accounts" outcome="#{adminBean.goViewAll()}" /> 
-                    <p:menuitem value="Create New Account" outcome="#{adminBean.goCreate()}" />  
-                </p:submenu>  
-
-                <p:submenu label="Application" icon="ui-icon-pencil">  
-                    <p:menuitem value="Pending" url="#" />  
-                    <p:menuitem value="History" url="#" />  
-                </p:submenu>  
-
+                <p:menuitem value="Home" icon="ui-icon-home" outcome="#{adminBean.goHome()}"/>
+                <p:menuitem value="Accounts" icon="ui-icon-document" outcome="#{adminBean.goViewAll()}" />          
             </p:menubar>
         </div>
+        
         <div id= "footer">
             <div class="row group">
                 <div class="col">

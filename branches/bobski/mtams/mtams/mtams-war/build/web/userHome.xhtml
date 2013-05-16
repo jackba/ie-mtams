@@ -17,7 +17,7 @@
 
             <ul>
                     <li><a href="">Help</a></li>
-                    <li><h:link value="Logout" outcome="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}" /></li>
+                    <li><h:link value="Logout" outcome="#{sessionBean.invalidate()}" /></li>
             </ul>
         </div>
         <br />
@@ -38,7 +38,7 @@
         <div id="content">
             
             <p:panel header="Current Applications">
-                <p:button outcome="#{userBean.goNewApp()}" icon="ui-icon-note" id="createButton"  title="Create Button" value="Create New" />
+                <p:button outcome="#{userBean.goNewApp()}" icon="ui-icon-plus" id="createButton"  title="Create Button" value="Create New" />
                 
                 <p:dataTable id="applications" var="app" value="#{appBean.allApps}">  
   
