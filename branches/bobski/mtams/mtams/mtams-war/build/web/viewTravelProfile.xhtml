@@ -19,19 +19,15 @@
             </ul>
         </div>
         <div class="nav">
-            <p:breadCrumb>
-                <p:menuitem value="Home" outcome="#{userBean.goHome()}"/>
-            </p:breadCrumb>
-        </div>
-        <p:menubar rendered="#{sessionBean.checkNotFirstTime()}">
+        <p:menubar>
+            <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goHome()}"/>
             <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
-            <p:submenu label="Applications" icon="ui-icon-note">
-                <p:menuitem value="Start New Application" url="newApplications.xhtml"/>
-                <p:menuitem value="Edit Application" url="applications.xhtml"/>
-            </p:submenu>
+            <!--<p:menuitem value="Applications" icon="ui-icon-note" outcome="" />-->
         </p:menubar>
+        </div>
         <h:form>
             <p:panel header="Traveller Profile">
+                <p:button outcome="#{userBean.editProfile()}" id="editButton"  title="Edit Button" value="Edit" />
                 <fieldset><legend>Personal Details</legend>
                     <h:panelGrid columns="2">  
 

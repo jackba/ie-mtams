@@ -82,6 +82,7 @@ public class SessionBean implements Serializable {
     }
 
     private void setSessionVariables() {
+        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", user.getIdaccount());
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", user.getUsername());
     }
@@ -94,13 +95,15 @@ public class SessionBean implements Serializable {
                 setSessionVariables();
                 //session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 if (user.getDatelogin() == null) {
-                    addDate();
+                    
                     FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", true);
-                    return "userHome";
-                } else {
                     addDate();
+                    return "travelProfile";
+                } else {
+                    //addDate();
                     FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
-                    return "userHome";
+                    addDate();
+                    return "viewApplication";//"userHome";
                 }
                 //logError = false;
 
@@ -126,9 +129,10 @@ public class SessionBean implements Serializable {
         //session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         //HttpSession session = request.getSession(true);
         try {
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", null);
+            /*FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", null);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", null);
             ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).invalidate();
+            */
         } catch (NullPointerException e) {
         } finally {
             return "login";

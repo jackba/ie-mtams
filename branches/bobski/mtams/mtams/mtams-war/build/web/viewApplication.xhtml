@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>New Application - MSA Travel Application</title>
+        <title>View Application - MSA Travel Application</title>
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
     </h:head>
     <h:body>
@@ -16,7 +16,7 @@
 
             <ul>
                 <li><a href="">Help</a></li>
-                <li><h:link value="Logout"  outcome="#{sessionBean.invalidate()}" /></li>
+                <li><h:link value="Logout"  outcome="#{sessionBean.invalidate()}"  /></li>
             </ul> 
         </div>
         <div class="nav">
@@ -29,6 +29,8 @@
         <div id="content">
             <h:form>
                 <p:panel id="viewApplicationPanel" header="Your Application">
+                    <p:messages id="submitAppConfirm" showDetail="true" closable="true" autoUpdate="true" severity="info"/>
+                    <p:button outcome="#{appBean.goEdit()}" id="editButton"  title="Edit Button" value="Edit" />
                     <fieldset><legend>Personal Details</legend>
                         <h:panelGrid columns="2">
 

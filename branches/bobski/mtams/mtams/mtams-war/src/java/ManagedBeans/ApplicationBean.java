@@ -24,7 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.ConversationScoped;
 //import javax.faces.bean.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.*;
@@ -38,18 +38,22 @@ import org.primefaces.event.FlowEvent;
  * @author Badger
  */
 @Named(value = "appBean")
-@ApplicationScoped
+@ConversationScoped
 public class ApplicationBean implements Serializable {
 
     @EJB
     private TravelProfileHandlerLocal travelProfileHandler;
     @EJB
     private ApplicationHandlerLocal appHandler;
-    private static final Logger logger = Logger.getLogger(TravelProfileBean.class.getName());
+    
+    private static final Logger logger = Logger.getLogger(ApplicationBean.class.getName());
+    
     private List<Application> allApps;
     private Application selectedApp;
-    private Integer accountID;// = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+    
+    private Integer accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
     private Travelerprofile profileRef;//travelProfileHandler.findTravelProf(accountID);
+    
     private Date modifiedDate;
     @Future
     private Date departureDate;
@@ -60,63 +64,63 @@ public class ApplicationBean implements Serializable {
     private Itinerary tempItin;
     @Future
     private Date tempDate;
-    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String tempDest;
-    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String tempLeaveType;
-    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String tempTravelDay;
     
     private String costCentre;
     private Quotes newQuote;
-    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String fQFrom;
-    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String fQTo;
     @Future
     private Date fQDate;
     private String fQTime;
-    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String fQFlight1;
-    @Pattern(message = "Invalid Number", regexp = "[0-9]{0,10}")
+    @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String fQCost1;
-    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String fQFlight2;
-    @Pattern(message = "Invalid Number", regexp = "[0-9]{0,10}")
+    @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String fQCost2;
     private List<Flightquotes> flightQuotes;
     private Flightquotes newFlight;
-    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String cQFrom;
-    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String cQTo;
     @Future
     private Date cQDateCollected;
     @Future
     private Date cQDateReturned;
-    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String cQHire1;
-    @Pattern(message = "Invalid Number", regexp = "[0-9]{0,10}")
+    @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String cQCost1;
-    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String cQHire2;
-    @Pattern(message = "Invalid Number", regexp = "[0-9]{0,10}")
+    @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String cQCost2;
     private List<Carquotes> carQuotes;
     private Carquotes newCar;
-    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String hQLocation;
     @Future
     private Date hQDateIn;
     @Future
     private Date hQDateOut;
-    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String hQHotel1;
-    @Pattern(message = "Invalid Number", regexp = "[0-9]{0,10}")
+    @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String hQCost1;
-    @Pattern(message = "Invalid Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String hQHotel2;
-    @Pattern(message = "Invalid Number", regexp = "[0-9]{0,10}")
+    @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String hQCost2;
     private List<Accomodationquotes> accQuotes;
     private Accomodationquotes newAcc;
@@ -146,17 +150,39 @@ public class ApplicationBean implements Serializable {
 
     @PostConstruct
     public void initialize() {
-        //FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+//        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 
 //        Application tempApp = new Application();
 //        tempApp.setDescription("going somewhere");
 //        tempApp.setDatemodified(new Date());
 //        
 //        allApps.add(tempApp);
-        accountID = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
-        //profileRef = travelProfileHandler.findTravelProf(accountID);
+        
+        
         profileRef = travelProfileHandler.findTravelProf(accountID);
-        getValues();
+        //loadValues();
+        Integer id = 9;
+        appRef = appHandler.getApplication(id);//selectedApp;
+        
+        quoteRef = appRef.getQuotesIdquotes();
+        hotels = appHandler.getAccomodationQuotes(quoteRef.getIdquotes());
+        cars = appHandler.getCarQuotes(quoteRef.getIdquotes());
+        flights = appHandler.getFlightQuotes(quoteRef.getIdquotes());
+        travelRef = appRef.getTravelIdtravel();
+        itinRef = appHandler.getItinerary(travelRef.getIdtravel());
+        
+        description = appRef.getDescription();
+        
+        setDepartureDate(travelRef.getDatedeparture());
+        setReturnDate(travelRef.getDatereturn());
+        setReasonForTravel(travelRef.getDescription());
+        
+        setTempDate(itinRef.getDate());
+        setTempDest(itinRef.getDestination());
+        setTempLeaveType(itinRef.getLeavetype());
+        setTempTravelDay(itinRef.getTravelday());
+        
+        setCostCentre(quoteRef.getCostcenter());
     }
 
     public String createApplication() {
@@ -281,15 +307,17 @@ public class ApplicationBean implements Serializable {
 
     }
 
-    public String viewThis() {
-        getValues();
-        return "viewApplication";
+    public String viewThis(){
+        //loadValues();
+        return "/viewApplication.xhtml";
     }
-    //dada
-    public void getValues(){
-        Integer id = 6;
-        appRef = appHandler.getApplication(id);
-        description = appRef.getDescription();
+    
+    public String goEdit(){
+        loadValues();
+        return "editApplication";
+    }
+    
+    public String update(){
         quoteRef = appRef.getQuotesIdquotes();
         hotels = appHandler.getAccomodationQuotes(quoteRef.getIdquotes());
         cars = appHandler.getCarQuotes(quoteRef.getIdquotes());
@@ -297,6 +325,50 @@ public class ApplicationBean implements Serializable {
         travelRef = appRef.getTravelIdtravel();
         itinRef = appHandler.getItinerary(travelRef.getIdtravel());
         
+        appRef.setDescription(description);
+        
+        travelRef.setDatedeparture(departureDate);
+        travelRef.setDatereturn(returnDate);
+        travelRef.setDescription(reasonForTravel);
+        
+        itinRef.setDate(tempDate);
+        itinRef.setDestination(tempDest);
+        itinRef.setLeavetype(tempLeaveType);
+        itinRef.setTravelday(tempTravelDay);
+        
+        quoteRef.setCostcenter(costCentre);
+        
+        appHandler.persistApplicationEdit(appRef, quoteRef, itinRef, travelRef);
+        FacesContext.getCurrentInstance().addMessage("submitAppConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success","Changes have been saved"));
+        return "/viewApplication.xhtml";
+    }
+    //dada
+    
+    public void loadValues(){
+        
+        profileRef = travelProfileHandler.findTravelProf(accountID);
+        //loadValues();
+        Integer id = 9;
+        appRef = appHandler.getApplication(id);//selectedApp;
+        
+        quoteRef = appRef.getQuotesIdquotes();
+        
+        travelRef = appRef.getTravelIdtravel();
+        itinRef = appHandler.getItinerary(travelRef.getIdtravel());
+        
+        description = appRef.getDescription();
+        
+        setDepartureDate(travelRef.getDatedeparture());
+        setReturnDate(travelRef.getDatereturn());
+        setReasonForTravel(travelRef.getDescription());
+        
+        setTempDate(itinRef.getDate());
+        setTempDest(itinRef.getDestination());
+        setTempLeaveType(itinRef.getLeavetype());
+        setTempTravelDay(itinRef.getTravelday());
+        
+        setCostCentre(quoteRef.getCostcenter());
+
     }
 
     public Travelerprofile getProfileRef() {
@@ -365,7 +437,7 @@ public class ApplicationBean implements Serializable {
     }
 
     public List<Application> getAllApps() {
-        allApps = appHandler.getAppList();
+        allApps = appHandler.getAppList(accountID);
         return allApps;
     }
 
@@ -622,7 +694,7 @@ public class ApplicationBean implements Serializable {
     }
 
     public List<Flightquotes> getFlights() {
-        flights = appHandler.getFlightQuotes(quoteRef.getIdquotes());
+        //flights = appHandler.getFlightQuotes(quoteRef.getIdquotes());
         return flights;
     }
 
@@ -631,7 +703,7 @@ public class ApplicationBean implements Serializable {
     }
 
     public List<Accomodationquotes> getHotels() {
-        hotels = appHandler.getAccomodationQuotes(quoteRef.getIdquotes());
+        //hotels = appHandler.getAccomodationQuotes(quoteRef.getIdquotes());
         return hotels;
     }
 
@@ -640,7 +712,7 @@ public class ApplicationBean implements Serializable {
     }
 
     public List<Carquotes> getCars() {
-        cars = appHandler.getCarQuotes(quoteRef.getIdquotes());
+        //cars = appHandler.getCarQuotes(quoteRef.getIdquotes());
         return cars;
     }
 
@@ -649,7 +721,7 @@ public class ApplicationBean implements Serializable {
     }
 
     public Application getAppRef() {
-        appRef = appHandler.getApplication(5);
+        //appRef = appHandler.getApplication(5);
         //description = appRef.getDescription();
         return appRef;
     }
@@ -659,7 +731,7 @@ public class ApplicationBean implements Serializable {
     }
 //dada
     public Travel getTravelRef() {
-        travelRef = appRef.getTravelIdtravel();
+        //travelRef = appRef.getTravelIdtravel();
         return travelRef;
     }
 
@@ -668,7 +740,7 @@ public class ApplicationBean implements Serializable {
     }
 
     public Itinerary getItinRef() {
-        itinRef = appHandler.getItinerary(travelRef.getIdtravel());
+        //itinRef = appHandler.getItinerary(travelRef.getIdtravel());
         return itinRef;
     }
 
@@ -677,11 +749,13 @@ public class ApplicationBean implements Serializable {
     }
 
     public Quotes getQuoteRef() {
-        quoteRef = appRef.getQuotesIdquotes();
+        //quoteRef = appRef.getQuotesIdquotes();
         return quoteRef;
     }
 
     public void setQuoteRef(Quotes quoteRef) {
         this.quoteRef = quoteRef;
     }
+    
+    
 }
