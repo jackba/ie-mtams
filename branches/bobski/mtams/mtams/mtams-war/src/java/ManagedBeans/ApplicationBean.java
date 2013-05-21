@@ -161,8 +161,8 @@ public class ApplicationBean implements Serializable {
         
         profileRef = travelProfileHandler.findTravelProf(accountID);
         //loadValues();
-        Integer id = 9;
-        appRef = appHandler.getApplication(id);//selectedApp;
+        
+        appRef = appHandler.getApplication(selectedApp.getIdapplication());//selectedApp;
         
         quoteRef = appRef.getQuotesIdquotes();
         hotels = appHandler.getAccomodationQuotes(quoteRef.getIdquotes());
