@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Motivational Form</title>
+                <link href="css/styles.css" rel="Stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <div id ="header">
+            <div id="logo">
+                    <img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
+            </div>
+
+            <ul>
+                    <li><a href="">Help</a></li>
+                    <li><a href="">Logout</a></li>
+            </ul>
+        </div>
+        <h:form id="motivform">
+                    <p:tab id="moti" title="Motivation">  
+                        <p:panel header="Motivational Form - All fields are required">  
+                            <p:messages id="submitConfirm" closable="true" autoUpdate="true" severity="info"/>
+                            <h:panelGrid id="motivate" columns="3">  
+                                <h:outputText value="Supplier/Service Provider: " />  
+                                <p:inputText id="supplier" value="#{motivBean.supplier}" required="true" requiredMessage="Supplier is a required Field" />  
+                                <p:message for="supplier"/>
+                                
+                                <h:outputText value="Amount: " />  
+                                <h:outputText id="amount" value="#{motivBean.finalC.approvedcost}"/> 
+                                <h:message for="amount"/>
+                                
+                                <h:outputText value="Cost Code: " />  
+                                <h:outputText id="cost" value="#{motivBean.quote.costcenter}"/>  
+                                <h:message for="cost"/>
+                                
+                                <h:outputText value="Motivation: " />  
+                                <p:inputTextarea id="motiv" value="#{motivBean.motivationLetter}" required="true" requiredMessage="Motivation is a required Field" />
+                                <p:message for="motiv"/>
+                            </h:panelGrid>
+                               
+                            <h:panelGrid id="motivateGrid" columns="4">
+                                <h:outputText value="Budget Available: " /> 
+                                    <p:selectOneRadio id="budgetRadio" required="true" requiredMessage="Budget Availaility must be selected" value="#{motivBean.budget}">
+                                         <f:selectItem itemValue="1" itemLabel="Yes" />
+                                         <f:selectItem itemValue="0" itemLabel="No" />
+                                    </p:selectOneRadio>
+                                    <p:message for="budgetRadio"/>
+                            </h:panelGrid>
+
+                            <p:commandButton value="Submit" action="#{motivBean.save()}" ajax="false"/>  
+                             </p:panel>  
+                    </p:tab>  
+            </h:form>
+        <div id= "footer">
+            <div class="row group">
+                <div class="col">
+                    <h3>Quick links</h3>
+                    <ul>
+                            <li><a href="">Site Map</a></li>
+                            <li><a href="">FAQ</a></li>
+                            <li><a href="">Contact us</a></li>
+                    </ul>
+                </div>
+                
+                <h3>Legal</h3>
+                <p class="legal">Created by school of IT, Monash University South Africa</p>  
+            </div>
+        </div>
+    </h:body>
+</html>
+
+
