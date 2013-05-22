@@ -8,6 +8,7 @@ import Entities.Forexorder;
 import Entities.Itinerary;
 import Entities.Traveldocument;
 import Entities.Travelerprofile;
+import ServiceLayer.TravelProfileHandlerLocal;
 import ServiceLayer.clientServer;
 import java.io.Serializable;
 import java.util.Date;
@@ -34,6 +35,7 @@ public class ForeignBean implements Serializable
 {
     @EJB
     private clientServer csi;
+    private TravelProfileHandlerLocal tph;
     
     //======change===change=========change============change=========change====
     //-------------------------------------------------------------------------
@@ -57,36 +59,75 @@ public class ForeignBean implements Serializable
     private int passportNum;
     private String companyName;
     private String Distination;
+    
+    private int isPresenting;
+    private int isUsingFC =2;
+    private int isUsingCC =2;
+    private int isUsingCheq =2;
    
     private Date departure;
     private Date returnDate;    
-    @Pattern(message="Invalid numbers only", regexp="[0-9]{0,}")
+    @Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
     private String ticketNumber;
-    @Pattern(message="Invalid numbers only" , regexp="[0-9]{0,20}")
+    @Pattern(message="Incorrect number entered" , regexp="[0-9]{0,20}")
     private String voyagerNum;
     private String travellerCheque;
-    @Pattern(message="Invalid numbers only", regexp="[0-9]{0,}")
+    @Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
     private String foreignCash;
-    @Pattern(message="Invalid type", regexp="[a-zA-Z -]{0,}")
+    @Pattern(message="Incorrect type entered", regexp="[a-zA-Z -]{0,}")
     private String CashPassportCard;
-    @Pattern(message="Invalid type", regexp="[a-zA-Z -]{0,}")
+    @Pattern(message="Incorrect type entered", regexp="[a-zA-Z -]{0,}")
     private String type;
-    @Pattern(message="Invalid numbers", regexp="[0-9]{0,}")
+    @Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
     private String number;
-    @Pattern(message="Invalid Numbers only", regexp="[0-9]{3}")
+    @Pattern(message="Incorrect number entered", regexp="[0-9]{3}")
     private String last3;
     private Date expire;
-    @Pattern(message="Invalid Numbers only", regexp="[0-9]{0,}")
+    @Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
     private String amount;
     private Date dateRequired;
     private Date dateForex;
     private String reasonForTravel;       
     private static final Logger logger = Logger.getLogger(ForeignBean.class.getName());      
    
+    private int coverOptions;
+    
     public ForeignBean()
     {
     }
 
+    public int getIsPresenting() {
+        return isPresenting;
+    }
+
+    public void setIsPresenting(int isPresenting) {
+        this.isPresenting = isPresenting;
+    }
+
+    public int getIsUsingCheq() {
+        return isUsingCheq;
+    }
+
+    public void setIsUsingCheq(int isUsingCheq) {
+        this.isUsingCheq = isUsingCheq;
+    }
+
+    public int getIsUsingFC() {
+        return isUsingFC;
+    }
+
+    public void setIsUsingFC(int isUsingFC) {
+        this.isUsingFC = isUsingFC;
+    }
+
+    public int getIsUsingCC() {
+        return isUsingCC;
+    }
+
+    public void setIsUsingCC(int isUsingCC) {
+        this.isUsingCC = isUsingCC;
+    }
+    
     public Forexorder getViewForX() {
         viewForX = csi.findForX(accountID);
         return viewForX;
@@ -312,6 +353,14 @@ public class ForeignBean implements Serializable
 
     public void setTicketNumber(String ticketNumber) {
         this.ticketNumber = ticketNumber;
+    }
+
+    public int getCoverOptions() {
+        return coverOptions;
+    }
+
+    public void setCoverOptions(int coverOptions) {
+        this.coverOptions = coverOptions;
     }
 
     public String getVoyagerNum() {

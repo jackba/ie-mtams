@@ -55,15 +55,14 @@ and open the template in the editor.
 
                 <h:outputText value="Destination: " />  
                 <h:outputText value="#{foreignBean.itinerary.destination}" /> 
-                
-   
-                
                             
                 <h:outputText value="Date of departure: " />  
-                <h:outputText id="dateDep" value="#{foreignBean.viewForX.dateofdepart}" />
+                <h:outputText id="dateDep" value="#{foreignBean.itinerary.datefrom}" />
                             
                 <h:outputText value="Date of return: " />  
-                <h:outputText id="DateReturn" value="#{foreignBean.viewForX.dateofreturn}"/>
+                <h:outputText id="DateReturn" value="#{foreignBean.itinerary.dateto}"/>
+                
+                
                 
                 <h:outputText value="Ticket number/ reference number: "  />  
                 <h:outputText id="ticket" value="#{foreignBean.viewForX.ticketnum}" /> 
@@ -76,7 +75,8 @@ and open the template in the editor.
              
                 <fieldset><legend>Breakdown of Forex required</legend>
                 <h:panelGrid columns="2" columnClasses="label, value">  
-                  
+                
+                    
                 <h:outputText value="Travellers cheques: "  />  
                 <h:outputText id="travelCheq" value="#{foreignBean.viewForX.travelerscheques}" /> 
                   
