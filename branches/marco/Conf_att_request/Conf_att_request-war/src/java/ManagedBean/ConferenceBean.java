@@ -5,6 +5,7 @@
 package ManagedBean;
 
 import Entities.Conference;
+import Entities.Quotes;
 import Entities.Travelerprofile;
 import ServiceLayer.ConferenceHandlerLocal;
 import java.io.Serializable;
@@ -17,6 +18,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
 
 /**
@@ -35,18 +37,21 @@ public class ConferenceBean implements Serializable {
     private Conference confView;
     private Conference confEdit;
     private Travelerprofile travelerP;
+    private Quotes quotes;
     int accountID = 1;
-    //Section B - ConferenceBean Details
+    //Section B - Conference Details
     private String confName;
+    @Pattern(message="Incorrect Website Format", regexp="(((ht|f)tp(s)?://)|www.){1}([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&=]*)?")
     private String website;
     private String country;
+    @Pattern(message = "Incorrect city name", regexp="^[a-zA-Z]+$")
     private String city;
     private int isPresenting;
     private String paperTitle;
     private String specialReason;
     private String author;
     private Date presentationDate;
-    //Section C - ConferenceBean Duration
+    //Section C - Conference Duration
     private Date fromDate;
     private Date toDate;
     private int diffDays;
@@ -55,7 +60,6 @@ public class ConferenceBean implements Serializable {
     //Section D - Funding
     private String fundingOptions;
     private String otherFunding;
-    private String costCentre;
     private String fundName;
 
     public String onFlowProcess(FlowEvent event) {
@@ -83,13 +87,17 @@ public class ConferenceBean implements Serializable {
         conf.setReplacement(this.getCoverOptions());
         conf.setReplacementarrangments(this.getCoverDetails());
 
+        conf.setFundingsources(this.getFundingOptions());
+        conf.setOtherfundingsources(this.getOtherFunding());
+        conf.setFundname(this.getFundName());
+
         handler.persist(conf);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sucessfull", this.getConfName() + " Added!"));
     }
 
     @PostConstruct
     public void view() {
-        confView = handler.findConference(1);
+        confView = handler.findConference(accountID);
         logger.log(Level.INFO, "Conference ID:", confView.getIdconference());
 
         this.setConfName(confView.getConferencename());
@@ -107,6 +115,10 @@ public class ConferenceBean implements Serializable {
         this.setDiffDays(confView.getConferenceduration());
         this.setCoverOptions(confView.getReplacement());
         this.setCoverDetails(confView.getReplacementarrangments());
+
+        this.setFundingOptions(confView.getFundingsources());
+        this.setOtherFunding(confView.getOtherfundingsources());
+        this.setFundName(confView.getFundname());
     }
 
     public void update() {
@@ -128,17 +140,22 @@ public class ConferenceBean implements Serializable {
         confEdit.setReplacement(this.getCoverOptions());
         confEdit.setReplacementarrangments(this.getCoverDetails());
 
+        confEdit.setFundingsources(this.getFundingOptions());
+        confEdit.setOtherfundingsources(this.getOtherFunding());
+        confEdit.setFundname(this.getFundName());
+        
         handler.updateConference(confEdit, accountID);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sucessfull", "Changes have been saved!"));
+    }
+
+    public Quotes getQuotes() {
+        quotes = handler.findQuote(accountID);
+        return quotes;
     }
 
     public Travelerprofile getTravelerP() {
         travelerP = handler.findTravelerProfile(accountID);
         return travelerP;
-    }
-
-    public void setTravelerP(Travelerprofile travelerP) {
-        this.travelerP = travelerP;
     }
 
     public String getConfName() {
@@ -267,14 +284,6 @@ public class ConferenceBean implements Serializable {
 
     public void setOtherFunding(String otherFunding) {
         this.otherFunding = otherFunding;
-    }
-
-    public String getCostCentre() {
-        return costCentre;
-    }
-
-    public void setCostCentre(String costCentre) {
-        this.costCentre = costCentre;
     }
 
     public String getFundName() {

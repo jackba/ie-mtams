@@ -13,30 +13,31 @@
             <p:growl id="growl" sticky="true" showDetail="true"/>
 
             <p:panel header="Conference Attendance Request Form">
+
                 <p:fieldset legend="Conference Details">
                     <h:panelGrid columns="2" columnClasses="label, value">
                         <h:outputLabel value="Conference Name:"  />  
-                        <p:inplace editor="true">  
+                        <p:inplace editor="true" emptyLabel="Click to Edit">  
                             <p:inputText value="#{conference.confName}"/> 
                         </p:inplace>
 
                         <h:outputLabel value="Web Adress:"/>
-                        <p:inplace editor="true"> 
+                        <p:inplace editor="true" emptyLabel="Click to Edit"> 
                             <p:inputText value="#{conference.website}"/>
                         </p:inplace>
 
                         <h:outputLabel value="Country:"/>
-                        <p:inplace editor="true"> 
+                        <p:inplace editor="true" emptyLabel="Click to Edit"> 
                             <p:inputText value="#{conference.country}"/>
                         </p:inplace>
 
                         <h:outputLabel value="City/State:"/>
-                        <p:inplace editor="true"> 
+                        <p:inplace editor="true" emptyLabel="Click to Edit"> 
                             <p:inputText value="#{conference.city}"/>
                         </p:inplace>
 
                         <h:outputLabel value="Presenting a paper?"/>
-                        <p:inplace editor="true"> 
+                        <p:inplace editor="true" emptyLabel="Click to Edit"> 
                             <p:selectOneRadio value="#{conference.isPresenting}">
                                 <f:selectItem itemLabel="Yes" itemValue="1"/>
                                 <f:selectItem itemLabel="No" itemValue="2" />
@@ -55,7 +56,7 @@
                         </p:inplace>
 
                         <h:outputLabel value="Date of internal MSA presentation:"/>
-                        <p:inplace editor="true"> 
+                        <p:inplace editor="true" emptyLabel="Click to Edit"> 
                             <p:calendar navigator="true" value="#{conference.presentationDate}"/>
                         </p:inplace>
                     </h:panelGrid>
@@ -64,17 +65,17 @@
                 <p:fieldset legend="Conference Duration">
                     <h:panelGrid columns="2" columnClasses="label, value">
                         <h:outputLabel value="Date From:"/>
-                        <p:inplace editor="true"> 
+                        <p:inplace editor="true" emptyLabel="Click to Edit"> 
                             <p:calendar navigator="true" value="#{conference.fromDate}"/>
                         </p:inplace>
 
                         <h:outputLabel value="Date To:"/>
-                        <p:inplace editor="true"> 
+                        <p:inplace editor="true" emptyLabel="Click to Edit"> 
                             <p:calendar navigator="true" value="#{conference.toDate}"/>
                         </p:inplace>
 
                         <h:outputLabel value="Do you need coverage for teaching commitments?"/>
-                        <p:inplace editor="true"> 
+                        <p:inplace editor="true" emptyLabel="Click to Edit"> 
                             <p:selectOneRadio id="coverOptions" value="#{conference.coverOptions}">
                                 <f:selectItem itemLabel="Yes" itemValue="yes" />
                                 <f:selectItem itemLabel="No" itemValue="no" />
@@ -91,11 +92,35 @@
 
                 </p:fieldset>
 
-                <!--                <p:fieldset legend="Funding">
-                                    <h:panelGrid columns="2">
-                                        <h:outputText value="Coming Soon...."/>
-                                    </h:panelGrid>
-                                </p:fieldset>-->
+                <p:fieldset legend="Funding">
+                    <h:panelGrid columns="2" columnClasses="label, value">
+                        <p:outputLabel for="fundingOptions" value="Sources of funding:"/>
+                        <p:inplace editor="true" emptyLabel="Click to Edit">
+                            <p:selectOneRadio id="fundingOptions" value="#{conference.fundingOptions}" required="true" requiredMessage="Required Field">
+                                <f:selectItem itemLabel="School/Admin Unit" itemValue="School/Admin Unit" />
+                                <f:selectItem itemLabel="Research Grant" itemValue="Research Grant" />
+                                <f:selectItem itemLabel="Other (Specify below)" itemValue="Other" />
+                                <p:ajax event="change" update="fundingOptionsGrid"/>
+                            </p:selectOneRadio>
+
+                            <h:panelGrid columns="2" id="fundingOptionsGrid" columnClasses="label, value">
+                                <p:outputLabel rendered="#{conference.fundingOptions eq 'Other'}" for="otherSources" value="Other sources of funding:"/>
+                                <p:inputText rendered="#{conference.fundingOptions eq 'Other'}" id="otherSources" value="#{conference.otherFunding}" />
+                            </h:panelGrid>
+                        </p:inplace>
+
+                        <p:outputLabel for="costCentre" value="Cost centre:"/>
+                        <p:inplace editor="true" emptyLabel="Click to Edit">
+                            <p:inputText id="costCentre" value="#{conference.quotes.costcenter}" readonly="true"/>
+                        </p:inplace>
+
+                        <p:outputLabel for="fund" value="Fund Name:"/>
+                        <p:inplace editor="true" emptyLabel="Click to Edit">
+                            <p:inputText id="fund" value="#{conference.fundName}"/>
+                        </p:inplace>
+
+                    </h:panelGrid>
+                </p:fieldset>
                 <br />
                 <p:commandButton value="Submit" ajax="false" action="#{conference.update()}" />
             </p:panel>
