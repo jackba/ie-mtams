@@ -63,7 +63,7 @@
                                 <p:inputText id="city" value="#{conference.city}" required="true" requiredMessage="Required Field"/>
                                 <p:message for="city" />
 
-                                <h:outputText value="Are you presenting a paper?"/>
+                                <h:outputText value="Are You Presenting a Paper?"/>
                                 <p:selectOneRadio id="isPresenting" value="#{conference.isPresenting}" required="true" requiredMessage="Required Field">
                                     <f:selectItem itemLabel="Yes" itemValue="1"/>
                                     <f:selectItem itemLabel="No" itemValue="2" />
@@ -73,24 +73,24 @@
                             </h:panelGrid>
 
                             <h:panelGrid columns="3" id="isPresentingGrid" columnClasses="label, value, error">
-                                <p:outputLabel rendered="#{conference.isPresenting eq '1'}" for="paperTitle" value="Title of paper:" title="Title of paper:"/>
+                                <p:outputLabel rendered="#{conference.isPresenting eq '1'}" for="paperTitle" value="Title of Paper:" title="Title of paper:"/>
                                 <p:inputText rendered="#{conference.isPresenting eq '1'}" id="paperTitle" value="#{conference.paperTitle}" required="true" requiredMessage="Required Field"/>
                                 <p:message for="paperTitle" />
 
 
-                                <p:outputLabel rendered="#{conference.isPresenting eq '1'}" for="author" value="Specify all authors and affiliations:"/>
+                                <p:outputLabel rendered="#{conference.isPresenting eq '1'}" for="author" value="Specify All Authors and Affiliations:"/>
                                 <h:inputTextarea rendered="#{conference.isPresenting eq '1'}" id="author" value="#{conference.author}" required="true" requiredMessage="Required Field"/>
                                 <p:message for="author" />
                                 <br />
 
-                                <p:outputLabel rendered="#{conference.isPresenting eq '2'}" for="specialReason" value="Special reason for attendance:"/>
+                                <p:outputLabel rendered="#{conference.isPresenting eq '2'}" for="specialReason" value="Special Reason For Attendance:"/>
                                 <p:inputText rendered="#{conference.isPresenting eq '2'}" id="specialReason" value="#{conference.specialReason}" required="true" requiredMessage="Required Field"/>
                                 <p:message for="specialReason" />
 
                             </h:panelGrid>
 
                             <h:panelGrid columns="3" columnClasses="label, value, error">
-                                <p:outputLabel for="presentationDate" value="Date of internal MSA presentation:"/>
+                                <p:outputLabel for="presentationDate" value="Date of Internal MSA Presentation:"/>
                                 <p:calendar id="presentationDate" value="#{conference.presentationDate}" navigator="true" showOn="button" required="true" requiredMessage="Required Field"/>
                                 <p:message for="presentationDate" />
 
@@ -115,7 +115,7 @@
                                 <p:inputText id="diffDays" value="#{conference.diffDays}" readonly="true" requiredMessage="Required Field"/>
                                 <br />
 
-                                <h:outputText value="Do you need coverage for teaching commitments?" />
+                                <h:outputText value="Do You Need Coverage For Teaching Commitments?" />
                                 <p:selectOneRadio id="coverOptions" value="#{conference.coverOptions}" required="true" requiredMessage="Required Field">
                                     <f:selectItem itemLabel="Yes" itemValue="yes" />
                                     <f:selectItem itemLabel="No" itemValue="no" />
@@ -127,7 +127,7 @@
                             </h:panelGrid>
 
                             <h:panelGrid columns="3" id="coverOptionsGrid" columnClasses="label, value, error">
-                                <p:outputLabel rendered="#{conference.coverOptions eq 'yes'}" for="arrangements" value="Proposed arrangements to cover teaching commitments:"/>
+                                <p:outputLabel rendered="#{conference.coverOptions eq 'yes'}" for="arrangements" value="Proposed Arrangements To Cover Teaching Tommitments:"/>
                                 <h:inputTextarea rendered="#{conference.coverOptions eq  'yes'}" id="arrangements" value="#{conference.coverDetails}" required="true" requiredMessage="Required Field"/>
                                 <p:message for="arrangements" />
                             </h:panelGrid>
@@ -139,7 +139,7 @@
                         <p:panel header="Funding">
 
                             <h:panelGrid columns="3" columnClasses="label, value, error">
-                                <p:outputLabel for="fundingOptions" value="Sources of funding:"/>
+                                <p:outputLabel for="fundingOptions" value="Sources of Funding:"/>
                                 <p:selectOneRadio id="fundingOptions" value="#{conference.fundingOptions}" required="true" requiredMessage="Required Field">
                                     <f:selectItem itemLabel="School/Admin Unit" itemValue="School/Admin Unit" />
                                     <f:selectItem itemLabel="Research Grant" itemValue="Research Grant" />
@@ -150,13 +150,13 @@
                             </h:panelGrid>
 
                             <h:panelGrid columns="3" id="fundingOptionsGrid" columnClasses="label, value, error">
-                                <p:outputLabel rendered="#{conference.fundingOptions eq 'Other'}" for="otherSources" value="Other sources of funding:"/>
+                                <p:outputLabel rendered="#{conference.fundingOptions eq 'Other'}" for="otherSources" value="Other Sources of Funding:"/>
                                 <p:inputText rendered="#{conference.fundingOptions eq 'Other'}" id="otherSources" value="#{conference.otherFunding}" required="true" requiredMessage="Required Field"/>
                                 <p:message for="otherSources" />
                             </h:panelGrid>
 
                             <h:panelGrid columns="3" columnClasses="label, value, error">
-                                <p:outputLabel for="costCentre" value="Cost centre:"/>
+                                <p:outputLabel for="costCentre" value="Cost Centre:"/>
                                 <p:inputText id="costCentre" value="#{conference.quotes.costcenter}" readonly="true"/>
                                 <br />
 

@@ -36,7 +36,7 @@
                             <p:inputText value="#{conference.city}"/>
                         </p:inplace>
 
-                        <h:outputLabel value="Presenting a paper?"/>
+                        <h:outputLabel value="Presenting a Paper?"/>
                         <p:inplace editor="true" emptyLabel="Click to Edit"> 
                             <p:selectOneRadio value="#{conference.isPresenting}">
                                 <f:selectItem itemLabel="Yes" itemValue="1"/>
@@ -45,17 +45,17 @@
                             </p:selectOneRadio>
 
                             <h:panelGrid columns="2" id="isPresentingGrid" columnClasses="label, value">
-                                <p:outputLabel rendered="#{conference.isPresenting eq '1'}" for="paperTitle" value="Title of paper:" title="Title of paper:"/>
+                                <p:outputLabel rendered="#{conference.isPresenting eq '1'}" for="paperTitle" value="Title of Paper:" title="Title of paper:"/>
                                 <p:inputText rendered="#{conference.isPresenting eq '1'}" id="paperTitle" value="#{conference.paperTitle}" required="true" title="Title of paper which you are presenting on"/>
-                                <p:outputLabel rendered="#{conference.isPresenting eq '1'}" for="author" value="Specify all authors and affiliations:"/>
+                                <p:outputLabel rendered="#{conference.isPresenting eq '1'}" for="author" value="Specify All Authors and Affiliations:"/>
                                 <h:inputTextarea rendered="#{conference.isPresenting eq '1'}" id="author" value="#{conference.author}" required="true"/>
 
-                                <p:outputLabel rendered="#{conference.isPresenting eq '2'}" for="specialReason" value="Special reason for attendance:"/>
+                                <p:outputLabel rendered="#{conference.isPresenting eq '2'}" for="specialReason" value="Special Reason For Attendance:"/>
                                 <p:inputText rendered="#{conference.isPresenting eq '2'}" id="specialReason" value="#{conference.specialReason}" required="true"/>
                             </h:panelGrid>
                         </p:inplace>
 
-                        <h:outputLabel value="Date of internal MSA presentation:"/>
+                        <h:outputLabel value="Date of Internal MSA Presentation:"/>
                         <p:inplace editor="true" emptyLabel="Click to Edit"> 
                             <p:calendar navigator="true" value="#{conference.presentationDate}"/>
                         </p:inplace>
@@ -74,7 +74,7 @@
                             <p:calendar navigator="true" value="#{conference.toDate}"/>
                         </p:inplace>
 
-                        <h:outputLabel value="Do you need coverage for teaching commitments?"/>
+                        <h:outputLabel value="Do You Need Coverage For Teaching Commitments?"/>
                         <p:inplace editor="true" emptyLabel="Click to Edit"> 
                             <p:selectOneRadio id="coverOptions" value="#{conference.coverOptions}">
                                 <f:selectItem itemLabel="Yes" itemValue="yes" />
@@ -84,7 +84,7 @@
                             </p:selectOneRadio>
 
                             <h:panelGrid columns="2" id="coverOptionsGrid" columnClasses="label, value">
-                                <p:outputLabel rendered="#{conference.coverOptions eq 'yes'}" for="arrangements" value="Proposed arrangements to cover teaching commitments:"/>
+                                <p:outputLabel rendered="#{conference.coverOptions eq 'yes'}" for="arrangements" value="Proposed Arrangements To Cover Teaching Commitments:"/>
                                 <h:inputTextarea rendered="#{conference.coverOptions eq  'yes'}" id="arrangements" value="#{conference.coverDetails}" required="true"/>
                             </h:panelGrid>
                         </p:inplace>
@@ -94,22 +94,22 @@
 
                 <p:fieldset legend="Funding">
                     <h:panelGrid columns="2" columnClasses="label, value">
-                        <p:outputLabel for="fundingOptions" value="Sources of funding:"/>
+                        <p:outputLabel for="fundingOptions" value="Sources of Funding:"/>
                         <p:inplace editor="true" emptyLabel="Click to Edit">
                             <p:selectOneRadio id="fundingOptions" value="#{conference.fundingOptions}" required="true" requiredMessage="Required Field">
                                 <f:selectItem itemLabel="School/Admin Unit" itemValue="School/Admin Unit" />
                                 <f:selectItem itemLabel="Research Grant" itemValue="Research Grant" />
-                                <f:selectItem itemLabel="Other (Specify below)" itemValue="Other" />
+                                <f:selectItem itemLabel="Other (Specify Below)" itemValue="Other" />
                                 <p:ajax event="change" update="fundingOptionsGrid"/>
                             </p:selectOneRadio>
 
                             <h:panelGrid columns="2" id="fundingOptionsGrid" columnClasses="label, value">
-                                <p:outputLabel rendered="#{conference.fundingOptions eq 'Other'}" for="otherSources" value="Other sources of funding:"/>
+                                <p:outputLabel rendered="#{conference.fundingOptions eq 'Other'}" for="otherSources" value="Other Sources of Funding:"/>
                                 <p:inputText rendered="#{conference.fundingOptions eq 'Other'}" id="otherSources" value="#{conference.otherFunding}" />
                             </h:panelGrid>
                         </p:inplace>
 
-                        <p:outputLabel for="costCentre" value="Cost centre:"/>
+                        <p:outputLabel for="costCentre" value="Cost Centre:"/>
                         <p:inplace editor="true" emptyLabel="Click to Edit">
                             <p:inputText id="costCentre" value="#{conference.quotes.costcenter}" readonly="true"/>
                         </p:inplace>
