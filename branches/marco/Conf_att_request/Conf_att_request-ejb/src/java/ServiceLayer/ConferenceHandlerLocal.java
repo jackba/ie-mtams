@@ -5,6 +5,7 @@
 package ServiceLayer;
 
 import Entities.Conference;
+import Entities.Quotes;
 import Entities.Travelerprofile;
 import javax.ejb.Local;
 
@@ -15,6 +16,7 @@ import javax.ejb.Local;
 @Local
 public interface ConferenceHandlerLocal {
     public void persist(Conference conference);
+    public Quotes findQuote(Integer id);
     public Travelerprofile findTravelerProfile(Integer id);
     public Conference findConference(Integer id);
     public void updateConference(Conference c, Integer id);

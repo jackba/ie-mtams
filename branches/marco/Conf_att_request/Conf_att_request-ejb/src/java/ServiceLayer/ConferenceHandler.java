@@ -6,9 +6,11 @@ package ServiceLayer;
 
 import DataAccess.ApplicationFacadeLocal;
 import DataAccess.ConferenceFacadeLocal;
+import DataAccess.QuotesFacadeLocal;
 import DataAccess.TravelerprofileFacadeLocal;
 import Entities.Application;
 import Entities.Conference;
+import Entities.Quotes;
 import Entities.Travelerprofile;
 import java.util.List;
 import javax.ejb.EJB;
@@ -22,8 +24,9 @@ import javax.ejb.Stateless;
 public class ConferenceHandler implements ConferenceHandlerLocal {
 
     @EJB
+    private QuotesFacadeLocal quotesDA;
+    @EJB
     private ApplicationFacadeLocal applicationDA;
-
     @EJB
     private TravelerprofileFacadeLocal travelerDA;
     @EJB
@@ -39,7 +42,6 @@ public class ConferenceHandler implements ConferenceHandlerLocal {
         List<Travelerprofile> all = travelerDA.findAll();
         for (Travelerprofile each : all) {
             if (each.getAccountid().getIdaccount().equals(id)) {
-                System.out.println(each.getAircon());
                 return each;
             }
         }
@@ -50,7 +52,6 @@ public class ConferenceHandler implements ConferenceHandlerLocal {
     public Conference findConference(Integer id) {
         Integer conferenceID = null;
         Conference conferenceForm = null;
-
         //Start by looking at Application Table. Application -> Travel ID -> ID Conference
         List<Application> allApp = applicationDA.findAll();
         for (Application eachApp : allApp) {
@@ -93,5 +94,28 @@ public class ConferenceHandler implements ConferenceHandlerLocal {
                 conferenceDA.edit(newForm);
             }
         }
+    }
+
+    @Override
+    public Quotes findQuote(Integer id) {
+        Integer quotesID = null;
+        Quotes quoteObject = null;
+
+        //Start by looking at Application Table. Application -> Quote ID
+        List<Application> allApp = applicationDA.findAll();
+        for (Application eachApp : allApp) {
+            if (eachApp.getAccountIdaccount().getIdaccount().equals(id)) {
+                quotesID = eachApp.getQuotesIdquotes().getIdquotes();
+            }
+        }
+
+        //Try and match quotesID to passed id
+        List<Quotes> allQuotes = quotesDA.findAll();
+        for (Quotes eachQuote : allQuotes) {
+            if (eachQuote.getIdquotes().equals(quotesID)) {
+                quoteObject = eachQuote;
+            }
+        }
+        return quoteObject;
     }
 }

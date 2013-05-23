@@ -5,10 +5,8 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,13 +14,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -47,7 +43,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Conference.findByDatefrom", query = "SELECT c FROM Conference c WHERE c.datefrom = :datefrom"),
     @NamedQuery(name = "Conference.findByDateto", query = "SELECT c FROM Conference c WHERE c.dateto = :dateto"),
     @NamedQuery(name = "Conference.findByReplacement", query = "SELECT c FROM Conference c WHERE c.replacement = :replacement"),
-    @NamedQuery(name = "Conference.findByReplacementarrangments", query = "SELECT c FROM Conference c WHERE c.replacementarrangments = :replacementarrangments")})
+    @NamedQuery(name = "Conference.findByReplacementarrangments", query = "SELECT c FROM Conference c WHERE c.replacementarrangments = :replacementarrangments"),
+    @NamedQuery(name = "Conference.findByFundingsources", query = "SELECT c FROM Conference c WHERE c.fundingsources = :fundingsources"),
+    @NamedQuery(name = "Conference.findByOtherfundingsources", query = "SELECT c FROM Conference c WHERE c.otherfundingsources = :otherfundingsources"),
+    @NamedQuery(name = "Conference.findByFundname", query = "SELECT c FROM Conference c WHERE c.fundname = :fundname")})
 public class Conference implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -95,10 +94,15 @@ public class Conference implements Serializable {
     @Size(max = 45)
     @Column(name = "REPLACEMENTARRANGMENTS")
     private String replacementarrangments;
-    @OneToMany(mappedBy = "conferenceIdconference")
-    private Collection<Attachement> attachementCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "conferenceIdconference")
-    private Collection<Travel> travelCollection;
+    @Size(max = 45)
+    @Column(name = "FUNDINGSOURCES")
+    private String fundingsources;
+    @Size(max = 45)
+    @Column(name = "OTHERFUNDINGSOURCES")
+    private String otherfundingsources;
+    @Size(max = 45)
+    @Column(name = "FUNDNAME")
+    private String fundname;
 
     public Conference() {
     }
@@ -227,22 +231,28 @@ public class Conference implements Serializable {
         this.replacementarrangments = replacementarrangments;
     }
 
-    @XmlTransient
-    public Collection<Attachement> getAttachementCollection() {
-        return attachementCollection;
+    public String getFundingsources() {
+        return fundingsources;
     }
 
-    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
-        this.attachementCollection = attachementCollection;
+    public void setFundingsources(String fundingsources) {
+        this.fundingsources = fundingsources;
     }
 
-    @XmlTransient
-    public Collection<Travel> getTravelCollection() {
-        return travelCollection;
+    public String getOtherfundingsources() {
+        return otherfundingsources;
     }
 
-    public void setTravelCollection(Collection<Travel> travelCollection) {
-        this.travelCollection = travelCollection;
+    public void setOtherfundingsources(String otherfundingsources) {
+        this.otherfundingsources = otherfundingsources;
+    }
+
+    public String getFundname() {
+        return fundname;
+    }
+
+    public void setFundname(String fundname) {
+        this.fundname = fundname;
     }
 
     @Override
