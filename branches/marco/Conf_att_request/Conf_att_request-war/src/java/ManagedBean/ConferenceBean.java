@@ -90,8 +90,9 @@ public class ConferenceBean implements Serializable {
         conf.setFundingsources(this.getFundingOptions());
         conf.setOtherfundingsources(this.getOtherFunding());
         conf.setFundname(this.getFundName());
-
-        handler.persist(conf);
+        
+        handler.updateConference(conf, accountID);
+        //handler.persist(conf);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sucessfull", this.getConfName() + " Added!"));
     }
 
