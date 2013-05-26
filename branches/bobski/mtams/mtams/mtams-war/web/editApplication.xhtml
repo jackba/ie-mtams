@@ -20,48 +20,22 @@
             </ul> 
         </div>
         <div class="nav">
-            <p:menubar rendered="#{sessionBean.checkNotFirstTime()}">
+            <p:menubar>
                 <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goHome()}"/>
                 <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
                 <!--<p:menuitem value="Applications" icon="ui-icon-note" outcome="" />-->
             </p:menubar>
         </div>
         <div id="content">
-            <h:form>
-                <p:panel id="viewApplicationPanel" header="Your Application">
+            
+                <p:panel id="editApplicationPanel" header="Your Application">
 
-                    
-                    <fieldset><legend>Personal Details</legend>
-                        <h:panelGrid columns="2">
-
-                            <h:outputText value="Department: " />
-                            <h:outputText id="dept" value="#{appBean.profileRef.department}" />
-
-
-                            <h:outputText value="Staff ID: " />
-                            <h:outputText id="staffID" value="#{appBean.profileRef.staffid}" />
-
-
-                            <h:outputText value="Title: " />
-                            <h:outputText id="title" value="#{appBean.profileRef.title}" />
-
-
-                            <h:outputText value="Family Name: " />
-                            <h:outputText id="famName" value="#{appBean.profileRef.familyname}" />
-
-
-                            <h:outputText value="Given Name: " />
-                            <h:outputText id="givenName" value="#{appBean.profileRef.firstname}" />
-
-                        </h:panelGrid>
-                    </fieldset>
-                    <p:commandButton value="Save" action="#{appBean.update()}" ajax="false"/>
-                    <br />
                     <h4>Please click on the value you wish to edit</h4>
-                    <br />
+                    <p:messages autoUpdate="true"  closable="true" globalOnly="true" />
+                    <h:form id="editForm">
                     <fieldset><legend>Travel Details</legend>
                         <h:panelGrid columns="3" >
-                            <h:outputText value="Application Name:" />
+                            <h:outputText value="Application name:" />
                             <p:inplace emptyLabel="Click to edit">
                                 <p:inputText id="desc" value="#{appBean.description}" required="true" requiredMessage="Name of application missing" title="How would you like to remember this application"/>
                             </p:inplace>
@@ -101,11 +75,11 @@
 
                             <h:outputText value="Destination:" />
                             <p:inplace emptyLabel="Click to edit">
-                                <p:inputText id="itinDest" value="#{appBean.tempDest}" required="true" requiredMessage="Entry required"/>
+                                <p:inputText id="itinDest" value="#{appBean.tempDest}" required="true" immediate="true" requiredMessage="Entry required"/>    
                             </p:inplace>
                             <p:message for="itinDest" />
 
-                            <h:outputText value="Business Leave/ Other:" />
+                            <h:outputText value="Business leave/ other:" />
                             <p:inplace emptyLabel="Click to edit">
                                 <p:inputText id="itinLeaveType" value="#{appBean.tempLeaveType}" required="true" requiredMessage="Entry required"/>
                             </p:inplace>
@@ -121,7 +95,7 @@
                     </fieldset>
                     <fieldset><legend>Quotes</legend>
                         <h:panelGrid columns="3">
-                            <h:outputText value="Cost Centre:" />
+                            <h:outputText value="Cost centre:" />
                             <p:inplace emptyLabel="Click to edit">
                                 <p:inputMask mask="999999-9999" id="costCentre" value="#{appBean.costCentre}" required="true" requiredMessage="Cost centre code required" />
                             </p:inplace>
@@ -146,7 +120,7 @@
                                 <p:column headerText="Airline">
                                     <h:outputText value="#{fQ.quotesource}" />
                                 </p:column>
-                                <p:column headerText="Cost Quoted">
+                                <p:column headerText="Cost quoted">
                                     <h:outputText value="#{fQ.quotecost}" />
                                 </p:column>
                             </p:dataTable>
@@ -159,16 +133,16 @@
                                 <p:column headerText="Return date">
                                     <h:outputText value="#{cQ.datereturn}" />
                                 </p:column>
-                                <p:column headerText="Date Collected">
+                                <p:column headerText="Date collected">
                                     <h:outputText value="#{cQ.datecollect}" />
                                 </p:column>
-                                <p:column headerText="Date Returned">
+                                <p:column headerText="Date returned">
                                     <h:outputText value="#{cQ.datereturn}" />
                                 </p:column>
-                                <p:column headerText="Rental Company">
+                                <p:column headerText="Rental company">
                                     <h:outputText value="#{cQ.provider}" />
                                 </p:column>
-                                <p:column headerText="Cost Quoted">
+                                <p:column headerText="Cost quoted">
                                     <h:outputText value="#{cQ.quotecost}" />
                                 </p:column>
                             </p:dataTable>
@@ -187,15 +161,16 @@
                                 <p:column headerText="Hotel">
                                     <h:outputText value="#{hQ.accomodationprovider}" />
                                 </p:column>
-                                <p:column headerText="Cost Quoted">
+                                <p:column headerText="Cost quoted">
                                     <h:outputText value="#{hQ.quotecost}" />
                                 </p:column>
                             </p:dataTable>
                         </fieldset>
                     </fieldset>
-                    <p:commandButton value="Save" action="#{appBean.update()}" ajax="false" />
+                    <p:commandButton value="Save" update="editApplicationPanel" action="#{appBean.update()}" ajax="false" />
+                    </h:form>
                 </p:panel>
-            </h:form>
+            
         </div>
         <div id= "footer">
             <div class="row group">

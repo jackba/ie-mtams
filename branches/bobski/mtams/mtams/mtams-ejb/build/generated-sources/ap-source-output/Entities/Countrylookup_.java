@@ -6,7 +6,7 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.3.2.v20111125-r10461", date="2013-05-19T19:35:40")
+@Generated(value="EclipseLink-2.3.2.v20111125-r10461", date="2013-05-26T22:00:54")
 @StaticMetamodel(Countrylookup.class)
 public class Countrylookup_ { 
 

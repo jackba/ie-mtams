@@ -29,6 +29,7 @@ import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.*;
 import javax.faces.context.FacesContext;
+
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
@@ -51,7 +52,7 @@ public class ApplicationBean implements Serializable {
     private List<Application> allApps;
     private Application selectedApp;
     
-    private Integer accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+    private Integer accountID;// = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
     private Travelerprofile profileRef;//travelProfileHandler.findTravelProf(accountID);
     
     private Date modifiedDate;
@@ -150,6 +151,7 @@ public class ApplicationBean implements Serializable {
 
     @PostConstruct
     public void initialize() {
+        accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 //        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 
 //        Application tempApp = new Application();
@@ -162,7 +164,7 @@ public class ApplicationBean implements Serializable {
         profileRef = travelProfileHandler.findTravelProf(accountID);
         //loadValues();
         
-        appRef = appHandler.getApplication(selectedApp.getIdapplication());//selectedApp;
+        appRef = appHandler.getApplication(9);//selectedApp;
         
         quoteRef = appRef.getQuotesIdquotes();
         hotels = appHandler.getAccomodationQuotes(quoteRef.getIdquotes());

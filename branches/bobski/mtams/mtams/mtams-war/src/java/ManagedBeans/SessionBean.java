@@ -82,9 +82,11 @@ public class SessionBean implements Serializable {
     }
 
     private void setSessionVariables() {
-        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", user.getIdaccount());
+        //FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID",user.getIdaccount());
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", user.getUsername());
+        //session.setAttribute("userID", user.getIdaccount());
+//        session.setAttribute("username", user.getUsername());
     }
 
     public String validate() {
@@ -92,33 +94,35 @@ public class SessionBean implements Serializable {
         if (user != null) {
             int roleNum = handler.getAccountRole(user);
             if (roleNum < 20) {
-                setSessionVariables();
+                
                 //session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                setSessionVariables();
                 if (user.getDatelogin() == null) {
                     
-                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", true);
+                    //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", true);
                     addDate();
                     return "travelProfile";
                 } else {
                     //addDate();
-                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
+                    //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
                     addDate();
-                    return "viewApplication";//"userHome";
+                    return "viewApplication"; ///userHome.xhtml";
                 }
                 //logError = false;
 
             } else if (roleNum < 30) {
-                setSessionVariables();
+                
                 addDate();
-                //session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+               // session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                setSessionVariables();
                 //logError = false;
                 return "adminHome";
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Account has been deactivated. Please contact admin."));
+                FacesContext.getCurrentInstance().addMessage("loginMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Account has been deactivated. Please contact admin."));
                 return "login";
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Incorrect username/password combination"));
+            FacesContext.getCurrentInstance().addMessage("loginMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Incorrect username/password combination"));
             return "login";
         }
 
@@ -133,6 +137,7 @@ public class SessionBean implements Serializable {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", null);
             ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).invalidate();
             */
+           // ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).invalidate();
         } catch (NullPointerException e) {
         } finally {
             return "login";
@@ -140,4 +145,14 @@ public class SessionBean implements Serializable {
         //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 
     }
+
+    public HttpSession getSession() {
+        return session;
+    }
+
+    public void setSession(HttpSession session) {
+        this.session = session;
+    }
+    
+    
 }

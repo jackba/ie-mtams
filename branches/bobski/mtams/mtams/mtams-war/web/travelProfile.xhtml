@@ -70,7 +70,7 @@
                                 <f:selectItem itemLabel="Dr." itemValue="Dr" />  
                                 <f:selectItem itemLabel="Prof." itemValue="Prof" />
                             </p:selectOneMenu>
-                            <h:message for="ttl"/>
+                            <p:message for="ttl"/>
 
                             <h:outputText value="Identity Number: *" />  
                             <p:inputText id="identity" required="true" value="#{userBean.idNo}" requiredMessage="Required Field"/>  
@@ -86,7 +86,7 @@
                             
                             <h:outputText value="Business Fax:" />  
                             <p:inputText id="bFax" value="#{userBean.busFax}"/>  
-                            <h:message for="bFax"/>
+                            <p:message for="bFax"/>
                             
                             <h:outputText value="Home Address: *" />  
                             <p:inputText id="homeAdd" required="true" value="#{userBean.homeAddress}" requiredMessage="Required Field"/>
@@ -271,7 +271,7 @@
                             <h:outputText value="Additional Requirements: "/> <p:inputTextarea required ="false" value="#{userBean.hotelAdditionalReq}"/>
                         </h:panelGrid>
                         </fieldset>
-                        <p:commandButton value="Submit" update="travelForm" action="#{userBean.save()}"/>
+                        <p:commandButton value="Submit" update="carHotel" action="#{userBean.save()}"/>
                         
                     </p:panel>                
                 </p:tab>

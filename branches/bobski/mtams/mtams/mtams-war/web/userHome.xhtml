@@ -20,6 +20,7 @@
                 <li><h:link value="Logout" outcome="#{sessionBean.invalidate()}" /></li>
             </ul>
         </div>
+        
         <p:messages autoUpdate="true" id="userTop" closable="true" showDetail="true" />
         <br />
         <div class="nav">
@@ -35,14 +36,8 @@
                 <p:button outcome="#{userBean.goNewApp()}" icon="ui-icon-plus" id="createButton"  title="Create Button" value="Create New" />
 
                 
-                <p:dataTable id="applications" var="app" selectionMode="single" selection="#{appBean.selectedApp}" rowKey="#{app.idapplication}" value="#{appBean.allApps}" emptyMessage="No Applications have been created">  
+                <p:dataTable id="applications" var="app" selectionMode="single" value="#{appBean.allApps}" emptyMessage="No Applications have been created">  
 
-                    <f:facet name="header">
-                        <p:commandButton id="viewButton" oncomplete="#{appBean.viewThis()}" icon="ui-icon-search">
-                            
-                        </p:commandButton>
-                    </f:facet>
-                    
                     <p:column headerText="ID" style="width:4%"> 
                         <h:outputText value="#{app.idapplication}" />
                     </p:column> 
