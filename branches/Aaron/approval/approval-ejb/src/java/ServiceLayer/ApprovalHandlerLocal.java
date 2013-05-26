@@ -25,6 +25,10 @@ public interface ApprovalHandlerLocal {
     public void persistApproval(Approval approval);
     public void persistFinalcosting(Finalcosting finalcosting);
     
+    public void updateApproval(Approval approval, Integer ApprovalID);
+           
+    public void updateFinalcosting(Finalcosting finalcosting, Integer finalcostingID);
+    
     public Approval findApproval(Integer id);
     public List<Approval> findApprovalbyApplication(Integer id);
     public List<Approval> findApprovalbyAccount(Integer id);  

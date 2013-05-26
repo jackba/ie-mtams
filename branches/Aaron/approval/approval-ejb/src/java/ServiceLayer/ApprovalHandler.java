@@ -13,6 +13,7 @@ import DataAccess.QuotesFacadeLocal;
 import Entities.Account;
 import Entities.Application;
 import Entities.Approval;
+import Entities.Conference;
 import Entities.Finalcosting;
 import Entities.Quotes;
 import java.util.ArrayList;
@@ -88,6 +89,64 @@ public class ApprovalHandler implements ApprovalHandlerLocal{
         daoFinal.create(finalcosting);       
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    @Override
+    public void updateApproval(Approval approval, Integer ApprovalID) {
+        //Integer approvalID = null;
+        Approval newForm = approval;
+        Approval oldForm = null;
+
+        //Start by looking at Application Table. Application -> Travel ID -> ID Conference
+//        List<Approval> allApprovlas = daoApproval.findAll();
+//        for (Application eachApproval : allApp) {
+//            if (eachApproval.getIdapplication().getIdaccount().equals(id)) {
+//                approvalID = eachApproval.getFinalcostingIdfinalcosting().getIdfinalcosting();
+//            }
+//        }
+        
+        //Try and match conferenceID to passed id
+        List<Approval> allapprovals = daoApproval.findAll();
+        for (Approval eachapproval : allapprovals) {
+            if (eachapproval.getIdapproval().equals(ApprovalID)) {
+                oldForm = eachapproval;
+                //move conferenceID of old conference entry to new entry.
+                newForm.setIdapproval(oldForm.getIdapproval());
+                daoApproval.edit(newForm);
+            }
+        }
+               
+        
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateFinalcosting(Finalcosting finalcosting, Integer finalcostingID) {
+        //Integer fcostingID = null;
+        Finalcosting newForm = finalcosting;
+        Finalcosting oldForm = null;
+
+        //Start by looking at Application Table. Application -> Travel ID -> ID Conference
+//        List<Application> allApp = daoApplication.findAll();
+//        for (Application eachApp : allApp) {
+//            if (eachApp.getFinalcostingIdfinalcosting().getIdfinalcosting().equals(finalcostingID)) {
+//                fcostingID = eachApp.getFinalcostingIdfinalcosting().getIdfinalcosting();
+//            }
+//        }
+        
+        //Try and match conferenceID to passed id
+        List<Finalcosting> allFcostings = daoFinal.findAll();
+        for (Finalcosting eachfcost : allFcostings) {
+            if (eachfcost.getIdfinalcosting().equals(finalcostingID)) {
+                oldForm = eachfcost;
+                //move conferenceID of old conference entry to new entry.
+                newForm.setIdfinalcosting(oldForm.getIdfinalcosting());
+                daoFinal.edit(newForm);
+            }
+        }
+        
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
     @Override
     public List<Approval> findApprovalbyApplication(Integer id) {
@@ -143,6 +202,10 @@ public class ApprovalHandler implements ApprovalHandlerLocal{
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
     }
+
+
+
+
 
    
 
