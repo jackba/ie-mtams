@@ -58,7 +58,7 @@ flowListener="#{authorisation.onFlowProcess}">
                                 </p:column>
                                 <p:column colspan="1">
                                     <p:inplace editor="true" emptyLabel="Click to Edit">
-                                        <p:inputText id="name" value="#{authorisation.name}" required="true" requiredMessage="Name is a required Field" />                          
+                                        <p:inputText id="name" readonly="true" value="#{authorisation.name}" required="true" requiredMessage="Name is a required Field" />                          
                                     </p:inplace>
                                 </p:column>
                                 <p:column styleClass="columnMessage">
@@ -74,7 +74,7 @@ flowListener="#{authorisation.onFlowProcess}">
                                     <p:inplace editor="true" emptyLabel="Click to Edit">
 
 
-                                        <p:inputText id="administrativeunit" value="#{authorisation.administrativeunit}" required="false" requiredMessage="School / Administrative Unit is a required Field" />
+                                        <p:inputText id="administrativeunit" readonly="true" value="#{authorisation.administrativeunit}" required="false" requiredMessage="School / Administrative Unit is a required Field" />
                                     </p:inplace>
                                 </p:column>
                                 <p:column styleClass="columnMessage">
