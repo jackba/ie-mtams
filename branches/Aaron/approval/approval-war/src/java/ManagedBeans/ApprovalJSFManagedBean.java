@@ -10,6 +10,7 @@ import Entities.Application;
 import Entities.Approval;
 import Entities.Finalcosting;
 import Entities.Quotes;
+import Entities.Travelerprofile;
 import ServiceLayer.ApprovalHandlerLocal;
 import java.io.Serializable;
 import java.util.Date;
@@ -24,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
 
@@ -49,27 +51,30 @@ public class ApprovalJSFManagedBean implements Serializable {
     private Approval approval;
     // instance variables for approval
     private int idapproval;
-    @Pattern(message = "Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
+    @Pattern(message = "Input in field is incorrect, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
     private String fromsection;
     private int sectionid;
     private int sectionapproved;
-    @Pattern(message = "Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
+    @Pattern(message = "Input in field is incorrect, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
     private String Notes;
     private Date DateStamp;
     private int ApplicationID;
     private int AccountID;
+    
     private Finalcosting Fcosting;
     // instance variables for finalcosting
     private int IDFinalcosting;
-    @Pattern(message = "Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
+    @Pattern(message = "Input in field is incorrect, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
     private String Name;
-    @Pattern(message = "Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
+    @Pattern(message = "Input in field is incorrect, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
     private String administrativeunit;
-    private int absencebussiness;
-    private int absenceprivate;
-    @Pattern(message = "Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
+    
+    private int absbuss;
+    
+    private int abspriv;
+    @Pattern(message = "Input in field is incorrect, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
     private String countries;
-    @Pattern(message = "Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
+    @Pattern(message = "Input in field is incorrect, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
     private String cities;
     private int checks;
     private double AirfareBudget;
@@ -92,15 +97,19 @@ public class ApprovalJSFManagedBean implements Serializable {
     private double approvedbudget;
     private double approvedcost;
     private int fromoz;
-    @Pattern(message = "Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
+    @Pattern(message = "Input in field is incorrect, */' and numeric digits are not accepted", regexp = "[a-zA-Z -]{0,}")
     private String ozname;
-    //@Pattern(message="Invalid Number", regexp="[0-9]{10,16}")
+    @Pattern(message="incorrect umber", regexp="[0-9]{10,16}")
     private String oztel;
-    //@Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
+    @Pattern(message="Incorrect e-mail format", regexp="^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String ozemail;
     //private Quotes quotesRef; 
     private Approval approvalRef;
     private Finalcosting fcostingRef;
+    private Approval approvalEdit;
+    private Finalcosting fcostingEdit;
+    private Travelerprofile travelerP;
+    
     /*
      private int QuotesID;
 
@@ -123,49 +132,49 @@ public class ApprovalJSFManagedBean implements Serializable {
     }
 
     @PostConstruct
-    private void setSession() {
+    private void view() {
         FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         fcostingRef = approvalHandler.findFinalcosting(accountIDhack);
 
-        setName(fcostingRef.getName());
-        setAdministrativeunit(fcostingRef.getAdministrativeunit());
-        setAbsencebussiness(fcostingRef.getAbsencebussiness());
-        setAbsenceprivate(fcostingRef.getAbsenceprivate());
-        setCountries(fcostingRef.getCountries());
-        setCities(fcostingRef.getCitys());// getCities());
-        setChecks(fcostingRef.getChecks());
+        this.setName(fcostingRef.getName());
+        this.setAdministrativeunit(fcostingRef.getAdministrativeunit());
+        this.setAbsencebussiness(fcostingRef.getAbsencebussiness());
+        this.setAbsenceprivate(fcostingRef.getAbsenceprivate());
+        this.setCountries(fcostingRef.getCountries());
+        this.setCities(fcostingRef.getCitys());// getCities());
+        this.setChecks(fcostingRef.getChecks());
 
 
-        setAccommodationBudget(fcostingRef.getAccommodationbudget());
-        setAccommodationCost(fcostingRef.getAccommodationcost());
-        setAccommodatedays(fcostingRef.getAccommodatedays());
-        setAirfareBudget(fcostingRef.getAirfarebudget());
-        setAirfareCost(fcostingRef.getAirfarecost());
-        setCarRentalBudget(fcostingRef.getCarrentalbudget());
-        setCarRentalCost(fcostingRef.getCarrentalcost());
-        setPerdiembudget(fcostingRef.getPerdiembudget());
-        setPerdiemcost(fcostingRef.getPerdiemcost());
-        setPerdiemdays(fcostingRef.getPerdiemdays());
-        setConferencebudget(fcostingRef.getConferencebudget());
-        setConferencecost(fcostingRef.getConferencecost());
-        setVisabudget(fcostingRef.getVisabudget());
-        setVisacost(fcostingRef.getVisacost());
-        setOtherbudget(fcostingRef.getOtherbudget());
-        setOthercost(fcostingRef.getOthercost());
-        setOtherdiscription(fcostingRef.getOtherdiscription());
-        setApprovedbudget(fcostingRef.getApprovedbudget());
-        setApprovedcost(fcostingRef.getApprovedcost());
+        this.setAccommodationBudget(fcostingRef.getAccommodationbudget());
+        this.setAccommodationCost(fcostingRef.getAccommodationcost());
+        this.setAccommodatedays(fcostingRef.getAccommodatedays());
+        this.setAirfareBudget(fcostingRef.getAirfarebudget());
+        this.setAirfareCost(fcostingRef.getAirfarecost());
+        this.setCarRentalBudget(fcostingRef.getCarrentalbudget());
+        this.setCarRentalCost(fcostingRef.getCarrentalcost());
+        this.setPerdiembudget(fcostingRef.getPerdiembudget());
+        this.setPerdiemcost(fcostingRef.getPerdiemcost());
+        this.setPerdiemdays(fcostingRef.getPerdiemdays());
+        this.setConferencebudget(fcostingRef.getConferencebudget());
+        this.setConferencecost(fcostingRef.getConferencecost());
+        this.setVisabudget(fcostingRef.getVisabudget());
+        this.setVisacost(fcostingRef.getVisacost());
+        this.setOtherbudget(fcostingRef.getOtherbudget());
+        this.setOthercost(fcostingRef.getOthercost());
+        this.setOtherdiscription(fcostingRef.getOtherdiscription());
+        this.setApprovedbudget(fcostingRef.getApprovedbudget());
+        this.setApprovedcost(fcostingRef.getApprovedcost());
 
-        setFromoz(fcostingRef.getFromoz());
-        setOzname(fcostingRef.getOzname());
-        setOztel(fcostingRef.getOztel());
-        setOzemail(fcostingRef.getOzemail());
+        this.setFromoz(fcostingRef.getFromoz());
+        this.setOzname(fcostingRef.getOzname());
+        this.setOztel(fcostingRef.getOztel());
+        this.setOzemail(fcostingRef.getOzemail());
 
         approvalRef = approvalHandler.findApproval(approvalIDhack);
-        setNotes(approvalRef.getNotes());
-        setDateStamp(approvalRef.getDate());
-        setSectionapproved(approvalRef.getSectionapproved());
-        setFromsection(approvalRef.getFromsection());
+        this.setNotes(approvalRef.getNotes());
+        this.setDateStamp(approvalRef.getDate());
+        this.setSectionapproved(approvalRef.getSectionapproved());
+        this.setFromsection(approvalRef.getFromsection());
 
     }
 
@@ -180,8 +189,8 @@ public class ApprovalJSFManagedBean implements Serializable {
         //Fcosting.setIdfinalcosting(IDFinalcosting);
         Fcosting.setName(Name);
         Fcosting.setAdministrativeunit(administrativeunit);
-        Fcosting.setAbsencebussiness(absencebussiness);
-        Fcosting.setAbsenceprivate(absenceprivate);
+        Fcosting.setAbsencebussiness(absbuss);
+        Fcosting.setAbsenceprivate(abspriv);
         Fcosting.setCountries(countries);
         Fcosting.setCitys(cities);
         Fcosting.setChecks(checks);
@@ -233,6 +242,58 @@ public class ApprovalJSFManagedBean implements Serializable {
         //Fcosting.setQuotesIdquotes(QuotesID);
         //FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success","Changes have been saved"));
     }
+    
+    private void update() {
+        fcostingEdit = new Finalcosting();
+
+        fcostingEdit.setIdfinalcosting(fcostingRef.getIdfinalcosting());
+        fcostingEdit.setName(fcostingRef.getName());
+        fcostingEdit.setAdministrativeunit(fcostingRef.getAdministrativeunit());
+        fcostingEdit.setAbsencebussiness(fcostingRef.getAbsencebussiness());
+        fcostingEdit.setAbsenceprivate(fcostingRef.getAbsenceprivate());
+        fcostingEdit.setCountries(fcostingRef.getCountries());
+        fcostingEdit.setCitys(fcostingRef.getCitys());// getCities());
+        fcostingEdit.setChecks(fcostingRef.getChecks());
+
+
+        fcostingEdit.setAccommodationbudget(fcostingRef.getAccommodationbudget());
+        fcostingEdit.setAccommodationcost(fcostingRef.getAccommodationcost());
+        fcostingEdit.setAccommodatedays(fcostingRef.getAccommodatedays());
+        fcostingEdit.setAirfarebudget(fcostingRef.getAirfarebudget());
+        fcostingEdit.setAirfarecost(fcostingRef.getAirfarecost());
+        fcostingEdit.setCarrentalbudget(fcostingRef.getCarrentalbudget());
+        fcostingEdit.setCarrentalcost(fcostingRef.getCarrentalcost());
+        fcostingEdit.setPerdiembudget(fcostingRef.getPerdiembudget());
+        fcostingEdit.setPerdiemcost(fcostingRef.getPerdiemcost());
+        fcostingEdit.setPerdiemdays(fcostingRef.getPerdiemdays());
+        fcostingEdit.setConferencebudget(fcostingRef.getConferencebudget());
+        fcostingEdit.setConferencecost(fcostingRef.getConferencecost());
+        fcostingEdit.setVisabudget(fcostingRef.getVisabudget());
+        fcostingEdit.setVisacost(fcostingRef.getVisacost());
+        fcostingEdit.setOtherbudget(fcostingRef.getOtherbudget());
+        fcostingEdit.setOthercost(fcostingRef.getOthercost());
+        fcostingEdit.setOtherdiscription(fcostingRef.getOtherdiscription());
+        fcostingEdit.setApprovedbudget(fcostingRef.getApprovedbudget());
+        fcostingEdit.setApprovedcost(fcostingRef.getApprovedcost());
+
+        fcostingEdit.setFromoz(fcostingRef.getFromoz());
+        fcostingEdit.setOzname(fcostingRef.getOzname());
+        fcostingEdit.setOztel(fcostingRef.getOztel());
+        fcostingEdit.setOzemail(fcostingRef.getOzemail());
+        approvalHandler.updateFinalcosting(fcostingEdit, fcostingEdit.getIdfinalcosting());
+        
+        
+        approvalEdit = new Approval();
+        
+        approvalEdit.setIdapproval(approvalRef.getIdapproval());
+        approvalEdit.setNotes(approvalRef.getNotes());
+        approvalEdit.setDate(approvalRef.getDate());
+        approvalEdit.setSectionapproved(approvalRef.getSectionapproved());
+        approvalEdit.setFromsection(approvalRef.getFromsection());
+        
+        approvalHandler.updateApproval(approvalEdit, approvalEdit.getIdapproval());
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sucessfull", "Changes have been saved!"));
+    }
 
     public String goHome() {
         return "authorisation";
@@ -244,7 +305,7 @@ public class ApprovalJSFManagedBean implements Serializable {
     }
 
     public String viewauthorisation() {
-        return "viewAuthorisation";
+        return "authorisationViewEdit";
     }
     /*
      public List<Integer> getApprovalChecklist() {
@@ -296,6 +357,32 @@ public class ApprovalJSFManagedBean implements Serializable {
     // getters and setters from here
     //
     // ******************************************
+    public Approval getApprovalEdit() {
+        return approvalEdit;
+    }
+
+    public void setApprovalEdit(Approval approvalEdit) {
+        this.approvalEdit = approvalEdit;
+    }
+
+    public Finalcosting getFcostingEdit() {
+        return fcostingEdit;
+    }
+
+    public void setFcostingEdit(Finalcosting fcostingEdit) {
+        this.fcostingEdit = fcostingEdit;
+    }
+
+    public Travelerprofile getTravelerP() {
+        return travelerP;
+    }
+
+    public void setTravelerP(Travelerprofile travelerP) {
+        this.travelerP = travelerP;
+    }
+    
+    
+    
     public Approval getApproval() {
         return approval;
     }
@@ -369,19 +456,19 @@ public class ApprovalJSFManagedBean implements Serializable {
     }
 
     public int getAbsencebussiness() {
-        return absencebussiness;
+        return absbuss;
     }
 
     public void setAbsencebussiness(int absencebussiness) {
-        this.absencebussiness = absencebussiness;
+        this.absbuss = absencebussiness;
     }
 
     public int getAbsenceprivate() {
-        return absenceprivate;
+        return abspriv;
     }
 
     public void setAbsenceprivate(int absenceprivate) {
-        this.absenceprivate = absenceprivate;
+        this.abspriv = absenceprivate;
     }
 
     public String getCountries() {
