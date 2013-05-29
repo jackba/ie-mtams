@@ -22,10 +22,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.ConversationScoped;
-//import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.*;
 import javax.faces.context.FacesContext;
@@ -39,7 +37,7 @@ import org.primefaces.event.FlowEvent;
  * @author Badger
  */
 @Named(value = "appBean")
-@ConversationScoped
+@SessionScoped
 public class ApplicationBean implements Serializable {
 
     @EJB
@@ -52,8 +50,8 @@ public class ApplicationBean implements Serializable {
     private List<Application> allApps;
     private Application selectedApp;
     
-    private Integer accountID;// = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
-    private Travelerprofile profileRef;//travelProfileHandler.findTravelProf(accountID);
+    private Integer accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+    private Travelerprofile profileRef;// = travelProfileHandler.findTravelProf(accountID);
     
     private Date modifiedDate;
     @Future
@@ -149,7 +147,7 @@ public class ApplicationBean implements Serializable {
     public ApplicationBean() {
     }
 
-    @PostConstruct
+    //@PostConstruct
     public void initialize() {
         accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 //        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
@@ -190,8 +188,10 @@ public class ApplicationBean implements Serializable {
     public String createApplication() {
         modifiedDate = new Date();
         newApplication = new Application();
+        profileRef = travelProfileHandler.findTravelProf(accountID);
 
         newApplication.setDatemodified(modifiedDate);
+
         newApplication.setDescription(description);
         newApplication.setTravelerprofileIdtravelerprofile(profileRef);
         //newApplication.setAccountIdaccount(accountID);
@@ -345,12 +345,12 @@ public class ApplicationBean implements Serializable {
         return "/viewApplication.xhtml";
     }
     //dada
-    
+    //@PostConstruct
     public void loadValues(){
         
         profileRef = travelProfileHandler.findTravelProf(accountID);
         //loadValues();
-        Integer id = 9;
+        Integer id = 12;
         appRef = appHandler.getApplication(id);//selectedApp;
         
         quoteRef = appRef.getQuotesIdquotes();
@@ -374,7 +374,7 @@ public class ApplicationBean implements Serializable {
     }
 
     public Travelerprofile getProfileRef() {
-
+        profileRef = travelProfileHandler.findTravelProf(accountID);
         return profileRef;
     }
 

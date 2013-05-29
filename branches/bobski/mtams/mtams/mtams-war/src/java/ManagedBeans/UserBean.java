@@ -4,10 +4,12 @@
  */
 package ManagedBeans;
 
+import Entities.Application;
 import javax.inject.Named;
 import Entities.Rewardsprogram;
 import Entities.Traveldocument;
 import Entities.Travelerprofile;
+import ServiceLayer.ApplicationHandlerLocal;
 import ServiceLayer.TravelProfileHandlerLocal;
 import java.io.Serializable;
 import java.util.Date;
@@ -35,48 +37,53 @@ public class UserBean implements Serializable{
     //======change========change=========change=============change=============
     
     private static final Logger logger = Logger.getLogger(ManagedBeans.UserBean.class.getName());
+    
+    @EJB
+    private ApplicationHandlerLocal appHandler;
+    private List<Application> allApps;
+    
     private String department; 
-    @Pattern(message="Invalid ID", regexp="[0-9]{8}")
+    @Pattern(message="Incorrect ID", regexp="[0-9]{8}")
     private String staffID;
     private String position;
-    @Pattern(message="Invalid Name", regexp="[a-zA-Z ]+${0,}")
+    @Pattern(message="Incorrect Name", regexp="[a-zA-Z ]+${0,}")
     private String travelBooker;
-    @Pattern(message="Invalid Name", regexp="[a-zA-Z]{0,}")
+    @Pattern(message="Incorrect Name", regexp="[a-zA-Z]{0,}")
     private String firstName;
-    @Pattern(message="Invalid Name", regexp="[a-zA-Z]{0,}")
+    @Pattern(message="Incorrect Name", regexp="[a-zA-Z]{0,}")
     private String surname;
     private String middleName;
     private String title;
-    @Pattern(message="Invalid ID", regexp="[0-9]{13,15}")
+    @Pattern(message="Incorrect ID", regexp="[0-9]{13,15}")
     private String idNo;
     private String busAddress;
-    @Pattern(message="Invalid Number", regexp="[+0-9]{10,16}")
+    @Pattern(message="Incorrect Number", regexp="[+0-9]{10,16}")
     private String busPhone;
-    @Pattern(message="Invalid Number", regexp="[+0-9]{0,16}")
+    @Pattern(message="Incorrect Number", regexp="[+0-9]{0,16}")
     private String busFax;
     private String homeAddress;
-    @Pattern(message="Invalid Number", regexp="[+0-9]{10,16}")
+    @Pattern(message="Incorrect Number", regexp="[+0-9]{10,16}")
     private String mobilePhone;
-    @Pattern(message="Invalid Number", regexp="[+0-9]{0,16}")
+    @Pattern(message="Incorrect Number", regexp="[+0-9]{0,16}")
     private String homePhone;
     
     @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String email;
     
     private String spouseName;
-    @Pattern(message="Invalid Number", regexp="[+0-9]{0,16}")
+    @Pattern(message="Incorrect Number", regexp="[+0-9]{0,16}")
     private String spouseContactNo;
     
     private String spouseEmail;
     private String docName;
-    @Pattern(message="Invalid Number", regexp="[+0-9]{10,16}")
+    @Pattern(message="Incorrect Number", regexp="[+0-9]{10,16}")
     private String docContactNo;
     
     @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String docEmail;
     private String knownMedConditions;
     
-    @Pattern(message="Invalid Passport ID", regexp="[0-9a-zA-Z]{8,10}")
+    @Pattern(message="Incorrect Passport ID", regexp="[0-9a-zA-Z]{8,10}")
     private String passportNo;
     private String country;
     private Date dateOfIssue;
@@ -98,11 +105,11 @@ public class UserBean implements Serializable{
     private String status1;
     private String status2;
     private String status3;
-    @Pattern(message="Invalid Card Number", regexp="[0-9]{0,15}")
+    @Pattern(message="Incorrect Card Number", regexp="[0-9]{0,15}")
     private String cardNum1;
-    @Pattern(message="Invalid Card Number", regexp="[0-9]{0,15}")
+    @Pattern(message="Incorrect Card Number", regexp="[0-9]{0,15}")
     private String cardNum2;
-    @Pattern(message="Invalid Card Number", regexp="[0-9]{0,15}")
+    @Pattern(message="Incorrect Card Number", regexp="[0-9]{0,15}")
     private String cardNum3;    
     private String carCompPref1;
     private String carCompPref2;
@@ -134,6 +141,15 @@ public class UserBean implements Serializable{
     private TravelProfileHandlerLocal handler;
 
     public UserBean() {
+    }
+    
+        public List<Application> getAllApps() {
+        allApps = appHandler.getAppList(accountID);
+        return allApps;
+    }
+
+    public void setAllApps(List<Application> allApps) {
+        this.allApps = allApps;
     }
     
     public String goToProfile(){
@@ -311,8 +327,7 @@ public class UserBean implements Serializable{
     
     
     private void getProfile() {
-        ///////////////////////////////////REMOVE/////////////////////////////////
-        //FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        
         logger.log(Level.INFO, "user id", accountID);
         
         Travelerprofile ref = handler.findTravelProf(accountID);
@@ -346,13 +361,13 @@ public class UserBean implements Serializable{
         setKnownMedConditions(ref.getKnownmedicalconditions());
         
         //Passport
-       
+       if(pRef != null){
         setPassportNo(pRef.getPassportnumber());
         setCountry(pRef.getCountry());
         setDateOfIssue(pRef.getDateofissue());
         setExpiryDate(pRef.getExpirydate());
         setValidVisas(pRef.getValidvisa());
-           
+       }
         //Airline Details
         setSeat(ref.getSeatingposition());
         setAirPosition(ref.getSeatinglocation());

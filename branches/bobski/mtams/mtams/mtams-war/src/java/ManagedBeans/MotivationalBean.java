@@ -34,9 +34,9 @@ public class MotivationalBean implements Serializable{
     int accountID =1;
     //-------------------------------------------------------------------------
     //======change========change=========change=============change=============
-@Pattern(message="Input in Supplier Field is Invalid, */' and numeric digits are not accepted", regexp="[a-zA-Z -]{0,}")    
+@Pattern(message="Input in Supplier Field is Incorrect", regexp="[a-zA-Z -]{0,}")    
 private String supplier;
-@Pattern(message="Input in Amount Field is Invalid, Only Numeric digits are accepted ", regexp="[0-9]{0,}")
+@Pattern(message="Input in Amount Field is Incorrect", regexp="[0-9]{0,}")
 private String amount;
 private String costCode;
 private String motivationLetter;

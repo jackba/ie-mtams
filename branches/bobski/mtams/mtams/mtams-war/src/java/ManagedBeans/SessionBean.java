@@ -99,14 +99,14 @@ public class SessionBean implements Serializable {
                 setSessionVariables();
                 if (user.getDatelogin() == null) {
                     
-                    //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", true);
+                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", true);
                     addDate();
                     return "travelProfile";
                 } else {
                     //addDate();
-                    //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
+                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
                     addDate();
-                    return "viewApplication"; ///userHome.xhtml";
+                    return "userHome.xhtml";//"viewApplication";//
                 }
                 //logError = false;
 
@@ -133,26 +133,18 @@ public class SessionBean implements Serializable {
         //session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         //HttpSession session = request.getSession(true);
         try {
-            /*FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", null);
+            //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", null);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", null);
-            ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).invalidate();
-            */
-           // ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).invalidate();
+            //((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).invalidate();
+            //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         } catch (NullPointerException e) {
         } finally {
             return "login";
         }
-        //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        
 
     }
 
-    public HttpSession getSession() {
-        return session;
-    }
-
-    public void setSession(HttpSession session) {
-        this.session = session;
-    }
     
     
 }

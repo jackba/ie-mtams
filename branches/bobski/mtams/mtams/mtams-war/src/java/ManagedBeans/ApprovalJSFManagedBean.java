@@ -131,7 +131,7 @@ public class ApprovalJSFManagedBean implements Serializable {
     public ApprovalJSFManagedBean() {
     }
 
-    @PostConstruct
+    //@PostConstruct
     private void view() {
         FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         fcostingRef = approvalHandler.findFinalcosting(accountIDhack);

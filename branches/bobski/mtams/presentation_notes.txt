@@ -1,0 +1,23 @@
+few things to note:
+
+I put back sessions after de-activating them for mondays presentation.
+Im sure it works but I might have missed something. 
+
+Also during my experimentation of view application i removed the direct links to view an application. so you'll
+have to sneak around it. in the session bean where it directs users to userHome you'll have to change that to viewApplication
+( i have it commented ). and in the application bean look for a method called loadValues() and above that put 
+@PostConstruct and change the integer id in the method to the id of the application in the database you wish to view/edit
+
+I'll have it fixed during the holiday proper
+
+
+
+Things we want to show
+-----------------------
+I wasnt able to fully implement ajax validation for the forms and all fields so for the sake of the video i put
+it validation for the first-name field in the traveller profile.
+
+The logo on the view travel profile is a link to home page, so if you can find a way to use it in some sense
+----------------------
+
+of course if there is anything let me know. should be awake until midnight

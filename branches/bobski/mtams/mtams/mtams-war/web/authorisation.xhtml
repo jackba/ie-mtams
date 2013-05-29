@@ -102,6 +102,12 @@
                                 </p:column>
                                 <p:column colspan="1">
                                     <p:inputText id="countries" value="#{authorisation.countries}" required="false" requiredMessage="Destination countries is a required Field" />
+                                    <p:selectOneMenu value="#{foreignBean.ccCur}" id="ccCur" rendered="#{foreignBean.isUsingCC eq '1'}">  
+                                <f:selectItem itemLabel="South Africa" itemValue="South Africa" />  
+                                <f:selectItem itemLabel="Swaziland" itemValue="Swaziland" />  
+                                <f:selectItem itemLabel="France" itemValue="France" />  
+                                <f:selectItem itemLabel="England" itemValue="England" />
+                            </p:selectOneMenu>
                                 </p:column>
                                 <p:column>
                                     <p:message for="countries"/>

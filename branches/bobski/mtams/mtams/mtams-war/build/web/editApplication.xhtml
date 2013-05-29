@@ -11,7 +11,12 @@
     <h:body>
         <div id ="header">
             <div id="logo">
-                <img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
+                <h:form>
+                    <h:commandLink action="#{userBean.goHome()}">
+                        <h:graphicImage value="img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
+                    </h:commandLink>
+                </h:form>
+
             </div>
 
             <ul>
@@ -27,36 +32,38 @@
             </p:menubar>
         </div>
         <div id="content">
-            
+            <h:form id="editForm">
+                
                 <p:panel id="editApplicationPanel" header="Your Application">
 
                     <h4>Please click on the value you wish to edit</h4>
                     <p:messages autoUpdate="true"  closable="true" globalOnly="true" />
-                    <h:form id="editForm">
-                    <fieldset><legend>Travel Details</legend>
+
+
+                    <fieldset><legend><h4>Travel Details</h4></legend>
                         <h:panelGrid columns="3" >
-                            <h:outputText value="Application name:" />
+                            <h:outputText value="Application Name:" />
                             <p:inplace emptyLabel="Click to edit">
                                 <p:inputText id="desc" value="#{appBean.description}" required="true" requiredMessage="Name of application missing" title="How would you like to remember this application"/>
                             </p:inplace>
                             <p:message for="desc" />
 
 
-                            <h:outputText value="Date of initial departure:" />
+                            <h:outputText value="Date of Initial Departure:" />
                             <p:inplace emptyLabel="Click to edit">
                                 <p:calendar id="departDate" required="true" requiredMessage="Date required" value="#{appBean.departureDate}" />  
                             </p:inplace>
                             <p:message for="departDate" />
 
 
-                            <h:outputText value="Date of final return:" />
+                            <h:outputText value="Date of Final Return:" />
                             <p:inplace emptyLabel="Click to edit">
                                 <p:calendar id="returnDate" required="true" requiredMessage="Date required" value="#{appBean.returnDate}" />
                             </p:inplace>
                             <p:message for="returnDate" />
 
 
-                            <h:outputText value="Description of purpose of travel:" />
+                            <h:outputText value="Description of Purpose of Travel:" />
                             <p:inplace emptyLabel="Click to edit" >
                                 <p:inputTextarea id="description" value="#{appBean.reasonForTravel}" required="true" requiredMessage="Reason is required" />    
                             </p:inplace>
@@ -65,7 +72,7 @@
 
                         </h:panelGrid>
                     </fieldset>
-                    <fieldset><legend>Itinerary</legend>
+                    <br /><fieldset><legend><h4>Itinerary</h4></legend>
                         <h:panelGrid columns="3" >
                             <h:outputText value="Date:" />
                             <p:inplace emptyLabel="Click to edit">
@@ -79,13 +86,13 @@
                             </p:inplace>
                             <p:message for="itinDest" />
 
-                            <h:outputText value="Business leave/ other:" />
+                            <h:outputText value="Business Leave/ Other:" />
                             <p:inplace emptyLabel="Click to edit">
                                 <p:inputText id="itinLeaveType" value="#{appBean.tempLeaveType}" required="true" requiredMessage="Entry required"/>
                             </p:inplace>
                             <p:message for="itinLeaveType" />
 
-                            <h:outputText value="Travel day/work day:" />
+                            <h:outputText value="Travel day/Work day:" />
                             <p:inplace emptyLabel="Click to edit">
                                 <p:inputText id="itinTravelDay" value="#{appBean.tempTravelDay}" required="true" requiredMessage="Entry required"/>
                             </p:inplace>
@@ -93,9 +100,9 @@
 
                         </h:panelGrid>
                     </fieldset>
-                    <fieldset><legend>Quotes</legend>
+                    <br /><fieldset><legend><h4>Quotes</h4></legend>
                         <h:panelGrid columns="3">
-                            <h:outputText value="Cost centre:" />
+                            <h:outputText value="Cost Centre:" />
                             <p:inplace emptyLabel="Click to edit">
                                 <p:inputMask mask="999999-9999" id="costCentre" value="#{appBean.costCentre}" required="true" requiredMessage="Cost centre code required" />
                             </p:inplace>
@@ -103,7 +110,7 @@
 
                         </h:panelGrid>
 
-                        <fieldset><legend>Flight Quotes</legend>
+                        <br /><fieldset><legend><h4>Flight Quotes</h4></legend>
                             <p:dataTable var="fQ" value="#{appBean.flights}">
                                 <p:column headerText="From">
                                     <h:outputText value="#{fQ.flightfrom}" />
@@ -125,7 +132,7 @@
                                 </p:column>
                             </p:dataTable>
                         </fieldset>
-                        <fieldset><legend>Car Quotes</legend>
+                        <br /><fieldset><legend><h4>Car Quotes</h4></legend>
                             <p:dataTable var="cQ" value="#{appBean.cars}">
                                 <p:column headerText="Collect date">
                                     <h:outputText value="#{cQ.datecollect}" />
@@ -147,7 +154,7 @@
                                 </p:column>
                             </p:dataTable>
                         </fieldset>
-                        <fieldset><legend>Accommodation Quotes</legend>
+                        <br /><fieldset><legend><h4>Accommodation Quotes</h4></legend>
                             <p:dataTable var="hQ" value="#{appBean.hotels}">
                                 <p:column headerText="Location">
                                     <h:outputText value="#{hQ.city}" />
@@ -161,16 +168,16 @@
                                 <p:column headerText="Hotel">
                                     <h:outputText value="#{hQ.accomodationprovider}" />
                                 </p:column>
-                                <p:column headerText="Cost quoted">
+                                <p:column headerText="Cost Quoted">
                                     <h:outputText value="#{hQ.quotecost}" />
                                 </p:column>
                             </p:dataTable>
                         </fieldset>
                     </fieldset>
                     <p:commandButton value="Save" update="editApplicationPanel" action="#{appBean.update()}" ajax="false" />
-                    </h:form>
+
                 </p:panel>
-            
+            </h:form>
         </div>
         <div id= "footer">
             <div class="row group">

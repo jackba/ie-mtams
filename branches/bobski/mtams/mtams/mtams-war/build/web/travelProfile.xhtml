@@ -19,6 +19,9 @@
                     <!--<li><h:link value="Logout"  outcome="" rendered="" /></li>-->
             </ul>
         </div>
+        
+        <div id="content">
+        <h4>As this is your first time logging in, please fill out your travel profile</h4>
         <h:form id="travelForm">
 
             <p:wizard widgetVar="wiz" flowListener="#{userBean.onFlowProcess}" id="travelWiz" >  
@@ -52,8 +55,10 @@
                             <p:message for="bookerS"/>
                             
                             <h:outputText value="First Name: *" />  
-                            <p:inputText id="fn" required="true" value="#{userBean.firstName}" requiredMessage="Required Field"/>  
-                            <p:message for="fn"/>
+                            <p:inputText id="fn" required="true" value="#{userBean.firstName}" requiredMessage="Required Field">
+                                <p:ajax update="fnErr" event="keyup" />
+                            </p:inputText>
+                            <p:message for="fn" id="fnErr"/>
                             
                             <h:outputText value="Surname: *" />  
                             <p:inputText id="sn" required="true" value="#{userBean.surname}" requiredMessage="Required Field"/>  
@@ -146,10 +151,16 @@
                             <p:message for="passport"/>
                             
                             <h:outputText value="Country: *" />  
-                            <p:inputText id="country" required="true" value="#{userBean.country}" requiredMessage="Required Field"/>
+                            
+                            <p:selectOneMenu value="#{userBean.country}" id="country" >  
+                                <f:selectItem itemLabel="South Africa" itemValue="South Africa" />  
+                                <f:selectItem itemLabel="Swaziland" itemValue="Swaziland" />  
+                                <f:selectItem itemLabel="France" itemValue="France" />  
+                                <f:selectItem itemLabel="England" itemValue="England" />
+                            </p:selectOneMenu>
                             <p:message for="country"/>
                             
-                            <h:outputText value="Date of issue: *" />  
+                            <h:outputText value="Date of Issue: *" />  
                             <p:calendar id="cal" value="#{userBean.dateOfIssue}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field"/>
                             <p:message for="cal"/>
                             
@@ -157,7 +168,7 @@
                             <p:calendar id="calender" value="#{userBean.expiryDate}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field"/>
                             <p:message for="calender"/>
                             
-                            <h:outputText value="Valid Visa's in passport:" />  
+                            <h:outputText value="Valid Visa's in Passport:" />  
                             <p:inputTextarea id="validP" required="false" value="#{userBean.validVisas}" requiredMessage="Required Field"/>
                             <p:message for="validP" />
                             
@@ -271,7 +282,7 @@
                             <h:outputText value="Additional Requirements: "/> <p:inputTextarea required ="false" value="#{userBean.hotelAdditionalReq}"/>
                         </h:panelGrid>
                         </fieldset>
-                        <p:commandButton value="Submit" update="carHotel" action="#{userBean.save()}"/>
+                        <p:commandButton value="Submit" update="travelWiz" action="#{userBean.save()}"/>
                         
                     </p:panel>                
                 </p:tab>
@@ -279,6 +290,7 @@
             </p:wizard>  
 
         </h:form>
+        </div>
         
         <div id= "footer">
             <div class="row group">
