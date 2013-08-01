@@ -19,6 +19,9 @@
                     <!--<li><h:link value="Logout"  outcome="" rendered="" /></li>-->
             </ul>
         </div>
+        
+        <div id="content">
+        <h4>As this is your first time logging in, please fill out your travel profile</h4>
         <h:form id="travelForm">
 
             <p:wizard widgetVar="wiz" flowListener="#{userBean.onFlowProcess}" id="travelWiz" >  
@@ -39,6 +42,10 @@
                             </p:selectOneMenu>
                             <p:message for="dept"/>
                             
+                            <h:outputText value="Staff ID: *" />  
+                            <p:inputText id="staffID" value="#{userBean.staffID}" required="true" requiredMessage="Required Field"/>  
+                            <p:message for="staffID"/>
+                            
                             <h:outputText value="Position: *" />  
                             <p:inputText id="pos" required="true" value="#{userBean.position}" requiredMessage="Required Field" />  
                             <p:message for="pos"/>                            
@@ -48,8 +55,10 @@
                             <p:message for="bookerS"/>
                             
                             <h:outputText value="First Name: *" />  
-                            <p:inputText id="fn" required="true" value="#{userBean.firstName}" requiredMessage="Required Field"/>  
-                            <p:message for="fn"/>
+                            <p:inputText id="fn" required="true" value="#{userBean.firstName}" requiredMessage="Required Field">
+                                <p:ajax update="fnErr" event="keyup" />
+                            </p:inputText>
+                            <p:message for="fn" id="fnErr"/>
                             
                             <h:outputText value="Surname: *" />  
                             <p:inputText id="sn" required="true" value="#{userBean.surname}" requiredMessage="Required Field"/>  
@@ -66,7 +75,7 @@
                                 <f:selectItem itemLabel="Dr." itemValue="Dr" />  
                                 <f:selectItem itemLabel="Prof." itemValue="Prof" />
                             </p:selectOneMenu>
-                            <h:message for="ttl"/>
+                            <p:message for="ttl"/>
 
                             <h:outputText value="Identity Number: *" />  
                             <p:inputText id="identity" required="true" value="#{userBean.idNo}" requiredMessage="Required Field"/>  
@@ -82,7 +91,7 @@
                             
                             <h:outputText value="Business Fax:" />  
                             <p:inputText id="bFax" value="#{userBean.busFax}"/>  
-                            <h:message for="bFax"/>
+                            <p:message for="bFax"/>
                             
                             <h:outputText value="Home Address: *" />  
                             <p:inputText id="homeAdd" required="true" value="#{userBean.homeAddress}" requiredMessage="Required Field"/>
@@ -142,10 +151,16 @@
                             <p:message for="passport"/>
                             
                             <h:outputText value="Country: *" />  
-                            <p:inputText id="country" required="true" value="#{userBean.country}" requiredMessage="Required Field"/>
+                            
+                            <p:selectOneMenu value="#{userBean.country}" id="country" >  
+                                <f:selectItem itemLabel="South Africa" itemValue="South Africa" />  
+                                <f:selectItem itemLabel="Swaziland" itemValue="Swaziland" />  
+                                <f:selectItem itemLabel="France" itemValue="France" />  
+                                <f:selectItem itemLabel="England" itemValue="England" />
+                            </p:selectOneMenu>
                             <p:message for="country"/>
                             
-                            <h:outputText value="Date of issue: *" />  
+                            <h:outputText value="Date of Issue: *" />  
                             <p:calendar id="cal" value="#{userBean.dateOfIssue}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field"/>
                             <p:message for="cal"/>
                             
@@ -153,7 +168,7 @@
                             <p:calendar id="calender" value="#{userBean.expiryDate}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field"/>
                             <p:message for="calender"/>
                             
-                            <h:outputText value="Valid Visa's in passport:" />  
+                            <h:outputText value="Valid Visa's in Passport:" />  
                             <p:inputTextarea id="validP" required="false" value="#{userBean.validVisas}" requiredMessage="Required Field"/>
                             <p:message for="validP" />
                             
@@ -164,7 +179,7 @@
                 <p:tab id="airline" title="Airline Details">  
                     <p:panel header="Airline Details">
                         
-                        <h4>Airline seating:</h4>
+                        <fieldset><legend>Airline Details</legend>
                         <h:panelGrid columns="2" columnClasses="itemlabel, itemValue">  
                                 <h:selectOneRadio value="#{userBean.seat}">
                                     <f:selectItem itemValue="Aisle" itemLabel="Aisle" />
@@ -202,8 +217,8 @@
                                 <p:inputTextarea value="#{userBean.airAdditionalReq}" />
                               
                         </h:panelGrid>
-                        
-                        <h4>Membership Card Details:</h4>
+                        </fieldset>
+                        <fieldset><legend>Reward Program</legend>
                         
                         <h:panelGrid columns="4">
                             <h:outputText value="Name on Membership Card:"/><h:outputText value="Airline Type:"/><h:outputText value="Status:"/><h:outputText value="Number:"/>
@@ -211,13 +226,13 @@
                             <p:inputText required="false" value="#{userBean.memTwo}" /> <p:inputText required="false" value="#{userBean.airType2}" /> <p:inputText required="false" value="#{userBean.status2}" /> <p:inputText required="false" value="#{userBean.cardNum2}" />
                             <p:inputText required="false" value="#{userBean.memThree}" /> <p:inputText required="false" value="#{userBean.airType3}" /> <p:inputText required="false" value="#{userBean.status3}" /> <p:inputText required="false" value="#{userBean.cardNum3}" />
                         </h:panelGrid>
-                    
+                        </fieldset>
                     </p:panel>  
                 </p:tab>
                 
                 <p:tab id="carHotel" title="Car and Hotel">  
                     <p:panel header="Car and Hotel Details">  
-                        
+                        <fieldset><legend>Car Hire Details</legend>
                         <h:outputText value="Car Company Preference:"/>
                         <h:panelGrid columns="2" columnClasses="label, itemValue">
                             <h:outputText value="1. "/> <p:inputText required ="false" value="#{userBean.carCompPref1}"/>
@@ -246,8 +261,9 @@
                         <h:panelGrid columns="2" columnClasses="label, itemValue">
                             <h:outputText value="Additional Requirements: "/> <p:inputTextarea required ="false" value="#{userBean.carAdditionalReq}"/>
                         </h:panelGrid>
+                        </fieldset>
                         
-                        <h:outputText value="Hotel Details:"/>
+                        <fieldset><legend>Hotel Details</legend>
                         <h:panelGrid columns="2" columnClasses="label, itemValue">
                             
                             <h:outputText value="Hotel Preference: "/> <p:inputText required ="false" value="#{userBean.hotelPreference}"/>
@@ -265,14 +281,16 @@
                         <h:panelGrid columns="2" columnClasses="label, itemValue">
                             <h:outputText value="Additional Requirements: "/> <p:inputTextarea required ="false" value="#{userBean.hotelAdditionalReq}"/>
                         </h:panelGrid>
+                        </fieldset>
+                        <p:commandButton value="Submit" update="travelWiz" action="#{userBean.save()}"/>
                         
-                        <p:commandButton value="Submit" update="travelForm" action="#{userBean.save()}"/>
                     </p:panel>                
                 </p:tab>
 
             </p:wizard>  
 
         </h:form>
+        </div>
         
         <div id= "footer">
             <div class="row group">

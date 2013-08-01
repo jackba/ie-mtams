@@ -95,13 +95,13 @@ public class AdminBean implements Serializable {
     }
     
     public String goViewAll(){
-        return "./allAccount.xhtml";
+        return "allAccount";
     }
     
     public String createAccount(){
         if(handler.checkUsername(getUsername())){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Input Error","Username already exists"));
-            return "./createAccount.xhtml";
+            return null;
         }else{
             Account newAccount = new Account();
             newAccount.setUsername(getUsername());
@@ -109,7 +109,7 @@ public class AdminBean implements Serializable {
 
             handler.registerNewAccount(newAccount,getRole());
             
-            return "./adminHome.xhtml";
+            return "allAccount";
         }        
     }
     

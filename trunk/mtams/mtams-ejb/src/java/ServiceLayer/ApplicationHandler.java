@@ -64,8 +64,16 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
     
     
     @Override
-    public List<Application> getAppList(){
-        return appDao.findAll();
+    public List<Application> getAppList(Integer id){
+        List<Application> apps = new ArrayList<Application>();
+        List<Application> allApps = appDao.findAll();
+        
+        for(Application each:allApps){
+            if(each.getAccountIdaccount().getIdaccount().equals(id))
+                apps.add(each);
+        }
+        
+        return apps;
     }
     
     @Override
@@ -215,4 +223,14 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
         appDao.create(app);
         
     }
+
+    @Override
+    public void persistApplicationEdit(Application app, Quotes quote, Itinerary itin, Travel trav) {
+        quoteDao.edit(quote);
+        travDao.edit(trav);
+        itinDao.edit(itin);
+        appDao.edit(app);
+    }
+    
+    
 }

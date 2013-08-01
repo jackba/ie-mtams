@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>New Application - MSA Travel Application</title>
+        <title>View Application - MSA Travel Application</title>
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
     </h:head>
     <h:body>
@@ -16,11 +16,11 @@
 
             <ul>
                 <li><a href="">Help</a></li>
-                <li><h:link value="Logout"  outcome="#{sessionBean.invalidate()}" /></li>
+                <li><h:link value="Logout"  outcome="#{sessionBean.invalidate()}"  /></li>
             </ul> 
         </div>
         <div class="nav">
-            <p:menubar rendered="#{sessionBean.checkNotFirstTime()}">
+            <p:menubar >
                 <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goHome()}"/>
                 <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
                 <!--<p:menuitem value="Applications" icon="ui-icon-note" outcome="" />-->
@@ -29,7 +29,9 @@
         <div id="content">
             <h:form>
                 <p:panel id="viewApplicationPanel" header="Your Application">
-                    <fieldset><legend>Personal Details</legend>
+                    <p:messages id="submitAppConfirm" showDetail="true" closable="true" autoUpdate="true" severity="info"/>
+                    <p:button outcome="#{appBean.goEdit()}" id="editButton"  title="Edit Button" value="Edit" />
+                    <br /><fieldset><legend><h4>Personal Details</h4></legend>
                         <h:panelGrid columns="2">
 
                                     <h:outputText value="Department: " />
@@ -53,7 +55,8 @@
 
                             </h:panelGrid>
                     </fieldset>
-                    <fieldset><legend>Travel Details</legend>
+                    
+                    <br /><fieldset><legend><h4>Travel Details</h4></legend>
                         <h:panelGrid columns="2" >
                                     <h:outputText value="Application Name:" />
                                     <h:outputText id="desc" value="#{appBean.appRef.description}" />
@@ -73,7 +76,7 @@
 
                         </h:panelGrid>
                     </fieldset>
-                    <fieldset><legend>Itinerary</legend>
+                    <br /><fieldset><legend><h4>Itinerary</h4></legend>
                         <h:panelGrid columns="2" >
                                     <h:outputText value="Date:" />
                                     <h:outputText value="#{appBean.itinRef.date}"/>
@@ -82,21 +85,21 @@
                                     <h:outputText value="#{appBean.itinRef.destination}"/>
                                     
                                     <h:outputText value="Business Leave/ Other:" />
-                                    <h:outputText value="#{appBean.itinRef.leavedescription}" />
+                                    <h:outputText value="#{appBean.itinRef.leavetype}" />
                                     
                                     <h:outputText value="Travel day/work day:" />
                                     <h:outputText value="#{appBean.itinRef.travelday}" />
                                     
                                 </h:panelGrid>
                     </fieldset>
-                    <fieldset><legend>Quotes</legend>
+                    <br /><fieldset><legend><h4>Quotes</h4></legend>
                         <h:panelGrid columns="2">
                                     <h:outputText value="Cost Centre:" />
                                     <h:outputText id="costCentre" value="#{appBean.quoteRef.costcenter}"/>
                                     
                         </h:panelGrid>
                     </fieldset>
-                    <fieldset><legend>Flight Quotes</legend>
+                    <br /><fieldset><legend><h4>Flight Quotes</h4></legend>
                         <p:dataTable var="fQ" value="#{appBean.flights}">
                             <p:column headerText="From">
                                 <h:outputText value="#{fQ.flightfrom}" />
@@ -118,7 +121,7 @@
                             </p:column>
                         </p:dataTable>
                     </fieldset>
-                    <fieldset><legend>Car Quotes</legend>
+                    <br /><fieldset><legend><h4>Car Quotes</h4></legend>
                         <p:dataTable var="cQ" value="#{appBean.cars}">
                             <p:column headerText="Collect date">
                                 <h:outputText value="#{cQ.datecollect}" />
@@ -140,7 +143,7 @@
                             </p:column>
                         </p:dataTable>
                     </fieldset>
-                    <fieldset><legend>Accommodation Quotes</legend>
+                    <br /><fieldset><legend><h4>Accommodation Quotes</h4></legend>
                         <p:dataTable var="hQ" value="#{appBean.hotels}">
                             <p:column headerText="Location">
                                 <h:outputText value="#{hQ.city}" />
