@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 
 import javax.faces.component.UIData;
@@ -30,7 +30,7 @@ import org.primefaces.event.FlowEvent;
  * @author Badger
  */
 @Named(value = "userBean")
-@ConversationScoped
+@SessionScoped
 public class UserBean implements Serializable{
     //======change===change=========change============change=========change====
     private Integer accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
