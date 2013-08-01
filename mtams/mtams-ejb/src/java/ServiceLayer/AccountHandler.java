@@ -30,16 +30,24 @@ public class AccountHandler implements AccountHandlerLocal {
     
     @Override
     public void registerNewAccount(Account newAccount, int role){
-        assignId(newAccount, role);
+        
         accDao.create(newAccount);
+        
+        List<Account> allAccounts = accDao.findAll();
+        for(Account each: allAccounts){
+            if(each.equals(newAccount))
+                newAccount = each;
+        }
+        
+        accRoleDao.create(assignId(newAccount, role));
     }
 
     @Override
     public Accountrole assignId(Account newAccount, int role) {
-        Role newRole = roleDao.find(new Integer(role).toString());
+        Role getRole = roleDao.find(role);
         Accountrole newAccRole = new Accountrole();
         newAccRole.setAccountid(newAccount);
-        newAccRole.setRoleid(newRole);
+        newAccRole.setRoleid(getRole);
         
         return newAccRole;
     }

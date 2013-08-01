@@ -49,6 +49,15 @@ public class TravelProfileHandler implements TravelProfileHandlerLocal {
         daoPassport.create(passport);        
         
     }
+    
+    @Override
+    public void persistProfileEdit(Travelerprofile profile, int accountID){
+        profileRef = findTravelProf(accountID);
+        profile.setIdtravelerprofile(profileRef.getIdtravelerprofile());        
+        
+        dao.edit(profile);
+    }
+    
     @Override
     public void persistReward(Rewardsprogram reward){
         reward.setTravelerprofileIdtravelerprofile(profileRef);
@@ -94,5 +103,6 @@ public class TravelProfileHandler implements TravelProfileHandlerLocal {
             }
         }
         return rewards;
-     }     
+     }
+    
 }

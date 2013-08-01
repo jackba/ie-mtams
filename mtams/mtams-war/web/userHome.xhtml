@@ -12,68 +12,64 @@
     <h:body> 
         <div id ="header">
             <div id="logo">
-                    <img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
+                <img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
             </div>
 
             <ul>
-                    <li><a href="">Help</a></li>
-                    <li><h:link value="Logout" outcome="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}" /></li>
+                <li><a href="">Help</a></li>
+                <li><h:link value="Logout"  outcome="#{sessionBean.invalidate()}" /></li>
             </ul>
         </div>
-        <br />
-        <div>
-            <h:outputText value="As this is your first time, please fill in your " rendered="#{sessionBean.checkFirstTime()}" />
-            <h:link value="travel profile." outcome="#{userBean.goToProfile()}" rendered="#{sessionBean.checkFirstTime()}" />
-        </div>
-        <br />
+        
         <p:messages autoUpdate="true" id="userTop" closable="true" showDetail="true" />
         <br />
         <div class="nav">
-        <p:menubar rendered="#{sessionBean.checkNotFirstTime()}">
-            <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goHome()}"/>
-            <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
-            <!--<p:menuitem value="Applications" icon="ui-icon-note" outcome="" />-->
-        </p:menubar>
+            <p:menubar>
+                <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goHome()}"/>
+                <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
+                <!--<p:menuitem value="Applications" icon="ui-icon-note" outcome="" />-->
+            </p:menubar>
         </div>
         <div id="content">
-            
-            <p:panel header="Current Applications">
-                <p:button outcome="#{userBean.goNewApp()}" icon="ui-icon-note" id="createButton"  title="Create Button" value="Create New" />
-                
-                <p:dataTable id="applications" var="app" value="#{appBean.allApps}">  
-  
-                <p:column headerText="Description" style="width:32%">  
-                    <h:outputText value="#{app.description}" />  
-                </p:column>  
 
-                <p:column headerText="Last date modified" style="width:32%">  
-                    <h:outputText value="#{app.datemodified}" />  
-                </p:column>  
-                    
-                <p:column headerText="Status" style="width:32%">  
-                    <h:outputText value="Pending completion" />  
-                </p:column>
-                    
-                <p:column style="width:4%">  
-                    <p:button outcome="#{appBean.viewThis()}" icon="ui-icon-search" />  
-                </p:column>  
+            <p:panel id="appPanel" header="Current Applications">
+                <p:button outcome="#{userBean.goNewApp()}" icon="ui-icon-plus" id="createButton"  title="Create Button" value="Create New" />
+
+                
+                <p:dataTable id="applications" var="app" value="#{userBean.allApps}" emptyMessage="No Applications have been created">  
+
+                    <p:column headerText="Description" style="width:35%">  
+                        <h:outputText value="#{app.description}" />  
+                    </p:column>  
+
+                    <p:column headerText="Last date modified" style="width:33%">  
+                        <h:outputText value="#{app.datemodified}" />  
+                    </p:column>  
+
+                    <p:column headerText="Status" style="width:32%">  
+                        <h:outputText value="Pending completion" />  
+                    </p:column>
+
+                     
 
                 </p:dataTable>
+                
+
             </p:panel>
-            
-        
+
+
         </div>
         <div id= "footer">
             <div class="row group">
                 <div class="col">
                     <h3>Quick links</h3>
                     <ul>
-                            <li><a href="">Site Map</a></li>
-                            <li><a href="">FAQ</a></li>
-                            <li><a href="">Contact us</a></li>
+                        <li><a href="">Site Map</a></li>
+                        <li><a href="">FAQ</a></li>
+                        <li><a href="">Contact us</a></li>
                     </ul>
                 </div>
-                
+
                 <h3>Legal</h3>
                 <p class="legal">Created by School of IT, Monash South Africa</p>		
             </div>
