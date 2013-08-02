@@ -34,18 +34,25 @@
 
                 <h:form id="createAccountForm">	
                     <p:messages id="createMessages" closable="true" showDetail="true" severity="error" autoUpdate="true" globalOnly="true"/>
-                    <h:panelGrid columns="3" id="createPanel"> 
+                    <h:panelGrid columns="3" id="panel"> 
+                       
                         <h:outputLabel for="userN" value="Username"/>
-                        <p:inputText id="userN" value="#{adminBean.username}" required="true" requiredMessage="Username missing"/>
-                        <p:message for="userN"  />      
-
+                        <p:inputText id="userN" value="#{adminBean.username}" required="true" requiredMessage="Username required">                  
+                            <p:ajax update="msgUser" event="keyup" />
+                        </p:inputText>
+                        <p:message for="userN" id="msgUser" />  
+                        
                         <h:outputLabel for="pwd1" value="Password:" />  
-                        <p:password id="pwd1" value="#{adminBean.password}" match="pwd2" label="Password" required="true" requiredMessage="Password 1 Missing"/>  
-                        <p:message for="pwd1"  />
+                        <p:password id="pwd1" value="#{adminBean.password}" label="Password" required="true" requiredMessage="Password doesn't match">  
+                            <p:ajax update="msgPass" event="keyup"/>
+                        </p:password>
+                        <p:message for="pwd1" id="msgPass"/>
 
                         <h:outputLabel for="pwd2" value="Verify Password:" />  
-                        <p:password id="pwd2" value="#{adminBean.password}" label="Verify Password" required="true" requiredMessage="Password 2 Missing"/>  
-                        <p:message for="pwd2"  />
+                        <p:password id="pwd2" value="#{adminBean.password}" match="pwd1" label="Verify Password" required="true" requiredMessage="Password doensn't match">  
+                            <p:ajax update="msgPass2" event="keyup"/>
+                        </p:password>
+                        <p:message for="pwd2" id="msgPass2" />
 
                         <h:outputText value="Select Role:" />  
                         <p:selectOneRadio id="roles" required="true" value="#{adminBean.role}" requiredMessage="Role not selected">  
@@ -55,7 +62,7 @@
                         <p:message for="roles"  />
 
                         <p:button value="Cancel"  outcome="#{adminBean.goViewAll()}"/> 	
-                        <p:commandButton value="Create"  update="createPanel" action="#{adminBean.createAccount()}"/>
+                        <p:commandButton value="Create"  update="panel" action="#{adminBean.createAccount()}"/>
                     </h:panelGrid> 
                 </h:form>
             </fieldset>
