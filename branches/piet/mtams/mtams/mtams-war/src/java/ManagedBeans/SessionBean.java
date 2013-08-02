@@ -116,7 +116,7 @@ public class SessionBean implements Serializable {
                // session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 setSessionVariables();
                 //logError = false;
-                return "adminHome";
+                return "allAccount";
             } else {
                 FacesContext.getCurrentInstance().addMessage("loginMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Account has been deactivated. Please contact admin."));
                 return "login";

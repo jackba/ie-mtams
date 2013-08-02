@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.validation.constraints.Pattern;
 import org.primefaces.component.api.UIData;
 
 /**
@@ -23,7 +24,9 @@ import org.primefaces.component.api.UIData;
 @ConversationScoped
 public class AdminBean implements Serializable {
     
+    @Pattern(message="Username required", regexp="[a-zA-Z]{0,}")
     private String username;
+    @Pattern(message="Username required", regexp="{0,}")
     private String password;
     private int role = 11;
     private List<Account> allAccounts;
