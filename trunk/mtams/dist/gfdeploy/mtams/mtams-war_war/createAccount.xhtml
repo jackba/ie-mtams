@@ -55,7 +55,7 @@
                         <p:message for="roles"  />
 
                         <p:button value="Cancel"  outcome="#{adminBean.goViewAll()}"/> 	
-                        <p:commandButton value="Create"  update="createPanel" action="#{adminBean.createAccount()}"/>
+                        <p:commandButton value="Create" ajax="false" update="createPanel" action="#{adminBean.createAccount()}"/>
                     </h:panelGrid> 
                 </h:form>
             </fieldset>
