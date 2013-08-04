@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+    <h:head>
+        <title>Welcome Super Admin</title>
+        <link href="css/styles.css" rel="Stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <div id ="header">
+            <div id="logo">
+                <img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
+            </div>
+
+            <ul>				
+                <li><a href="">Help</a></li>
+                <li><h:link value="Logout"  outcome="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}" /></li>
+            </ul>           
+        </div>
+        <br/>
+        <div id = "content">
+
+            <!--
+            <fieldset><legend>Please select a task</legend>
+                <p:commandButton value="Create Admin" action=""></p:commandButton><br/><br/>
+                <p:commandButton value="Create Role" action=""></p:commandButton><br/><br/>
+                <p:commandButton value="Deactivate User" action=""></p:commandButton>
+            </fieldset>
+            -->
+            <p:messages id="superHomeTop" closable="true" showDetail="true" autoUpdate="true"/>
+            <p:menubar>
+                <p:menuitem value="Home" icon="ui-icon-home" outcome="#{superAdminBean.goToHome()}"/>
+                <p:submenu label="Actions" icon="ui-icon-document">  
+                    <p:menuitem value="Create Admin" outcome="#{superAdminBean.goToCreateAdmin()}" /> 
+                    <p:menuitem value="Create Role" outcome="#{superAdminBean.goToCreateRole()}" />
+                    <p:menuitem value="Deactivate Account" outcome="#{superAdminBean.goToDeactivateAccount()}" />
+                </p:submenu>
+            </p:menubar>
+
+            <p:dataTable id="dataTable" var="account" value="#{adminBean.allAccounts}" binding="#{adminBean.dataTable}">  
+
+                <f:facet name="header">  
+                    List of Accounts  
+                </f:facet>  
+
+                <p:column headerText="StaffID">  
+                    <h:outputText value="#{account.idaccount}" />
+                </p:column> 
+
+                <p:column headerText="UserName">  
+                    <h:outputText value="#{account.username}" />  
+                </p:column>  
+
+                <p:column headerText="Authority">  
+                    <h:outputText value="#{account}" />  
+                </p:column>  
+
+            </p:dataTable>  
+        </div>
+
+        <div id= "footer">
+            <div class="row group">
+                <div class="col">
+                    <h3>Quick links</h3>
+                    <ul>
+                        <li><a href="">Site Map</a></li>
+                        <li><a href="">FAQ</a></li>
+                        <li><a href="">Contact us</a></li>
+                    </ul>
+                </div>
+                <h3>Legal</h3>
+                <p class="legal">Created by School of IT, Monash South Africa</p>		
+            </div>
+        </div>
+    </h:body>
+</html>
+
