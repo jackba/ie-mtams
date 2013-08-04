@@ -10,97 +10,101 @@
     <h:body>
         <div id ="header">
             <div id="logo">
-                    <img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
+                <h:form>
+                    <h:commandLink action="#{userBean.goHome()}">
+                        <h:graphicImage value="img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
+                    </h:commandLink>
+                </h:form>
             </div>
 
             <ul>
-                    <li><a href="">Help</a></li>
-                    <li><h:link value="Logout"  outcome="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}" /></li>
+                <li><a href="">Help</a></li>
+                <li><h:link value="Logout"  outcome="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}" /></li>
             </ul>
         </div>
         <div class="nav">
-        <p:menubar>
-            <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goHome()}"/>
-            <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
-            <!--<p:menuitem value="Applications" icon="ui-icon-note" outcome="" />-->
-        </p:menubar>
+            <p:menubar>
+                <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goHome()}"/>
+                <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
+                <!--<p:menuitem value="Applications" icon="ui-icon-note" outcome="" />-->
+            </p:menubar>
         </div>
         <h:form>
             <p:panel header="Traveller Profile">
                 <p:button outcome="#{userBean.editProfile()}" id="editButton"  title="Edit Button" value="Edit" />
-                
+
                 <br /><fieldset><legend><h4>Personal Details</h4></legend>
                     <h:panelGrid columns="2">  
 
-                         <h:outputText value="Department: " />  
-                         <h:outputText value="#{userBean.profileRef.department}"/>                            
+                        <h:outputText value="Department: " />  
+                        <h:outputText value="#{userBean.profileRef.department}"/>                            
 
-                         <h:outputText value="Position: " />  
-                         <h:outputText value="#{userBean.profileRef.position}"  />                           
+                        <h:outputText value="Position: " />  
+                        <h:outputText value="#{userBean.profileRef.position}"  />                           
 
-                         <h:outputText value="Secretary/Travel Booker: " />  
-                         <h:outputText value="#{userBean.profileRef.travelbooker}" />                            
+                        <h:outputText value="Secretary/Travel Booker: " />  
+                        <h:outputText value="#{userBean.profileRef.travelbooker}" />                            
 
-                         <h:outputText value="First Name: " />  
-                         <h:outputText value="#{userBean.profileRef.firstname}" />                           
+                        <h:outputText value="First Name: " />  
+                        <h:outputText value="#{userBean.profileRef.firstname}" />                           
 
-                         <h:outputText value="Surname: " />  
-                         <h:outputText value="#{userBean.profileRef.familyname}" />                              
+                        <h:outputText value="Surname: " />  
+                        <h:outputText value="#{userBean.profileRef.familyname}" />                              
 
-                         <h:outputText value="Middle Name" />  
-                         <h:outputText value="#{userBean.profileRef.middlename}" />                            
+                        <h:outputText value="Middle Name" />  
+                        <h:outputText value="#{userBean.profileRef.middlename}" />                            
 
-                         <h:outputText value="Title:"/>  
-                         <h:outputText value="#{userBean.profileRef.title}"/>
+                        <h:outputText value="Title:"/>  
+                        <h:outputText value="#{userBean.profileRef.title}"/>
 
-                         <h:outputText value="Identity Number: " />  
-                         <h:outputText value="#{userBean.profileRef.idnumber}" />
+                        <h:outputText value="Identity Number: " />  
+                        <h:outputText value="#{userBean.profileRef.idnumber}" />
 
-                         <h:outputText value="Business Address: " />  
-                         <h:outputText value="#{userBean.profileRef.businessaddress}" />
+                        <h:outputText value="Business Address: " />  
+                        <h:outputText value="#{userBean.profileRef.businessaddress}" />
 
-                         <h:outputText value="Business Phone: " />  
-                         <h:outputText value="#{userBean.profileRef.businessphone}" />  
+                        <h:outputText value="Business Phone: " />  
+                        <h:outputText value="#{userBean.profileRef.businessphone}" />  
 
-                         <h:outputText value="Business Fax:" />  
-                         <h:outputText value="#{userBean.profileRef.businessfax}"/>  
+                        <h:outputText value="Business Fax:" />  
+                        <h:outputText value="#{userBean.profileRef.businessfax}"/>  
 
-                         <h:outputText value="Home Address: " />  
-                         <h:outputText value="#{userBean.profileRef.homeaddress}" />
+                        <h:outputText value="Home Address: " />  
+                        <h:outputText value="#{userBean.profileRef.homeaddress}" />
 
-                         <h:outputText value="Mobile Phone: " />  
-                         <h:outputText value="#{userBean.profileRef.mobilephone}" />
+                        <h:outputText value="Mobile Phone: " />  
+                        <h:outputText value="#{userBean.profileRef.mobilephone}" />
 
-                         <h:outputText value="Home Phone:" />  
-                         <h:outputText value="#{userBean.profileRef.homephone}" />
+                        <h:outputText value="Home Phone:" />  
+                        <h:outputText value="#{userBean.profileRef.homephone}" />
 
-                         <h:outputText value="Email Address: " />  
-                         <h:outputText value="#{userBean.profileRef.homeemail}"/>
+                        <h:outputText value="Email Address: " />  
+                        <h:outputText value="#{userBean.profileRef.homeemail}"/>
 
-                         <h:outputText value="Spouse's Name: " />  
-                         <h:outputText value="#{userBean.profileRef.spousename}" />
+                        <h:outputText value="Spouse's Name: " />  
+                        <h:outputText value="#{userBean.profileRef.spousename}" />
 
-                         <h:outputText value="Spouse's Contact Number:" />  
-                         <h:outputText value="#{userBean.profileRef.spousecontactnumber}" />
+                        <h:outputText value="Spouse's Contact Number:" />  
+                        <h:outputText value="#{userBean.profileRef.spousecontactnumber}" />
 
-                         <h:outputText value="Spouse's Email:" />  
-                         <h:outputText value="#{userBean.profileRef.spouseemail}" />
+                        <h:outputText value="Spouse's Email:" />  
+                        <h:outputText value="#{userBean.profileRef.spouseemail}" />
 
-                         <h:outputText value="Doctor's Name:" />  
-                         <h:outputText value="#{userBean.profileRef.doctorsname}" />
+                        <h:outputText value="Doctor's Name:" />  
+                        <h:outputText value="#{userBean.profileRef.doctorsname}" />
 
-                         <h:outputText value="Doctor's Contact Number: " />  
-                         <h:outputText value="#{userBean.profileRef.doctorsconctactnumber}" />
+                        <h:outputText value="Doctor's Contact Number: " />  
+                        <h:outputText value="#{userBean.profileRef.doctorsconctactnumber}" />
 
-                         <h:outputText value="Doctor's Email: " />  
-                         <h:outputText value="#{userBean.profileRef.doctorsemail}" />
+                        <h:outputText value="Doctor's Email: " />  
+                        <h:outputText value="#{userBean.profileRef.doctorsemail}" />
 
-                         <h:outputText value="Known Medical Conditions: " />  
-                         <h:outputText value="#{userBean.profileRef.knownmedicalconditions}" />
+                        <h:outputText value="Known Medical Conditions: " />  
+                        <h:outputText value="#{userBean.profileRef.knownmedicalconditions}" />
 
                     </h:panelGrid>
                 </fieldset>
-                
+
                 <br /><fieldset><legend><h4>Passport and Visa Details</h4></legend>
                     <h:panelGrid columns="2"> 
 
@@ -119,63 +123,63 @@
                         <h:outputText value="Valid Visa's in passport: " />  
                         <h:outputText value="#{userBean.passportRef.validvisa}" />                           
 
-                     </h:panelGrid> 
+                    </h:panelGrid> 
                 </fieldset>
                 <br /><fieldset><legend><h4>Airline Details</h4></legend>
                     <h:panelGrid columns="2">  
-                                <h:outputText value="Seat Position:"/>
-                                <h:outputText value="#{userBean.profileRef.seatingposition}"/>
-								
-                                <h:outputText value="Seat Location:"/>
-                                <h:outputText value="#{userBean.profileRef.seatinglocation}"/>
-                              
-                                <h:outputText value="Class of Travel: Domestic " />  
-                                <h:outputText value="#{userBean.profileRef.classdomestic}"/>  
-                                 
-                                <h:outputText value="Class of Travel: International " />  
-                                <h:outputText value="#{userBean.profileRef.classinternational}"/>  
-                                 
-                                <h:outputText value="Special Meal Requirements " />  
-                                <h:outputText  value="#{userBean.profileRef.mealrequirements}" />
-                            
-                                <h:outputText value="Additional Requirements: " />  
-                                <h:outputText value="#{userBean.profileRef.airadditionalrequirements}" />
-                              
-                        </h:panelGrid>
+                        <h:outputText value="Seat Position:"/>
+                        <h:outputText value="#{userBean.profileRef.seatingposition}"/>
+
+                        <h:outputText value="Seat Location:"/>
+                        <h:outputText value="#{userBean.profileRef.seatinglocation}"/>
+
+                        <h:outputText value="Class of Travel: Domestic " />  
+                        <h:outputText value="#{userBean.profileRef.classdomestic}"/>  
+
+                        <h:outputText value="Class of Travel: International " />  
+                        <h:outputText value="#{userBean.profileRef.classinternational}"/>  
+
+                        <h:outputText value="Special Meal Requirements " />  
+                        <h:outputText  value="#{userBean.profileRef.mealrequirements}" />
+
+                        <h:outputText value="Additional Requirements: " />  
+                        <h:outputText value="#{userBean.profileRef.airadditionalrequirements}" />
+
+                    </h:panelGrid>
                 </fieldset>
-                                                
+
                 <br /><fieldset><legend><h4>Car and Hotel Details</h4></legend>
                     <h:panelGrid columns="2">
-                            <h:outputText value="Company Prefrence 1: "/> 
-                            <h:outputText value="#{userBean.profileRef.carpreference1}"/>
-                            
-                            <h:outputText value="Company Prefrence 2: "/> 
-                            <h:outputText value="#{userBean.profileRef.carpreference2}"/>
-                        
-                            <h:outputText value="Car Group: "/> 
-                            <h:outputText value="#{userBean.profileRef.cargroup}"/>
-                       
-                            <h:outputText value="Transmission Type:"/>
-                            <h:outputText value="#{userBean.profileRef.manualautomatic}"/>
-							
-                            <h:outputText value="Aircon:"/>
-                            <h:outputText value="#{userBean.profileRef.aircon}"/> 
-							
-                            <h:outputText value="Additional Requirements: "/> 
-                            <h:outputText value="#{userBean.profileRef.caradditionalrequirements}"/>
-							
-                            <h:outputText value="Hotel Preference: "/> 
-                            <h:outputText value="#{userBean.profileRef.hotelprefrence}"/>
+                        <h:outputText value="Company Prefrence 1: "/> 
+                        <h:outputText value="#{userBean.profileRef.carpreference1}"/>
 
-                            <h:outputText value="Freq Guest Number: "/> 
-                            <h:outputText value="#{userBean.profileRef.frequentguestnum}"/>
+                        <h:outputText value="Company Prefrence 2: "/> 
+                        <h:outputText value="#{userBean.profileRef.carpreference2}"/>
 
-                            <h:outputText value="Smoking? "/>
-                            <h:outputText value="#{userBean.profileRef.smoking}"/>
-                            
-                            <h:outputText value="Additional Requirements: "/> 
-                            <h:outputText value="#{userBean.profileRef.hoteladditionalrequirements}"/>
-                        </h:panelGrid>
+                        <h:outputText value="Car Group: "/> 
+                        <h:outputText value="#{userBean.profileRef.cargroup}"/>
+
+                        <h:outputText value="Transmission Type:"/>
+                        <h:outputText value="#{userBean.profileRef.manualautomatic}"/>
+
+                        <h:outputText value="Aircon:"/>
+                        <h:outputText value="#{userBean.profileRef.aircon}"/> 
+
+                        <h:outputText value="Additional Requirements: "/> 
+                        <h:outputText value="#{userBean.profileRef.caradditionalrequirements}"/>
+
+                        <h:outputText value="Hotel Preference: "/> 
+                        <h:outputText value="#{userBean.profileRef.hotelprefrence}"/>
+
+                        <h:outputText value="Freq Guest Number: "/> 
+                        <h:outputText value="#{userBean.profileRef.frequentguestnum}"/>
+
+                        <h:outputText value="Smoking? "/>
+                        <h:outputText value="#{userBean.profileRef.smoking}"/>
+
+                        <h:outputText value="Additional Requirements: "/> 
+                        <h:outputText value="#{userBean.profileRef.hoteladditionalrequirements}"/>
+                    </h:panelGrid>
                 </fieldset>
                 <br /><fieldset><legend><h4>Rewards Program</h4></legend>
                     <p:dataTable var="reward" value="#{userBean.allRewards}">  
@@ -198,18 +202,18 @@
                 </fieldset>
             </p:panel>
         </h:form>
-        
+
         <div id= "footer">
             <div class="row group">
                 <div class="col">
                     <h3>Quick links</h3>
                     <ul>
-                            <li><a href="">Site Map</a></li>
-                            <li><a href="">FAQ</a></li>
-                            <li><a href="">Contact us</a></li>
+                        <li><a href="">Site Map</a></li>
+                        <li><a href="">FAQ</a></li>
+                        <li><a href="">Contact us</a></li>
                     </ul>
                 </div>
-                
+
                 <h3>Legal</h3>
                 <p class="legal">Created by school of IT, Monash University South Africa</p>  
             </div>

@@ -38,15 +38,11 @@
                 
                 <p:dataTable id="applications" var="app" value="#{userBean.allApps}" emptyMessage="No Applications have been created">  
 
-                    <p:column headerText="ID" style="width:4%"> 
-                        <h:outputText value="#{app.idapplication}" />
-                    </p:column> 
-                    
-                    <p:column headerText="Description" style="width:32%">  
+                    <p:column headerText="Description" style="width:35%">  
                         <h:outputText value="#{app.description}" />  
                     </p:column>  
 
-                    <p:column headerText="Last date modified" style="width:32%">  
+                    <p:column headerText="Last date modified" style="width:33%">  
                         <h:outputText value="#{app.datemodified}" />  
                     </p:column>  
 

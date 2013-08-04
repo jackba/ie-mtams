@@ -31,7 +31,7 @@
                 <p:panel id="viewApplicationPanel" header="Your Application">
                     <p:messages id="submitAppConfirm" showDetail="true" closable="true" autoUpdate="true" severity="info"/>
                     <p:button outcome="#{appBean.goEdit()}" id="editButton"  title="Edit Button" value="Edit" />
-                    <fieldset><legend><h4>Personal Details</h4></legend>
+                    <br /><fieldset><legend><h4>Personal Details</h4></legend>
                         <h:panelGrid columns="2">
 
                                     <h:outputText value="Department: " />
@@ -55,7 +55,8 @@
 
                             </h:panelGrid>
                     </fieldset>
-                    <fieldset><legend><h4>Travel Details</h4></legend>
+                    
+                    <br /><fieldset><legend><h4>Travel Details</h4></legend>
                         <h:panelGrid columns="2" >
                                     <h:outputText value="Application Name:" />
                                     <h:outputText id="desc" value="#{appBean.appRef.description}" />
@@ -75,7 +76,7 @@
 
                         </h:panelGrid>
                     </fieldset>
-                    <fieldset><legend><h4>Itinerary</h4></legend>
+                    <br /><fieldset><legend><h4>Itinerary</h4></legend>
                         <h:panelGrid columns="2" >
                                     <h:outputText value="Date:" />
                                     <h:outputText value="#{appBean.itinRef.date}"/>
@@ -91,14 +92,14 @@
                                     
                                 </h:panelGrid>
                     </fieldset>
-                    <fieldset><legend><h4>Quotes</h4></legend>
+                    <br /><fieldset><legend><h4>Quotes</h4></legend>
                         <h:panelGrid columns="2">
                                     <h:outputText value="Cost Centre:" />
                                     <h:outputText id="costCentre" value="#{appBean.quoteRef.costcenter}"/>
                                     
                         </h:panelGrid>
                     </fieldset>
-                    <fieldset><legend><h4>Flight Quotes</h4></legend>
+                    <br /><fieldset><legend><h4>Flight Quotes</h4></legend>
                         <p:dataTable var="fQ" value="#{appBean.flights}">
                             <p:column headerText="From">
                                 <h:outputText value="#{fQ.flightfrom}" />
@@ -120,7 +121,7 @@
                             </p:column>
                         </p:dataTable>
                     </fieldset>
-                    <fieldset><legend><h4>Car Quotes</h4></legend>
+                    <br /><fieldset><legend><h4>Car Quotes</h4></legend>
                         <p:dataTable var="cQ" value="#{appBean.cars}">
                             <p:column headerText="Collect date">
                                 <h:outputText value="#{cQ.datecollect}" />
@@ -142,7 +143,7 @@
                             </p:column>
                         </p:dataTable>
                     </fieldset>
-                    <fieldset><legend><h4>Accommodation Quotes</h4></legend>
+                    <br /><fieldset><legend><h4>Accommodation Quotes</h4></legend>
                         <p:dataTable var="hQ" value="#{appBean.hotels}">
                             <p:column headerText="Location">
                                 <h:outputText value="#{hQ.city}" />

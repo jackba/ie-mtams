@@ -40,7 +40,7 @@
                     <p:messages autoUpdate="true"  closable="true" globalOnly="true" />
 
 
-                    <fieldset><legend>Travel Details</legend>
+                    <fieldset><legend><h4>Travel Details</h4></legend>
                         <h:panelGrid columns="3" >
                             <h:outputText value="Application Name:" />
                             <p:inplace emptyLabel="Click to edit">
@@ -72,7 +72,7 @@
 
                         </h:panelGrid>
                     </fieldset>
-                    <fieldset><legend>Itinerary</legend>
+                    <br /><fieldset><legend><h4>Itinerary</h4></legend>
                         <h:panelGrid columns="3" >
                             <h:outputText value="Date:" />
                             <p:inplace emptyLabel="Click to edit">
@@ -100,7 +100,7 @@
 
                         </h:panelGrid>
                     </fieldset>
-                    <fieldset><legend>Quotes</legend>
+                    <br /><fieldset><legend><h4>Quotes</h4></legend>
                         <h:panelGrid columns="3">
                             <h:outputText value="Cost Centre:" />
                             <p:inplace emptyLabel="Click to edit">
@@ -110,7 +110,7 @@
 
                         </h:panelGrid>
 
-                        <fieldset><legend>Flight Quotes</legend>
+                        <br /><fieldset><legend><h4>Flight Quotes</h4></legend>
                             <p:dataTable var="fQ" value="#{appBean.flights}">
                                 <p:column headerText="From">
                                     <h:outputText value="#{fQ.flightfrom}" />
@@ -132,7 +132,7 @@
                                 </p:column>
                             </p:dataTable>
                         </fieldset>
-                        <fieldset><legend>Car Quotes</legend>
+                        <br /><fieldset><legend><h4>Car Quotes</h4></legend>
                             <p:dataTable var="cQ" value="#{appBean.cars}">
                                 <p:column headerText="Collect date">
                                     <h:outputText value="#{cQ.datecollect}" />
@@ -154,7 +154,7 @@
                                 </p:column>
                             </p:dataTable>
                         </fieldset>
-                        <fieldset><legend>Accommodation Quotes</legend>
+                        <br /><fieldset><legend><h4>Accommodation Quotes</h4></legend>
                             <p:dataTable var="hQ" value="#{appBean.hotels}">
                                 <p:column headerText="Location">
                                     <h:outputText value="#{hQ.city}" />

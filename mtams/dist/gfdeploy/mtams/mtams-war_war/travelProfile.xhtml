@@ -55,8 +55,10 @@
                             <p:message for="bookerS"/>
                             
                             <h:outputText value="First Name: *" />  
-                            <p:inputText id="fn" required="true" value="#{userBean.firstName}" requiredMessage="Required Field"/>  
-                            <p:message for="fn"/>
+                            <p:inputText id="fn" required="true" value="#{userBean.firstName}" requiredMessage="Required Field">
+                                <p:ajax update="fnErr" event="keyup" />
+                            </p:inputText>
+                            <p:message for="fn" id="fnErr"/>
                             
                             <h:outputText value="Surname: *" />  
                             <p:inputText id="sn" required="true" value="#{userBean.surname}" requiredMessage="Required Field"/>  
