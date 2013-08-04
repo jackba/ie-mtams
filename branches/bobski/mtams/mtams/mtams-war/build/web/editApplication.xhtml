@@ -9,6 +9,7 @@
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
     </h:head>
     <h:body>
+        <h:form id="editAppForm">
         <div id ="header">
             <div id="logo">
                 <h:form>
@@ -32,7 +33,7 @@
             </p:menubar>
         </div>
         <div id="content">
-            <h:form id="editForm">
+            
                 
                 <p:panel id="editApplicationPanel" header="Your Application">
 
@@ -177,7 +178,7 @@
                     <p:commandButton value="Save" update="editApplicationPanel" action="#{appBean.update()}" ajax="false" />
 
                 </p:panel>
-            </h:form>
+            
         </div>
         <div id= "footer">
             <div class="row group">
@@ -194,6 +195,7 @@
                 <p class="legal">Created by school of IT, Monash South Africa</p>		
             </div>
         </div>
+    </h:form>
     </h:body>
 </html>
 

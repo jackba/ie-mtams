@@ -9,6 +9,7 @@
         <link href="css/styles.css" rel="Stylesheet" type="text/css" />
     </h:head>
     <h:body>
+        <h:form id="editForm">
         <div id ="header">
             <div id="logo">
                 <img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
@@ -27,7 +28,7 @@
             <!--<p:menuitem value="Applications" icon="ui-icon-note" outcome="" />-->
         </p:menubar>
         </div>
-        <h:form>
+        
             <p:panel header="Traveller Profile">
                 <p:messages id="submitConfirm" showDetail="true" closable="true" autoUpdate="true" severity="info"/>
                 <h4>Please click on the value you wish to edit</h4>
@@ -361,7 +362,7 @@
                 <p:commandButton value="Submit" action="#{editTrav.update()}" ajax="false"/>
             </p:panel>
             
-        </h:form>
+        
 
         <div id= "footer">
             <div class="row group">
@@ -378,6 +379,7 @@
                 <p class="legal">Created by school of IT, Monash University South Africa</p>  
             </div>
         </div>
+            </h:form>
     </h:body>
 </html>
 

@@ -71,19 +71,25 @@
 
                                 <h:panelGrid columns="3" columnClasses="label, value, error" styleClass="grid">
                                     <h:outputText value="Application name: *" />
-                                    <p:inputText id="desc" value="#{appBean.description}" required="true" requiredMessage="Name of application missing" title="How would you like to remember this application"/>
+                                    <p:inputText id="desc" value="#{appBean.description}" required="true" requiredMessage="Name of application missing" title="How would you like to remember this application">
+                                        <p:ajax update="desc" event="blur"  />
+                                    </p:inputText> 
                                     <p:message for="desc" />
 
                                     <h:outputText value="Date of initial departure: *" />
-                                    <p:calendar id="departDate" required="true" requiredMessage="Date required" value="#{appBean.departureDate}" />
+                                    <p:calendar id="departDate" required="true" requiredMessage="Date required" value="#{appBean.departureDate}" >
+                                        <p:ajax update="departDate" event="blur"  /> </p:calendar>
                                     <p:message for="departDate" />
 
                                     <h:outputText value="Date of final return: *" />
-                                    <p:calendar id="returnDate" required="true" requiredMessage="Date required" value="#{appBean.returnDate}" />
+                                    <p:calendar id="returnDate" required="true" requiredMessage="Date required" value="#{appBean.returnDate}" >
+                                        <p:ajax update="returnDate" event="blur"  /> </p:calendar>
                                     <p:message for="returnDate" />
 
                                     <h:outputText value="Description of purpose of travel: *" />
-                                    <p:inputTextarea id="description" value="#{appBean.reasonForTravel}" required="true" requiredMessage="Reason is required" />
+                                    <p:inputTextarea id="description" value="#{appBean.reasonForTravel}" required="true" requiredMessage="Reason is required" >
+                                        <p:ajax update="description" event="blur"  />
+                                    </p:inputTextarea> 
                                     <p:message for="description" />
 
                                 </h:panelGrid>
@@ -101,10 +107,10 @@
                                     <h:outputText value="Travel day/work day:" />
                                     <h:outputText value="" />
 
-                                    <p:calendar value="#{appBean.tempDate}" required="true" requiredMessage="Date required"/> 
-                                    <p:inputText value="#{appBean.tempDest}" required="true" requiredMessage="Entry required"/> 
-                                    <p:inputText value="#{appBean.tempLeaveType}" required="true" requiredMessage="Entry required"/> 
-                                    <p:inputText value="#{appBean.tempTravelDay}" required="true" requiredMessage="Entry required"/>
+                                    <p:calendar id="tempDate" value="#{appBean.tempDate}" required="true" requiredMessage="Date required"><p:ajax update="tempDate" event="blur"  /></p:calendar> 
+                                    <p:inputText id="tempDest" value="#{appBean.tempDest}" required="true" requiredMessage="Entry required"><p:ajax update="tempDest" event="blur"  /></p:inputText>
+                                    <p:inputText id="tempLeaveType" value="#{appBean.tempLeaveType}" required="true" requiredMessage="Entry required"> <p:ajax update="tempLeaveType" event="blur"  /></p:inputText>
+                                    <p:inputText id="tempTravelDay" value="#{appBean.tempTravelDay}" required="true" requiredMessage="Entry required"><p:ajax update="tempTravelDay" event="blur"  /></p:inputText>
                                     <p:button value="+" />
                                 </h:panelGrid>
 
@@ -117,7 +123,8 @@
                                 
                                 <h:panelGrid columns="3">
                                     <h:outputText value="Cost centre:" />
-                                    <p:inputMask mask="999999-9999" id="costCentre" value="#{appBean.costCentre}" required="true" requiredMessage="Cost centre code required" />
+                                    <p:inputMask mask="999999-9999" id="costCentre" value="#{appBean.costCentre}" required="true" requiredMessage="Cost centre code required" >
+                                        <p:ajax update="costCentre" event="blur"  /></p:inputMask>
                                     <p:message for="costCentre" />
                                 </h:panelGrid>
                                 
@@ -130,20 +137,20 @@
                                     <h:outputText value="Date:" />
                                     <h:outputText value="Time:" />
                                     
-                                    <p:inputText value="#{appBean.fQFrom}" required="true" requiredMessage="Entry required"/>
-                                    <p:inputText value="#{appBean.fQTo}" required="true" requiredMessage="Entry required"/>
-                                    <p:calendar value="#{appBean.fQDate}" required="true" requiredMessage="Entry required"/> 
-                                    <p:inputText type="time" value="#{appBean.fQTime}" required="true" requiredMessage="Entry required"/> 
+                                    <p:inputText id="flFrom" value="#{appBean.fQFrom}" required="true" requiredMessage="Entry required"><p:ajax update="flFrom" event="blur"  /></p:inputText>
+                                    <p:inputText id="flTo" value="#{appBean.fQTo}" required="true" requiredMessage="Entry required"><p:ajax update="flTo" event="blur"  /></p:inputText>
+                                    <p:calendar id="flDate" value="#{appBean.fQDate}" required="true" requiredMessage="Entry required"> <p:ajax update="flDate" event="blur"  /></p:calendar>
+                                    <p:inputText id="flTime" type="time" value="#{appBean.fQTime}" required="true" requiredMessage="Entry required"> <p:ajax update="flTime" event="blur"  /></p:inputText>
                                     
                                     <h:outputText value="Flight option #1" />
                                     <h:outputText value="Cost of option #1" />
                                     <h:outputText value="Flight option #2" />
                                     <h:outputText value="Cost of option #2" />
                                     
-                                    <p:inputText value="#{appBean.fQFlight1}" required="true" requiredMessage="Entry required"/>
-                                    <p:inputText value="#{appBean.fQCost1}" required="true" requiredMessage="Entry required"/>
-                                    <p:inputText value="#{appBean.fQFlight2}" required="true" requiredMessage="Entry required"/>
-                                    <p:inputText value="#{appBean.fQCost2}" required="true" requiredMessage="Entry required"/>
+                                    <p:inputText id="fl1" value="#{appBean.fQFlight1}" required="true" requiredMessage="Entry required"><p:ajax update="fl1" event="blur"  /></p:inputText>
+                                    <p:inputText id="fc1" value="#{appBean.fQCost1}" required="true" requiredMessage="Entry required"><p:ajax update="fc1" event="blur"  /></p:inputText>
+                                    <p:inputText id="fl2" value="#{appBean.fQFlight2}" required="true" requiredMessage="Entry required"><p:ajax update="fl2" event="blur"  /></p:inputText>
+                                    <p:inputText id="fc2" value="#{appBean.fQCost2}" required="true" requiredMessage="Entry required"><p:ajax update="fc2" event="blur"  /></p:inputText>
                                 </h:panelGrid>
                                 
                                 <p:messages for="carQuotes" id="carQuoteError" severity="error" autoUpdate="true"/>
@@ -154,20 +161,20 @@
                                     <h:outputText value="Date collect:" />
                                     <h:outputText value="Date returned:" />
                                     
-                                    <p:inputText value="#{appBean.cQFrom}" required="true" requiredMessage="Entry required"/>
-                                    <p:inputText value="#{appBean.cQTo}" required="true" requiredMessage="Entry required"/>
-                                    <p:calendar value="#{appBean.cQDateCollected}" required="true" requiredMessage="Entry required" /> 
-                                    <p:calendar value="#{appBean.cQDateReturned}" required="true" requiredMessage="Entry required"/> 
+                                    <p:inputText id="caFrom" value="#{appBean.cQFrom}" required="true" requiredMessage="Entry required"><p:ajax update="caFrom" event="blur"  /></p:inputText>
+                                    <p:inputText id="caTo" value="#{appBean.cQTo}" required="true" requiredMessage="Entry required"><p:ajax update="caTo" event="blur"  /></p:inputText>
+                                    <p:calendar id="caDc" value="#{appBean.cQDateCollected}" required="true" requiredMessage="Entry required" > <p:ajax update="caDc" event="blur"  /></p:calendar>
+                                    <p:calendar id="caDr" value="#{appBean.cQDateReturned}" required="true" requiredMessage="Entry required"> <p:ajax update="caDr" event="blur"  /></p:calendar>
                                     
                                     <h:outputText value="Care hire option #1" />
                                     <h:outputText value="Cost of option #1" />
                                     <h:outputText value="Care hire option #2" />
                                     <h:outputText value="Cost of option #2" />
                                     
-                                    <p:inputText value="#{appBean.cQHire1}" required="true" requiredMessage="Entry required"/>
-                                    <p:inputText value="#{appBean.cQCost1}" required="true" requiredMessage="Entry required"/>
-                                    <p:inputText value="#{appBean.cQHire2}" required="true" requiredMessage="Entry required"/>
-                                    <p:inputText value="#{appBean.cQCost2}" required="true" requiredMessage="Entry required"/>
+                                    <p:inputText id="caH1" value="#{appBean.cQHire1}" required="true" requiredMessage="Entry required"><p:ajax update="caH1" event="blur"  /></p:inputText>
+                                    <p:inputText id="caC1" value="#{appBean.cQCost1}" required="true" requiredMessage="Entry required"><p:ajax update="caC1" event="blur"  /></p:inputText>
+                                    <p:inputText id="caH2" value="#{appBean.cQHire2}" required="true" requiredMessage="Entry required"><p:ajax update="caH2" event="blur"  /></p:inputText>
+                                    <p:inputText id="caC2" value="#{appBean.cQCost2}" required="true" requiredMessage="Entry required"><p:ajax update="caC2" event="blur"  /></p:inputText>
                                 </h:panelGrid>
                                 
                                 <p:messages for="hotelQuotes" id="hotelQuoteError" severity="error" autoUpdate="true"/>
@@ -178,9 +185,9 @@
                                     <h:outputText value="Date out:" />
                                     <h:outputText value="" />
                                     
-                                    <p:inputText value="#{appBean.hQLocation}" required="true" requiredMessage="Entry required"/>
-                                    <p:calendar value="#{appBean.hQDateIn}" required="true" requiredMessage="Entry required"/> 
-                                    <p:calendar value="#{appBean.hQDateOut}" required="true" requiredMessage="Entry required"/>
+                                    <p:inputText id="hoLo" value="#{appBean.hQLocation}" required="true" requiredMessage="Entry required"><p:ajax update="hoLo" event="blur"  /></p:inputText>
+                                    <p:calendar id="hoDi" value="#{appBean.hQDateIn}" required="true" requiredMessage="Entry required"> <p:ajax update="hoDi" event="blur"  /></p:calendar>
+                                    <p:calendar id="hoDo" value="#{appBean.hQDateOut}" required="true" requiredMessage="Entry required"><p:ajax update="hoDo" event="blur"  /></p:calendar>
                                     <h:inputHidden />
                                     
                                     <h:outputText value="Hotel option #1" />
@@ -188,10 +195,10 @@
                                     <h:outputText value="Hotel option #2" />
                                     <h:outputText value="Cost of option #2" />
                                     
-                                    <p:inputText value="#{appBean.hQHotel1}" required="true" requiredMessage="Entry required"/>
-                                    <p:inputText value="#{appBean.hQCost1}" required="true" requiredMessage="Entry required"/>
-                                    <p:inputText value="#{appBean.hQHotel2}" required="true" requiredMessage="Entry required"/>
-                                    <p:inputText value="#{appBean.hQCost2}" required="true" requiredMessage="Entry required"/>
+                                    <p:inputText id="ho1" value="#{appBean.hQHotel1}" required="true" requiredMessage="Entry required"><p:ajax update="ho1" event="blur"  /></p:inputText>
+                                    <p:inputText id="hoC1" value="#{appBean.hQCost1}" required="true" requiredMessage="Entry required"><p:ajax update="hoC1" event="blur"  /></p:inputText>
+                                    <p:inputText id="ho2" value="#{appBean.hQHotel2}" required="true" requiredMessage="Entry required"><p:ajax update="ho2" event="blur"  /></p:inputText>
+                                    <p:inputText id="hoC2" value="#{appBean.hQCost2}" required="true" requiredMessage="Entry required"><p:ajax update="hoC22" event="blur"  /></p:inputText>
                                 </h:panelGrid>
                                 
                                 <p:commandButton action="#{appBean.createApplication()}" value="Create" update="quotePanel" />

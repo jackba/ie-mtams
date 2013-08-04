@@ -280,7 +280,6 @@ public class ApplicationBean implements Serializable {
         logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());
         logger.log(Level.INFO, "Next step:{0}", event.getNewStep());
 
-
         return event.getNewStep();
     }
 
@@ -758,6 +757,5 @@ public class ApplicationBean implements Serializable {
     public void setQuoteRef(Quotes quoteRef) {
         this.quoteRef = quoteRef;
     }
-    
-    
+
 }
