@@ -20,21 +20,26 @@
                     <p:tab id="personal" title="Personal">
                         <p:panel header="Personal Details">
 
-                            <h:panelGrid columns="2" columnClasses="label, value">
+                            <h:panelGrid columns="3" columnClasses="label, value">
                                 <h:outputLabel for="schoolUnit" value="School/Administrative Unit:"/>
-                                <p:inputText id="schoolUnit" value="#{conference.travelerP.department}" readonly="true"/>
+                                <p:inputText id="schoolUnit" readonly="true" />
+                                <p:watermark for="schoolUnit" value="#{conference.travelerP.department}"/>
 
                                 <p:outputLabel for="staffNum" value="Staff Number:"/>
-                                <p:inputText id="staffNum" value="#{conference.travelerP.staffid}" readonly="true"/>
+                                <p:inputText id="staffNum" readonly="true"/>
+                                <p:watermark for="staffNum" value="#{conference.travelerP.staffid}"/>
 
                                 <h:outputLabel for="staffTitle" value="Title:"/>
-                                <p:inputText id="staffTitle" value="#{conference.travelerP.title}" readonly="true"/>
+                                <p:inputText id="staffTitle"  readonly="true"/>
+                                <p:watermark for="staffTitle" value="#{conference.travelerP.title}"/>
 
                                 <p:outputLabel for="fName" value="Family Name:"/>
-                                <p:inputText id="fName" value="#{conference.travelerP.familyname}" readonly="true"/>
+                                <p:inputText id="fName" readonly="true"/>
+                                <p:watermark for="fName" value="#{conference.travelerP.familyname}"/>
 
                                 <p:outputLabel for="lName" value="Given Names:"/>
-                                <p:inputText id="lName" value="#{conference.travelerP.firstname}" readonly="true"/>
+                                <p:inputText id="lName" readonly="true"/>
+                                <p:watermark for="lName"  value="#{conference.travelerP.firstname}"/>
                             </h:panelGrid>
                         </p:panel>
                     </p:tab>
@@ -44,13 +49,19 @@
 
                             <h:panelGrid columns="3" columnClasses="label, value, error">
                                 <p:outputLabel for="confName" value="Conference Name:"/>
-                                <p:inputText id="confName" value="#{conference.confName}" required="true" requiredMessage="Required Field"/>
-                                <p:message for="confName" />
+                                <p:inputText id="confName" value="#{conference.confName}" required="true" requiredMessage="Required Field">
+                                    <p:ajax update="nameError" event="keyup"/>
+                                </p:inputText>
+                                <p:message for="confName" id="nameError"/>
+
 
 
                                 <p:outputLabel for="website" value="Web Address:"/>
-                                <p:inputText id="website" value="#{conference.website}" required="true" requiredMessage="Required Field"/>
-                                <p:message for="website" />
+                                <p:inputText id="website" value="#{conference.website}" required="true" requiredMessage="Required Field">
+                                    <p:ajax update="websiteError" event="keyup"/>
+                                </p:inputText>
+                                <p:message for="website" id="websiteError" />
+
 
 
                                 <h:outputText value="Country:"/>
@@ -60,8 +71,11 @@
                                 <br />
 
                                 <p:outputLabel for="city" value="City/State:"/>
-                                <p:inputText id="city" value="#{conference.city}" required="true" requiredMessage="Required Field"/>
-                                <p:message for="city" />
+                                <p:inputText id="city" value="#{conference.city}" required="true" requiredMessage="Required Field">
+                                    <p:ajax update="cityError" event="keyup"/>
+                                </p:inputText>
+                                <p:message for="city" id="cityError"/>
+
 
                                 <h:outputText value="Are You Presenting a Paper?"/>
                                 <p:selectOneRadio id="isPresenting" value="#{conference.isPresenting}" required="true" requiredMessage="Required Field">
