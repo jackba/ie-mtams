@@ -24,10 +24,10 @@ import org.primefaces.component.api.UIData;
 @ConversationScoped
 public class AdminBean implements Serializable {
     
-    @Pattern(message="Username required", regexp="[a-zA-Z]{0,}")
+    @Pattern(message="Incorrect username", regexp="[a-zA-Z]{0,}")
     private String username;
-    @Pattern(message="Username required", regexp="{0,}")
     private String password;
+    private String vpassword;
     private int role = 11;
     private List<Account> allAccounts;
     private UIData dataTable;
@@ -56,6 +56,16 @@ public class AdminBean implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getVpassword() {
+        return vpassword;
+    }
+
+    public void setVpassword(String vpassword) {
+        this.vpassword = vpassword;
+    }
+    
+    
 
     public int getRole() {
         return role;
