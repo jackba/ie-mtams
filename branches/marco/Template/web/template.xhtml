@@ -8,35 +8,53 @@
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet library="css" name="styles.css"/>
+        <h:outputScript library="primefaces" name="jquery/jquery.js"/>
+        <script type="text/javascript" src="resources/jquery.stickyPanel.min.js"></script>
+        <script type="text/javascript">
+            jQuery().ready(function() {
+                var stickyPanelOptions = {
+                    topPadding: 0,
+                    afterDetachCSSClass: "menuBar_after_detach",
+                    savePanelSpace: true
+                };
+
+                jQuery("#nav").stickyPanel(stickyPanelOptions);
+                /*
+                 jQuery("#more_panels").stickyPanel(stickyPanelOptions);
+                 */
+            });
+        </script>
         <title>MSA Travel Application Management System</title>
     </h:head>
 
-    <h:body>        
-        <div id="header">
-            <div id="logo">
-                <h:form>
-                    <h:commandLink action="template.xhtml">
-                        <h:graphicImage value="img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
-                    </h:commandLink>
-                </h:form>
+    <h:body>
+        <div id="wrap">
+            <div id="header">
+                <div id="logo">
+                    <h:form>
+                        <h:commandLink action="template.xhtml">
+                            <h:graphicImage value="img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
+                        </h:commandLink>
+                    </h:form>
+                </div>
+
+                <ul>
+                    <li><h:link value="">Help</h:link></li>
+                    <li><h:link value="">Logout</h:link></li>
+                </ul>
             </div>
 
-            <ul>
-                <li><h:link value="">Help</h:link></li>
-                <li><h:link value="">Logout</h:link></li>
-            </ul>
-        </div>
+            <div id="nav">
+                <p:menubar styleClass="menuBar">
+                    <ui:insert name="menu"/>
+                </p:menubar>
+            </div>
 
-        <div id="nav">
-            <p:menubar styleClass="menuBar">
-                <ui:insert name="menu"/>
-            </p:menubar>
-        </div>
+            <div id="content">
+                <ui:insert name="content"/>
+            </div>
 
-        <div id="content">
-            <ui:insert name="content"/>
-        </div>
-
+        
         <div id="footer">
             <div class="col">
                 <h:outputText styleClass="h3" value="Quick Links"/>
@@ -55,6 +73,7 @@
             <p class="legal">Monash South Africa NPC is registered with the Department of Education as a private higher education institution 
                 under the Higher Education Act of 1997. Certificate no. 00HF02 and is registered as a non-profit organisation, 
                 Registration number 054-109-NPO.</p>	
+        </div> 
         </div>
     </h:body>
 
