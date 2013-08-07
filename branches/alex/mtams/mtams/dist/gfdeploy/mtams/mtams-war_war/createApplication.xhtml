@@ -71,7 +71,9 @@
 
                                 <h:panelGrid columns="3" columnClasses="label, value, error" styleClass="grid">
                                     <h:outputText value="Application name: *" />
-                                    <p:inputText id="desc" value="#{appBean.description}" required="true" requiredMessage="Name of application missing" title="How would you like to remember this application"/>
+                                    <p:inputText id="desc" value="#{appBean.description}" required="true" requiredMessage="Name of application missing" title="How would you like to remember this application">
+                                        <p:ajax event="blur" update="desc" />
+                                    </p:inputText>
                                     <p:message for="desc" />
 
                                     <h:outputText value="Date of initial departure: *" />
