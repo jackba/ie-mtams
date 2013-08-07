@@ -75,6 +75,7 @@ public class ForeignBean implements Serializable
     private String ticketNumber;
     @Pattern(message="Incorrect number entered" , regexp="[0-9]{0,20}")
     private String voyagerNum;
+    @Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
     private String travellerCheque;
     @Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
     private String foreignCash;

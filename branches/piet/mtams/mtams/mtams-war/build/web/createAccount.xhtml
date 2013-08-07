@@ -22,8 +22,7 @@
         <br /> 
         <div class="nav">
             <p:menubar>  
-                <p:menuitem value="Home" icon="ui-icon-home" outcome="#{adminBean.goHome()}"/>
-                <p:menuitem value="Accounts" icon="ui-icon-document" outcome="#{adminBean.goViewAll()}" />          
+                <p:menuitem value="Home" icon="ui-icon-home" outcome="#{adminBean.goViewAll()}" />          
             </p:menubar>
         </div>
         <div>
@@ -35,17 +34,26 @@
                 <h:form id="createAccountForm">	
                     <p:messages id="createMessages" closable="true" showDetail="true" severity="error" autoUpdate="true" globalOnly="true"/>
                     <h:panelGrid columns="3" id="createPanel"> 
-                        <h:outputLabel for="userN" value="Username"/>
-                        <p:inputText id="userN" value="#{adminBean.username}" required="true" requiredMessage="Username missing"/>
-                        <p:message for="userN"  />      
+                        
+                        <h:outputLabel for="userN" value="Username: *"/>
+                        <p:inputText id="userN" value="#{adminBean.username}" label="Username" required="true" requiredMessage="Username required">                  
+                            <f:validateLength minimum="3"/>
+                            <p:ajax update="msgUser" event="keyup" async="true"/>                            
+                        </p:inputText>
+                        <p:message for="userN" id="msgUser" />      
 
-                        <h:outputLabel for="pwd1" value="Password:" />  
-                        <p:password id="pwd1" value="#{adminBean.password}" match="pwd2" label="Password" required="true" requiredMessage="Password 1 Missing"/>  
-                        <p:message for="pwd1"  />
+                        <h:outputLabel for="pwd1" value="Password: *" />  
+                        <p:password id="pwd1" value="#{adminBean.password}" match="pwd2" feedback="true" inline="true" label="Password" required="true" requiredMessage="Enter password">  
+                            <f:validateLength minimum="5"/>                            
+                            <p:ajax update="msgPass, msgPass2" event="blur" async="true"/>
+                        </p:password>
+                        <p:message for="pwd1" id="msgPass"/>
 
-                        <h:outputLabel for="pwd2" value="Verify Password:" />  
-                        <p:password id="pwd2" value="#{adminBean.password}" label="Verify Password" required="true" requiredMessage="Password 2 Missing"/>  
-                        <p:message for="pwd2"  />
+                        <h:outputLabel value="Verify Password: *" />  
+                        <p:password id="pwd2" value="#{adminBean.password}" label="Verify Password" required="true" requiredMessage="Verify Password">  
+                            <p:ajax update="msgPass2, msgPass" event="blur" async="true"/>
+                        </p:password>
+                        <p:message for="pwd2" id="msgPass2" />
 
                         <h:outputText value="Select Role:" />  
                         <p:selectOneRadio id="roles" required="true" value="#{adminBean.role}" requiredMessage="Role not selected">  
