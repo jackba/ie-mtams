@@ -21,3 +21,63 @@ The logo on the view travel profile is a link to home page, so if you can find a
 ----------------------
 
 of course if there is anything let me know. should be awake until midnight
+
+
+# Aarons Notes
+The squence I recored the vidoes in. 
+
+login.fail.q5.wmv
+login.fail.q10.wmv
+login.success.q10.wmv
+admin.create.account.q10.wmv
+admin.logout.q10.wmv
+
+#These forms are long done in one take
+# use the login from this video. Had to recreate the account after I made some mistakes
+
+Travler.Profile.login.validatin.personal-details.q10.wmv 
+
+
+# this took a long time as I had to fill in the database manually to get
+# it working. Will file an issue in the tracker once I am done. 
+# This one has the whole travlers profile with out any validation 
+# excpet for what is mentioned above. 
+# validation On the first name field +- 32 sec
+# validation on idnumber 2:31
+# I also stoped on the calandar picker. 
+# @@@@  There are a couple of frams that should be cut from this video
+# 17 - 19 sec
+# 0:59 s  
+# 4:03 s
+# 6:25
+#
+Travler.Profile.validatin.personal-details.q10.wmv
+
+# Edit not all the way working, but the home menu link on the logo is. 
+# I gave up on the edit after 2 hours. Maybe one of theguys can figure
+# it out and do a video just for that.
+#
+travler.home.edit.q10.wmv
+travler.login.home.edit.q10.wmv
+
+# Use this to show the creat, start it after the home page which shows
+# a created travel application which is the same as the one I am creating. 
+# MrT takes the bus.
+# this shows validation on the forms. 
+#
+application.home.create.notworking.q10.wmv
+
+# did not put the correct destination in on itinerary. The city should be
+# in the database such as London, Paris etc
+application.city-fix.create.notworking.q10.wmv
+application.city-fix.create.working.q10.wmv
+application.quotes.create.working.q10.wmv
+
+# That takes you to the end of the create functionality. 
+# Still need to do the edit on both traveler profile / application. 
+
+
+http://www.makeuseof.com/tag/5-free-screencasting-apps-for-creating-video-tutorials/
+
+
+
