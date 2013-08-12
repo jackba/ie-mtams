@@ -18,6 +18,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
 
@@ -41,10 +42,10 @@ public class ConferenceBean implements Serializable {
     int accountID = 1;
     //Section B - Conference Details
     private String confName;
-    @Pattern(message="Incorrect Website Format", regexp="(((ht|f)tp(s)?://)|www.){1}([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&=]*)?")
+    @Pattern(message = "Incorrect Website Format", regexp = "(((ht|f)tp(s)?://)|www.){1}([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&=]*)?")
     private String website;
     private String country;
-    @Pattern(message = "Incorrect city name", regexp="^[a-zA-Z]+$")
+    @Pattern(message = "Incorrect City Name", regexp = "^[a-zA-Z]+$")
     private String city;
     private int isPresenting;
     private String paperTitle;
@@ -53,6 +54,7 @@ public class ConferenceBean implements Serializable {
     private Date presentationDate;
     //Section C - Conference Duration
     private Date fromDate;
+    @Future(message = "Date Must Be In The Future")
     private Date toDate;
     private int diffDays;
     private String coverOptions;
@@ -63,8 +65,6 @@ public class ConferenceBean implements Serializable {
     private String fundName;
 
     public String onFlowProcess(FlowEvent event) {
-        logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());
-        logger.log(Level.INFO, "Next step:{0}", event.getNewStep());
         return event.getNewStep();
     }
 
@@ -90,7 +90,7 @@ public class ConferenceBean implements Serializable {
         conf.setFundingsources(this.getFundingOptions());
         conf.setOtherfundingsources(this.getOtherFunding());
         conf.setFundname(this.getFundName());
-        
+
         handler.updateConference(conf, accountID);
         //handler.persist(conf);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sucessfull", this.getConfName() + " Added!"));
@@ -144,7 +144,7 @@ public class ConferenceBean implements Serializable {
         confEdit.setFundingsources(this.getFundingOptions());
         confEdit.setOtherfundingsources(this.getOtherFunding());
         confEdit.setFundname(this.getFundName());
-        
+
         handler.updateConference(confEdit, accountID);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Sucessfull", "Changes have been saved!"));
     }
