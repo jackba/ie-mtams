@@ -19,7 +19,7 @@ The naming sequence now is more *organized.*
 ||accountAll||		allAcount||
 ||accountCreate||		createAccount||
 
-===ACCOUNT===
+===APPlICATION===
 || *New Page* || *Old Page* ||
 ||applicationCreate	||createApplication||
 ||applicationEdit||		editApplication||
