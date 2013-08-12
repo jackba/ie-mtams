@@ -1,6 +1,5 @@
 #labels Featured
 =New Names For Pages In Trunk=
-#sidebar Announcment
 
 I've renamed the page structure in the trunk.
 You will see this change in future trunk versions.
