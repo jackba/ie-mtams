@@ -1,0 +1,564 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+
+            <ui:define name="content">
+                <h:form id="authorisationforapp">
+
+                    <p:wizard widgetVar="wiz"  
+                              flowListener="#{authorisation.onFlowProcess}"> 
+
+
+                        <p:tab id="authtabdetails" title="Details">
+                            <p:panel header="Authorisation Details">
+                                <p:panelGrid id="authoriseTopGrid" columnClasses="label, value, error">
+
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputText value="Name: " />
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="name" value="#{authorisation.name}" required="true" requiredMessage="Name is a required Field" />                          
+                                        </p:column>
+                                        <p:column>
+                                            <p:message for="name"/>
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputText value="School / Administrative Unit: " />
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="administrativeunit" value="#{authorisation.administrativeunit}" required="false" requiredMessage="School / Administrative Unit is a required Field" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:message for="administrativeunit"/>
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputText value="Period of absence for business: " />
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="absencebussiness" value="#{authorisation.absencebussiness}" required="true" requiredMessage="Period of absence for business is a required Field" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:message for="absencebussiness"/>
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputText value="Period of absence for private: " />
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="absenceprivate" value="#{authorisation.absenceprivate}" required="true" requiredMessage="Period of absence for private is a required Field" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:message for="absenceprivate"/>
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputText value="Destination countries: " />
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="countries" value="#{authorisation.countries}" required="false" requiredMessage="Destination countries is a required Field" />
+                                            <p:selectOneMenu value="#{foreignBean.ccCur}" id="ccCur" rendered="#{foreignBean.isUsingCC eq '1'}">  
+                                                <f:selectItem itemLabel="South Africa" itemValue="South Africa" />  
+                                                <f:selectItem itemLabel="Swaziland" itemValue="Swaziland" />  
+                                                <f:selectItem itemLabel="France" itemValue="France" />  
+                                                <f:selectItem itemLabel="England" itemValue="England" />
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:message for="countries"/>
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputText value="Destination cities: " />
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="cities" value="#{authorisation.cities}" required="false" requiredMessage="Destination cities is a required Field" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:message for="cities"/>
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row >
+                                        <p:column  rowspan="4"> 
+                                            <p:selectOneRadio id="policycheck" required="true" requiredMessage="authorisation check list must be completed" value="#{authorisation.checks}">
+                                                <f:selectItem itemValue="1" itemLabel="Yes" />
+                                                <f:selectItem itemValue="0" itemLabel="No" />
+                                            </p:selectOneRadio>
+                                        </p:column>
+
+                                        <p:column colspan="1">
+                                            <h:outputText value="I hereby certify that the attached application meets requirements of the MSA travel policy and procedures. " />
+                                        </p:column>
+                                        <p:column rowspan="4">
+                                            <p:message for="policycheck"/>
+                                        </p:column>                                
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1" >
+                                            <h:outputText value="I hereby certify that the travel costs can be met within the specified budget. "  />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1" >
+                                            <h:outputText value="I hereby authorize the attached travel application." />
+                                        </p:column>
+                                    </p:row>
+
+
+
+                                </p:panelGrid>
+
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab id="authotabCosting" title="Final Costing">
+                            <p:panel header="Authorisation Costing">
+
+                                <p:panelGrid id="authoriseFinalCostin" columnClasses="label, value, error">
+
+                                    <p:row>
+                                        <p:column colspan="1">Final Costing</p:column>
+
+                                        <p:column colspan="1">Budgeted Costs </p:column>
+
+                                        <p:column colspan="1">Actual Costs</p:column>
+
+                                        <p:column colspan="1">Message</p:column>
+
+                                    </p:row>
+
+                                    <p:row>
+
+                                        <p:column>
+                                            <h:outputText value="Airfare :" />
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:inputText id="airfareBudget" value="#{authorisation.airfareBudget}" required="true" requiredMessage="Airfare budgeted Cost is a required Field" />
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:inputText id="airfareCost" value="#{authorisation.airfareCost}" required="true" requiredMessage="Airfare actual Cost is a required Field" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:message for="airfareBudget"/>
+
+                                            <p:message for="airfareCost"/>
+                                        </p:column>
+
+                                    </p:row>
+
+                                    <p:row>
+
+                                        <p:column>
+                                            <h:outputText value="Car rental: " />
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:inputText id="carRentalBudget" value="#{authorisation.carRentalBudget}" required="true" requiredMessage="Car rental budgeted Cost is a required Field" />
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:inputText id="carRentalCost" value="#{authorisation.carRentalCost}" required="true" requiredMessage="Car rental actual Cost is a required Field" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:message for="airfareBudget"/>
+
+                                            <p:message for="airfareCost"/>
+                                        </p:column>
+
+                                    </p:row>
+
+                                    <p:row>
+
+                                        <p:column>
+                                            <h:outputText value="Accommodation: " />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="accomodationBudget" value="#{authorisation.accommodationBudget}" required="true" requiredMessage="Accommodation budgeted Cost is a required Field" />
+
+                                        </p:column>
+
+                                        <p:column>
+
+                                            <p:inputText id="accomodationCost" value="#{authorisation.accommodationCost}" required="true" requiredMessage="Accommodation actual Cost is a required Field" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:message for="accomodationBudget"/>
+                                            <p:message for="accomodationCost"/>
+                                        </p:column>
+
+
+                                    </p:row>
+                                    <p:row>
+
+
+                                        <p:column>
+                                            <h:outputText value="Accommodation number of days: " />
+                                        </p:column>
+
+                                        <p:column >
+                                            <p:inputText id="accomodationDays" value="#{authorisation.accommodatedays}" required="true" requiredMessage="Accommodation number of days is a required Field" />
+                                        </p:column>
+
+                                        <p:column>
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:message for="accomodationDays"/>
+                                        </p:column>
+
+
+                                    </p:row>
+                                    <p:row>
+
+
+
+
+
+                                        <p:column>
+                                            <h:outputText value="Per diem " />
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:inputText id="PerdiemBudget" value="#{authorisation.perdiembudget}" required="true" requiredMessage="Per diem budgeted Cost is a required Field" />
+
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:inputText id="PerdiemCost" value="#{authorisation.perdiemcost}" required="true" requiredMessage="Per diem actual Cost is a required Field" />
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:message for="PerdiemBudget"/>
+                                            <p:message for="PerdiemCost"/>
+                                        </p:column>
+
+
+                                    </p:row>
+                                    <p:row>
+
+
+                                        <p:column>
+                                            <h:outputText value="Per diem number of days: " />
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:inputText id="PerdiemDays" value="#{authorisation.perdiemdays}" required="true" requiredMessage="Per diem number of days is a required Field" />
+                                        </p:column>
+
+
+                                        <p:column>
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:message for="PerdiemDays"/>
+                                        </p:column>
+
+
+                                    </p:row>
+                                    <p:row>
+
+
+
+                                        <p:column>
+                                            <h:outputText value="Conference: " />
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:inputText id="ConferenceBudget" value="#{authorisation.conferencebudget}" required="true" requiredMessage="Conference budgeted Cost is a required Field" />
+
+                                        </p:column>
+
+
+
+                                        <p:column>
+                                            <p:inputText id="ConferenceCost" value="#{authorisation.conferencecost}" required="true" requiredMessage="Conference actual Cost is a required Field" />
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:message for="ConferenceBudget"/>
+                                            <p:message for="ConferenceCost"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+
+
+                                        <p:column>
+                                            <h:outputText value="Visa Cost: " />
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:inputText id="VisaBudget" value="#{authorisation.visabudget}" required="true" requiredMessage="Visa budgeted Cost is a required Field" />
+
+                                        </p:column>
+
+                                        <p:column>
+
+
+                                            <p:inputText id="VisaCost" value="#{authorisation.visacost}" required="true" requiredMessage="Visa actual Cost is a required Field" />
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:message for="VisaBudget"/>
+                                            <p:message for="VisaCost"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+
+
+                                        <p:column>
+                                            <h:outputText value="Other Costs: " />
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:inputText id="otherBudget" value="#{authorisation.otherbudget}" required="false" requiredMessage="Other budgeted Cost is a required Field" />
+
+                                        </p:column>
+
+                                        <p:column>
+
+
+                                            <p:inputText id="otherCost" value="#{authorisation.othercost}" required="false" requiredMessage="Other actual Cost is a required Field" />
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:message for="otherBudget"/>
+                                            <p:message for="otherCost"/>
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputText value="Other cost Description: " />
+                                        </p:column>
+
+                                        <p:column colspan="2">
+                                            <p:inputTextarea id="otherDescription" value="#{authorisation.otherdiscription}" required="false" requiredMessage="Other cost Description is a required Field" />
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:message for="otherDescription"/>
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+
+
+                                        <p:column>
+                                            <h:outputText value="Total budgeted Cost: " />
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:inputText id="TotalBudget" value="#{authorisation.approvedbudget}" required="true" requiredMessage="Total budgeted Cost is a required Field" />
+
+                                        </p:column>
+
+                                        <p:column>
+
+                                            <p:inputText id="TotalCost" value="#{authorisation.approvedcost}" required="true" requiredMessage="Total actual Cost is a required Field" />
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:message for="TotalBudget"/>
+                                            <p:message for="TotalCost"/>
+                                        </p:column>
+
+
+                                    </p:row>
+
+                                </p:panelGrid>
+
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab id="authofromOz" title="Recovered from Australia">
+                            <p:panel header="Authorisation Cost From Australia">
+
+                                <p:panelGrid id="authoriseFromOz" columnClasses="label, value, error">
+
+                                    <p:row>
+
+                                        <p:column>
+                                            <h:outputText value="Recovered cost from Australia: " />
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneRadio id="CostFromOz" required="true" requiredMessage="Recovered cost from Australia" value="#{authorisation.fromoz}">
+                                                <f:selectItem itemValue="1" itemLabel="Yes" />
+                                                <f:selectItem itemValue="0" itemLabel="No" />
+                                            </p:selectOneRadio>
+
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:message for="CostFromOz"/>
+                                        </p:column>
+
+
+                                    </p:row>
+                                    <p:row>
+
+                                        <p:column>
+                                            <h:outputText value="Contact Name: " />
+                                        </p:column>
+                                        <p:column>
+
+                                            <p:inputText id="ozname" value="#{authorisation.ozname}" required="false" requiredMessage="Contact Name: is a required Field" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:message for="ozname"/>
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+
+                                        <p:column>
+                                            <h:outputText value="Contact Telephone: " />
+                                        </p:column>
+                                        <p:column>
+
+                                            <p:inputText id="oztel" value="#{authorisation.oztel}" required="false" requiredMessage="Contact Telephone should be a phone number" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:message for="oztel"/>
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+
+                                        <p:column>
+                                            <h:outputText value="Contact email: " />
+                                        </p:column>
+                                        <p:column>
+
+                                            <p:inputText id="ozemail" value="#{authorisation.ozemail}" required="false" requiredMessage="Contact email should be an email address" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:message for="ozemail"/>
+                                        </p:column>
+
+                                    </p:row>
+                                </p:panelGrid>
+
+                            </p:panel>
+
+
+
+                        </p:tab>
+
+                        <p:tab id="authotabfinal" title="Authorisation">
+                            <p:panel header="Authorisation">
+
+                                <p:panelGrid id="authoriseFrom" columnClasses="label, value, error" >
+
+
+                                    <p:row>
+
+                                        <p:column>
+                                            <h:outputText value="From to be approved " />
+                                        </p:column>
+                                        <p:column>
+
+                                            <p:inputText id="authfromsection" value="#{authorisation.fromsection}" required="false" requiredMessage="Contact Name: is a required Field" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:message for="authfromsection"/>
+                                        </p:column>
+
+                                    </p:row> 
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputText value="Is this form approved " />
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneRadio id="approvedCheck" required="true" requiredMessage="Is this form approved " value="#{authorisation.sectionapproved}">
+                                                <f:selectItem itemValue="1" itemLabel="Yes" />
+                                                <f:selectItem itemValue="0" itemLabel="No" />
+                                            </p:selectOneRadio>
+
+                                        </p:column>
+
+
+                                        <p:column>
+                                            <p:message for="approvedCheck"/>
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+
+                                        <p:column>
+                                            <h:outputText value="Name: " />
+                                        </p:column>
+                                        <p:column>
+
+                                            <p:inputText id="authname" value="#{authorisation.name}" required="false" requiredMessage="Contact Name: is a required Field" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:message for="authname"/>
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+
+                                        <p:column>
+                                            <h:outputText value="Date: " />
+                                        </p:column>
+                                        <p:column>
+                                            <p:calendar id="authdate" value="#{authorisation.dateStamp}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field" />
+
+                                        </p:column>
+                                        <p:column>
+                                            <p:message for="authdate"/>
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+
+                                        <p:column>
+                                            <h:outputText value="Notes: " />
+                                        </p:column>
+                                        <p:column>
+
+                                            <p:inputTextarea id="authNotes" value="#{authorisation.notes}" required="false" requiredMessage="Contact email should be an email address" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:message for="authNotes"/>
+                                        </p:column>
+
+                                    </p:row>
+
+                                </p:panelGrid>
+                                <p:commandButton value="Submit" actionListener="#{authorisation.save()}" ajax="false"/>
+                            </p:panel>
+                        </p:tab>
+
+                    </p:wizard>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="forexEdit.xhtml" x="3180" y="32" zoom="true"/>
+        <Node id="accountAll.xhtml" x="5234" y="32" zoom="true"/>
+        <Node id="travelProfileEdit.xhtml" x="4045" y="32" zoom="true"/>
+        <Node id="template/templateClient.xhtml" x="806" y="32" zoom="true"/>
+        <Node id="forexCreate.xhtml" x="2006" y="32" zoom="true"/>
+        <Node id="accountCreate.xhtml" x="6379" y="32" zoom="true"/>
+        <Node id="travelProfileView.xhtml" x="1147" y="32" zoom="true"/>
+        <Node id="authorisationView.xhtml" x="6070" y="32" zoom="true"/>
+        <Node id="applicationCreate.xhtml" x="5500" y="32" zoom="true"/>
+        <Node id="motivationalEdit.xhtml" x="2581" y="32" zoom="true"/>
+        <Node id="authorisation.xhtml" x="1450" y="32" zoom="true"/>
+        <Node id="login.xhtml" x="573" y="32" zoom="false"/>
+        <Node id="adminHome.xhtml" x="34" y="32" zoom="true"/>
+        <Node id="travelProfileCreate.xhtml" x="3437" y="32" zoom="true"/>
+        <Node id="userHome.xhtml" x="308" y="32" zoom="true"/>
+        <Node id="applicationView.xhtml" x="6669" y="32" zoom="true"/>
+        <Node id="forexView.xhtml" x="5806" y="32" zoom="true"/>
+        <Node id="motivationalView.xhtml" x="2877" y="32" zoom="true"/>
+        <Node id="applicationEdit.xhtml" x="4650" y="32" zoom="true"/>
+        <Node id="applicationHome.xhtml" x="2280" y="32" zoom="true"/>
+        <Node id="template/template.xhtml" x="4341" y="32" zoom="true"/>
+        <Node id="errorPages/500.xhtml" x="4939" y="32" zoom="true"/>
+        <Node id="errorPages/404.xhtml" x="3750" y="32" zoom="true"/>
+        <Node id="motivational.xhtml" x="1731" y="32" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>
