@@ -1,0 +1,64 @@
+#labels Featured
+=New Names For Pages In Trunk=
+#sidebar TableOfContents 
+
+I've renamed the page structure in the trunk.
+You will see this change in future trunk versions.
+The naming sequence now is more *organized.*
+
+
+*ALL FILES ARE .XHTML*
+
+===GENERAL PAGES===
+|| *New Page* || *Old Page* ||
+||userHome||- SAME -||
+||adminHome||- SAME -||
+||Login||- SAME -||
+
+===ACCOUNT===
+|| *New Page* || *Old Page* ||
+||accountAll||		allAcount||
+||accountCreate||		createAccount||
+
+===ACCOUNT===
+|| *New Page* || *Old Page* ||
+||applicationCreate	||createApplication||
+||applicationEdit||		editApplication||
+||applicationHome||		- SAME -||
+||applicationView||		viewApplication||
+
+
+===AUTHORISATION===
+|| *New Page* || *Old Page* ||
+||authorisation	||	- SAME -||
+||authorisationView||	viewAuthorisation||
+
+
+===FOREX===
+|| *New Page* || *Old Page* ||
+||forexCreate	||	foreignExchange||
+||forexEdit	||	foreignExchangeViewEdit ||
+||forexView	||	forexExchangeView||
+
+===MOTIVATIONAL===
+|| *New Page* || *Old Page* ||
+||motivational		||- SAME -||
+||motivationalEdit	||- SAME -||
+||motivationalView	||- SAME -||
+
+===TRAVEL PROFILE===
+|| *New Page* || *Old Page* ||
+||travelProfileCreate	||travelProfile||
+||travelProfileEdit	||editTravelProfile||
+||travelProfileView	||viewTravelProfile||
+
+
+===PAGE REMOVED===
+*authorisationViewEdit* - because Robert told me authorisations don't need editing. 
+		Only approval/rejecting needed.
+		If needed, can be re-added.		
+
+
+
+
+- Marco Polo
