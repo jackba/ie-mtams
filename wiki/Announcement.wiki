@@ -6,20 +6,29 @@ You will see this change in future trunk versions.
 The naming sequence now is more *organized.*
 
 
-*ALL FILES ARE .XHTML*
 
-===GENERAL PAGES===
+
+=Menu=
+*ALL FILES ARE .XHTML*
+<wiki:toc max_depth="5" />
+
+
+
+
+
+
+===General Pages===
 || *New Page* || *Old Page* ||
 ||userHome||- SAME -||
 ||adminHome||- SAME -||
 ||Login||- SAME -||
 
-===ACCOUNT===
+===Account===
 || *New Page* || *Old Page* ||
 ||accountAll||		allAcount||
 ||accountCreate||		createAccount||
 
-===APPlICATION===
+===Application Form===
 || *New Page* || *Old Page* ||
 ||applicationCreate	||createApplication||
 ||applicationEdit||		editApplication||
@@ -27,25 +36,25 @@ The naming sequence now is more *organized.*
 ||applicationView||		viewApplication||
 
 
-===AUTHORISATION===
+===Authorisation Form===
 || *New Page* || *Old Page* ||
 ||authorisation	||	- SAME -||
 ||authorisationView||	viewAuthorisation||
 
 
-===FOREX===
+===Forex Form===
 || *New Page* || *Old Page* ||
 ||forexCreate	||	foreignExchange||
 ||forexEdit	||	foreignExchangeViewEdit ||
 ||forexView	||	forexExchangeView||
 
-===MOTIVATIONAL===
+===Motivational Form===
 || *New Page* || *Old Page* ||
 ||motivational		||- SAME -||
 ||motivationalEdit	||- SAME -||
 ||motivationalView	||- SAME -||
 
-===TRAVEL PROFILE===
+===Travel Profile Form===
 || *New Page* || *Old Page* ||
 ||travelProfileCreate	||travelProfile||
 ||travelProfileEdit	||editTravelProfile||
