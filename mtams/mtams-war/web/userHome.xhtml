@@ -1,79 +1,43 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
-    <h:head>
-        <title>User Page</title>
-        <link href="css/styles.css" rel="Stylesheet" type="text/css" />
-    </h:head>
-    <h:body> 
-        <div id ="header">
-            <div id="logo">
-                <img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
-            </div>
+      xmlns:h="http://java.sun.com/jsf/html">
 
-            <ul>
-                <li><a href="">Help</a></li>
-                <li><h:link value="Logout"  outcome="#{sessionBean.invalidate()}" /></li>
-            </ul>
-        </div>
-        
-        <p:messages autoUpdate="true" id="userTop" closable="true" showDetail="true" />
-        <br />
-        <div class="nav">
-            <p:menubar>
-                <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goHome()}"/>
-                <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
-                <!--<p:menuitem value="Applications" icon="ui-icon-note" outcome="" />-->
-            </p:menubar>
-        </div>
-        <div id="content">
+    <body>
 
-            <p:panel id="appPanel" header="Current Applications">
-                <p:button outcome="#{userBean.goNewApp()}" icon="ui-icon-plus" id="createButton"  title="Create Button" value="Create New" />
+        <ui:composition template="./template/template.xhtml">
 
-                
-                <p:dataTable id="applications" var="app" value="#{userBean.allApps}" emptyMessage="No Applications have been created">  
-
-                    <p:column headerText="Description" style="width:35%">  
-                        <h:outputText value="#{app.description}" />  
-                    </p:column>  
-
-                    <p:column headerText="Last date modified" style="width:33%">  
-                        <h:outputText value="#{app.datemodified}" />  
-                    </p:column>  
-
-                    <p:column headerText="Status" style="width:32%">  
-                        <h:outputText value="Pending completion" />  
-                    </p:column>
-
-                     
-
-                </p:dataTable>
-                
-
-            </p:panel>
+            <ui:define name="content">
+                <p:panel id="appPanel" header="Current Applications">
+                    <p:button outcome="#{userBean.goNewApp()}" icon="ui-icon-plus" id="createButton"  title="Create Button" value="Create New" />
 
 
-        </div>
-        <div id= "footer">
-            <div class="row group">
-                <div class="col">
-                    <h3>Quick links</h3>
-                    <ul>
-                        <li><a href="">Site Map</a></li>
-                        <li><a href="">FAQ</a></li>
-                        <li><a href="">Contact us</a></li>
-                    </ul>
-                </div>
+                    <p:dataTable id="applications" var="app" value="#{userBean.allApps}" emptyMessage="No Applications have been created">  
 
-                <h3>Legal</h3>
-                <p class="legal">Created by School of IT, Monash South Africa</p>		
-            </div>
-        </div>
-    </h:body>
+                        <p:column headerText="Description" style="width:35%">  
+                            <h:outputText value="#{app.description}" />  
+                        </p:column>  
+
+                        <p:column headerText="Last date modified" style="width:33%">  
+                            <h:outputText value="#{app.datemodified}" />  
+                        </p:column>  
+
+                        <p:column headerText="Status" style="width:32%">  
+                            <h:outputText value="Pending completion" />  
+                        </p:column>
+
+
+
+                    </p:dataTable>
+
+
+                </p:panel>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
 </html>
-

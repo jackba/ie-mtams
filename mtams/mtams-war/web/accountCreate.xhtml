@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+
+            <ui:define name="content">
+                <fieldset>
+                    <legend><h3>Create Account</h3></legend>
+
+                    <h:form id="createAccountForm">
+                        <p:focus id="createAccountForm">
+                            <h:panelGrid id="createPanel" columns="4"> 
+
+                                <h:outputLabel for="username" value="Username:"/>
+                                <p:inputText id="username" label="Username" required="true" size="30" requiredMessage="Please type a username." value="#{adminBean.username}"/>
+                                <p:watermark for="username" value="Username *"/>
+                                <p:message for="username"/>
+
+
+                                <h:outputLabel for="password" value="Password:" />  
+                                <p:password id="password" label="Password:" required="true" size="30" match="confirmPassword" requiredMessage="Please enter your password." value="#{adminBean.password}" feedback="true" 
+                                            weakLabel="Weak :/" goodLabel="Good :)" strongLabel="Strong :D"/>
+                                <p:watermark for="password" value="Password *"/>
+                                <p:message for="password"  />
+
+                                <h:outputLabel for="confirmPassword" value="Verify Password:" />  
+                                <p:password id="confirmPassword" label="Confirm Password:" required="true" size="30" requiredMessage="Please confirm your password." value="#{adminBean.password}"/>  
+                                <p:watermark for="confirmPassword" value="Password *"/>
+                                <p:message for="confirmPassword"  />
+
+                                <h:outputLabel for="roles" value="Select Role:" />  
+                                <p:selectOneRadio id="roles" label="Role:" required="true" requiredMessage="Role not selected" value="#{adminBean.role}" >  
+                                    <f:selectItem itemLabel="Applicant" itemValue="11" />  
+                                    <f:selectItem itemLabel="Authorizer" itemValue="12" />
+                                </p:selectOneRadio>    
+                                <p:message for="roles"  />
+                                <br/>
+
+                                <p:button value="Cancel"  outcome="#{adminBean.goViewAll()}"/> 	
+                                <p:commandButton value="Create"  update="createPanel" action="#{adminBean.createAccount()}"/>
+                            </h:panelGrid> 
+                        </p:focus>
+                    </h:form>
+                </fieldset>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
