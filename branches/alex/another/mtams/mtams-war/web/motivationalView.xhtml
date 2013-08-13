@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>View Motivational Form</title>
+                <link href="css/styles.css" rel="Stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <div id ="header">
+            <div id="logo">
+                    <img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
+            </div>
+
+            <ul>
+                    <li><a href="">Help</a></li>
+                    <li><a href="">Logout</a></li>
+            </ul>
+        </div>
+        <h:form id="motivform">
+            
+            <p:panel header="Motivational Form">  
+            <fieldset><legend>Motivation View</legend>
+  
+                            <h:panelGrid id="motivate" columns="2">  
+                                <h:outputText value="Supplier/Service Provider: " />  
+                                <h:outputText value="#{motivBean.motiView.supplier}"/>  
+                                
+                                <h:outputText value="Amount: " />  
+                                <h:outputText id="amount" value="#{motivBean.finalC.approvedcost}"/> 
+                                
+                                <h:outputText value="Cost Code: " />  
+                                <h:outputText id="cost" value="#{motivBean.quote.costcenter}"/>  
+                                
+                                <h:outputText value="Motivation: " />  
+                                <h:outputText  value="#{motivBean.motiView.motivation}"/>
+                                
+                                <h:outputText value="budget Available: " /> 
+                                <h:outputText  value="#{motivBean.motiView.budget}"/>
+                                </h:panelGrid>
+                                
+                           </fieldset>
+            </p:panel>
+            </h:form>
+        <div id= "footer">
+            <div class="row group">
+                <div class="col">
+                    <h3>Quick links</h3>
+                    <ul>
+                            <li><a href="">Site Map</a></li>
+                            <li><a href="">FAQ</a></li>
+                            <li><a href="">Contact us</a></li>
+                    </ul>
+                </div>
+                
+                <h3>Legal</h3>
+                <p class="legal">Created by school of IT, Monash University South Africa</p>  
+            </div>
+        </div>
+    </h:body>
+</html>
+
+
