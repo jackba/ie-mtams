@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.ConversationScoped;
 import javax.faces.component.UIData;
 import javax.faces.component.UIForm;
 import javax.faces.component.UIInput;
@@ -40,7 +40,7 @@ import javax.validation.constraints.Pattern;
  * @author Robert Bwana
  */
 @Named(value = "approvalBean")
-@ViewScoped
+@ConversationScoped
 public class ApprovalBean implements Serializable {
 
     @EJB
@@ -161,7 +161,7 @@ public class ApprovalBean implements Serializable {
 
     @PostConstruct
     public void initialize() {
-        accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+        //accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
         
 //        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 
@@ -211,9 +211,9 @@ public class ApprovalBean implements Serializable {
         appr.setAccountIdaccount(accRef);
         appr.setApplicationIdapplication(appRef);
         appr.setDate(new Date());
-        appr.setSectionid(getApproved());
-        appr.setFromsection(getApprovalName());
-        appr.setNotes(getApprovalComment());
+        appr.setSectionid(approved);
+        appr.setFromsection(approvalName);
+        appr.setNotes(approvalComment);
         approvalHandler.persistApproval(appr);
         
         return "userHome.xhtml";

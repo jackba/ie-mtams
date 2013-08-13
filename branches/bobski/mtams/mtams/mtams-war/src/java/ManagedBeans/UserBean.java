@@ -5,11 +5,13 @@
 package ManagedBeans;
 
 import Entities.Application;
+import Entities.Approval;
 import javax.inject.Named;
 import Entities.Rewardsprogram;
 import Entities.Traveldocument;
 import Entities.Travelerprofile;
 import ServiceLayer.ApplicationHandlerLocal;
+import ServiceLayer.ApprovalHandlerLocal;
 import ServiceLayer.TravelProfileHandlerLocal;
 import java.io.IOException;
 import java.io.Serializable;
@@ -43,7 +45,13 @@ public class UserBean implements Serializable {
     @EJB
     private ApplicationHandlerLocal appHandler;
     private List<Application> allApps;
+    @EJB
+    private ApprovalHandlerLocal apprHandler;
+    private List<Approval> allApproved;
+    
     private Application selectedApp;
+    
+    
     private String department;
     @Pattern(message = "Incorrect ID", regexp = "[0-9]{8}")
     private String staffID;
@@ -142,6 +150,17 @@ public class UserBean implements Serializable {
     public void setAllApps(List<Application> allApps) {
         this.allApps = allApps;
     }
+
+    public List<Approval> getAllApproved() {
+        allApproved = apprHandler.findApprovalbyAccount(accountID);
+        return allApproved;
+    }
+
+    public void setAllApproved(List<Approval> allApproved) {
+        this.allApproved = allApproved;
+    }
+    
+    
 
     public String goToProfile() {
         return "travelProfile";

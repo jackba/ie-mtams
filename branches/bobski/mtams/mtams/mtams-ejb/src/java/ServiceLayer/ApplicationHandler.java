@@ -6,6 +6,7 @@ package ServiceLayer;
 
 import DataAccess.AccomodationquotesFacadeLocal;
 import DataAccess.ApplicationFacadeLocal;
+import DataAccess.ApprovalFacadeLocal;
 import DataAccess.CarquotesFacadeLocal;
 import DataAccess.ConferenceFacadeLocal;
 import DataAccess.FinalcostingFacadeLocal;
@@ -61,6 +62,8 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
     private ForexorderFacadeLocal forDao;
     @EJB
     private MotivationFacadeLocal motDao;
+    @EJB
+    private ApprovalFacadeLocal apprDao;
     
     
     @Override
@@ -75,7 +78,7 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
         
         return apps;
     }
-    
+
     @Override
     public Application getApplication(Integer id){
         return appDao.find(id);

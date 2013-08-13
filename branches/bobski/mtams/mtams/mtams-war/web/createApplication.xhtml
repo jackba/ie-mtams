@@ -206,10 +206,10 @@
                                     <p:inputText id="ho1" value="#{appBean.hQHotel1}" required="true" requiredMessage="Entry required"><p:ajax update="ho1" event="blur"  /></p:inputText>
                                     <p:inputText id="hoC1" value="#{appBean.hQCost1}" required="true" requiredMessage="Entry required"><p:ajax update="hoC1" event="blur"  /></p:inputText>
                                     <p:inputText id="ho2" value="#{appBean.hQHotel2}" required="true" requiredMessage="Entry required"><p:ajax update="ho2" event="blur"  /></p:inputText>
-                                    <p:inputText id="hoC2" value="#{appBean.hQCost2}" required="true" requiredMessage="Entry required"><p:ajax update="hoC22" event="blur"  /></p:inputText>
+                                    <p:inputText id="hoC2" value="#{appBean.hQCost2}" required="true" requiredMessage="Entry required"><p:ajax update="hoC2" event="blur"  /></p:inputText>
                                 </h:panelGrid>
                                 
-                                <p:commandButton action="#{appBean.createApplication()}" value="Create" update="quotePanel" />
+                                <p:commandButton action="#{appBean.createApplication()}" value="Create" update=":quotePanel" ajax="false" />
                             </p:panel>
 
                         </p:tab>
