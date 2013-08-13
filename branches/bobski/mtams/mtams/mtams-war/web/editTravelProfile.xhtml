@@ -37,13 +37,13 @@
 
                         <h:outputText value="Department:* " />
                         <p:inplace id="selectableInplace" >  
-                            <h:selectOneMenu id="deptIP" value="#{editTrav.department}">  
+                            <p:selectOneMenu id="deptIP" value="#{editTrav.department}">  
                                 <f:selectItem itemLabel="Financial" itemValue="Financial" />  
                                 <f:selectItem itemLabel="Information Technology" itemValue="Information Technology" />  
                                 <f:selectItem itemLabel="Health Sciences" itemValue="Health Sciences" />  
                                 <f:selectItem itemLabel="Business" itemValue="Business" />
                                 <f:selectItem itemLabel="Arts" itemValue="Arts" />  
-                            </h:selectOneMenu>  
+                            </p:selectOneMenu>  
                         </p:inplace>
                         <p:message for="deptIP"/>
 

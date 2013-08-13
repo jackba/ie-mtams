@@ -40,6 +40,8 @@ public class ApprovalHandler implements ApprovalHandlerLocal{
     @EJB
     private QuotesFacadeLocal daoQuotesFacadeLocal;
     
+    
+    
     private Account account = new Account();
     private Application app = new Application();
     private Quotes quotes = new Quotes();
@@ -63,12 +65,12 @@ public class ApprovalHandler implements ApprovalHandlerLocal{
     @Override
     public void persistApproval(Approval approval) {
         // set global references for approval for persistant use 
-        approvalRef = approval;
+        //approvalRef = approval;
         // set the approval account / application to the curretly logged in account
-        account = daoAccount.find(1);
-        app = daoApplication.find(1);
-        approval.setAccountIdaccount(account);
-        approval.setApplicationIdapplication(app);
+        //account = daoAccount.find(1);
+        //app = daoApplication.find(1);
+        //approval.setAccountIdaccount(account);
+        //approval.setApplicationIdapplication(app);
         daoApproval.create(approval);
         
         // set the final costing to quotes selected
@@ -203,11 +205,6 @@ public class ApprovalHandler implements ApprovalHandlerLocal{
         
     }
 
-
-
-
-
-   
 
 
     

@@ -23,7 +23,7 @@
             <p:menubar rendered="#{sessionBean.checkNotFirstTime()}">
                 <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goHome()}"/>
                 <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
-                <!--<p:menuitem value="Applications" icon="ui-icon-note" outcome="" />-->
+                
             </p:menubar>
         </div>
         <div id="content">
@@ -73,24 +73,30 @@
                                     <h:outputText value="Application name: *" />
                                     <p:inputText id="desc" value="#{appBean.description}" required="true" requiredMessage="Name of application missing" title="How would you like to remember this application">
                                         <p:ajax update="desc" event="blur"  />
+                                        <p:ajax update="nameMsg" event="keyup" />
                                     </p:inputText> 
-                                    <p:message for="desc" />
+                                    <p:message id="nameMsg" for="desc" />
 
                                     <h:outputText value="Date of initial departure: *" />
                                     <p:calendar id="departDate" required="true" requiredMessage="Date required" value="#{appBean.departureDate}" >
-                                        <p:ajax update="departDate" event="blur"  /> </p:calendar>
-                                    <p:message for="departDate" />
+                                        <p:ajax update="departDate" event="blur"  />
+                                        <p:ajax update="depDateMsg" event="keyup" />
+                                    </p:calendar>
+                                    <p:message id="depDateMsg" for="departDate" />
 
                                     <h:outputText value="Date of final return: *" />
                                     <p:calendar id="returnDate" required="true" requiredMessage="Date required" value="#{appBean.returnDate}" >
-                                        <p:ajax update="returnDate" event="blur"  /> </p:calendar>
-                                    <p:message for="returnDate" />
+                                        <p:ajax update="returnDate" event="blur"  />
+                                        <p:ajax update="retDateMsg" event="keyup" />
+                                    </p:calendar>
+                                    <p:message id="retDateMsg" for="returnDate" />
 
                                     <h:outputText value="Description of purpose of travel: *" />
                                     <p:inputTextarea id="description" value="#{appBean.reasonForTravel}" required="true" requiredMessage="Reason is required" >
                                         <p:ajax update="description" event="blur"  />
+                                        <p:ajax update="descMsg" event="keyup" />
                                     </p:inputTextarea> 
-                                    <p:message for="description" />
+                                    <p:message id="descMsg" for="description" />
 
                                 </h:panelGrid>
                             </p:panel>
@@ -124,8 +130,10 @@
                                 <h:panelGrid columns="3">
                                     <h:outputText value="Cost centre:" />
                                     <p:inputMask mask="999999-9999" id="costCentre" value="#{appBean.costCentre}" required="true" requiredMessage="Cost centre code required" >
-                                        <p:ajax update="costCentre" event="blur"  /></p:inputMask>
-                                    <p:message for="costCentre" />
+                                        <p:ajax update="costCentre" event="blur"  />
+                                        <p:ajax update="ccMsg" event="keyup" />
+                                    </p:inputMask>
+                                    <p:message for="costCentre" id="ccMsg"/>
                                 </h:panelGrid>
                                 
                                 <p:messages for="flightQuotes" id="flightQuoteError" severity="error" autoUpdate="true"/>

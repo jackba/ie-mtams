@@ -19,5 +19,6 @@ public interface AccountHandlerLocal {
     public Accountrole assignId(Account newAccount, int role);
     public boolean checkUsername(String username);
     public List<Account> getAllAccounts();
+    public Account getAccount(Integer id);
 
 }

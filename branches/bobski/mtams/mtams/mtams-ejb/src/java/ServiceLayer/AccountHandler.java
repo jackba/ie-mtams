@@ -70,6 +70,11 @@ public class AccountHandler implements AccountHandlerLocal {
     public List<Account> getAllAccounts(){
         return accDao.findAll();
     }
+
+    @Override
+    public Account getAccount(Integer id) {
+        return accDao.find(id);
+    }
     
 
 
