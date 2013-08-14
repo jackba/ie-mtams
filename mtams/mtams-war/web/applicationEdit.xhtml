@@ -31,23 +31,32 @@
 
                                 <h:outputText value="Date of Initial Departure:" />
                                 <p:inplace emptyLabel="Click to edit">
-                                    <p:calendar id="departDate" required="true" requiredMessage="Date required" value="#{appBean.departureDate}" />  
+                                    <p:calendar id="departDate" required="true" requiredMessage="Date required" value="#{appBean.departureDate}" >
+                                        <p:ajax update="departDate, depDateMsg" event="blur"  />
+                                        
+                                    </p:calendar>
                                 </p:inplace>
-                                <p:message for="departDate" />
+                                <p:message id="depDateMsg" for="departDate" />
 
 
                                 <h:outputText value="Date of Final Return:" />
                                 <p:inplace emptyLabel="Click to edit">
-                                    <p:calendar id="returnDate" required="true" requiredMessage="Date required" value="#{appBean.returnDate}" />
+                                    <p:calendar id="returnDate" required="true" requiredMessage="Date required" value="#{appBean.returnDate}" >
+                                        <p:ajax update="returnDate, retDateMsg" event="blur"  />
+                                        
+                                    </p:calendar>
                                 </p:inplace>
-                                <p:message for="returnDate" />
+                                <p:message id="retDateMsg" for="returnDate" />
 
 
                                 <h:outputText value="Description of Purpose of Travel:" />
                                 <p:inplace emptyLabel="Click to edit" >
-                                    <p:inputTextarea id="description" value="#{appBean.reasonForTravel}" required="true" requiredMessage="Reason is required" />    
+                                    <p:inputTextarea id="description" value="#{appBean.reasonForTravel}" required="true" requiredMessage="Reason is required" >
+                                        <p:ajax update="description" event="blur"  />
+                                        <p:ajax update="descMsg" event="keyup" />
+                                    </p:inputTextarea>
                                 </p:inplace>
-                                <p:message for="description" />
+                                <p:message id="descMsg" for="description" />
 
 
                             </h:panelGrid>
@@ -56,25 +65,25 @@
                             <h:panelGrid columns="3" columnClasses="label, value, error">
                                 <h:outputText value="Date:" />
                                 <p:inplace emptyLabel="Click to edit">
-                                    <p:calendar id="itinDate" value="#{appBean.tempDate}" required="true" requiredMessage="Date required"/>
+                                    <p:calendar id="itinDate" value="#{appBean.tempDate}" required="true" requiredMessage="Date required"><p:ajax update="tempDate" event="blur"  /></p:calendar> 
                                 </p:inplace>
                                 <p:message for="itinDate" />
 
                                 <h:outputText value="Destination:" />
                                 <p:inplace emptyLabel="Click to edit">
-                                    <p:inputText id="itinDest" value="#{appBean.tempDest}" required="true" immediate="true" requiredMessage="Entry required"/>    
+                                    <p:inputText id="itinDest" value="#{appBean.tempDest}" required="true" requiredMessage="Entry required"><p:ajax update="tempDest" event="blur"  /></p:inputText>
                                 </p:inplace>
                                 <p:message for="itinDest" />
 
                                 <h:outputText value="Business Leave/ Other:" />
                                 <p:inplace emptyLabel="Click to edit">
-                                    <p:inputText id="itinLeaveType" value="#{appBean.tempLeaveType}" required="true" requiredMessage="Entry required"/>
+                                    <p:inputText id="itinLeaveType" value="#{appBean.tempLeaveType}" required="true" requiredMessage="Entry required"> <p:ajax update="tempLeaveType" event="blur"  /></p:inputText>
                                 </p:inplace>
                                 <p:message for="itinLeaveType" />
 
                                 <h:outputText value="Travel day/Work day:" />
                                 <p:inplace emptyLabel="Click to edit">
-                                    <p:inputText id="itinTravelDay" value="#{appBean.tempTravelDay}" required="true" requiredMessage="Entry required"/>
+                                    <p:inputText id="itinTravelDay" value="#{appBean.tempTravelDay}" required="true" requiredMessage="Entry required"><p:ajax update="tempTravelDay" event="blur"  /></p:inputText>
                                 </p:inplace>
                                 <p:message for="itinTravelDay" />
 
@@ -84,9 +93,12 @@
                             <h:panelGrid columns="3" columnClasses="label, value, error">
                                 <h:outputText value="Cost Centre:" />
                                 <p:inplace emptyLabel="Click to edit">
-                                    <p:inputMask mask="999999-9999" id="costCentre" value="#{appBean.costCentre}" required="true" requiredMessage="Cost centre code required" />
+                                    <p:inputMask mask="999999-9999" id="costCentre" value="#{appBean.costCentre}" required="true" requiredMessage="Cost centre code required" >
+                                        <p:ajax update="costCentre" event="blur"  />
+                                        <p:ajax update="ccMsg" event="keyup" />
+                                    </p:inputMask>
                                 </p:inplace>
-                                <p:message for="costCentre" />
+                                <p:message for="costCentre" id="ccMsg"/>
 
                             </h:panelGrid>
 

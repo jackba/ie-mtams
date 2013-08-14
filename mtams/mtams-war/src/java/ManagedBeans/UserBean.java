@@ -5,12 +5,15 @@
 package ManagedBeans;
 
 import Entities.Application;
+import Entities.Approval;
 import javax.inject.Named;
 import Entities.Rewardsprogram;
 import Entities.Traveldocument;
 import Entities.Travelerprofile;
 import ServiceLayer.ApplicationHandlerLocal;
+import ServiceLayer.ApprovalHandlerLocal;
 import ServiceLayer.TravelProfileHandlerLocal;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -21,9 +24,11 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 
 import javax.faces.component.UIData;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
+import org.primefaces.model.SelectableDataModelWrapper;
 
 /**
  *
@@ -35,12 +40,16 @@ public class UserBean implements Serializable{
     //======change===change=========change============change=========change====
     private Integer accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
     //======change========change=========change=============change=============
-    
     private static final Logger logger = Logger.getLogger(ManagedBeans.UserBean.class.getName());
     
     @EJB
     private ApplicationHandlerLocal appHandler;
     private List<Application> allApps;
+	@EJB
+    private ApprovalHandlerLocal apprHandler;
+    private List<Approval> allApproved;
+    
+    private Application selectedApp;
     
     private String department; 
     @Pattern(message="Incorrect ID", regexp="[0-9]{8}")
@@ -52,6 +61,7 @@ public class UserBean implements Serializable{
     private String firstName;
     @Pattern(message="Incorrect Name", regexp="[a-zA-Z]{0,}")
     private String surname;
+	@Pattern(message="Incorrect Name", regexp="([a-zA-Z]{0,})?")
     private String middleName;
     private String title;
     @Pattern(message="Incorrect ID", regexp="[0-9]{13,15}")
@@ -59,22 +69,23 @@ public class UserBean implements Serializable{
     private String busAddress;
     @Pattern(message="Incorrect Number", regexp="[+0-9]{10,16}")
     private String busPhone;
-    @Pattern(message="Incorrect Number", regexp="[+0-9]{0,16}")
+    @Pattern(message="Incorrect Number", regexp="([+0-9]{10,16})?")
     private String busFax;
     private String homeAddress;
     @Pattern(message="Incorrect Number", regexp="[+0-9]{10,16}")
     private String mobilePhone;
-    @Pattern(message="Incorrect Number", regexp="[+0-9]{0,16}")
+    @Pattern(message="Incorrect Number", regexp="([+0-9]{10,16})?")
     private String homePhone;
     
     @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String email;
-    
+    @Pattern(message="Incorrect Name", regexp="([a-zA-Z]{0,})?")
     private String spouseName;
-    @Pattern(message="Incorrect Number", regexp="[+0-9]{0,16}")
+    @Pattern(message="Incorrect Number", regexp="([+0-9]{10,16})?")
     private String spouseContactNo;
-    
+    @Pattern(message="Incorrect E-mail format", regexp="(^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$)?")
     private String spouseEmail;
+	@Pattern(message="Incorrect Name", regexp="([a-zA-Z]{0,})?")
     private String docName;
     @Pattern(message="Incorrect Number", regexp="[+0-9]{10,16}")
     private String docContactNo;
@@ -87,6 +98,7 @@ public class UserBean implements Serializable{
     private String passportNo;
     private String country;
     private Date dateOfIssue;
+	@Future(message="Date needs to be further into the future")
     private Date expiryDate;
     private String validVisas;
     
@@ -150,6 +162,15 @@ public class UserBean implements Serializable{
 
     public void setAllApps(List<Application> allApps) {
         this.allApps = allApps;
+    }
+	
+	    public List<Approval> getAllApproved() {
+        allApproved = apprHandler.findApprovalbyAccount(accountID);
+        return allApproved;
+    }
+
+    public void setAllApproved(List<Approval> allApproved) {
+        this.allApproved = allApproved;
     }
     
     public String goToProfile(){
@@ -878,6 +899,35 @@ public class UserBean implements Serializable{
 
     public void setHotelAdditionalReq(String hotelAdditionalReq) {
         this.hotelAdditionalReq = hotelAdditionalReq;
+    }
+	
+	    public Application getSelectedApp() {
+        return selectedApp;
+    }
+
+    public void setSelectedApp(Application selectedApp) {
+        this.selectedApp = selectedApp;
+    }
+
+    public SelectableDataModelWrapper getDataModel() {
+        return dataModel;
+    }
+
+    public void setDataModel(SelectableDataModelWrapper dataModel) {
+        this.dataModel = dataModel;
+    }
+
+    public void display() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("appID", selectedApp.getIdapplication());
+            //return "./applicationApproval.xhtml";
+
+            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect(context.getRequestContextPath() + "/faces/applicationApproval.xhtml");
+            //FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success",(selectedApp.getIdapplication() + "Selected")));
+        } catch (IOException ex) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public String goHome(){

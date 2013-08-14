@@ -57,6 +57,7 @@ public class EditTravelProfileBean implements Serializable {
     private String firstName;
     @Pattern(message="Incorrect Name", regexp="[a-zA-Z]{0,}")
     private String surname;
+	@Pattern(message="Incorrect Name", regexp="([a-zA-Z]{0,})?")
     private String middleName;
     private String title;
     @Pattern(message="Incorrect ID", regexp="[0-9]{13,15}")
@@ -64,22 +65,25 @@ public class EditTravelProfileBean implements Serializable {
     private String busAddress;
     @Pattern(message="Incorrect Number", regexp="[+0-9]{10,16}")
     private String busPhone;
-    @Pattern(message="Incorrect Number", regexp="[+0-9]{0,16}")
+    @Pattern(message="Incorrect Number", regexp="([+0-9]{10,16})?")
     private String busFax;
     private String homeAddress;
     @Pattern(message="Incorrect Number", regexp="[+0-9]{10,16}")
     private String mobilePhone;
-    @Pattern(message="Incorrect Number", regexp="[+0-9]{0,16}")
+    @Pattern(message="Incorrect Number", regexp="([+0-9]{10,16})?")
     private String homePhone;
     
     @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String email;
-    
+	
+    @Pattern(message="Incorrect Name", regexp="([a-zA-Z]{0,})?")
     private String spouseName;
-    @Pattern(message="Incorrect Number", regexp="[+0-9]{0,16}")
+    @Pattern(message="Incorrect Number", regexp="([+0-9]{10,16})?")
     private String spouseContactNo;
-    
+    @Pattern(message="Incorrect E-mail format", regexp="(^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$)?")
     private String spouseEmail;
+	
+	@Pattern(message="Incorrect Name", regexp="([a-zA-Z]{0,})?")
     private String docName;
     @Pattern(message="Incorrect Number", regexp="[+0-9]{10,16}")
     private String docContactNo;
@@ -92,6 +96,7 @@ public class EditTravelProfileBean implements Serializable {
     private String passportNo;
     private String country;
     private Date dateOfIssue;
+	@Future(message="Date must be further into the future")
     private Date expiryDate;
     private String validVisas;
     
@@ -325,7 +330,8 @@ public class EditTravelProfileBean implements Serializable {
         passportEditRef.setValidvisa(validVisas);
         
         handler.persistProfileEdit(profileEditRef,accountID);
-        FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success","Changes have been saved"));
+        FacesContext.getCurrentInstance().addMessage("travelViewMessage", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success.","Changes have been saved"));
+        return "viewTravelProfile";
     }
     
     @PostConstruct

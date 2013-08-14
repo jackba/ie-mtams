@@ -22,6 +22,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Future;
 import org.primefaces.event.FlowEvent;
 
 /**
@@ -69,7 +70,9 @@ public class ForeignBean implements Serializable
     private int isUsingCC =2;
     private int isUsingCheq =2;
    
+	@Future
     private Date departure;
+	@Future
     private Date returnDate;    
     @Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
     private String ticketNumber;
@@ -89,12 +92,20 @@ public class ForeignBean implements Serializable
     private Date expire;
     @Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
     private String amount;
+	@Future
     private Date dateRequired;
+	@Future
     private Date dateForex;
     private String reasonForTravel;       
     private static final Logger logger = Logger.getLogger(ForeignBean.class.getName());      
    
     private int coverOptions;
+	
+	private Date currentDate = new Date();
+
+    public Date getCurrentDate() {
+        return currentDate;
+    }
     
     public ForeignBean()
     {
