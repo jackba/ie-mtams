@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <h:outputStylesheet name="styles.css"/>
+            <title>Conference Attendance Request</title>
+        </h:head>
+        <h:body>
+            <h:form>
+                <p:growl id="growl" sticky="true" showDetail="true"/>
+
+                <p:wizard widgetVar="conf_request"
+                          flowListener="#{conference.onFlowProcess}" >
+
+                    <p:tab id="personal" title="Personal">
+                        <p:panel header="Personal Details">
+
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputLabel for="schoolUnit" value="School/Administrative Unit:"/>
+                                <p:inputText id="schoolUnit" value="#{conference.travelerP.department}" readonly="true"/>
+
+                                <p:outputLabel for="staffNum" value="Staff Number:"/>
+                                <p:inputText id="staffNum" value="#{conference.travelerP.staffid}" readonly="true"/>
+
+                                <h:outputLabel for="staffTitle" value="Title:"/>
+                                <p:inputText id="staffTitle" value="#{conference.travelerP.title}" readonly="true"/>
+
+                                <p:outputLabel for="fName" value="Family Name:"/>
+                                <p:inputText id="fName" value="#{conference.travelerP.familyname}" readonly="true"/>
+
+                                <p:outputLabel for="lName" value="Given Names:"/>
+                                <p:inputText id="lName" value="#{conference.travelerP.firstname}" readonly="true"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab id="confDetails" title="Conference Details">
+                        <p:panel header="Conference Details">
+
+                            <h:panelGrid columns="3" columnClasses="label, value, error">
+                                <p:outputLabel for="confName" value="Conference Name:"/>
+                                <p:inputText id="confName" value="#{conference.confName}" required="true" requiredMessage="Required Field"/>
+                                <p:message for="confName" />
+
+
+                                <p:outputLabel for="website" value="Web Address:"/>
+                                <p:inputText id="website" value="#{conference.website}" required="true" requiredMessage="Required Field"/>
+                                <p:message for="website" />
+
+
+                                <h:outputText value="Country:"/>
+                                <p:selectOneMenu value="#{conference.country}" required="true" requiredMessage="Required Field">
+                                    <f:selectItem itemValue="country" itemLabel="South Africa"/>
+                                </p:selectOneMenu>
+                                <br />
+
+                                <p:outputLabel for="city" value="City/State:"/>
+                                <p:inputText id="city" value="#{conference.city}" required="true" requiredMessage="Required Field"/>
+                                <p:message for="city" />
+
+                                <h:outputText value="Are You Presenting a Paper?"/>
+                                <p:selectOneRadio id="isPresenting" value="#{conference.isPresenting}" required="true" requiredMessage="Required Field">
+                                    <f:selectItem itemLabel="Yes" itemValue="1"/>
+                                    <f:selectItem itemLabel="No" itemValue="2" />
+                                    <p:ajax event="change" update="isPresentingGrid"/>
+                                </p:selectOneRadio>
+                                <p:message for="isPresenting" />
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="3" id="isPresentingGrid" columnClasses="label, value, error">
+                                <p:outputLabel rendered="#{conference.isPresenting eq '1'}" for="paperTitle" value="Title of Paper:" title="Title of paper:"/>
+                                <p:inputText rendered="#{conference.isPresenting eq '1'}" id="paperTitle" value="#{conference.paperTitle}" required="true" requiredMessage="Required Field"/>
+                                <p:message for="paperTitle" />
+
+
+                                <p:outputLabel rendered="#{conference.isPresenting eq '1'}" for="author" value="Specify All Authors and Affiliations:"/>
+                                <h:inputTextarea rendered="#{conference.isPresenting eq '1'}" id="author" value="#{conference.author}" required="true" requiredMessage="Required Field"/>
+                                <p:message for="author" />
+                                <br />
+
+                                <p:outputLabel rendered="#{conference.isPresenting eq '2'}" for="specialReason" value="Special Reason For Attendance:"/>
+                                <p:inputText rendered="#{conference.isPresenting eq '2'}" id="specialReason" value="#{conference.specialReason}" required="true" requiredMessage="Required Field"/>
+                                <p:message for="specialReason" />
+
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="3" columnClasses="label, value, error">
+                                <p:outputLabel for="presentationDate" value="Date of Internal MSA Presentation:"/>
+                                <p:calendar id="presentationDate" value="#{conference.presentationDate}" navigator="true" showOn="button" required="true" requiredMessage="Required Field"/>
+                                <p:message for="presentationDate" />
+
+                            </h:panelGrid>
+
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab id="confDuration" title="Conference Duration">
+                        <p:panel header="Conference Duration">
+
+                            <h:panelGrid columns="3" columnClasses="label, value, error">
+                                <p:outputLabel for="fromDate" value="Date From:"/>
+                                <p:calendar id="fromDate" value="#{conference.toDate}" navigator="true" showOn="button" required="true" requiredMessage="Required Field"/>
+                                <p:message for="fromDate" />
+
+                                <p:outputLabel for="toDate" value="Date To:"/>
+                                <p:calendar id="toDate" value="#{conference.fromDate}" navigator="true" showOn="button" required="true" requiredMessage="Required Field"/>
+                                <p:message for="toDate" />
+
+                                <p:outputLabel for="diffDays" value="Days:"/>
+                                <p:inputText id="diffDays" value="#{conference.diffDays}" readonly="true" requiredMessage="Required Field"/>
+                                <br />
+
+                                <h:outputText value="Do You Need Coverage For Teaching Commitments?" />
+                                <p:selectOneRadio id="coverOptions" value="#{conference.coverOptions}" required="true" requiredMessage="Required Field">
+                                    <f:selectItem itemLabel="Yes" itemValue="yes" />
+                                    <f:selectItem itemLabel="No" itemValue="no" />
+                                    <f:selectItem itemLabel="N/A" itemValue="na" />
+                                    <p:ajax event="change" update="coverOptionsGrid" />
+                                </p:selectOneRadio>
+                                <p:message for="coverOptions" />
+
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="3" id="coverOptionsGrid" columnClasses="label, value, error">
+                                <p:outputLabel rendered="#{conference.coverOptions eq 'yes'}" for="arrangements" value="Proposed Arrangements To Cover Teaching Tommitments:"/>
+                                <h:inputTextarea rendered="#{conference.coverOptions eq  'yes'}" id="arrangements" value="#{conference.coverDetails}" required="true" requiredMessage="Required Field"/>
+                                <p:message for="arrangements" />
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+
+                    <p:tab id="funding" title="Funding">
+                        <p:panel header="Funding">
+
+                            <h:panelGrid columns="3" columnClasses="label, value, error">
+                                <p:outputLabel for="fundingOptions" value="Sources of Funding:"/>
+                                <p:selectOneRadio id="fundingOptions" value="#{conference.fundingOptions}" required="true" requiredMessage="Required Field">
+                                    <f:selectItem itemLabel="School/Admin Unit" itemValue="School/Admin Unit" />
+                                    <f:selectItem itemLabel="Research Grant" itemValue="Research Grant" />
+                                    <f:selectItem itemLabel="Other (Specify below)" itemValue="Other" />
+                                    <p:ajax event="change" update="fundingOptionsGrid"/>
+                                </p:selectOneRadio>
+                                <p:message for="fundingOptions" />
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="3" id="fundingOptionsGrid" columnClasses="label, value, error">
+                                <p:outputLabel rendered="#{conference.fundingOptions eq 'Other'}" for="otherSources" value="Other Sources of Funding:"/>
+                                <p:inputText rendered="#{conference.fundingOptions eq 'Other'}" id="otherSources" value="#{conference.otherFunding}" required="true" requiredMessage="Required Field"/>
+                                <p:message for="otherSources" />
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="3" columnClasses="label, value, error">
+                                <p:outputLabel for="costCentre" value="Cost Centre:"/>
+                                <p:inputText id="costCentre" value="#{conference.quotes.costcenter}" readonly="true"/>
+                                <br />
+
+                                <p:outputLabel for="fund" value="Fund Name:"/>
+                                <p:inputText id="fund" value="#{conference.fundName}"/>
+                                <p:message for="fund" />
+
+                            </h:panelGrid>
+
+                            <p:commandButton value="Submit" update="growl" action="#{conference.save()}" ajax="false"/>
+                        </p:panel>
+                    </p:tab>
+
+                </p:wizard>
+            </h:form>
+        </h:body>
+    </f:view>
+</html>
