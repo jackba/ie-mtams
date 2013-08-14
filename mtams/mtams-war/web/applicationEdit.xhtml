@@ -22,9 +22,11 @@
                             <h:panelGrid columns="3" columnClasses="label, value, error" >
                                 <h:outputText value="Application Name:" />
                                 <p:inplace emptyLabel="Click to edit">
-                                    <p:inputText id="desc" value="#{appBean.description}" required="true" requiredMessage="Name of application missing" title="How would you like to remember this application"/>
+                                    <p:inputText id="desc" value="#{appBean.description}" required="true" requiredMessage="Name of application missing" title="How would you like to remember this application">
+                                        <p:ajax update="nameMsg" event="keyup" />
+                                    </p:inputText>
                                 </p:inplace>
-                                <p:message for="desc" />
+                                <p:message id="nameMsg" for="desc" />
 
 
                                 <h:outputText value="Date of Initial Departure:" />
