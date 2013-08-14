@@ -38,7 +38,7 @@
                     <p:button outcome="#{userBean.goNewApp()}" icon="ui-icon-plus" id="createButton"  title="Create Button" value="Create New" />
 
 
-                    <p:dataTable id="applications" var="app" value="#{userBean.allApps}" emptyMessage="No Applications have been created">  
+                    <p:dataTable id="applications" var="app" binding="#{userBean.dataTable}" value="#{userBean.allApps}" rowKey="#{app.idapplication}" selectionMode="single" selection="#{userBean.selectedApp}" emptyMessage="No Applications have been created">  
                         <p:ajax event="rowSelect" listener="#{userBean.display()}" 
                                 update=":userHomeForm" />
                         <p:column headerText="Description" style="width:35%">  

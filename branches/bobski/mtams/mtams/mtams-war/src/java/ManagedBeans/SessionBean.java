@@ -93,7 +93,7 @@ public class SessionBean implements Serializable {
         user = handler.authenticate(this.username, this.password);
         if (user != null) {
             int roleNum = handler.getAccountRole(user);
-            if (roleNum < 20) {
+            if (roleNum == 11) {
 
                 //session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 setSessionVariables();
@@ -109,6 +109,20 @@ public class SessionBean implements Serializable {
                     return "userHome.xhtml";//"viewApplication";//
                 }
                 //logError = false;
+                
+            }else if (roleNum == 12){
+                setSessionVariables();
+                if (user.getDatelogin() == null) {
+
+                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", true);
+                    addDate();
+                    return "travelProfile";
+                } else {
+                    //addDate();
+                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
+                    addDate();
+                    return "authorizerHome.xhtml";//"viewApplication";//
+                }
 
             } else if (roleNum == 21) {
 
