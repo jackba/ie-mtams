@@ -23,4 +23,5 @@ public interface AccountHandlerLocal {
     public List<Account> getAllAccounts();
     public List<Account> getAllAdmins();
     public void editAdminPersist(Account admin);
+	public Account getAccount(Integer id);
 }

@@ -145,7 +145,14 @@ public class AccountHandler implements AccountHandlerLocal {
         }
         return adminList;
     }
+	
+	@Override
     public void editAdminPersist(Account admin){
         accDao.edit(admin);
+    }
+	
+	    @Override
+    public Account getAccount(Integer id) {
+        return accDao.find(id);
     }
 }
