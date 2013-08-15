@@ -25,7 +25,14 @@
                         <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout</p:commandLink></li>
                     </ul>
                 </div>
-                <h:form id="userHomeForm">
+                <div class="nav"><h:form>
+                        <p:menubar>
+                            <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goAuthHome()}"/>
+                            <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
+
+                        </p:menubar></h:form>
+                </div>
+                <h:form id="authorizerHomeForm">
                     <p:messages autoUpdate="true" id="userTop" closable="true" showDetail="true" />
 
                     <p:panel id="appPanel" header="Current Applications">
@@ -34,7 +41,7 @@
 
                         <p:dataTable id="applications" var="app" binding="#{userBean.dataTable}" value="#{userBean.allApps}" rowKey="#{app.idapplication}" selectionMode="single" selection="#{userBean.selectedApp}" emptyMessage="No Applications have been Submitted for Approval">  
                             <p:ajax event="rowSelect" listener="#{userBean.display()}" 
-                                    update=":userHomeForm" />
+                                    update=":authorizerHomeForm" />
                             <p:column headerText="Description" style="width:35%">  
                                 <h:outputText value="#{app.description}" />  
                             </p:column>  
