@@ -5,8 +5,8 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -52,7 +52,7 @@ public class Application implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date datemodified;
     @OneToMany(mappedBy = "applicationIdapplication")
-    private List<Attachement> attachementList;
+    private Collection<Attachement> attachementCollection;
     @JoinColumn(name = "TRAVELERPROFILE_IDTRAVELERPROFILE", referencedColumnName = "IDTRAVELERPROFILE")
     @ManyToOne(optional = false)
     private Travelerprofile travelerprofileIdtravelerprofile;
@@ -75,7 +75,7 @@ public class Application implements Serializable {
     @ManyToOne(optional = false)
     private Account accountIdaccount;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "applicationIdapplication")
-    private List<Approval> approvalList;
+    private Collection<Approval> approvalCollection;
 
     public Application() {
     }
@@ -109,12 +109,12 @@ public class Application implements Serializable {
     }
 
     @XmlTransient
-    public List<Attachement> getAttachementList() {
-        return attachementList;
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
     }
 
-    public void setAttachementList(List<Attachement> attachementList) {
-        this.attachementList = attachementList;
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
     }
 
     public Travelerprofile getTravelerprofileIdtravelerprofile() {
@@ -174,12 +174,12 @@ public class Application implements Serializable {
     }
 
     @XmlTransient
-    public List<Approval> getApprovalList() {
-        return approvalList;
+    public Collection<Approval> getApprovalCollection() {
+        return approvalCollection;
     }
 
-    public void setApprovalList(List<Approval> approvalList) {
-        this.approvalList = approvalList;
+    public void setApprovalCollection(Collection<Approval> approvalCollection) {
+        this.approvalCollection = approvalCollection;
     }
 
     @Override

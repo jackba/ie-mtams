@@ -5,8 +5,8 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -102,9 +102,9 @@ public class Forexorder implements Serializable {
     @Column(name = "REASONFORTRAVEL")
     private String reasonfortravel;
     @OneToMany(mappedBy = "forexorderIdforexorder")
-    private List<Attachement> attachementList;
+    private Collection<Attachement> attachementCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "forexorderIdforexorder")
-    private List<Application> applicationList;
+    private Collection<Application> applicationCollection;
 
     public Forexorder() {
     }
@@ -242,21 +242,21 @@ public class Forexorder implements Serializable {
     }
 
     @XmlTransient
-    public List<Attachement> getAttachementList() {
-        return attachementList;
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
     }
 
-    public void setAttachementList(List<Attachement> attachementList) {
-        this.attachementList = attachementList;
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
     }
 
     @XmlTransient
-    public List<Application> getApplicationList() {
-        return applicationList;
+    public Collection<Application> getApplicationCollection() {
+        return applicationCollection;
     }
 
-    public void setApplicationList(List<Application> applicationList) {
-        this.applicationList = applicationList;
+    public void setApplicationCollection(Collection<Application> applicationCollection) {
+        this.applicationCollection = applicationCollection;
     }
 
     @Override

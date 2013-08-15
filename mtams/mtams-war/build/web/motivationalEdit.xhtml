@@ -1,87 +1,64 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Motivational Form Edit</title>
-        <link href="css/styles.css" rel="Stylesheet" type="text/css" />
-    </h:head>
-    <h:body>
-        <div id ="header">
-            <div id="logo">
-                <h:form>
-                    <h:commandLink action="#{userBean.goHome()}">
-                        <h:graphicImage value="img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
-                    </h:commandLink>
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+
+            <ui:define name="content">
+                <h:form id="motivform">
+                    <p:tab id="moti" title="Motivation">  
+                        <p:panel header="Motivational Form - All fields are required">  
+
+                            <fieldset><legend>Motivation</legend>
+                                <p:messages id="submitConfirm" closable="true" autoUpdate="true" severity="info"/>
+                                <h:panelGrid id="motivate" columns="3" columnClasses="label, value, error">  
+                                    <h:outputText value="Supplier/Service Provider: " />  
+                                    <p:inplace id="supplierIP" emptyLabel="Click here to Edit">
+                                        <p:inputText id="supplier" value="#{motivBean.supplier}"> 
+                                            <p:ajax update="supError" event="keyup"/>  
+                                        </p:inputText>
+                                    </p:inplace>
+                                    <p:message id="supError" for="supplier"/>
+
+                                    <h:outputText value="Amount: " />  
+                                    <h:outputText id="amount" value="#{motivBean.finalC.approvedcost}"/> 
+                                    <h:message for="amount"/>
+
+                                    <h:outputText value="Cost Code: " />  
+                                    <h:outputText id="cost" value="#{motivBean.quote.costcenter}"/>  
+                                    <h:message for="cost"/>
+
+                                    <h:outputText value="Motivation: " /> 
+                                    <p:inplace id="motivIP" emptyLabel="Click here to Edit">
+                                        <p:inputTextarea id="motiv" value="#{motivBean.motivationLetter}"/>
+                                    </p:inplace>
+                                    <p:message for="motiv"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid id="motivateGrid" columns="4" columnClasses="label, value, error">
+                                    <h:outputText value="Budget Available: "/> 
+                                    <p:inplace id="budgetRadioIP" emptyLabel="Select the button to Edit">
+                                        <p:selectOneRadio id="budgetRadio" value="#{motivBean.budget}">
+                                            <f:selectItem itemValue="1" itemLabel="Yes" />
+                                            <f:selectItem itemValue="0" itemLabel="No" />
+                                        </p:selectOneRadio>
+                                    </p:inplace>
+                                    <p:message for="budgetRadio"/>
+                                </h:panelGrid>
+                            </fieldset>
+                            <p:commandButton value="Submit" action="#{motivBean.updateMoti()}" ajax="false"/>  
+                        </p:panel>  
+                    </p:tab>  
                 </h:form>
-            </div>
+            </ui:define>
 
-            <ul>
-                <li><a href="">Help</a></li>
-                <li><a href="">Logout</a></li>
-            </ul>
-        </div>
-        <h:form id="motivform">
-            <p:tab id="moti" title="Motivation">  
-                <p:panel header="Motivational Form - All fields are required">  
+        </ui:composition>
 
-                    <fieldset><legend>Motivation</legend>
-                        <p:messages id="submitConfirm" closable="true" autoUpdate="true" severity="info"/>
-                        <h:panelGrid id="motivate" columns="3">  
-                            <h:outputText value="Supplier/Service Provider: " />  
-                            <p:inplace id="supplierIP" emptyLabel="Click here to Edit">
-                                <p:inputText id="supplier" value="#{motivBean.supplier}"> 
-                                    <p:ajax update="supError" event="keyup"/>  
-                                </p:inputText>
-                            </p:inplace>
-                            <p:message id="supError" for="supplier"/>
-
-                            <h:outputText value="Amount: " />  
-                            <h:outputText id="amount" value="#{motivBean.finalC.approvedcost}"/> 
-                            <h:message for="amount"/>
-
-                            <h:outputText value="Cost Code: " />  
-                            <h:outputText id="cost" value="#{motivBean.quote.costcenter}"/>  
-                            <h:message for="cost"/>
-
-                            <h:outputText value="Motivation: " /> 
-                            <p:inplace id="motivIP" emptyLabel="Click here to Edit">
-                                <p:inputTextarea id="motiv" value="#{motivBean.motivationLetter}"/>
-                            </p:inplace>
-                            <p:message for="motiv"/>
-                        </h:panelGrid>
-
-                        <h:panelGrid id="motivateGrid" columns="4">
-                            <h:outputText value="Budget Available: "/> 
-                            <p:inplace id="budgetRadioIP" emptyLabel="Select the button to Edit">
-                                <p:selectOneRadio id="budgetRadio" value="#{motivBean.budget}">
-                                    <f:selectItem itemValue="1" itemLabel="Yes" />
-                                    <f:selectItem itemValue="0" itemLabel="No" />
-                                </p:selectOneRadio>
-                            </p:inplace>
-                            <p:message for="budgetRadio"/>
-                        </h:panelGrid>
-                    </fieldset>
-                    <p:commandButton value="Submit" action="#{motivBean.updateMoti()}" ajax="false"/>  
-                </p:panel>  
-            </p:tab>  
-        </h:form>
-        <div id= "footer">
-            <div class="row group">
-                <div class="col">
-                    <h3>Quick links</h3>
-                    <ul>
-                        <li><a href="">Site Map</a></li>
-                        <li><a href="">FAQ</a></li>
-                        <li><a href="">Contact us</a></li>
-                    </ul>
-                </div>
-
-                <h3>Legal</h3>
-                <p class="legal">Created by school of IT, Monash University South Africa</p>  
-            </div>
-        </div>
-    </h:body>
+    </body>
 </html>

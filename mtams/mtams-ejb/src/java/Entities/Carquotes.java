@@ -5,8 +5,8 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -66,7 +66,7 @@ public class Carquotes implements Serializable {
     @ManyToOne(optional = false)
     private Quotes quotesIdquotes;
     @OneToMany(mappedBy = "carquotesIdcarquotes")
-    private List<Attachement> attachementList;
+    private Collection<Attachement> attachementCollection;
 
     public Carquotes() {
     }
@@ -132,12 +132,12 @@ public class Carquotes implements Serializable {
     }
 
     @XmlTransient
-    public List<Attachement> getAttachementList() {
-        return attachementList;
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
     }
 
-    public void setAttachementList(List<Attachement> attachementList) {
-        this.attachementList = attachementList;
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
     }
 
     @Override

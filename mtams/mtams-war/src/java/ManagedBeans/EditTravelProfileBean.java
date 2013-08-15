@@ -22,6 +22,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
 
@@ -270,7 +271,7 @@ public class EditTravelProfileBean implements Serializable {
         return "userHome";
     }
     
-    public void update(){
+    public String update(){
         profileEditRef.setDepartment(department);
         profileEditRef.setStaffid(staffID);
         profileEditRef.setPosition(position);
@@ -331,7 +332,7 @@ public class EditTravelProfileBean implements Serializable {
         
         handler.persistProfileEdit(profileEditRef,accountID);
         FacesContext.getCurrentInstance().addMessage("travelViewMessage", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success.","Changes have been saved"));
-        return "viewTravelProfile";
+        return "travelProfileView";
     }
     
     @PostConstruct

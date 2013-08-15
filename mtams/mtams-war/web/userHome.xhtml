@@ -3,22 +3,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
 
     <body>
 
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-			
-			<p:messages autoUpdate="true" id="userTop" closable="true" showDetail="true" />
+                <div id="header">
+                    <div id="logo">
+                        <h:form>
+                            <h:commandLink action="userHome.xhtml">
+                                <h:graphicImage value="resources/img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
+                            </h:commandLink>
+                        </h:form>
+                    </div>
+
+                    <ul>
+                        <li>Help</li>
+                        <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout</p:commandLink></li>
+                    </ul>
+                </div>
+                <div class="nav"><h:form>
+                        <p:menubar>
+                            <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goHome()}"/>
+                            <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
+
+                        </p:menubar></h:form>
+                </div>
+                <p:messages autoUpdate="true" id="userTop" closable="true" showDetail="true" />
                 <p:panel id="appPanel" header="Current Applications">
                     <p:button outcome="#{userBean.goNewApp()}" icon="ui-icon-plus" id="createButton"  title="Create Button" value="Create New" />
 
-					<h4>Your application</h4>
-                    <p:dataTable id="applications" var="app" value="#{userBean.allApps}" emptyMessage="No Applications have been created">  
+                    <h4>Your application</h4>
+                    <p:dataTable id="applications" var="app" value="#{userBean.allApps}" rowKey="#{app.idapplication}" selectionMode="single" selection="#{userBean.selectedApp}" emptyMessage="No Applications have been created">  
                         <p:ajax event="rowSelect" listener="#{userBean.display()}" 
-                                update=":userHomeForm" />
+                                update=":appPanel" />
                         <p:column headerText="Description" style="width:35%">  
                             <h:outputText value="#{app.description}" />  
                         </p:column>  
@@ -34,10 +55,10 @@
 
 
                     </p:dataTable>
-					<br /><br />
-					<h4>Applications sent for approval</h4>
+                    <br /><br />
+                    <h4>Applications sent for approval</h4>
                     <p:dataTable id="approvals" var="appr" value="#{userBean.allApproved}" emptyMessage="No Applications have been created">  
-                        
+
                         <p:column headerText="Application Name" style="width:35%">  
                             <h:outputText value="#{appr.applicationIdapplication.description}" />  
                         </p:column>  
