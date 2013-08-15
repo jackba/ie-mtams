@@ -45,7 +45,7 @@ public class SuperAdminBean implements Serializable {
         return "./createAdmin.xhtml";
     }
     public String goToEditAdmin(){
-        return "./deactivateAccount.xhtml";//"./editAdminSelect.xhtml";
+        return "./editAdminSelect.xhtml";
     }
     public String goToCreateRole(){
         return "./createRole.xhtml";

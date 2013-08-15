@@ -313,12 +313,13 @@ public class ApplicationBean implements Serializable {
 
     public String viewThis(){
         //loadValues();
-        return "/viewApplication.xhtml";
+        return "/applicationView.xhtml";
     }
     
     public String goEdit(){
-        loadValues();
-        return "editApplication";
+        //loadValues();
+        initialize();
+        return "applicationEdit";
     }
     
     public String update(){
@@ -344,7 +345,7 @@ public class ApplicationBean implements Serializable {
         
         appHandler.persistApplicationEdit(appRef, quoteRef, itinRef, travelRef);
         FacesContext.getCurrentInstance().addMessage("submitAppConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success","Changes have been saved"));
-        return "/viewApplication.xhtml";
+        return "/applicationView.xhtml";
     }
     //dada
     //@PostConstruct
