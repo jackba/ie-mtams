@@ -19,11 +19,12 @@
                             </h:commandLink>
                         </h:form>
                     </div>
-
+                    <h:form>
                     <ul>
                         <li>Help</li>
                         <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout</p:commandLink></li>
                     </ul>
+                    </h:form>
                 </div>
         <div id = "content">
             <h:form id="deactivateForm">
