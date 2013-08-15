@@ -39,7 +39,7 @@
                             <p:watermark for="password" value="Type password *"/>
                             <p:message for="password"/>
 
-                            <p:commandButton id="loginButton" value="Login" update="loginForm" action="#{sessionBean.validate()}"/>
+                            <p:commandButton id="loginButton" value="Login" update="loginForm" action="#{sessionBean.validate()}" ajax="false"/>
 
                         </h:panelGrid>
                     </p:focus>

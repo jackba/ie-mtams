@@ -97,32 +97,34 @@ public class SessionBean implements Serializable {
                 if (roleNum == 11) {
 
                     //session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-                    setSessionVariables();
+                    //setSessionVariables();
                     if (user.getDatelogin() == null) {
-
+                        setSessionVariables();
                         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", true);
                         addDate();
-                        return "travelProfileCreate";
+                        return "./travelProfileCreate.xhtml";
                     } else {
                         //addDate();
+                        setSessionVariables();
                         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
                         addDate();
-                        return "userHome.xhtml";//"viewApplication";//
+                        return "./userHome.xhtml";//"viewApplication";//
                     }
                     //logError = false;
 
                 } else if (roleNum == 12) {
-                    setSessionVariables();
+                    //setSessionVariables();
                     if (user.getDatelogin() == null) {
-
+                        setSessionVariables();
                         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", true);
                         addDate();
-                        return "travelProfileCreate";
+                        return "./travelProfileCreate.xhtml";
                     } else {
                         //addDate();
+                        setSessionVariables();
                         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
                         addDate();
-                        return "authorizerHome.xhtml";//"viewApplication";//
+                        return "./authorizerHome.xhtml";//"viewApplication";//
                     }
 
                 } else if (roleNum == 21) {

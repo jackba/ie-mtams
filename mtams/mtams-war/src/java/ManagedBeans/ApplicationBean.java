@@ -149,7 +149,7 @@ public class ApplicationBean implements Serializable {
     public ApplicationBean() {
     }
 
-    @PostConstruct
+    //@PostConstruct
     public void initialize() {
         accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 //        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
