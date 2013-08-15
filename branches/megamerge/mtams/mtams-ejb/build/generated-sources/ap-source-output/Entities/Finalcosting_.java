@@ -4,11 +4,11 @@ import Entities.Application;
 import Entities.Attachement;
 import Entities.Quotes;
 import javax.annotation.Generated;
-import javax.persistence.metamodel.ListAttribute;
+import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2013-08-07T17:48:31")
+@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2013-08-14T23:52:40")
 @StaticMetamodel(Finalcosting.class)
 public class Finalcosting_ { 
 
@@ -21,7 +21,6 @@ public class Finalcosting_ {
     public static volatile SingularAttribute<Finalcosting, String> countries;
     public static volatile SingularAttribute<Finalcosting, Double> conferencecost;
     public static volatile SingularAttribute<Finalcosting, Double> visabudget;
-    public static volatile ListAttribute<Finalcosting, Application> applicationList;
     public static volatile SingularAttribute<Finalcosting, String> oztel;
     public static volatile SingularAttribute<Finalcosting, Integer> perdiemdays;
     public static volatile SingularAttribute<Finalcosting, String> administrativeunit;
@@ -34,9 +33,8 @@ public class Finalcosting_ {
     public static volatile SingularAttribute<Finalcosting, Double> carrentalbudget;
     public static volatile SingularAttribute<Finalcosting, Integer> fromoz;
     public static volatile SingularAttribute<Finalcosting, String> ozname;
-    public static volatile SingularAttribute<Finalcosting, Integer> idfinalcosting;
-    public static volatile ListAttribute<Finalcosting, Attachement> attachementList;
     public static volatile SingularAttribute<Finalcosting, Double> approvedbudget;
+    public static volatile SingularAttribute<Finalcosting, Integer> idfinalcosting;
     public static volatile SingularAttribute<Finalcosting, Double> accommodationcost;
     public static volatile SingularAttribute<Finalcosting, Double> perdiemcost;
     public static volatile SingularAttribute<Finalcosting, Double> perdiembudget;
@@ -44,6 +42,8 @@ public class Finalcosting_ {
     public static volatile SingularAttribute<Finalcosting, Double> accommodationbudget;
     public static volatile SingularAttribute<Finalcosting, Double> conferencebudget;
     public static volatile SingularAttribute<Finalcosting, String> otherdiscription;
+    public static volatile CollectionAttribute<Finalcosting, Application> applicationCollection;
+    public static volatile CollectionAttribute<Finalcosting, Attachement> attachementCollection;
     public static volatile SingularAttribute<Finalcosting, Double> airfarebudget;
     public static volatile SingularAttribute<Finalcosting, Integer> absencebussiness;
 

@@ -5,8 +5,8 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -212,13 +212,13 @@ public class Travelerprofile implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date datemodified;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelerprofileIdtravelerprofile")
-    private List<Rewardsprogram> rewardsprogramList;
+    private Collection<Rewardsprogram> rewardsprogramCollection;
     @OneToMany(mappedBy = "travelerprofileIdtravelerprofile")
-    private List<Attachement> attachementList;
+    private Collection<Attachement> attachementCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "travlerprofileIdtravlerprofile")
-    private List<Traveldocument> traveldocumentList;
+    private Collection<Traveldocument> traveldocumentCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelerprofileIdtravelerprofile")
-    private List<Application> applicationList;
+    private Collection<Application> applicationCollection;
     @JoinColumn(name = "ACCOUNTID", referencedColumnName = "IDACCOUNT")
     @ManyToOne(optional = false)
     private Account accountid;
@@ -575,39 +575,39 @@ public class Travelerprofile implements Serializable {
     }
 
     @XmlTransient
-    public List<Rewardsprogram> getRewardsprogramList() {
-        return rewardsprogramList;
+    public Collection<Rewardsprogram> getRewardsprogramCollection() {
+        return rewardsprogramCollection;
     }
 
-    public void setRewardsprogramList(List<Rewardsprogram> rewardsprogramList) {
-        this.rewardsprogramList = rewardsprogramList;
-    }
-
-    @XmlTransient
-    public List<Attachement> getAttachementList() {
-        return attachementList;
-    }
-
-    public void setAttachementList(List<Attachement> attachementList) {
-        this.attachementList = attachementList;
+    public void setRewardsprogramCollection(Collection<Rewardsprogram> rewardsprogramCollection) {
+        this.rewardsprogramCollection = rewardsprogramCollection;
     }
 
     @XmlTransient
-    public List<Traveldocument> getTraveldocumentList() {
-        return traveldocumentList;
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
     }
 
-    public void setTraveldocumentList(List<Traveldocument> traveldocumentList) {
-        this.traveldocumentList = traveldocumentList;
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
     }
 
     @XmlTransient
-    public List<Application> getApplicationList() {
-        return applicationList;
+    public Collection<Traveldocument> getTraveldocumentCollection() {
+        return traveldocumentCollection;
     }
 
-    public void setApplicationList(List<Application> applicationList) {
-        this.applicationList = applicationList;
+    public void setTraveldocumentCollection(Collection<Traveldocument> traveldocumentCollection) {
+        this.traveldocumentCollection = traveldocumentCollection;
+    }
+
+    @XmlTransient
+    public Collection<Application> getApplicationCollection() {
+        return applicationCollection;
+    }
+
+    public void setApplicationCollection(Collection<Application> applicationCollection) {
+        this.applicationCollection = applicationCollection;
     }
 
     public Account getAccountid() {

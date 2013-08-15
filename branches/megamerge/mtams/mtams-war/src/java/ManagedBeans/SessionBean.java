@@ -83,72 +83,76 @@ public class SessionBean implements Serializable {
 
     private void setSessionVariables() {
         //FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID",user.getIdaccount());
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", user.getIdaccount());
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", user.getUsername());
         //session.setAttribute("userID", user.getIdaccount());
 //        session.setAttribute("username", user.getUsername());
     }
 
-public String validate() {
+    public String validate() {
         user = handler.authenticate(this.username, this.password);
-        if (user != null) {
-            int roleNum = handler.getAccountRole(user);
-            if (roleNum == 11) {
+        Integer roleNum = handler.getAccountRole(user);
+        if (user != null && roleNum != null) {
+            
+                if (roleNum == 11) {
 
-                //session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-                setSessionVariables();
-                if (user.getDatelogin() == null) {
+                    //session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                    setSessionVariables();
+                    if (user.getDatelogin() == null) {
 
-                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", true);
+                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", true);
+                        addDate();
+                        return "travelProfileCreate";
+                    } else {
+                        //addDate();
+                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
+                        addDate();
+                        return "userHome.xhtml";//"viewApplication";//
+                    }
+                    //logError = false;
+
+                } else if (roleNum == 12) {
+                    setSessionVariables();
+                    if (user.getDatelogin() == null) {
+
+                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", true);
+                        addDate();
+                        return "travelProfileCreate";
+                    } else {
+                        //addDate();
+                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
+                        addDate();
+                        return "authorizerHome.xhtml";//"viewApplication";//
+                    }
+
+                } else if (roleNum == 21) {
+
                     addDate();
-                    return "travelProfile";
+                    // session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                    setSessionVariables();
+                    //logError = false;
+                    return "accountAll";
+
+                } else if (roleNum == 22) {
+
+                    addDate();
+                    // session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                    setSessionVariables();
+                    //logError = false;
+                    return "superHome";
                 } else {
-                    //addDate();
-                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
-                    addDate();
-                    return "userHome.xhtml";//"viewApplication";//
+                    FacesContext.getCurrentInstance().addMessage("loginMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Account has been deactivated. Please contact admin."));
+                    return "login";
                 }
-                //logError = false;
-                
-            }else if (roleNum == 12){
-                setSessionVariables();
-                if (user.getDatelogin() == null) {
-
-                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", true);
-                    addDate();
-                    return "travelProfile";
-                } else {
-                    //addDate();
-                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
-                    addDate();
-                    return "authorizerHome.xhtml";//"viewApplication";//
-                }
-
-            } else if (roleNum == 21) {
-
-                addDate();
-                // session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-                setSessionVariables();
-                //logError = false;
-                return "adminHome";
-
-            } else if (roleNum == 22) {
-
-                addDate();
-                // session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-                setSessionVariables();
-                //logError = false;
-                return "superHome";
             } else {
-                FacesContext.getCurrentInstance().addMessage("loginMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Account has been deactivated. Please contact admin."));
+                FacesContext.getCurrentInstance().addMessage("loginMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Incorrect username/password combination"));
                 return "login";
             }
-        } else {
-            FacesContext.getCurrentInstance().addMessage("loginMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Incorrect username/password combination"));
-            return "login";
+        
+
         }
 
-    }
+    
 
     public String invalidate() {
         //HttpServletRequest request = (HttpServletRequest);
@@ -163,10 +167,7 @@ public String validate() {
         } finally {
             return "login";
         }
-        
+
 
     }
-
-    
-    
 }

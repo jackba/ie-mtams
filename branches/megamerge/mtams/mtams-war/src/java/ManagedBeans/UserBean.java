@@ -26,6 +26,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIData;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.model.SelectableDataModelWrapper;
@@ -174,20 +175,20 @@ public class UserBean implements Serializable{
     }
     
     public String goToProfile(){
-        return "travelProfile";
+        return "travelProfileCreate";
     }
     
     public String viewProfile(){
         
-        return "viewTravelProfile";
+        return "travelProfileView";
     }
     
     public String goNewApp(){
-        return "createApplication";
+        return "applicationCreate";
     }
     public String editProfile(){
         getProfile();
-        return "editTravelProfile";
+        return "travelProfileEdit";
     }
 
     public String save() {  
@@ -909,12 +910,17 @@ public class UserBean implements Serializable{
         this.selectedApp = selectedApp;
     }
 
-    public SelectableDataModelWrapper getDataModel() {
-        return dataModel;
-    }
+    public void view(){
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("appID", selectedApp.getIdapplication());
+            //return "./applicationApproval.xhtml";
 
-    public void setDataModel(SelectableDataModelWrapper dataModel) {
-        this.dataModel = dataModel;
+            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect(context.getRequestContextPath() + "/faces/applicationView.xhtml");
+            //FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success",(selectedApp.getIdapplication() + "Selected")));
+        } catch (IOException ex) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void display() {

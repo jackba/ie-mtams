@@ -5,7 +5,7 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -59,7 +59,7 @@ public class Rewardsprogram implements Serializable {
     @ManyToOne(optional = false)
     private Travelerprofile travelerprofileIdtravelerprofile;
     @OneToMany(mappedBy = "rewardsprogramIdrewardsprogram")
-    private List<Attachement> attachementList;
+    private Collection<Attachement> attachementCollection;
 
     public Rewardsprogram() {
     }
@@ -117,12 +117,12 @@ public class Rewardsprogram implements Serializable {
     }
 
     @XmlTransient
-    public List<Attachement> getAttachementList() {
-        return attachementList;
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
     }
 
-    public void setAttachementList(List<Attachement> attachementList) {
-        this.attachementList = attachementList;
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
     }
 
     @Override

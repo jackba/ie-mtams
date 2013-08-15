@@ -22,9 +22,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+
 import javax.faces.component.*;
 import javax.faces.context.FacesContext;
 
@@ -54,14 +56,14 @@ public class ApplicationBean implements Serializable {
     private Travelerprofile profileRef;// = travelProfileHandler.findTravelProf(accountID);
     
     private Date modifiedDate;
-    @Future
+    @Future(message="Date must be in Future")
     private Date departureDate;
-    @Future
+    @Future(message="Date must be in Future")
     private Date returnDate;
     private String description;
     private Travel newTravel;
     private Itinerary tempItin;
-    @Future
+    @Future(message="Date must be in Future")
     private Date tempDate;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String tempDest;
@@ -109,9 +111,9 @@ public class ApplicationBean implements Serializable {
     private Carquotes newCar;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String hQLocation;
-    @Future
+    @Future(message="Date must be in Future")
     private Date hQDateIn;
-    @Future
+    @Future(message="Date must be in Future")
     private Date hQDateOut;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String hQHotel1;
@@ -147,7 +149,7 @@ public class ApplicationBean implements Serializable {
     public ApplicationBean() {
     }
 
-    //@PostConstruct
+    @PostConstruct
     public void initialize() {
         accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 //        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
@@ -161,8 +163,8 @@ public class ApplicationBean implements Serializable {
         
         profileRef = travelProfileHandler.findTravelProf(accountID);
         //loadValues();
-        
-        appRef = appHandler.getApplication(9);//selectedApp;
+        int appnum = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("appID");
+        appRef = appHandler.getApplication(appnum);//selectedApp;
         
         quoteRef = appRef.getQuotesIdquotes();
         hotels = appHandler.getAccomodationQuotes(quoteRef.getIdquotes());

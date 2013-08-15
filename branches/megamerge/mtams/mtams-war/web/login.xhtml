@@ -10,9 +10,24 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
+
+
+                <div id="header">
+                    <div id="logo">
+                        <h:form>
+                            <h:commandLink action="login.xhtml">
+                                <h:graphicImage value="resources/img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
+                            </h:commandLink>
+                        </h:form>
+                    </div>
+
+                    <ul>
+                        <li>Help</li>
+                    </ul>
+                </div>
                 <h:form class="form-2" id="loginForm" style="margin-top: 1%; left: 35%; top:35%; position: absolute; ">
                     <h1><span class="log-in">Log in</span></h1>
-					<p:messages id="loginMessage" showDetail="true" closable="true" autoUpdate="true" globalOnly="true" />
+                    <p:messages id="loginMessage" showDetail="true" closable="true" autoUpdate="true"/>
                     <p:focus context="loginPanel">
                         <h:panelGrid id="loginPanel" columns="3">
 

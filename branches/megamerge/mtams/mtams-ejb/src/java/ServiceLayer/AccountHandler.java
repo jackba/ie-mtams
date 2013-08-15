@@ -120,9 +120,11 @@ public class AccountHandler implements AccountHandlerLocal {
 	    @Override
     public void deactivateAccount(Account selAcc) {
         List<Accountrole> accRoleList = accRoleDao.findAll();
+        
         for (Accountrole each : accRoleList) {
             if (each.getAccountid().equals(selAcc)) {
-                each.setRoleid(roleDao.find(99));
+                
+                each.setRoleid(roleDao.find((each.getRoleid().getIdroles()+900)));
                 accRoleDao.edit(each);
             }
         }
