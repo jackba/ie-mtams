@@ -1,86 +1,103 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Traveller Profile</title>
-        <link href="css/styles.css" rel="Stylesheet" type="text/css" />
-    </h:head>
-    <h:body>
-        <div id ="header">
-            <div id="logo">
-                <img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
-            </div>
+      xmlns:f="http://java.sun.com/jsf/core">
 
-            <ul>
-                <li><a href="">Help</a></li>
-                <li><h:link value="Logout"  outcome="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}" /></li>
+    <body>
 
-            </ul>
-        </div>
-        <div class="nav">
-        <p:menubar>
-            <p:menuitem value="Home" icon="ui-icon-home" outcome="#{editTrav.goHome()}"/>
-            <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{editTrav.viewProfile()}"/>
-            <!--<p:menuitem value="Applications" icon="ui-icon-note" outcome="" />-->
-        </p:menubar>
-        </div>
-        <h:form>
-            <p:panel header="Traveller Profile">
-                <p:messages id="submitConfirm" showDetail="true" closable="true" autoUpdate="true" severity="info"/>
-                <h4>Please click on the value you wish to edit</h4>
-                <fieldset><legend><h4>Personal Details</h4></legend>
-                    <h:panelGrid columns="3">  
+        <ui:composition template="./template/template.xhtml">
 
-                        <h:outputText value="Department:* " />
+            <ui:define name="content">
+                <div id="header">
+                    <div id="logo">
+                        <h:form>
+                            <h:commandLink action="userHome.xhtml">
+                                <h:graphicImage value="resources/img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
+                            </h:commandLink>
+                        </h:form>
+                    </div>
+
+                    <ul>
+                        <li>Help</li>
+                        <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout</p:commandLink></li>
+                    </ul>
+                </div>
+                <div class="nav"><h:form>
+                        <p:menubar>
+                            <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goHome()}"/>
+                            <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
+
+                        </p:menubar></h:form>
+                </div>
+                <h:form>
+                    <p:panel header="Traveller Profile">
+                        <p:messages id="submitConfirm" showDetail="true" closable="true" autoUpdate="true" severity="info"/>
+                        <h4>Please click on the value you wish to edit</h4>
+                        <fieldset><legend><h4>Personal Details</h4></legend>
+                            <h:panelGrid columns="3" columnClasses="label, value, error">  
+
+                                <h:outputText value="Department:* " />
                         <p:inplace id="selectableInplace" >  
-                            <h:selectOneMenu id="deptIP" value="#{editTrav.department}">  
+                            <p:selectOneMenu id="deptIP" value="#{editTrav.department}">  
                                 <f:selectItem itemLabel="Financial" itemValue="Financial" />  
                                 <f:selectItem itemLabel="Information Technology" itemValue="Information Technology" />  
                                 <f:selectItem itemLabel="Health Sciences" itemValue="Health Sciences" />  
                                 <f:selectItem itemLabel="Business" itemValue="Business" />
                                 <f:selectItem itemLabel="Arts" itemValue="Arts" />  
-                            </h:selectOneMenu>  
+                            </p:selectOneMenu>  
                         </p:inplace>
                         <p:message for="deptIP"/>
 
                         <h:outputText value="Staff ID: *" />  
                         <p:inplace id="staffID">
-                            <p:inputText id="staffIDIP" value="#{editTrav.staffID}" required="true" requiredMessage="Required Field"/>
+                            <p:inputText id="staffIDIP" value="#{editTrav.staffID}" required="true" requiredMessage="Required Field">
+                                <p:ajax update="staffIDIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>
-                        <p:message for="staffIDIP"/>
+                        <p:message for="staffIDIP" id="staffIDIPM"/>
 
                         <h:outputText value="Position:* " />
                         <p:inplace id="posE">  
-                            <p:inputText id="posIP" value="#{editTrav.position}" required="true" requiredMessage="Required Field"/>  
+                            <p:inputText id="posIP" value="#{editTrav.position}" required="true" requiredMessage="Required Field">
+                                <p:ajax update="posIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>
-                        <p:message for="posIP"/>
+                        <p:message for="posIP" id="posIPM"/>
 
                         <h:outputText value="Secretary/Travel Booker:* " />
                         <p:inplace id="secretary">  
-                            <p:inputText id="secretaryIP" value="#{editTrav.travelBooker}" required="true" requiredMessage="Required Field"/>  
+                            <p:inputText id="secretaryIP" value="#{editTrav.travelBooker}" required="true" requiredMessage="Required Field">
+                                <p:ajax update="secretaryIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>
-                        <p:message for="secretaryIP"/>
+                        <p:message for="secretaryIP" id="secretaryIPM"/>
 
                         <h:outputText value="First Name:* " />  
                         <p:inplace id="firstN">  
-                            <p:inputText id="firstNIP" value="#{editTrav.firstName}" required="true" requiredMessage="Required Field"/>  
+                            <p:inputText id="firstNIP" value="#{editTrav.firstName}" required="true" requiredMessage="Required Field">
+                                <p:ajax update="firstNIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>
-                        <p:message for="firstNIP"/>
+                        <p:message for="firstNIP" id="firstNIPM"/>
 
                         <h:outputText value="Surname:* " />
                         <p:inplace id="sur">  
-                            <p:inputText id="surIP" value="#{editTrav.surname}" required="true" requiredMessage="Required Field"/>  
+                            <p:inputText id="surIP" value="#{editTrav.surname}" required="true" requiredMessage="Required Field">
+                                <p:ajax update="surIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>
-                        <p:message for="surIP"/>
+                        <p:message for="surIP" id="surIPM"/>
 
                         <h:outputText value="Middle Name" />
                         <p:inplace id="midn" emptyLabel="Click to Edit">  
-                            <p:inputText id="midNIP" value="#{editTrav.middleName}" />  
+                            <p:inputText id="midNIP" value="#{editTrav.middleName}">
+                                <p:ajax update="midNIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>
-                        <p:message for="midNIP"/>
+                        <p:message for="midNIP" id="midNIPM"/>
 
                         <h:outputText value="Title:"/>
                         <p:inplace id="titleE">  
@@ -91,141 +108,169 @@
                                 <f:selectItem itemLabel="Prof." itemValue="Prof" />
                             </p:selectOneMenu>                            
                         </p:inplace>
-                        <p:message for="titleIP"/>
+                        <p:message for="titleIP" id="titleIPM"/>
 
                         <h:outputText value="Identity Number:* " />
                         <p:inplace id="idNo">  
-                            <p:inputText id="idNoIP" value="#{editTrav.idNo}" required="true" requiredMessage="Required Field"/>  
+                            <p:inputText id="idNoIP" value="#{editTrav.idNo}" required="true" requiredMessage="Required Field">
+                                <p:ajax update="idNoIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>
-                        <p:message for="idNoIP"/>
+                        <p:message for="idNoIP" id="idNoIPM"/>
 
                         <h:outputText value="Business Address:* " />
                         <p:inplace id="bAdd">  
-                            <p:inputText id="bAddIP" value="#{editTrav.busAddress}" required="true" requiredMessage="Required Field"/>  
+                            <p:inputText id="bAddIP" value="#{editTrav.busAddress}" required="true" requiredMessage="Required Field">
+                                <p:ajax update="bAddIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>
-                        <p:message for="bAddIP"/>
+                        <p:message for="bAddIP" id="bAddIPM"/>
 
                         <h:outputText value="Business Phone:* " />
                         <p:inplace id="bPhone">  
-                            <p:inputText id="bPhoneIP" value="#{editTrav.busPhone}" required="true" requiredMessage="Required Field"/>  
+                            <p:inputText id="bPhoneIP" value="#{editTrav.busPhone}" required="true" requiredMessage="Required Field">
+                                <p:ajax update="bPhoneIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>
-                        <p:message for="bPhoneIP"/>
+                        <p:message for="bPhoneIP" id="bPhoneIPM"/>
 
                         <h:outputText value="Business Fax:" />
                         <p:inplace id="bFax" emptyLabel="Click to Edit">  
-                            <p:inputText id="bFaxIP" value="#{editTrav.busFax}" />  
+                            <p:inputText id="bFaxIP" value="#{editTrav.busFax}">
+                                <p:ajax update="bFaxIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>  
-                        <p:message for="bFaxIP"/>
+                        <p:message for="bFaxIP" id="bFaxIPM"/>
 
                         <h:outputText value="Home Address: *" />
                         <p:inplace id="hAdd">  
-                            <p:inputText id="hAddIP" value="#{editTrav.homeAddress}" required="true" requiredMessage="Required Field"/>  
+                            <p:inputText id="hAddIP" value="#{editTrav.homeAddress}" required="true" requiredMessage="Required Field">
+                                <p:ajax update="hAddIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>
-                        <p:message for="hAddIP"/>
+                        <p:message for="hAddIP" id="hAddIPM"/>
 
                         <h:outputText value="Mobile Phone: *" />
                         <p:inplace id="mobileP">  
-                            <p:inputText id="mobilePIP" value="#{editTrav.mobilePhone}" required="true" requiredMessage="Required Field"/>  
+                            <p:inputText id="mobilePIP" value="#{editTrav.mobilePhone}" required="true" requiredMessage="Required Field"> 
+                                <p:ajax update="mobilePIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>
-                        <p:message for="mobilePIP"/>
+                        <p:message for="mobilePIP" id="mobilePIPM"/>
 
                         <h:outputText value="Home Phone:" /> 
                         <p:inplace id="homeP" emptyLabel="Click to Edit">  
-                            <p:inputText id="homePIP" value="#{editTrav.homePhone}" />  
+                            <p:inputText id="homePIP" value="#{editTrav.homePhone}">
+                                <p:ajax update="homePIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>
-                        <p:message for="homePIP"/>
+                        <p:message for="homePIP" id="homePIPM"/>
 
                         <h:outputText value="Email Address: *" />
                         <p:inplace id="eMail">  
-                            <p:inputText id="eMailIP" value="#{editTrav.email}" required="true" requiredMessage="Required Field"/>  
+                            <p:inputText id="eMailIP" value="#{editTrav.email}" required="true" requiredMessage="Required Field">
+                                <p:ajax update="eMailIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>
-                        <p:message for="eMailIP"/>
+                        <p:message for="eMailIP" id="eMailIPM"/>
 
                         <h:outputText value="Spouse's Name: " />  
                         <p:inplace id="spName" emptyLabel="Click to Edit">  
-                            <p:inputText id="spNameIP" value="#{editTrav.spouseName}" />  
+                            <p:inputText id="spNameIP" value="#{editTrav.spouseName}"> 
+                                <p:ajax update="spNameIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>
-                        <p:message for="spNameIP"/>
+                        <p:message for="spNameIP" id="spNameIPM"/>
 
                         <h:outputText value="Spouse's Contact Number:" />  
                         <p:inplace id="spCon" emptyLabel="Click to Edit">  
-                            <p:inputText id="spConIP" value="#{editTrav.spouseContactNo}" />  
+                            <p:inputText id="spConIP" value="#{editTrav.spouseContactNo}">
+                                <p:ajax update="spConIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>
-                        <p:message for="spConIP"/>
+                        <p:message for="spConIP" id="spConIPM"/>
 
                         <h:outputText value="Spouse's Email:" />  
                         <p:inplace id="spEm" emptyLabel="Click to Edit">  
-                            <p:inputText id="spEmIP" value="#{editTrav.spouseEmail}" />  
+                            <p:inputText id="spEmIP" value="#{editTrav.spouseEmail}">
+                                <p:ajax update="spEmIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>
-                        <p:message for="spEmIP"/>
+                        <p:message for="spEmIP" id="spEmIPM"/>
 
                         <h:outputText value="Doctor's Name:" />
                         <p:inplace id="DoctN" emptyLabel="Click to Edit">  
-                            <p:inputText id="doctNIP" value="#{editTrav.docName}" />  
+                            <p:inputText id="doctNIP" value="#{editTrav.docName}">
+                                <p:ajax update="doctNIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>
-                        <p:message for="doctNIP"/>
+                        <p:message for="doctNIP" id="doctNIPM"/>
 
                         <h:outputText value="Doctor's Contact Number: *" /> 
                         <p:inplace id="doctC">  
-                            <p:inputText id="doctCIP" value="#{editTrav.docContactNo}" required="true" requiredMessage="Required Field"/>  
+                            <p:inputText id="doctCIP" value="#{editTrav.docContactNo}" required="true" requiredMessage="Required Field">
+                                <p:ajax update="doctCIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>       
-                        <p:message for="doctCIP"/>
+                        <p:message for="doctCIP" id="doctCIPM"/>
 
                         <h:outputText value="Doctor's Email: *" /> 
                         <p:inplace id="doctEm">  
-                            <p:inputText id="doctEmIP" value="#{editTrav.docEmail}" required="true" requiredMessage="Required Field"/>  
+                            <p:inputText id="doctEmIP" value="#{editTrav.docEmail}" required="true" requiredMessage="Required Field">
+                                <p:ajax update="doctEmIPM" event="blur" />
+                            </p:inputText>
                         </p:inplace>       
-                        <p:message for="doctEmIP"/>
+                        <p:message for="doctEmIP" id="doctEmIPM"/>
 
                         <h:outputText value="Known Medical Conditions: " />
                         <p:inplace id="docKMC" emptyLabel="Click to Edit">  
                             <p:inputTextarea id="docKMCIP" value="#{editTrav.knownMedConditions}" />  
                         </p:inplace>      
-                        <p:message for="docKMCIP"/>
+                        <p:message for="docKMCIP" id="docKMCIPM"/>
 
-                    </h:panelGrid>
+                            </h:panelGrid>
 
-                </fieldset>
+                        </fieldset>
 
-                <br /><fieldset><legend><h4>Passport and Visa Details</h4></legend>
-                    <h:panelGrid columns="3"> 
+                        <br /><fieldset><legend><h4>Passport and Visa Details</h4></legend>
+                            <h:panelGrid columns="3" columnClasses="label, value, error"> 
 
-                        <h:outputText value="Passport Number: *" />
-                        <p:inplace id="passNum">  
-                            <p:inputText id="passNumIP" value="#{editTrav.passportNo}" required="true" requiredMessage="Required Field"/>  
-                        </p:inplace>
-                        <p:message for="passNumIP"/>
+                                <h:outputText value="Passport Number: *" />
+                                <p:inplace id="passNum">  
+                                    <p:inputText id="passNumIP" value="#{editTrav.passportNo}" required="true" requiredMessage="Required Field"/>  
+                                </p:inplace>
+                                <p:message for="passNumIP"/>
 
-                        <h:outputText value="Country: *" />  
-                        <p:inplace id="countryOrigin">  
-                            <p:inputText id="countryIP" value="#{editTrav.country}" required="true" requiredMessage="Required Field"/>  
-                        </p:inplace>
-                        <p:message for="countryIP"/>
+                                <h:outputText value="Country: *" />  
+                                <p:inplace id="countryOrigin">  
+                                    <p:inputText id="countryIP" value="#{editTrav.country}" required="true" requiredMessage="Required Field"/>  
+                                </p:inplace>
+                                <p:message for="countryIP"/>
 
-                        <h:outputText value="Date of issue: *" />  
-                        <p:inplace id="DOI">  
-                            <p:calendar id="cal" value="#{editTrav.dateOfIssue}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field"/>  
-                        </p:inplace>      
-                        <p:message for="cal"/>
+                                <h:outputText value="Date of issue: *" />  
+                                <p:inplace id="DOI">  
+                                    <p:calendar id="cal" value="#{editTrav.dateOfIssue}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field"/>  
+                                </p:inplace>      
+                                <p:message for="cal"/>
 
-                        <h:outputText value="Expiry Date: *" />  
-                        <p:inplace id="DOE">  
-                            <p:calendar id="cal2" value="#{editTrav.expiryDate}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field"/> 
-                        </p:inplace>
-                        <p:message for="cal2"/>
+                                <h:outputText value="Expiry Date: *" />  
+                                <p:inplace id="DOE">  
+                                    <p:calendar id="cal2" value="#{editTrav.expiryDate}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field"/> 
+                                </p:inplace>
+                                <p:message for="cal2"/>
 
-                        <h:outputText value="Valid Visa's in passport: " />  
-                        <p:inplace id="validVisaPass" emptyLabel="Click to Edit">  
-                            <p:inputTextarea id="validVisaIP" value="#{editTrav.validVisas}" />  
-                        </p:inplace>       
-                        <p:message for="validVisaIP"/>
+                                <h:outputText value="Valid Visa's in passport: " />  
+                                <p:inplace id="validVisaPass" emptyLabel="Click to Edit">  
+                                    <p:inputTextarea id="validVisaIP" value="#{editTrav.validVisas}" />  
+                                </p:inplace>       
+                                <p:message for="validVisaIP"/>
 
-                    </h:panelGrid> 
-                </fieldset>
+                            </h:panelGrid> 
+                        </fieldset>
 
-                <br /><fieldset><legend><h4>Airline Details</h4></legend>
-                    <h:panelGrid columns="4">  
-                        <h:outputText value="Seat Position:"/>
+                        <br /><fieldset><legend><h4>Airline Details</h4></legend>
+                            <h:panelGrid columns="4" columnClasses="label, value, error">  
+                                <h:outputText value="Seat Position:"/>
                         <p:inplace id="seatPos">  
                             <p:selectOneRadio id="seatPosIP" value="#{editTrav.seat}">
                                 <f:selectItem itemValue="Aisle" itemLabel="Aisle" />
@@ -278,12 +323,12 @@
                         </p:inplace>
                         <p:message for="airAReqIP"/>
 
-                    </h:panelGrid>
-                </fieldset>
+                            </h:panelGrid>
+                        </fieldset>
 
-                <br /><fieldset><legend><h4>Car and Hotel Details</h4></legend>
-                    <h:panelGrid columns="3">
-                        <h:outputText value="Transmission Type:"/>
+                        <br /><fieldset><legend><h4>Car and Hotel Details</h4></legend>
+                            <h:panelGrid columns="3" columnClasses="label, value, error">
+                                <h:outputText value="Transmission Type:"/>
                         <p:inplace id="tansType">
                             <p:selectOneRadio id="transIP" value="#{editTrav.transmissionType}">
                                 <f:selectItem itemValue="Automatic" itemLabel="Automatic" />
@@ -355,29 +400,16 @@
                             </p:selectOneRadio>
                         </p:inplace>
                         <p:message for="smokingIP"/>
-                    </h:panelGrid>
+                            </h:panelGrid>
 
-                </fieldset>     
-                <p:commandButton value="Submit" action="#{editTrav.update()}" ajax="false"/>
-            </p:panel>
-            
-        </h:form>
+                        </fieldset>     
+                        <p:commandButton value="Submit" action="#{editTrav.update()}" ajax="false"/>
+                    </p:panel>
 
-        <div id= "footer">
-            <div class="row group">
-                <div class="col">
-                    <h3>Quick links</h3>
-                    <ul>
-                        <li><a href="">Site Map</a></li>
-                        <li><a href="">FAQ</a></li>
-                        <li><a href="">Contact us</a></li>
-                    </ul>
-                </div>
+                </h:form>
+            </ui:define>
 
-                <h3>Legal</h3>
-                <p class="legal">Created by school of IT, Monash University South Africa</p>  
-            </div>
-        </div>
-    </h:body>
+        </ui:composition>
+
+    </body>
 </html>
-
