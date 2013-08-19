@@ -292,5 +292,13 @@ public class Forexorder implements Serializable {
     public String toString() {
         return "Entities.Forexorder[ idforexorder=" + idforexorder + " ]";
     }
+
+    public void setTravelerscheques(String travellerCheque) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setCcpaymentamount(String ccCur) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
