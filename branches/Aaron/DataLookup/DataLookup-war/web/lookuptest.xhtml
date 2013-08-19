@@ -62,6 +62,12 @@ and open the template in the editor.
                     <f:selectItem  itemLabel="Select a Title" itemValue=""/>
                     <f:selectItems value="#{dataLookUpBean.leaveStrings}" />
                 </p:selectOneMenu>
+                
+                <p>Searchable / Filter list with filter="ture" attribute</p>
+                <p:selectOneMenu id="leaveStringfilter" editable="true" value="#{dataLookUpBean.leaveString}" filter="true" filterMatchMode="contains">
+                    <f:selectItem  itemLabel="Select a Title" itemValue=""/>
+                    <f:selectItems value="#{dataLookUpBean.leaveStrings}" />
+                </p:selectOneMenu>
 
                 <p:dataList value="#{dataLookUpBean.leaveStrings}" var="Leave" type="ordered" itemType="A">  
                     #{Leave}  
@@ -70,7 +76,7 @@ and open the template in the editor.
                 <p>Number of elements in Department table : #{dataLookUpBean.departmentCount}</p>
                 <h:outputText value="string leave object : #{dataLookUpBean.departmentString}" />
                 <br />
-                <p:selectOneMenu id="leaveString" editable="true" value="#{dataLookUpBean.departmentString}">
+                <p:selectOneMenu id="Departments" editable="true" value="#{dataLookUpBean.departmentString}">
                     <f:selectItem  itemLabel="Select a Title" itemValue=""/>
                     <f:selectItems value="#{dataLookUpBean.departmentStrings}" />
                 </p:selectOneMenu>
