@@ -19,9 +19,18 @@ INSERT INTO "ROLE" (IDROLES, "ROLE", DESCRIPTION)
 	VALUES (22, 'SuperAdmin', DEFAULT);
 INSERT INTO "ROLE" (IDROLES, "ROLE", DESCRIPTION) 
 	VALUES (99, 'Deactivated', DEFAULT);
+INSERT INTO "ROLE" (IDROLES, "ROLE", DESCRIPTION) 
+	VALUES (911, 'Applicant', 'Deactivated Applicant');
+INSERT INTO "ROLE" (IDROLES, "ROLE", DESCRIPTION) 
+	VALUES (912, 'Authorizer', 'Deactivated Authorizer');
+INSERT INTO "ROLE" (IDROLES, "ROLE", DESCRIPTION) 
+	VALUES (921, 'Admin', 'Deactivated Admin');
+INSERT INTO "ROLE" (IDROLES, "ROLE", DESCRIPTION) 
+	VALUES (922, 'SuperAdmin', 'Deactivated SuperAdmin');
 
 
 
+-- Position inserts
 INSERT INTO "POSITION" (POSITION) VALUES ('Lecturer' /*not nullable*/);
 INSERT INTO "POSITION" (POSITION) VALUES ('Professor' /*not nullable*/);
 INSERT INTO "POSITION" (POSITION) VALUES ('Assistant Lecturer' /*not nullable*/);
@@ -33,6 +42,7 @@ INSERT INTO "POSITION" (POSITION) VALUES ('Manager' /*not nullable*/);
 INSERT INTO "POSITION" (POSITION) VALUES ('Pro vice Chancellor' /*not nullable*/);
 INSERT INTO "POSITION" (POSITION) VALUES ('Chancellor' /*not nullable*/);
 
+-- Title inserts
 -- simple quick inserts
 --INSERT INTO "TITLE" (TITLE) VALUES ('s' /*not nullable*/);
 INSERT INTO "TITLE" (TITLE) VALUES ('Mr' /*not nullable*/);
@@ -43,11 +53,14 @@ INSERT INTO "TITLE" (TITLE) VALUES ('Phd' /*not nullable*/);
 INSERT INTO "TITLE" (TITLE) VALUES ('Sir' /*not nullable*/);
 
 
-
+-- Department inserts
 INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('school of Information Technology' /*not nullable*/,1);
 INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('school of Arts' /*not nullable*/,2);
 INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('Finance' /*not nullable*/,3);
 INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('Administration' /*not nullable*/,4);
+INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('School of Business' /*not nullable*/,5);
+INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('Student Services' /*not nullable*/,6);
+INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('School of Health Sciences' /*not nullable*/,7);
 
 INSERT INTO "LEAVELOOKUP" (LEAVETYPE) VALUES ('Annual Leave' /*not nullable*/);
 INSERT INTO "LEAVELOOKUP" (LEAVETYPE) VALUES ('Maternity Leave - Paid' /*not nullable*/);
