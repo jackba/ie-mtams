@@ -11,7 +11,7 @@ import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2013-08-14T23:52:40")
+@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2013-08-19T15:49:21")
 @StaticMetamodel(Quotes.class)
 public class Quotes_ { 
 
@@ -23,7 +23,7 @@ public class Quotes_ {
     public static volatile SingularAttribute<Quotes, String> costcenter;
     public static volatile CollectionAttribute<Quotes, Carquotes> carquotesCollection;
     public static volatile CollectionAttribute<Quotes, Application> applicationCollection;
-    public static volatile CollectionAttribute<Quotes, Attachement> attachementCollection;
     public static volatile CollectionAttribute<Quotes, Finalcosting> finalcostingCollection;
+    public static volatile CollectionAttribute<Quotes, Attachement> attachementCollection;
 
 }

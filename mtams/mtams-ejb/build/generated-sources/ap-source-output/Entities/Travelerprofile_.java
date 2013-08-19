@@ -11,14 +11,14 @@ import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2013-08-15T01:42:00")
+@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2013-08-19T15:49:22")
 @StaticMetamodel(Travelerprofile.class)
 public class Travelerprofile_ { 
 
     public static volatile SingularAttribute<Travelerprofile, String> position;
     public static volatile SingularAttribute<Travelerprofile, String> businessfax;
-    public static volatile SingularAttribute<Travelerprofile, String> carpreference1;
     public static volatile SingularAttribute<Travelerprofile, String> department;
+    public static volatile SingularAttribute<Travelerprofile, String> carpreference1;
     public static volatile SingularAttribute<Travelerprofile, String> carpreference2;
     public static volatile SingularAttribute<Travelerprofile, String> classinternational;
     public static volatile SingularAttribute<Travelerprofile, Date> datecreated;
@@ -35,26 +35,26 @@ public class Travelerprofile_ {
     public static volatile SingularAttribute<Travelerprofile, String> seatinglocation;
     public static volatile SingularAttribute<Travelerprofile, String> cargroup;
     public static volatile SingularAttribute<Travelerprofile, String> homephone;
-    public static volatile SingularAttribute<Travelerprofile, String> businessaddress;
     public static volatile SingularAttribute<Travelerprofile, Account> accountid;
+    public static volatile SingularAttribute<Travelerprofile, String> businessaddress;
     public static volatile SingularAttribute<Travelerprofile, Integer> idtravelerprofile;
     public static volatile CollectionAttribute<Travelerprofile, Rewardsprogram> rewardsprogramCollection;
     public static volatile SingularAttribute<Travelerprofile, String> hotelprefrence;
-    public static volatile SingularAttribute<Travelerprofile, String> airadditionalrequirements;
     public static volatile SingularAttribute<Travelerprofile, String> middlename;
+    public static volatile SingularAttribute<Travelerprofile, String> airadditionalrequirements;
     public static volatile SingularAttribute<Travelerprofile, String> attachmentid;
     public static volatile SingularAttribute<Travelerprofile, String> knownmedicalconditions;
     public static volatile SingularAttribute<Travelerprofile, String> mealrequirements;
     public static volatile SingularAttribute<Travelerprofile, String> businessphone;
-    public static volatile SingularAttribute<Travelerprofile, String> manualautomatic;
     public static volatile SingularAttribute<Travelerprofile, String> idnumber;
-    public static volatile SingularAttribute<Travelerprofile, String> firstname;
+    public static volatile SingularAttribute<Travelerprofile, String> manualautomatic;
     public static volatile SingularAttribute<Travelerprofile, String> doctorsemail;
+    public static volatile SingularAttribute<Travelerprofile, String> firstname;
     public static volatile SingularAttribute<Travelerprofile, String> doctorsname;
-    public static volatile SingularAttribute<Travelerprofile, String> hoteladditionalrequirements;
-    public static volatile SingularAttribute<Travelerprofile, String> caradditionalrequirements;
     public static volatile SingularAttribute<Travelerprofile, String> homeaddress;
     public static volatile SingularAttribute<Travelerprofile, String> familyname;
+    public static volatile SingularAttribute<Travelerprofile, String> caradditionalrequirements;
+    public static volatile SingularAttribute<Travelerprofile, String> hoteladditionalrequirements;
     public static volatile SingularAttribute<Travelerprofile, String> doctorsconctactnumber;
     public static volatile SingularAttribute<Travelerprofile, String> spousename;
     public static volatile SingularAttribute<Travelerprofile, String> seatingposition;

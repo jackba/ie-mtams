@@ -42,6 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Accomodationquotes.findByDescription", query = "SELECT a FROM Accomodationquotes a WHERE a.description = :description"),
     @NamedQuery(name = "Accomodationquotes.findByAccomodationprovider", query = "SELECT a FROM Accomodationquotes a WHERE a.accomodationprovider = :accomodationprovider"),
     @NamedQuery(name = "Accomodationquotes.findByQuotesource", query = "SELECT a FROM Accomodationquotes a WHERE a.quotesource = :quotesource"),
+    @NamedQuery(name = "Accomodationquotes.findByCurrency", query = "SELECT a FROM Accomodationquotes a WHERE a.currency = :currency"),
     @NamedQuery(name = "Accomodationquotes.findByQuotecost", query = "SELECT a FROM Accomodationquotes a WHERE a.quotecost = :quotecost")})
 public class Accomodationquotes implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -72,8 +73,11 @@ public class Accomodationquotes implements Serializable {
     @Column(name = "QUOTESOURCE")
     private String quotesource;
     @Size(max = 45)
+    @Column(name = "CURRENCY")
+    private String currency;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "QUOTECOST")
-    private String quotecost;
+    private Double quotecost;
     @OneToMany(mappedBy = "accomodationquotesIdaccomodationquotes")
     private Collection<Attachement> attachementCollection;
     @JoinColumn(name = "QUOTES_IDQUOTES", referencedColumnName = "IDQUOTES")
@@ -151,11 +155,19 @@ public class Accomodationquotes implements Serializable {
         this.quotesource = quotesource;
     }
 
-    public String getQuotecost() {
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public Double getQuotecost() {
         return quotecost;
     }
 
-    public void setQuotecost(String quotecost) {
+    public void setQuotecost(Double quotecost) {
         this.quotecost = quotecost;
     }
 

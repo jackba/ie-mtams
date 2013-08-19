@@ -68,12 +68,12 @@ public class Account implements Serializable {
     private Date datelogin;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountIdaccount")
     private Collection<Application> applicationCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountIdaccount")
-    private Collection<Approval> approvalCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
     private Collection<Travelerprofile> travelerprofileCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private Collection<Session> sessionCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountIdaccount")
+    private Collection<Approval> approvalCollection;
     @OneToMany(mappedBy = "accountid")
     private Collection<Accountrole> accountroleCollection;
 
@@ -148,15 +148,6 @@ public class Account implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Approval> getApprovalCollection() {
-        return approvalCollection;
-    }
-
-    public void setApprovalCollection(Collection<Approval> approvalCollection) {
-        this.approvalCollection = approvalCollection;
-    }
-
-    @XmlTransient
     public Collection<Travelerprofile> getTravelerprofileCollection() {
         return travelerprofileCollection;
     }
@@ -172,6 +163,15 @@ public class Account implements Serializable {
 
     public void setSessionCollection(Collection<Session> sessionCollection) {
         this.sessionCollection = sessionCollection;
+    }
+
+    @XmlTransient
+    public Collection<Approval> getApprovalCollection() {
+        return approvalCollection;
+    }
+
+    public void setApprovalCollection(Collection<Approval> approvalCollection) {
+        this.approvalCollection = approvalCollection;
     }
 
     @XmlTransient

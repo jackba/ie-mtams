@@ -213,15 +213,15 @@ public class Travelerprofile implements Serializable {
     private Date datemodified;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelerprofileIdtravelerprofile")
     private Collection<Rewardsprogram> rewardsprogramCollection;
-    @OneToMany(mappedBy = "travelerprofileIdtravelerprofile")
-    private Collection<Attachement> attachementCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travlerprofileIdtravlerprofile")
-    private Collection<Traveldocument> traveldocumentCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelerprofileIdtravelerprofile")
     private Collection<Application> applicationCollection;
     @JoinColumn(name = "ACCOUNTID", referencedColumnName = "IDACCOUNT")
     @ManyToOne(optional = false)
     private Account accountid;
+    @OneToMany(mappedBy = "travelerprofileIdtravelerprofile")
+    private Collection<Attachement> attachementCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travlerprofileIdtravlerprofile")
+    private Collection<Traveldocument> traveldocumentCollection;
 
     public Travelerprofile() {
     }
@@ -584,6 +584,23 @@ public class Travelerprofile implements Serializable {
     }
 
     @XmlTransient
+    public Collection<Application> getApplicationCollection() {
+        return applicationCollection;
+    }
+
+    public void setApplicationCollection(Collection<Application> applicationCollection) {
+        this.applicationCollection = applicationCollection;
+    }
+
+    public Account getAccountid() {
+        return accountid;
+    }
+
+    public void setAccountid(Account accountid) {
+        this.accountid = accountid;
+    }
+
+    @XmlTransient
     public Collection<Attachement> getAttachementCollection() {
         return attachementCollection;
     }
@@ -599,23 +616,6 @@ public class Travelerprofile implements Serializable {
 
     public void setTraveldocumentCollection(Collection<Traveldocument> traveldocumentCollection) {
         this.traveldocumentCollection = traveldocumentCollection;
-    }
-
-    @XmlTransient
-    public Collection<Application> getApplicationCollection() {
-        return applicationCollection;
-    }
-
-    public void setApplicationCollection(Collection<Application> applicationCollection) {
-        this.applicationCollection = applicationCollection;
-    }
-
-    public Account getAccountid() {
-        return accountid;
-    }
-
-    public void setAccountid(Account accountid) {
-        this.accountid = accountid;
     }
 
     @Override

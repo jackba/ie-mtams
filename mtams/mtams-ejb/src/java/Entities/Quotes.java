@@ -51,14 +51,14 @@ public class Quotes implements Serializable {
     private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "quotesIdquotes")
     private Collection<Carquotes> carquotesCollection;
-    @OneToMany(mappedBy = "quotesIdquotes")
-    private Collection<Attachement> attachementCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "quotesIdquotes")
-    private Collection<Flightquotes> flightquotesCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "quotesIdquotes")
     private Collection<Application> applicationCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "quotesIdquotes")
     private Collection<Finalcosting> finalcostingCollection;
+    @OneToMany(mappedBy = "quotesIdquotes")
+    private Collection<Attachement> attachementCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "quotesIdquotes")
+    private Collection<Flightquotes> flightquotesCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "quotesIdquotes")
     private Collection<Accomodationquotes> accomodationquotesCollection;
 
@@ -111,24 +111,6 @@ public class Quotes implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Attachement> getAttachementCollection() {
-        return attachementCollection;
-    }
-
-    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
-        this.attachementCollection = attachementCollection;
-    }
-
-    @XmlTransient
-    public Collection<Flightquotes> getFlightquotesCollection() {
-        return flightquotesCollection;
-    }
-
-    public void setFlightquotesCollection(Collection<Flightquotes> flightquotesCollection) {
-        this.flightquotesCollection = flightquotesCollection;
-    }
-
-    @XmlTransient
     public Collection<Application> getApplicationCollection() {
         return applicationCollection;
     }
@@ -144,6 +126,24 @@ public class Quotes implements Serializable {
 
     public void setFinalcostingCollection(Collection<Finalcosting> finalcostingCollection) {
         this.finalcostingCollection = finalcostingCollection;
+    }
+
+    @XmlTransient
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
+    }
+
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
+    }
+
+    @XmlTransient
+    public Collection<Flightquotes> getFlightquotesCollection() {
+        return flightquotesCollection;
+    }
+
+    public void setFlightquotesCollection(Collection<Flightquotes> flightquotesCollection) {
+        this.flightquotesCollection = flightquotesCollection;
     }
 
     @XmlTransient

@@ -55,15 +55,15 @@ public class Travel implements Serializable {
     @Size(max = 100)
     @Column(name = "DESCRIPTION")
     private String description;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelIdtravel")
+    private Collection<Itinerary> itineraryCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelIdtravel")
+    private Collection<Application> applicationCollection;
     @OneToMany(mappedBy = "travelIdtravel")
     private Collection<Attachement> attachementCollection;
     @JoinColumn(name = "CONFERENCE_IDCONFERENCE", referencedColumnName = "IDCONFERENCE")
     @ManyToOne(optional = false)
     private Conference conferenceIdconference;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelIdtravel")
-    private Collection<Itinerary> itineraryCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelIdtravel")
-    private Collection<Application> applicationCollection;
 
     public Travel() {
     }
@@ -105,23 +105,6 @@ public class Travel implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Attachement> getAttachementCollection() {
-        return attachementCollection;
-    }
-
-    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
-        this.attachementCollection = attachementCollection;
-    }
-
-    public Conference getConferenceIdconference() {
-        return conferenceIdconference;
-    }
-
-    public void setConferenceIdconference(Conference conferenceIdconference) {
-        this.conferenceIdconference = conferenceIdconference;
-    }
-
-    @XmlTransient
     public Collection<Itinerary> getItineraryCollection() {
         return itineraryCollection;
     }
@@ -137,6 +120,23 @@ public class Travel implements Serializable {
 
     public void setApplicationCollection(Collection<Application> applicationCollection) {
         this.applicationCollection = applicationCollection;
+    }
+
+    @XmlTransient
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
+    }
+
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
+    }
+
+    public Conference getConferenceIdconference() {
+        return conferenceIdconference;
+    }
+
+    public void setConferenceIdconference(Conference conferenceIdconference) {
+        this.conferenceIdconference = conferenceIdconference;
     }
 
     @Override

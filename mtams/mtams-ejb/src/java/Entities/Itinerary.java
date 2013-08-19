@@ -41,7 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Itinerary.findByLeavetype", query = "SELECT i FROM Itinerary i WHERE i.leavetype = :leavetype"),
     @NamedQuery(name = "Itinerary.findByLeavedescription", query = "SELECT i FROM Itinerary i WHERE i.leavedescription = :leavedescription"),
     @NamedQuery(name = "Itinerary.findByTravelday", query = "SELECT i FROM Itinerary i WHERE i.travelday = :travelday"),
-    @NamedQuery(name = "Itinerary.findByDestination", query = "SELECT i FROM Itinerary i WHERE i.destination = :destination")})
+    @NamedQuery(name = "Itinerary.findByDestinationCity", query = "SELECT i FROM Itinerary i WHERE i.destinationCity = :destinationCity"),
+    @NamedQuery(name = "Itinerary.findByDestinationCountry", query = "SELECT i FROM Itinerary i WHERE i.destinationCountry = :destinationCountry")})
 public class Itinerary implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -68,13 +69,16 @@ public class Itinerary implements Serializable {
     @Column(name = "TRAVELDAY")
     private String travelday;
     @Size(max = 45)
-    @Column(name = "DESTINATION")
-    private String destination;
-    @OneToMany(mappedBy = "itineraryIditinerary")
-    private Collection<Attachement> attachementCollection;
+    @Column(name = "DESTINATION_CITY")
+    private String destinationCity;
+    @Size(max = 45)
+    @Column(name = "DESTINATION_COUNTRY")
+    private String destinationCountry;
     @JoinColumn(name = "TRAVEL_IDTRAVEL", referencedColumnName = "IDTRAVEL")
     @ManyToOne(optional = false)
     private Travel travelIdtravel;
+    @OneToMany(mappedBy = "itineraryIditinerary")
+    private Collection<Attachement> attachementCollection;
 
     public Itinerary() {
     }
@@ -139,12 +143,28 @@ public class Itinerary implements Serializable {
         this.travelday = travelday;
     }
 
-    public String getDestination() {
-        return destination;
+    public String getDestinationCity() {
+        return destinationCity;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
+    public void setDestinationCity(String destinationCity) {
+        this.destinationCity = destinationCity;
+    }
+
+    public String getDestinationCountry() {
+        return destinationCountry;
+    }
+
+    public void setDestinationCountry(String destinationCountry) {
+        this.destinationCountry = destinationCountry;
+    }
+
+    public Travel getTravelIdtravel() {
+        return travelIdtravel;
+    }
+
+    public void setTravelIdtravel(Travel travelIdtravel) {
+        this.travelIdtravel = travelIdtravel;
     }
 
     @XmlTransient
@@ -154,14 +174,6 @@ public class Itinerary implements Serializable {
 
     public void setAttachementCollection(Collection<Attachement> attachementCollection) {
         this.attachementCollection = attachementCollection;
-    }
-
-    public Travel getTravelIdtravel() {
-        return travelIdtravel;
-    }
-
-    public void setTravelIdtravel(Travel travelIdtravel) {
-        this.travelIdtravel = travelIdtravel;
     }
 
     @Override
