@@ -191,7 +191,7 @@ public class ApprovalBean implements Serializable {
         setReasonForTravel(travelRef.getDescription());
         
         setTempDate(itinRef.getDate());
-        setTempDest(itinRef.getDestination());
+        setTempDest(itinRef.getDestinationCity());
         setTempLeaveType(itinRef.getLeavetype());
         setTempTravelDay(itinRef.getTravelday());
         
@@ -243,7 +243,7 @@ public class ApprovalBean implements Serializable {
         setReasonForTravel(travelRef.getDescription());
         
         setTempDate(itinRef.getDate());
-        setTempDest(itinRef.getDestination());
+        setTempDest(itinRef.getDestinationCity());
         setTempLeaveType(itinRef.getLeavetype());
         setTempTravelDay(itinRef.getTravelday());
         
