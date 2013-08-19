@@ -54,14 +54,16 @@ INSERT INTO "TITLE" (TITLE) VALUES ('Sir' /*not nullable*/);
 
 
 -- Department inserts
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('school of Information Technology' /*not nullable*/,1);
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('school of Arts' /*not nullable*/,2);
+INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('School of Information Technology' /*not nullable*/,1);
+INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('School of Social Science' /*not nullable*/,2);
 INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('Finance' /*not nullable*/,3);
 INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('Administration' /*not nullable*/,4);
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('School of Business' /*not nullable*/,5);
+INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('School of Business and Economics' /*not nullable*/,5);
 INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('Student Services' /*not nullable*/,6);
 INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('School of Health Sciences' /*not nullable*/,7);
+INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('Information Technology Services' /*not nullable*/,8);
 
+-- Leave type inserts
 INSERT INTO "LEAVELOOKUP" (LEAVETYPE) VALUES ('Annual Leave' /*not nullable*/);
 INSERT INTO "LEAVELOOKUP" (LEAVETYPE) VALUES ('Maternity Leave - Paid' /*not nullable*/);
 INSERT INTO "LEAVELOOKUP" (LEAVETYPE) VALUES ('Paternity Leave - Paid' /*not nullable*/);
