@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.validation.constraints.Pattern;
 import org.primefaces.component.api.UIData;
 
 /**
@@ -23,10 +24,12 @@ import org.primefaces.component.api.UIData;
 @ConversationScoped
 public class AdminBean implements Serializable {
     
+	@Pattern(message="Incorrect username entered", regexp="[a-zA-Z -]{0,}")
     private String username;
     private String password;
     private int role = 11;
     private List<Account> allAccounts;
+    private Account selectedAcc;
     private UIData dataTable;
     private UIData dataTableDetails;
     
@@ -70,6 +73,14 @@ public class AdminBean implements Serializable {
         this.allAccounts = allAccounts;
     }
 
+    public Account getSelectedAcc() {
+        return selectedAcc;
+    }
+
+    public void setSelectedAcc(Account selectedAcc) {
+        this.selectedAcc = selectedAcc;
+    }
+    
     public UIData getDataTable() {
         return dataTable;
     }
@@ -87,15 +98,15 @@ public class AdminBean implements Serializable {
     }
     
     public String goHome(){
-        return "./adminHome.xhtml";
+        return "./accountAll.xhtml";
     }
     
     public String goCreate(){
-        return "./createAccount.xhtml";
+        return "./accountCreate.xhtml";
     }
     
     public String goViewAll(){
-        return "allAccount";
+        return "accountAll";
     }
     
     public String createAccount(){
@@ -109,8 +120,14 @@ public class AdminBean implements Serializable {
 
             handler.registerNewAccount(newAccount,getRole());
             
-            return "allAccount";
+            return "accountAll";
         }        
+    }
+    
+        public String deactivateAccount(){
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Success.","Account has been Deactivated"));
+        handler.deactivateAccount(selectedAcc);
+        return null;
     }
     
     

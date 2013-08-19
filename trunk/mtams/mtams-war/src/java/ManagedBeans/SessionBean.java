@@ -83,7 +83,7 @@ public class SessionBean implements Serializable {
 
     private void setSessionVariables() {
         //FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID",user.getIdaccount());
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", user.getIdaccount());
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", user.getUsername());
         //session.setAttribute("userID", user.getIdaccount());
 //        session.setAttribute("username", user.getUsername());
@@ -91,60 +91,85 @@ public class SessionBean implements Serializable {
 
     public String validate() {
         user = handler.authenticate(this.username, this.password);
-        if (user != null) {
-            int roleNum = handler.getAccountRole(user);
-            if (roleNum < 20) {
-                
-                //session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-                setSessionVariables();
-                if (user.getDatelogin() == null) {
-                    
-                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", true);
-                    addDate();
-                    return "travelProfile";
-                } else {
-                    //addDate();
-                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
-                    addDate();
-                    return "userHome.xhtml";//"viewApplication";//
-                }
-                //logError = false;
+        Integer roleNum = handler.getAccountRole(user);
+        if (user != null && roleNum != null) {
+            
+                if (roleNum == 11) {
 
-            } else if (roleNum < 30) {
-                
-                addDate();
-               // session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-                setSessionVariables();
-                //logError = false;
-                return "adminHome";
+                    //session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                    //setSessionVariables();
+                    if (user.getDatelogin() == null) {
+                        setSessionVariables();
+                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", true);
+                        addDate();
+                        return "./travelProfileCreate.xhtml";
+                    } else {
+                        //addDate();
+                        setSessionVariables();
+                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
+                        addDate();
+                        return "./userHome.xhtml";//"viewApplication";//
+                    }
+                    //logError = false;
+
+                } else if (roleNum == 12) {
+                    //setSessionVariables();
+                    if (user.getDatelogin() == null) {
+                        setSessionVariables();
+                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", true);
+                        addDate();
+                        return "./travelProfileCreate.xhtml";
+                    } else {
+                        //addDate();
+                        setSessionVariables();
+                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
+                        addDate();
+                        return "./authorizerHome.xhtml";//"viewApplication";//
+                    }
+
+                } else if (roleNum == 21) {
+
+                    addDate();
+                    // session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                    setSessionVariables();
+                    //logError = false;
+                    return "accountAll";
+
+                } else if (roleNum == 22) {
+
+                    addDate();
+                    // session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                    setSessionVariables();
+                    //logError = false;
+                    return "superHome";
+                } else {
+                    FacesContext.getCurrentInstance().addMessage("loginMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Account has been deactivated. Please contact admin."));
+                    return "login";
+                }
             } else {
-                FacesContext.getCurrentInstance().addMessage("loginMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Account has been deactivated. Please contact admin."));
+                FacesContext.getCurrentInstance().addMessage("loginMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Incorrect username/password combination"));
                 return "login";
             }
-        } else {
-            FacesContext.getCurrentInstance().addMessage("loginMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Incorrect username/password combination"));
-            return "login";
+        
+
         }
 
-    }
+    
 
     public String invalidate() {
         //HttpServletRequest request = (HttpServletRequest);
         //session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         //HttpSession session = request.getSession(true);
         try {
-            //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", null);
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", null);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", null);
-            //((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).invalidate();
-            //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+            ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).invalidate();
+            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         } catch (NullPointerException e) {
         } finally {
             return "login";
         }
-        
+
 
     }
-
-    
-    
 }

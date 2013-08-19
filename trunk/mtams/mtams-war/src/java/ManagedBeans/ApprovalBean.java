@@ -5,47 +5,52 @@
 package ManagedBeans;
 
 import Entities.Accomodationquotes;
+import Entities.Account;
 import Entities.Application;
+import Entities.Approval;
 import Entities.Carquotes;
 import Entities.Flightquotes;
 import Entities.Itinerary;
 import Entities.Quotes;
 import Entities.Travel;
 import Entities.Travelerprofile;
+import ServiceLayer.AccountHandlerLocal;
 import ServiceLayer.ApplicationHandlerLocal;
+import ServiceLayer.ApprovalHandlerLocal;
 import ServiceLayer.TravelProfileHandlerLocal;
-//import java.awt.event.ActionEvent;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-
-import javax.faces.component.*;
+import javax.enterprise.context.ConversationScoped;
+import javax.faces.component.UIData;
+import javax.faces.component.UIForm;
+import javax.faces.component.UIInput;
+import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
-
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Pattern;
-import org.primefaces.event.FlowEvent;
 
 /**
  *
- * @author Badger
+ * @author Robert Bwana
  */
-@Named(value = "appBean")
-@SessionScoped
-public class ApplicationBean implements Serializable {
+@Named(value = "approvalBean")
+@ConversationScoped
+public class ApprovalBean implements Serializable {
 
     @EJB
     private TravelProfileHandlerLocal travelProfileHandler;
     @EJB
     private ApplicationHandlerLocal appHandler;
+    @EJB
+    private ApprovalHandlerLocal approvalHandler;
+    @EJB
+    private AccountHandlerLocal accHandler;
     
     private static final Logger logger = Logger.getLogger(ApplicationBean.class.getName());
     
@@ -54,16 +59,17 @@ public class ApplicationBean implements Serializable {
     
     private Integer accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
     private Travelerprofile profileRef;// = travelProfileHandler.findTravelProf(accountID);
+    private Account accRef;
     
     private Date modifiedDate;
-    @Future(message="Date must be in Future")
+    @Future
     private Date departureDate;
-    @Future(message="Date must be in Future")
+    @Future
     private Date returnDate;
     private String description;
     private Travel newTravel;
     private Itinerary tempItin;
-    @Future(message="Date must be in Future")
+    @Future
     private Date tempDate;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String tempDest;
@@ -111,9 +117,9 @@ public class ApplicationBean implements Serializable {
     private Carquotes newCar;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String hQLocation;
-    @Future(message="Date must be in Future")
+    @Future
     private Date hQDateIn;
-    @Future(message="Date must be in Future")
+    @Future
     private Date hQDateOut;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String hQHotel1;
@@ -142,16 +148,21 @@ public class ApplicationBean implements Serializable {
     
     private String reasonForTravel;
     private Application newApplication;
+    
+    //--------APPROVAL-------------//
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    private String approvalName;
+    private String approvalComment;
+    private int approved = 2;
 
-    /**
-     * Creates a new instance of ApplicationBean
-     */
-    public ApplicationBean() {
+    public ApprovalBean() {
+        //initialize();
     }
 
-    //@PostConstruct
+    @PostConstruct
     public void initialize() {
-        accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+        //accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+        
 //        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 
 //        Application tempApp = new Application();
@@ -187,166 +198,30 @@ public class ApplicationBean implements Serializable {
         setCostCentre(quoteRef.getCostcenter());
     }
 
-    public String createApplication() {
-        modifiedDate = new Date();
-        newApplication = new Application();
-        profileRef = travelProfileHandler.findTravelProf(accountID);
-
-        newApplication.setDatemodified(modifiedDate);
-
-        newApplication.setDescription(description);
-        newApplication.setTravelerprofileIdtravelerprofile(profileRef);
-        //newApplication.setAccountIdaccount(accountID);
-
-        newTravel = new Travel();
-        newTravel.setDatedeparture(departureDate);
-        newTravel.setDatereturn(returnDate);
-        newTravel.setDescription(reasonForTravel);
-
-        newQuote = new Quotes();
-        newQuote.setCostcenter(costCentre);
-
-        accQuotes = new ArrayList<Accomodationquotes>();
-        newAcc = new Accomodationquotes();
-
-        newAcc.setAccomodationprovider(hQHotel1);
-        newAcc.setQuotecost(hQCost1);
-        newAcc.setCity(hQLocation);
-        newAcc.setDatecheckin(hQDateIn);
-        newAcc.setDatecheckout(hQDateOut);
-
-        accQuotes.add(newAcc);
-
-        newAcc = new Accomodationquotes();
-
-        newAcc.setAccomodationprovider(hQHotel2);
-        newAcc.setQuotecost(hQCost2);
-        newAcc.setCity(hQLocation);
-        newAcc.setDatecheckin(hQDateIn);
-        newAcc.setDatecheckout(hQDateOut);
-
-        accQuotes.add(newAcc);
-
-        carQuotes = new ArrayList<Carquotes>();
-        newCar = new Carquotes();
-
-        newCar.setDatecollect(cQDateCollected);
-        newCar.setDatereturn(cQDateReturned);
-        newCar.setProvider(cQHire1);
-        newCar.setQuotecost(cQCost1);
-
-        carQuotes.add(newCar);
-
-        newCar = new Carquotes();
-
-        newCar.setDatecollect(cQDateCollected);
-        newCar.setDatereturn(cQDateReturned);
-        newCar.setProvider(cQHire2);
-        newCar.setQuotecost(cQCost2);
-
-        carQuotes.add(newCar);
-
-        flightQuotes = new ArrayList<Flightquotes>();
-        newFlight = new Flightquotes();
-
-        newFlight.setFlightfrom(fQFrom);
-        newFlight.setFlightto(fQTo);
-        newFlight.setDatedeparture(fQDate);
-        newFlight.setQuotesource(fQFlight1);
-        newFlight.setQuotecost(fQCost1);
-
-        flightQuotes.add(newFlight);
-
-        newFlight = new Flightquotes();
-
-        newFlight.setFlightfrom(fQFrom);
-        newFlight.setFlightto(fQTo);
-        newFlight.setDatedeparture(fQDate);
-        newFlight.setQuotesource(fQFlight2);
-        newFlight.setQuotecost(fQCost2);
-
-        flightQuotes.add(newFlight);
-
-        tempItin = new Itinerary();
-        tempItin.setDate(getTempDate());
-        tempItin.setDestination(getTempDest());
-        tempItin.setLeavetype(getTempLeaveType());
-        tempItin.setTravelday(getTempTravelDay());
-
-        appHandler.persistApplication(newApplication, newQuote, accQuotes, carQuotes, flightQuotes, tempItin, newTravel, profileRef);
-        FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Application Created"));
-        return "userHome";
-    }
-
-    public String onFlowProcess(FlowEvent event) {
-        logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());
-        logger.log(Level.INFO, "Next step:{0}", event.getNewStep());
-
-
-        return event.getNewStep();
-    }
-
-    public String reinit() {
-        tempItin.setDate(getTempDate());
-        tempItin.setDestination(getTempDest());
-        tempItin.setLeavetype(getTempLeaveType());
-        tempItin.setTravelday(getTempTravelDay());
-        hops.add(tempItin);
-        tempItin = new Itinerary();
-
-        createNewRow();
-
-        return null;
-    }
-
-    private void createNewRow() {
-        //List<Object> row = new ArrayList<Object>();
-
-        input.setRendererType("text");
-        input.setRendered(true);
-        input.setId("element" + ++idNum);
-        panel.getChildren().add(input);
-        input = new UIInput();
-        //uiInput.
-
-    }
-
     public String viewThis(){
         //loadValues();
-        return "/applicationView.xhtml";
+        return "/viewApplication.xhtml";
+    }
+
+    public String approve(){
+        
+        accRef = accHandler.getAccount(accountID);
+        
+        Approval appr = new Approval();
+        appr.setAccountIdaccount(accRef);
+        appr.setApplicationIdapplication(appRef);
+        appr.setDate(new Date());
+        appr.setSectionid(approved);
+        appr.setFromsection(approvalName);
+        appr.setNotes(approvalComment);
+        approvalHandler.persistApproval(appr);
+        
+        return "userHome.xhtml";
     }
     
-    public String goEdit(){
-        //loadValues();
-        initialize();
-        return "applicationEdit";
-    }
     
-    public String update(){
-        quoteRef = appRef.getQuotesIdquotes();
-        hotels = appHandler.getAccomodationQuotes(quoteRef.getIdquotes());
-        cars = appHandler.getCarQuotes(quoteRef.getIdquotes());
-        flights = appHandler.getFlightQuotes(quoteRef.getIdquotes());
-        travelRef = appRef.getTravelIdtravel();
-        itinRef = appHandler.getItinerary(travelRef.getIdtravel());
-        
-        appRef.setDescription(description);
-        
-        travelRef.setDatedeparture(departureDate);
-        travelRef.setDatereturn(returnDate);
-        travelRef.setDescription(reasonForTravel);
-        
-        itinRef.setDate(tempDate);
-        itinRef.setDestination(tempDest);
-        itinRef.setLeavetype(tempLeaveType);
-        itinRef.setTravelday(tempTravelDay);
-        
-        quoteRef.setCostcenter(costCentre);
-        
-        appHandler.persistApplicationEdit(appRef, quoteRef, itinRef, travelRef);
-        FacesContext.getCurrentInstance().addMessage("submitAppConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success","Changes have been saved"));
-        return "/applicationView.xhtml";
-    }
+    
+    
     //dada
     //@PostConstruct
     public void loadValues(){
@@ -761,6 +636,31 @@ public class ApplicationBean implements Serializable {
     public void setQuoteRef(Quotes quoteRef) {
         this.quoteRef = quoteRef;
     }
+
+    public String getApprovalName() {
+        return approvalName;
+    }
+
+    public void setApprovalName(String approvalName) {
+        this.approvalName = approvalName;
+    }
+
+    public String getApprovalComment() {
+        return approvalComment;
+    }
+
+    public void setApprovalComment(String approvalComment) {
+        this.approvalComment = approvalComment;
+    }
+
+    public int getApproved() {
+        return approved;
+    }
+
+    public void setApproved(int approved) {
+        this.approved = approved;
+    }
     
     
+
 }
