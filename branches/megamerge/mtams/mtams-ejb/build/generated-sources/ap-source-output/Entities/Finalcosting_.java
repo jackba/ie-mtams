@@ -8,7 +8,7 @@ import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2013-08-14T23:52:40")
+@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2013-08-19T15:49:22")
 @StaticMetamodel(Finalcosting.class)
 public class Finalcosting_ { 
 
@@ -19,6 +19,7 @@ public class Finalcosting_ {
     public static volatile SingularAttribute<Finalcosting, String> ozemail;
     public static volatile SingularAttribute<Finalcosting, Integer> checks;
     public static volatile SingularAttribute<Finalcosting, String> countries;
+    public static volatile SingularAttribute<Finalcosting, String> currency;
     public static volatile SingularAttribute<Finalcosting, Double> conferencecost;
     public static volatile SingularAttribute<Finalcosting, Double> visabudget;
     public static volatile SingularAttribute<Finalcosting, String> oztel;
@@ -38,8 +39,8 @@ public class Finalcosting_ {
     public static volatile SingularAttribute<Finalcosting, Double> accommodationcost;
     public static volatile SingularAttribute<Finalcosting, Double> perdiemcost;
     public static volatile SingularAttribute<Finalcosting, Double> perdiembudget;
-    public static volatile SingularAttribute<Finalcosting, Double> otherbudget;
     public static volatile SingularAttribute<Finalcosting, Double> accommodationbudget;
+    public static volatile SingularAttribute<Finalcosting, Double> otherbudget;
     public static volatile SingularAttribute<Finalcosting, Double> conferencebudget;
     public static volatile SingularAttribute<Finalcosting, String> otherdiscription;
     public static volatile CollectionAttribute<Finalcosting, Application> applicationCollection;

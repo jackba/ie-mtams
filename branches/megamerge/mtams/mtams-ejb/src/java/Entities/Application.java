@@ -51,8 +51,6 @@ public class Application implements Serializable {
     @Column(name = "DATEMODIFIED")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datemodified;
-    @OneToMany(mappedBy = "applicationIdapplication")
-    private Collection<Attachement> attachementCollection;
     @JoinColumn(name = "TRAVELERPROFILE_IDTRAVELERPROFILE", referencedColumnName = "IDTRAVELERPROFILE")
     @ManyToOne(optional = false)
     private Travelerprofile travelerprofileIdtravelerprofile;
@@ -74,6 +72,8 @@ public class Application implements Serializable {
     @JoinColumn(name = "ACCOUNT_IDACCOUNT", referencedColumnName = "IDACCOUNT")
     @ManyToOne(optional = false)
     private Account accountIdaccount;
+    @OneToMany(mappedBy = "applicationIdapplication")
+    private Collection<Attachement> attachementCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "applicationIdapplication")
     private Collection<Approval> approvalCollection;
 
@@ -106,15 +106,6 @@ public class Application implements Serializable {
 
     public void setDatemodified(Date datemodified) {
         this.datemodified = datemodified;
-    }
-
-    @XmlTransient
-    public Collection<Attachement> getAttachementCollection() {
-        return attachementCollection;
-    }
-
-    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
-        this.attachementCollection = attachementCollection;
     }
 
     public Travelerprofile getTravelerprofileIdtravelerprofile() {
@@ -171,6 +162,15 @@ public class Application implements Serializable {
 
     public void setAccountIdaccount(Account accountIdaccount) {
         this.accountIdaccount = accountIdaccount;
+    }
+
+    @XmlTransient
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
+    }
+
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
     }
 
     @XmlTransient

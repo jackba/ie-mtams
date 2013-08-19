@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Carquotes.findByDatereturn", query = "SELECT c FROM Carquotes c WHERE c.datereturn = :datereturn"),
     @NamedQuery(name = "Carquotes.findByProvider", query = "SELECT c FROM Carquotes c WHERE c.provider = :provider"),
     @NamedQuery(name = "Carquotes.findByDescription", query = "SELECT c FROM Carquotes c WHERE c.description = :description"),
+    @NamedQuery(name = "Carquotes.findByCurrency", query = "SELECT c FROM Carquotes c WHERE c.currency = :currency"),
     @NamedQuery(name = "Carquotes.findByQuotecost", query = "SELECT c FROM Carquotes c WHERE c.quotecost = :quotecost")})
 public class Carquotes implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -60,8 +61,11 @@ public class Carquotes implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
     @Size(max = 45)
+    @Column(name = "CURRENCY")
+    private String currency;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "QUOTECOST")
-    private String quotecost;
+    private Double quotecost;
     @JoinColumn(name = "QUOTES_IDQUOTES", referencedColumnName = "IDQUOTES")
     @ManyToOne(optional = false)
     private Quotes quotesIdquotes;
@@ -115,11 +119,19 @@ public class Carquotes implements Serializable {
         this.description = description;
     }
 
-    public String getQuotecost() {
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public Double getQuotecost() {
         return quotecost;
     }
 
-    public void setQuotecost(String quotecost) {
+    public void setQuotecost(Double quotecost) {
         this.quotecost = quotecost;
     }
 

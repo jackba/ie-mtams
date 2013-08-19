@@ -8,23 +8,24 @@ import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2013-08-14T23:52:40")
+@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2013-08-19T15:49:22")
 @StaticMetamodel(Forexorder.class)
 public class Forexorder_ { 
 
-    public static volatile SingularAttribute<Forexorder, String> travelerscheques;
+    public static volatile SingularAttribute<Forexorder, Double> travelerscheques;
     public static volatile SingularAttribute<Forexorder, String> cclast3;
     public static volatile SingularAttribute<Forexorder, String> reasonfortravel;
     public static volatile SingularAttribute<Forexorder, Date> dateofrequired;
     public static volatile SingularAttribute<Forexorder, Date> datewillbeconfirmed;
     public static volatile SingularAttribute<Forexorder, String> ccnumber;
+    public static volatile SingularAttribute<Forexorder, String> currency;
     public static volatile SingularAttribute<Forexorder, String> ticketnum;
     public static volatile SingularAttribute<Forexorder, String> voyagernum;
     public static volatile SingularAttribute<Forexorder, Integer> idforexorder;
-    public static volatile SingularAttribute<Forexorder, String> ccpaymentamount;
+    public static volatile SingularAttribute<Forexorder, Double> ccpaymentamount;
+    public static volatile SingularAttribute<Forexorder, Double> cash;
     public static volatile SingularAttribute<Forexorder, Date> dateofdepart;
-    public static volatile SingularAttribute<Forexorder, String> cash;
-    public static volatile SingularAttribute<Forexorder, String> cashpassport;
+    public static volatile SingularAttribute<Forexorder, Double> cashpassport;
     public static volatile SingularAttribute<Forexorder, String> cctype;
     public static volatile SingularAttribute<Forexorder, Date> ccexpirydate;
     public static volatile SingularAttribute<Forexorder, Date> dateofreturn;
