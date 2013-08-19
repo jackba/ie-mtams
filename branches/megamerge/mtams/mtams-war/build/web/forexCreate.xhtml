@@ -59,7 +59,7 @@
 
 
                                     <h:outputText value="Destination: " />  
-                                    <h:outputText value="#{foreignBean.itinerary.destination}" /> 
+                                    <h:outputText value="#{foreignBean.itinerary.destinationCity}" /> 
 
 
                                     <h:outputText value="Date of departure: " />  
@@ -108,10 +108,12 @@
                                         <f:selectItem itemLabel="EUR" itemValue="EUR" />  
                                         <f:selectItem itemLabel="ZAR" itemValue="ZAR" />
                                     </p:selectOneMenu>
+                                    
                                     <p:inputText rendered="#{foreignBean.isUsingCheq eq '1'}" id="travelC" value="#{foreignBean.travellerCheque}">
-										<p:ajax update="msgCheque" event="keyup" async="true"/>
-									</p:inputText>
-                                    <p:message for="travelC" rendered="#{foreignBean.isUsingCheq eq '1'}"/>
+                                        <f:validateLength minimum="1" maximum="15"/>
+                                        <p:ajax update="msgCheque" event="keyup" />
+                                    </p:inputText>
+                                    <p:message for="travelC" id="msgCheque" rendered="#{foreignBean.isUsingCheq eq '1'}"/>
                                 </h:panelGrid>
 
                                 <!--                        foreign Cash-->
@@ -136,6 +138,7 @@
                                         <f:selectItem itemLabel="ZAR" itemValue="ZAR" />
                                     </p:selectOneMenu>
                                     <p:inputText rendered="#{foreignBean.isUsingFC eq '1'}" id="fcash" value="#{foreignBean.foreignCash}" >
+                                        <f:validateLength minimum="1" maximum="15"/>
                                         <p:ajax update="fcError" event="keyup" />
                                     </p:inputText>
                                     <p:message for="fcash" id="fcError" rendered="#{foreignBean.isUsingFC eq '1'}" />
@@ -156,33 +159,37 @@
 
                                 <h:panelGrid columns="3" id="isUsingCCGrid" columnClasses="label, value,error">
                                     <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="cashPcard" value="Cash"/>
-                            <p:inputText rendered="#{foreignBean.isUsingCC eq '1'}" id="cashPcard" value="#{foreignBean.cashPassportCard}">
-                                <p:ajax update="msgcashP" event="keyup" async="true"/>
-                            </p:inputText>
-                            <p:message for="cashPcard" id="msgcashP"/>
+                                    <p:inputText rendered="#{foreignBean.isUsingCC eq '1'}" id="cashPcard" value="#{foreignBean.cashPassportCard}">
+                                        <f:validateLength minimum="1" maximum="15"/>
+                                        <p:ajax update="msgcashP" event="keyup" async="true"/>
+                                    </p:inputText>
+                                    <p:message for="cashPcard" id="msgcashP"/>
 
-                            <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="type" value="Type: (Visa, Diners etc): "/>
-                            <p:inputText rendered="#{foreignBean.isUsingCC eq '1'}" id="type" value="#{foreignBean.type}" >
-                                <p:ajax update="msgType" event="keyup" async="true"/>
-                            </p:inputText>
-                            <p:message for="type" id="msgType"/>
+                                    <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="type" value="Type: (Visa, Diners etc): "/>
+                                    <p:inputText rendered="#{foreignBean.isUsingCC eq '1'}" id="type" value="#{foreignBean.type}" >
+                                        <f:validateLength minimum="1" maximum="30"/>
+                                        <p:ajax update="msgType" event="keyup" async="true"/>
+                                    </p:inputText>
+                                    <p:message for="type" id="msgType"/>
 
-                            <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="number" value="Number: "/>
-                            <p:inputText rendered="#{foreignBean.isUsingCC eq '1'}" id="number" value="#{foreignBean.number}">
-                                <p:ajax update="msgNumber" event="keyup" async="true"/>
-                            </p:inputText>
-                            <p:message for="number" id="msgNumber"/>
+                                    <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="number" value="Number: "/>
+                                    <p:inputText rendered="#{foreignBean.isUsingCC eq '1'}" id="number" value="#{foreignBean.number}">
+                                        <f:validateLength minimum="1" maximum="30"/>
+                                        <p:ajax update="msgNumber" event="keyup" async="true"/>
+                                    </p:inputText>
+                                    <p:message for="number" id="msgNumber"/>
 
-                            <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="last3cc" value="Last 3 Digits on Reverse of Card : "/>
-                            <p:inputMask mask="999" rendered="#{foreignBean.isUsingCC eq '1'}" id="last3cc" value="#{foreignBean.last3}">
-                                <p:ajax update="msgLast3" event="keyup" async="true"/>
-                            </p:inputMask>
-                            <p:message for="last3cc" id="msgLast3"/>
+                                    <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="last3cc" value="Last 3 Digits on Reverse of Card : "/>
+                                    <p:inputMask mask="999" rendered="#{foreignBean.isUsingCC eq '1'}" id="last3cc" value="#{foreignBean.last3}">
+                                        <f:validateLength minimum="3" maximum="3"/>
+                                        <p:ajax update="msgLast3" event="keyup" async="true"/>
+                                    </p:inputMask>
+                                    <p:message for="last3cc" id="msgLast3"/>
 
 
-                            <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="ExpireDate" value="Expiry Date: "/>
-                            <p:calendar rendered="#{foreignBean.isUsingCC eq '1'}" id="ExpireDate" value="#{foreignBean.expire}" />
-                            <p:message for="ExpireDate"/>
+                                    <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="ExpireDate" value="Expiry Date: "/>
+                                    <p:calendar rendered="#{foreignBean.isUsingCC eq '1'}" id="ExpireDate" value="#{foreignBean.expire}" />
+                                    <p:message for="ExpireDate"/>
 
                                     <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="ccCur" value="Currency: "/>
                                     <p:selectOneMenu value="#{foreignBean.ccCur}" id="ccCur" rendered="#{foreignBean.isUsingCC eq '1'}">  
@@ -192,12 +199,13 @@
                                         <f:selectItem itemLabel="ZAR" itemValue="ZAR" />
                                     </p:selectOneMenu>
                                     <p:message for="ccCur" /> 
-									
+
                                     <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="amount" value="Amount: "/>
-                            <p:inputText rendered="#{foreignBean.isUsingCC eq '1'}" id="amount" value="#{foreignBean.amount}">
-                                <p:ajax update="msgAmount" event="keyup" async="true"/>
-                            </p:inputText>
-                            <p:message for="amount" id="msgAmount"/>
+                                    <p:inputText rendered="#{foreignBean.isUsingCC eq '1'}" id="amount" value="#{foreignBean.amount}">
+                                        <f:validateLength minimum="1" maximum="15"/>
+                                        <p:ajax update="msgAmount" event="keyup" async="true"/>
+                                    </p:inputText>
+                                    <p:message for="amount" id="msgAmount"/>
                                 </h:panelGrid>
 
                             </p:panel>  
@@ -211,14 +219,14 @@
                                 <h:panelGrid columns="3" columnClasses="label, value, error">  
 
                                     <h:outputText value="Date and time:* " />                              
-                            <p:calendar id="dateRe" value="#{foreignBean.dateRequired}" required="true" requiredMessage="required field" mindate="#{foreignBean.currentDate}">
-                                
-                            </p:calendar>
-                            <p:message for="dateRe" id="msgDT"/>
+                                    <p:calendar id="dateRe" value="#{foreignBean.dateRequired}" required="true" requiredMessage="required field" mindate="#{foreignBean.currentDate}">
 
-                            <h:outputText value="Date and Time: (Will be confirmed by Forex Consultant) " />  
-                            <p:calendar id="forexCon" value="#{foreignBean.dateForex}" required="true" requiredMessage="required field"/>
-                            <p:message for="forexCon"/>
+                                    </p:calendar>
+                                    <p:message for="dateRe" id="msgDT"/>
+
+                                    <h:outputText value="Date and Time: (Will be confirmed by Forex Consultant) " />  
+                                    <p:calendar id="forexCon" value="#{foreignBean.dateForex}" required="true" requiredMessage="required field"/>
+                                    <p:message for="forexCon"/>
 
                                 </h:panelGrid>  
                             </p:panel>  
