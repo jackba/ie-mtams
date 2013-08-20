@@ -19,7 +19,7 @@ import javax.ejb.Local;
  * @author aaron
  */
 @Local
-public interface DataLookUpLocal {
+public interface DataLookUpHandlerLocal {
 
     // Title methods
     public List<Title> allTitles();

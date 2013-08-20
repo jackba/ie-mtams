@@ -28,7 +28,7 @@ import javax.ejb.Stateless;
  * @author aaron
  */
 @Stateless
-public class DataLookUp implements DataLookUpLocal {
+public class DataLookUpHandler implements DataLookUpHandlerLocal {
 
     @EJB
     private TitleFacadeLocal daoTitle;

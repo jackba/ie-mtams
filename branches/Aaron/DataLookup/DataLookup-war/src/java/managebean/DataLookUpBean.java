@@ -17,7 +17,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import service.DataLookUpLocal;
+import service.DataLookUpHandlerLocal;
 //import sun.util.resources.CurrencyNames_en_GB;
 
 /**
@@ -27,12 +27,12 @@ import service.DataLookUpLocal;
 @Named(value = "dataLookUpBean")
 //@SessionScoped
 @RequestScoped
-public class DataLookUpJSFManagedBean implements Serializable {
+public class DataLookUpBean implements Serializable {
 
     //testing
     //private CurrencyNames_en_GB javaCurrency;
     @EJB
-    private DataLookUpLocal daoDataLookUp;
+    private DataLookUpHandlerLocal daoDataLookUp;
     //private TitleFacadeLocal doaTitle;
     // Title lookup vars
     private int titleCount;
@@ -162,11 +162,11 @@ public class DataLookUpJSFManagedBean implements Serializable {
         this.titleList = titleList;
     }
 
-    public DataLookUpLocal getDaoDataLookUp() {
+    public DataLookUpHandlerLocal getDaoDataLookUp() {
         return daoDataLookUp;
     }
 
-    public void setDaoDataLookUp(DataLookUpLocal daoDataLookUp) {
+    public void setDaoDataLookUp(DataLookUpHandlerLocal daoDataLookUp) {
         this.daoDataLookUp = daoDataLookUp;
     }
 
@@ -371,8 +371,8 @@ public class DataLookUpJSFManagedBean implements Serializable {
     
 
     /**
-     * Creates a new instance of DataLookUpJSFManagedBean
+     * Creates a new instance of DataLookUpBean
      */
-    public DataLookUpJSFManagedBean() {
+    public DataLookUpBean() {
     }
 }
