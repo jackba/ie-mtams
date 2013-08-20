@@ -27,7 +27,7 @@
                     </h:form>
                 </div>
                 <div id = "content">
-                    <h:form id="deactivateForm">
+                    <h:form id="departmentHandlerForm">
                         <p:menubar>
                             <p:menuitem value="Home" icon="ui-icon-home" outcome="#{superAdminBean.goToHome()}"/>
                             <p:submenu label="Actions" icon="ui-icon-document">  
@@ -38,30 +38,51 @@
                                 <p:menuitem value="Department Handler" outcome="#{superAdminBean.goToDepartmentHandler()}" />                    
                             </p:submenu>
                         </p:menubar>
-                        <p:messages showDetail="true" closable="true" globalOnly="true" autoUpdate="true"/>
-                        <p:dataTable id="dataTable" var="account" value="#{adminBean.allAccounts}" binding="#{adminBean.dataTable}" rowKey="#{account.idaccount}" selection="#{adminBean.selectedAcc}" selectionMode="single">  
+                        <p:messages id="departmentHandlerMessage" showDetail="true" closable="true" autoUpdate="true"/>
+                        <p:dataTable id="dataTable" var="department" value="#{superAdminBean.allDepartments}" binding="#{superAdminBean.dataTable}" rowKey="#{department.iddepartment}" selection="#{superAdminBean.selectedDepartment}" selectionMode="single">  
 
                             <f:facet name="header">  
-                                Please Select the Account to be Deactivated
+                                Please Select an Account to Edit or Delete, or Simply Create a New One
                             </f:facet>  
 
-                            <p:column headerText="StaffID">  
-                                <h:outputText value="#{account.idaccount}" />
+                            <p:column headerText="Department Number">  
+                                <h:outputText value="#{department.iddepartment}" />
                             </p:column> 
 
-                            <p:column headerText="UserName">  
-                                <h:outputText value="#{account.username}" />  
+                            <p:column headerText="Department Name">  
+                                <h:outputText value="#{department.department}" />  
                             </p:column>
 
-                            <p:column headerText="Last Login Date">  
-                                <h:outputText value="#{account.datelogin}" />  
-                            </p:column>
-                            <f:facet name="footer">  
-                                <p:commandButton id="deactivateButton" value="Deactivate" icon="ui-icon-closethick"  
-                                                 update=":deactivateForm" action="#{adminBean.deactivateAccount()}"/>  
+                            <f:facet name="footer"> 
+                                <!-- ///////////////////Create///////////////////-->
+                                <p:commandButton  id="showDialogButton" type="button" value="Create" icon="ui-icon-plusthick"  
+                                                  onclick="dlg1.show();" />
+
+                                <p:dialog id="createDialog" header="Enter Department Name" widgetVar="dlg1" resizable="false">                                     
+                                    <h:outputLabel for="deptName" value="Name:" />  
+                                    <p:inputText id="deptName" value="#{superAdminBean.departmentName}" />
+
+                                    <p:commandButton id="submit" value="Submit" action="#{superAdminBean.createDepartment()}" ajax="false" oncomplete="dlg1.hide();"/>  
+
+                                </p:dialog>
+                                
+                                <!-- ///////////////////Edit///////////////////-->
+                                <p:commandButton  id="showDialogButton2" type="button" value="Edit" icon="ui-icon-pencil"  
+                                                  onclick="dlg2.show();" />
+
+                                <p:dialog id="editDialog" header="Enter Department Name" widgetVar="dlg2" resizable="false">                                     
+                                    <h:outputLabel for="deptName2" value="Name:" />  
+                                    <p:inputText id="deptName2" value="#{superAdminBean.departmentEditName}" />
+
+                                    <p:commandButton id="submit2" value="Submit" action="#{superAdminBean.editDepartment()}" ajax="false" oncomplete="dlg2.hide();"/>  
+
+                                </p:dialog>
+                                
+                                <!-- ///////////////////Delete///////////////////-->
+                                <p:commandButton value="Delete" update=":departmentHandlerForm" action="#{superAdminBean.deleteDepartment()}" icon="ui-icon-closethick"/>
                             </f:facet>
-                        </p:dataTable>
-                    </h:form>
+                        </p:dataTable>                       
+                    </h:form>                    
                 </div>
 
                 <div id= "footer">
@@ -84,5 +105,3 @@
 
     </body>
 </html>
-
-
