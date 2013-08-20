@@ -4,6 +4,8 @@
  */
 package service;
 
+import entities.Country;
+import entities.Currency;
 import entities.Department;
 import entities.Leavelookup;
 import entities.Position;
@@ -54,6 +56,22 @@ public interface DataLookUpLocal {
     public int getDepartmentCount();
 
     public Department getDepartment(String aDepartment);
+    
+    // Currency methods
+    public List<Currency> allCurrency();
 
-  
+    public List<String> allCurrencyStr();
+
+    public int getCurrencyCount();
+
+    public Currency getCurrency(String aCurrency);
+
+    // Countries methods
+    public List<Country> allCountries();
+
+    public List<String> allCountriesStr();
+
+    public int getCountriesCount();
+
+    public Country getCountries(String aCountry);  
 }

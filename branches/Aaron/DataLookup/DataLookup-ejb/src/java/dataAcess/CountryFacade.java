@@ -4,7 +4,7 @@
  */
 package dataAcess;
 
-import entities.Cities;
+import entities.Country;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author aaron
  */
 @Stateless
-public class CitiesFacade extends AbstractFacade<Cities> implements CitiesFacadeLocal {
+public class CountryFacade extends AbstractFacade<Country> implements CountryFacadeLocal {
     @PersistenceContext(unitName = "DataLookup-ejbPU")
     private EntityManager em;
 
@@ -23,8 +23,8 @@ public class CitiesFacade extends AbstractFacade<Cities> implements CitiesFacade
         return em;
     }
 
-    public CitiesFacade() {
-        super(Cities.class);
+    public CountryFacade() {
+        super(Country.class);
     }
     
 }

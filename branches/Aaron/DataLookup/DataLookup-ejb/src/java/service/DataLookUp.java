@@ -4,10 +4,14 @@
  */
 package service;
 
+import dataAcess.CountryFacadeLocal;
+import dataAcess.CurrencyFacadeLocal;
 import dataAcess.DepartmentFacadeLocal;
 import dataAcess.LeavelookupFacadeLocal;
 import dataAcess.PositionFacadeLocal;
 import dataAcess.TitleFacadeLocal;
+import entities.Country;
+import entities.Currency;
 import entities.Department;
 import entities.Leavelookup;
 import entities.Position;
@@ -17,6 +21,7 @@ import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+//import sun.util.resources.CurrencyNames_en_GB;
 
 /**
  *
@@ -33,13 +38,18 @@ public class DataLookUp implements DataLookUpLocal {
     private LeavelookupFacadeLocal daoLeave;
     @EJB
     private DepartmentFacadeLocal daoDepartment;
+    @EJB
+    private CountryFacadeLocal daoCountry;
+    @EJB
+    private CurrencyFacadeLocal daoCurrency;
 
     //private Title titleReg;
     @Override
     public List<Title> allTitles() {
-        List<Title> titlesList = new ArrayList<>();
-        titlesList.addAll(daoTitle.findAll());
-        return titlesList;
+        return daoTitle.findAll();
+//        List<Title> titlesList = new ArrayList<>();
+//        titlesList.addAll(daoTitle.findAll());
+//        return titlesList;
         //return daoTitle.findAll()
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -56,6 +66,7 @@ public class DataLookUp implements DataLookUpLocal {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public Title getTitle(String aTitle) {
         //Title aTitleref = new Title();
         //aTitle = daoTitle.find("s");
@@ -70,6 +81,7 @@ public class DataLookUp implements DataLookUpLocal {
         return null;
     }
 
+    @Override
     public int getTitleCount() {
 
         return daoTitle.count();
@@ -183,6 +195,72 @@ public class DataLookUp implements DataLookUpLocal {
         for (Department DepartmentO : daoDepartment.findAll()) {
             if (DepartmentO.getDepartment().equalsIgnoreCase(aDepartment)) {
                 return DepartmentO;
+            }
+        }
+        return null;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Currency> allCurrency() {
+        return daoCurrency.findAll();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<String> allCurrencyStr() {
+        List<String> StringList = new ArrayList<>();
+        for (Currency CurrencyEl : daoCurrency.findAll()) {
+            StringList.add(CurrencyEl.getCurrencycode3() + ", " + CurrencyEl.getCurrencyname() + ", " + CurrencyEl.getCountryname());
+        }
+        return StringList;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getCurrencyCount() {
+        return daoCurrency.count();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Currency getCurrency(String aCurrency) {
+        for (Currency CurrencyO : daoCurrency.findAll()) {
+            if (CurrencyO.getCurrencycode3().equalsIgnoreCase(aCurrency)) {
+                return CurrencyO;
+            }
+        }
+        return null;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Country> allCountries() {
+        return daoCountry.findAll();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<String> allCountriesStr() {
+        List<String> StringList = new ArrayList<>();
+        for (Country CountryEl : daoCountry.findAll()) {
+            StringList.add(CountryEl.getCode3() + ", " + CountryEl.getName());
+        }
+        return StringList;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getCountriesCount() {
+        return daoCountry.count();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Country getCountries(String aCountry) {
+        for (Country CountryO : daoCountry.findAll()) {
+            if (CountryO.getCode3().equalsIgnoreCase(aCountry)) {
+                return CountryO;
             }
         }
         return null;

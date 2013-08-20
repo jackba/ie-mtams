@@ -4,6 +4,7 @@
  */
 package managebean;
 
+import entities.Currency;
 import entities.Department;
 import entities.Leavelookup;
 import entities.Position;
@@ -17,6 +18,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import service.DataLookUpLocal;
+//import sun.util.resources.CurrencyNames_en_GB;
 
 /**
  *
@@ -27,6 +29,8 @@ import service.DataLookUpLocal;
 @RequestScoped
 public class DataLookUpJSFManagedBean implements Serializable {
 
+    //testing
+    //private CurrencyNames_en_GB javaCurrency;
     @EJB
     private DataLookUpLocal daoDataLookUp;
     //private TitleFacadeLocal doaTitle;
@@ -54,6 +58,13 @@ public class DataLookUpJSFManagedBean implements Serializable {
     private String departmentString;
     private List<Department> departmentList;
     private List<String> departmentStrings;
+    // Currency lookup vars
+    private int currencyCount;
+    private Currency aCurrencyRef;
+    private Currency aCurrencySelection;
+    private String currencyString;
+    private List<Currency> currencyList;
+    private List<String> currencyStrings;
 
     //private String test = "hello world";
     //private String test;
@@ -68,7 +79,8 @@ public class DataLookUpJSFManagedBean implements Serializable {
 
         // Title references
         this.titleCount = daoDataLookUp.getTitleCount();
-        this.aTitleRef = daoDataLookUp.getTitle("Phd");
+
+        this.aTitleRef = daoDataLookUp.getTitle("pHD");
         this.titleString = aTitleRef.getTitle();
 
         this.titleList = new ArrayList<>();
@@ -79,6 +91,7 @@ public class DataLookUpJSFManagedBean implements Serializable {
 
         // Position References        
         this.positionCount = daoDataLookUp.getPositionCount();
+        // non case sensitive search for 
         this.aPositionRef = daoDataLookUp.getPosition("Tutor");
         this.positionString = aPositionRef.getPosition();
 
@@ -90,6 +103,7 @@ public class DataLookUpJSFManagedBean implements Serializable {
 
         // Leave References
         this.leaveCount = daoDataLookUp.getLeaveCount();
+        // non case sensitive search for 
         this.aLeaveRef = daoDataLookUp.getLeave("sick leave");
         this.leaveString = aLeaveRef.getLeavetype();
 
@@ -98,9 +112,10 @@ public class DataLookUpJSFManagedBean implements Serializable {
 
         this.leaveStrings = new ArrayList<>();
         leaveStrings.addAll(daoDataLookUp.allLeaveStr());
-        
+
         // Department References
         this.departmentCount = daoDataLookUp.getDepartmentCount();
+        // non case sensitive search for 
         this.aDepartmentRef = daoDataLookUp.getDepartment("finance");
         this.departmentString = aDepartmentRef.getDepartment();
 
@@ -109,6 +124,18 @@ public class DataLookUpJSFManagedBean implements Serializable {
 
         this.departmentStrings = new ArrayList<>();
         departmentStrings.addAll(daoDataLookUp.allDepartmentStr());
+
+        // Currency References
+        this.currencyCount = daoDataLookUp.getCurrencyCount();
+        // non case sensitive search for 
+        this.aCurrencyRef = daoDataLookUp.getCurrency("eur");
+        this.currencyString = aCurrencyRef.getCurrencycode3();
+
+        this.currencyList = new ArrayList<>();
+        currencyList.addAll(daoDataLookUp.allCurrency());
+
+        this.currencyStrings = new ArrayList<>();
+        currencyStrings.addAll(daoDataLookUp.allCurrencyStr());
     }
 
     public List<String> getTitleStrings() {
@@ -283,6 +310,63 @@ public class DataLookUpJSFManagedBean implements Serializable {
     public void setDepartmentStrings(List<String> departmentStrings) {
         this.departmentStrings = departmentStrings;
     }
+
+    public Department getaDepartmentRef() {
+        return aDepartmentRef;
+    }
+
+    public void setaDepartmentRef(Department aDepartmentRef) {
+        this.aDepartmentRef = aDepartmentRef;
+    }
+
+    public int getCurrencyCount() {
+        return currencyCount;
+    }
+
+    public void setCurrencyCount(int currencyCount) {
+        this.currencyCount = currencyCount;
+    }
+
+    public Currency getaCurrencyRef() {
+        return aCurrencyRef;
+    }
+
+    public void setaCurrencyRef(Currency aCurrencyRef) {
+        this.aCurrencyRef = aCurrencyRef;
+    }
+
+    public String getCurrencyString() {
+        return currencyString;
+    }
+
+    public void setCurrencyString(String currencyString) {
+        this.currencyString = currencyString;
+    }
+
+    public List<Currency> getCurrencyList() {
+        return currencyList;
+    }
+
+    public void setCurrencyList(List<Currency> currencyList) {
+        this.currencyList = currencyList;
+    }
+
+    public List<String> getCurrencyStrings() {
+        return currencyStrings;
+    }
+
+    public void setCurrencyStrings(List<String> currencyStrings) {
+        this.currencyStrings = currencyStrings;
+    }
+
+    public Currency getaCurrencySelection() {
+        return aCurrencySelection;
+    }
+
+    public void setaCurrencySelection(Currency aCurrencySelection) {
+        this.aCurrencySelection = aCurrencySelection;
+    }
+     
     
     
 

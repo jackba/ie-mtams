@@ -9,6 +9,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -21,30 +23,28 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author aaron
  */
 @Entity
-@Table(name = "COUNTRIES")
+@Table(name = "CITY")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Countries.findAll", query = "SELECT c FROM Countries c"),
-    @NamedQuery(name = "Countries.findByCode2", query = "SELECT c FROM Countries c WHERE c.code2 = :code2"),
-    @NamedQuery(name = "Countries.findByCode3", query = "SELECT c FROM Countries c WHERE c.code3 = :code3"),
-    @NamedQuery(name = "Countries.findByUrl", query = "SELECT c FROM Countries c WHERE c.url = :url"),
-    @NamedQuery(name = "Countries.findByName", query = "SELECT c FROM Countries c WHERE c.name = :name"),
-    @NamedQuery(name = "Countries.findByLatitude", query = "SELECT c FROM Countries c WHERE c.latitude = :latitude"),
-    @NamedQuery(name = "Countries.findByLongitude", query = "SELECT c FROM Countries c WHERE c.longitude = :longitude"),
-    @NamedQuery(name = "Countries.findByRegions", query = "SELECT c FROM Countries c WHERE c.regions = :regions")})
-public class Countries implements Serializable {
+    @NamedQuery(name = "City.findAll", query = "SELECT c FROM City c"),
+    @NamedQuery(name = "City.findByIdcity", query = "SELECT c FROM City c WHERE c.idcity = :idcity"),
+    @NamedQuery(name = "City.findByRegion", query = "SELECT c FROM City c WHERE c.region = :region"),
+    @NamedQuery(name = "City.findByUrl", query = "SELECT c FROM City c WHERE c.url = :url"),
+    @NamedQuery(name = "City.findByName", query = "SELECT c FROM City c WHERE c.name = :name"),
+    @NamedQuery(name = "City.findByLatitude", query = "SELECT c FROM City c WHERE c.latitude = :latitude"),
+    @NamedQuery(name = "City.findByLongitude", query = "SELECT c FROM City c WHERE c.longitude = :longitude")})
+public class City implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2)
-    @Column(name = "CODE2")
-    private String code2;
+    @Column(name = "IDCITY")
+    private Integer idcity;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
-    @Column(name = "CODE3")
-    private String code3;
+    @Column(name = "REGION")
+    private String region;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -63,42 +63,40 @@ public class Countries implements Serializable {
     @NotNull
     @Column(name = "LONGITUDE")
     private double longitude;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "REGIONS")
-    private int regions;
+    @JoinColumn(name = "CODE2", referencedColumnName = "CODE2")
+    @ManyToOne(optional = false)
+    private Country code2;
 
-    public Countries() {
+    public City() {
     }
 
-    public Countries(String code2) {
-        this.code2 = code2;
+    public City(Integer idcity) {
+        this.idcity = idcity;
     }
 
-    public Countries(String code2, String code3, String url, String name, double latitude, double longitude, int regions) {
-        this.code2 = code2;
-        this.code3 = code3;
+    public City(Integer idcity, String region, String url, String name, double latitude, double longitude) {
+        this.idcity = idcity;
+        this.region = region;
         this.url = url;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.regions = regions;
     }
 
-    public String getCode2() {
-        return code2;
+    public Integer getIdcity() {
+        return idcity;
     }
 
-    public void setCode2(String code2) {
-        this.code2 = code2;
+    public void setIdcity(Integer idcity) {
+        this.idcity = idcity;
     }
 
-    public String getCode3() {
-        return code3;
+    public String getRegion() {
+        return region;
     }
 
-    public void setCode3(String code3) {
-        this.code3 = code3;
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public String getUrl() {
@@ -133,29 +131,29 @@ public class Countries implements Serializable {
         this.longitude = longitude;
     }
 
-    public int getRegions() {
-        return regions;
+    public Country getCode2() {
+        return code2;
     }
 
-    public void setRegions(int regions) {
-        this.regions = regions;
+    public void setCode2(Country code2) {
+        this.code2 = code2;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (code2 != null ? code2.hashCode() : 0);
+        hash += (idcity != null ? idcity.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Countries)) {
+        if (!(object instanceof City)) {
             return false;
         }
-        Countries other = (Countries) object;
-        if ((this.code2 == null && other.code2 != null) || (this.code2 != null && !this.code2.equals(other.code2))) {
+        City other = (City) object;
+        if ((this.idcity == null && other.idcity != null) || (this.idcity != null && !this.idcity.equals(other.idcity))) {
             return false;
         }
         return true;
@@ -163,7 +161,7 @@ public class Countries implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Countries[ code2=" + code2 + " ]";
+        return "entities.City[ idcity=" + idcity + " ]";
     }
     
 }

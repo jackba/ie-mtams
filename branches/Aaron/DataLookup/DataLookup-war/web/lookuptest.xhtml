@@ -62,7 +62,7 @@ and open the template in the editor.
                     <f:selectItem  itemLabel="Select a Title" itemValue=""/>
                     <f:selectItems value="#{dataLookUpBean.leaveStrings}" />
                 </p:selectOneMenu>
-                
+
                 <p>Searchable / Filter list with filter="ture" attribute</p>
                 <p:selectOneMenu id="leaveStringfilter" editable="true" value="#{dataLookUpBean.leaveString}" filter="true" filterMatchMode="contains">
                     <f:selectItem  itemLabel="Select a Title" itemValue=""/>
@@ -84,6 +84,27 @@ and open the template in the editor.
                 <p:dataList value="#{dataLookUpBean.departmentStrings}" var="department" type="ordered" itemType="A">  
                     #{department}  
                 </p:dataList> 
+
+                <p>Number of elements in currency table : #{dataLookUpBean.currencyCount}</p>
+                <h:outputText value="string leave object : #{dataLookUpBean.currencyString}" />
+                <br />
+                <p:selectOneMenu id="Currency" editable="true" value="#{dataLookUpBean.currencyString}" filter="true" filterMatchMode="contains">
+                    <f:selectItem  itemLabel="Select a Title" itemValue=""/>
+                    <f:selectItems value="#{dataLookUpBean.currencyStrings}" />
+                </p:selectOneMenu>
+
+                <p:dataList value="#{dataLookUpBean.currencyStrings}" var="currency" type="ordered" itemType="A">  
+                    #{currency}  
+                </p:dataList> 
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                
             </h:form>
         </body>
     </ui:composition>
