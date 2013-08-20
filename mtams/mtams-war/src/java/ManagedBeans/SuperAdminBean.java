@@ -5,15 +5,20 @@
 package ManagedBeans;
 
 import Entities.Account;
+import Entities.Department;
 import ServiceLayer.AccountHandlerLocal;
+import ServiceLayer.DepartmentHandlerLocal;
 import ServiceLayer.RoleHandlerLocal;
 import javax.inject.Named;
-import javax.enterprise.context.ConversationScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.validation.constraints.Pattern;
+import org.primefaces.component.api.UIData;
 
 /**
  *
@@ -30,13 +35,24 @@ public class SuperAdminBean implements Serializable {
     private int roleID;
     private String role;
     private String roleDescription;
+    //Department Handler Details
+    
+    private String departmentName;
+    private String departmentEditName;
+    private int departmentID;
+    private Department selectedDepartment;
+    private UIData dataTable;
+    private List<Department> allDepartments = new ArrayList<Department>();
     
     @EJB
     private AccountHandlerLocal handler;
     @EJB
     private RoleHandlerLocal handler1;
+    @EJB
+    private DepartmentHandlerLocal departmentHandler;
 
     public SuperAdminBean() {
+        
     }
     public String goToHome(){
         return "./superHome.xhtml";
@@ -53,6 +69,10 @@ public class SuperAdminBean implements Serializable {
     public String goToDeactivateAccount(){
         return "./deactivateAccount.xhtml";
     }
+    public String goToDepartmentHandler(){
+        return "./departmentHandler.xhtml";
+    }
+    
     public String createAdmin() {
         if (handler.checkUsername(getAdminName())) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Input Error", "Username already exists"));
@@ -132,5 +152,71 @@ public class SuperAdminBean implements Serializable {
 
     public void setRoleDescription(String roleDescription) {
         this.roleDescription = roleDescription;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
+    public String getDepartmentEditName() {
+        return departmentEditName;
+    }
+
+    public void setDepartmentEditName(String departmentEditName) {
+        this.departmentEditName = departmentEditName;
+    }
+
+    public int getDepartmentID() {
+        return departmentID;
+    }
+
+    public void setDepartmentID(int departmentID) {
+        this.departmentID = departmentID;
+    }
+
+    public Department getSelectedDepartment() {
+        return selectedDepartment;
+    }
+
+    public void setSelectedDepartment(Department selectedDepartment) {
+        this.selectedDepartment = selectedDepartment;       
+    }
+    
+    public UIData getDataTable() {
+        return dataTable;
+    }
+
+    public void setDataTable(UIData dataTable) {
+        this.dataTable = dataTable;
+    }
+    
+    public void createDepartment(){
+        Department departmentRef = new Department();
+        departmentRef.setDepartment(departmentName);
+        departmentHandler.createDepartment(departmentRef);
+    }
+    
+    public void editDepartment(){
+        Department departmentRef = selectedDepartment;
+        departmentRef.setDepartment(departmentEditName);
+        departmentHandler.editDepartment(departmentRef);
+       
+    }
+    
+    public void deleteDepartment(){
+        
+        departmentHandler.deleteDepartment(selectedDepartment);
+    }    
+
+    public List<Department> getAllDepartments() {
+        return allDepartments = departmentHandler.getAllDepartments();
+    }
+
+    public void setAllDepartments(List<Department> allDepartments) {
+        this.allDepartments = allDepartments;
     }
 }
