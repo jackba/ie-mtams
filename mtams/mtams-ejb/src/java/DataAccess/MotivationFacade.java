@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Badger
+ * @author aaron
  */
 @Stateless
 public class MotivationFacade extends AbstractFacade<Motivation> implements MotivationFacadeLocal {

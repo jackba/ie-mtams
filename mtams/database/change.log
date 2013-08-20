@@ -2,11 +2,40 @@
 > Change log v.0.1
 > Thu Aug 15 14:54:23 SAST 2013
 <<<<<<<<<<<<
-
 #TODO
-Fix inserts to realate to new tables structures and field types
+Fix inserts to relate to new tables structures and field types
 Fix mtams.insert.sql
 Fix mtams.insert.app.sql
+ Add country entries for the following missing currency entries to satisfy constraints
+
+--INSERT INTO CURRENCY (COUNTRYNAME,CURRENCYNAME,CODE2,CODE3,CURRENCYCODE3) VALUES ('Curaçao','Netherlands Antillean Guilder','CW','CUW','ANG');
+--INSERT INTO CURRENCY (COUNTRYNAME,CURRENCYNAME,CODE2,CODE3,CURRENCYCODE3) VALUES ('South Sudan','South Sudanese Pound','SS','SSD','SSP');
+--INSERT INTO CURRENCY (COUNTRYNAME,CURRENCYNAME,CODE2,CODE3,CURRENCYCODE3) VALUES ('Sint Maarten (Dutch part)','Netherlands Antillean Guilder','SX','SXM','ANG');
+
+
+Changed names form plural to singular
+CITIES
+COUNTRIES
+REGIONS
+
+fixed constraints, primary & foreign keys for 
+ACCOUNTDEPARTMENT
+CITY
+COUNTRY
+REGION
+
+Removed composite primary key constraint on these tables
+SESSION
+CURRENCY
+
+Changed order of table creation and drop to satisfy constraints
+
+
+>>>>>>>>>>>>
+> Change log v.0.1
+> Thu Aug 15 14:54:23 SAST 2013
+<<<<<<<<<<<<
+
 
 Added the following files 
 

@@ -45,7 +45,7 @@
                             <h:panelGrid columns="3" columnClasses="label, value, error" >
                                 <h:outputText value="Application Name:" />
                                 <p:inplace emptyLabel="Click to edit">
-                                    <p:inputText id="desc" value="#{appBean.description}" required="true" requiredMessage="Name of application missing" title="How would you like to remember this application">
+                                    <p:inputText id="desc" value="#{appBean.description}" required="true" maxlength="20" requiredMessage="Name of application missing" title="How would you like to remember this application">
                                         <p:ajax update="nameMsg" event="keyup" />
                                     </p:inputText>
                                 </p:inplace>
@@ -74,7 +74,7 @@
 
                                 <h:outputText value="Description of Purpose of Travel:" />
                                 <p:inplace emptyLabel="Click to edit" >
-                                    <p:inputTextarea id="description" value="#{appBean.reasonForTravel}" required="true" requiredMessage="Reason is required" >
+                                    <p:inputTextarea id="description" value="#{appBean.reasonForTravel}" required="true" maxlength="20" requiredMessage="Reason is required" >
                                         <p:ajax update="description" event="blur"  />
                                         <p:ajax update="descMsg" event="keyup" />
                                     </p:inputTextarea>
@@ -94,19 +94,19 @@
 
                                 <h:outputText value="Destination:" />
                                 <p:inplace emptyLabel="Click to edit">
-                                    <p:inputText id="itinDest" value="#{appBean.tempDest}" required="true" requiredMessage="Entry required"><p:ajax update="itinDest" event="blur"  /></p:inputText>
+                                    <p:inputText id="itinDest" value="#{appBean.tempDest}" required="true" maxlength="20" requiredMessage="Entry required"><p:ajax update="itinDest" event="blur"  /></p:inputText>
                                 </p:inplace>
                                 <p:message for="itinDest" />
 
                                 <h:outputText value="Business Leave/ Other:" />
                                 <p:inplace emptyLabel="Click to edit">
-                                    <p:inputText id="itinLeaveType" value="#{appBean.tempLeaveType}" required="true" requiredMessage="Entry required"> <p:ajax update="itinLeaveType" event="blur"  /></p:inputText>
+                                    <p:inputText id="itinLeaveType" value="#{appBean.tempLeaveType}" required="true" maxlength="10" requiredMessage="Entry required"> <p:ajax update="itinLeaveType" event="blur"  /></p:inputText>
                                 </p:inplace>
                                 <p:message for="itinLeaveType" />
 
                                 <h:outputText value="Travel day/Work day:" />
                                 <p:inplace emptyLabel="Click to edit">
-                                    <p:inputText id="itinTravelDay" value="#{appBean.tempTravelDay}" required="true" requiredMessage="Entry required"><p:ajax update="itinTravelDay" event="blur"  /></p:inputText>
+                                    <p:inputText id="itinTravelDay" value="#{appBean.tempTravelDay}" required="true" maxlength="10" requiredMessage="Entry required"><p:ajax update="itinTravelDay" event="blur"  /></p:inputText>
                                 </p:inplace>
                                 <p:message for="itinTravelDay" />
 
@@ -189,6 +189,8 @@
                                 </p:dataTable>
                             </fieldset>
                         </fieldset>
+                        <p:button value="Cancel" outcome="#{appBean.viewThis()}" />
+                        
                         <p:commandButton value="Save" update="editApplicationPanel" action="#{appBean.update()}" ajax="false" />
 
                     </p:panel>
