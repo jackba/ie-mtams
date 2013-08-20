@@ -7,8 +7,12 @@ package Entities;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -18,22 +22,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Badger
+ * @author aaron
  */
 @Entity
 @Table(name = "CURRENCY")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Currency.findAll", query = "SELECT c FROM Currency c"),
+    @NamedQuery(name = "Currency.findByIdcurrency", query = "SELECT c FROM Currency c WHERE c.idcurrency = :idcurrency"),
     @NamedQuery(name = "Currency.findByCountryname", query = "SELECT c FROM Currency c WHERE c.countryname = :countryname"),
     @NamedQuery(name = "Currency.findByCurrencyname", query = "SELECT c FROM Currency c WHERE c.currencyname = :currencyname"),
-    @NamedQuery(name = "Currency.findByCode2", query = "SELECT c FROM Currency c WHERE c.currencyPK.code2 = :code2"),
-    @NamedQuery(name = "Currency.findByCode3", query = "SELECT c FROM Currency c WHERE c.currencyPK.code3 = :code3"),
-    @NamedQuery(name = "Currency.findByCurrencycode3", query = "SELECT c FROM Currency c WHERE c.currencyPK.currencycode3 = :currencycode3")})
+    @NamedQuery(name = "Currency.findByCode3", query = "SELECT c FROM Currency c WHERE c.code3 = :code3"),
+    @NamedQuery(name = "Currency.findByCurrencycode3", query = "SELECT c FROM Currency c WHERE c.currencycode3 = :currencycode3")})
 public class Currency implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected CurrencyPK currencyPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "IDCURRENCY")
+    private Integer idcurrency;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 70)
@@ -44,30 +51,41 @@ public class Currency implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "CURRENCYNAME")
     private String currencyname;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 3)
+    @Column(name = "CODE3")
+    private String code3;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 3)
+    @Column(name = "CURRENCYCODE3")
+    private String currencycode3;
+    @JoinColumn(name = "CODE2", referencedColumnName = "CODE2")
+    @ManyToOne(optional = false)
+    private Country code2;
 
     public Currency() {
     }
 
-    public Currency(CurrencyPK currencyPK) {
-        this.currencyPK = currencyPK;
+    public Currency(Integer idcurrency) {
+        this.idcurrency = idcurrency;
     }
 
-    public Currency(CurrencyPK currencyPK, String countryname, String currencyname) {
-        this.currencyPK = currencyPK;
+    public Currency(Integer idcurrency, String countryname, String currencyname, String code3, String currencycode3) {
+        this.idcurrency = idcurrency;
         this.countryname = countryname;
         this.currencyname = currencyname;
+        this.code3 = code3;
+        this.currencycode3 = currencycode3;
     }
 
-    public Currency(String code2, String code3, String currencycode3) {
-        this.currencyPK = new CurrencyPK(code2, code3, currencycode3);
+    public Integer getIdcurrency() {
+        return idcurrency;
     }
 
-    public CurrencyPK getCurrencyPK() {
-        return currencyPK;
-    }
-
-    public void setCurrencyPK(CurrencyPK currencyPK) {
-        this.currencyPK = currencyPK;
+    public void setIdcurrency(Integer idcurrency) {
+        this.idcurrency = idcurrency;
     }
 
     public String getCountryname() {
@@ -86,10 +104,34 @@ public class Currency implements Serializable {
         this.currencyname = currencyname;
     }
 
+    public String getCode3() {
+        return code3;
+    }
+
+    public void setCode3(String code3) {
+        this.code3 = code3;
+    }
+
+    public String getCurrencycode3() {
+        return currencycode3;
+    }
+
+    public void setCurrencycode3(String currencycode3) {
+        this.currencycode3 = currencycode3;
+    }
+
+    public Country getCode2() {
+        return code2;
+    }
+
+    public void setCode2(Country code2) {
+        this.code2 = code2;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (currencyPK != null ? currencyPK.hashCode() : 0);
+        hash += (idcurrency != null ? idcurrency.hashCode() : 0);
         return hash;
     }
 
@@ -100,7 +142,7 @@ public class Currency implements Serializable {
             return false;
         }
         Currency other = (Currency) object;
-        if ((this.currencyPK == null && other.currencyPK != null) || (this.currencyPK != null && !this.currencyPK.equals(other.currencyPK))) {
+        if ((this.idcurrency == null && other.idcurrency != null) || (this.idcurrency != null && !this.idcurrency.equals(other.idcurrency))) {
             return false;
         }
         return true;
@@ -108,7 +150,7 @@ public class Currency implements Serializable {
 
     @Override
     public String toString() {
-        return "Entities.Currency[ currencyPK=" + currencyPK + " ]";
+        return "Entities.Currency[ idcurrency=" + idcurrency + " ]";
     }
     
 }

@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Badger
+ * @author aaron
  */
 @Stateless
 public class QuotesFacade extends AbstractFacade<Quotes> implements QuotesFacadeLocal {

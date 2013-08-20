@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Badger
+ * @author aaron
  */
 @Entity
 @Table(name = "ACCOUNT")
@@ -70,7 +70,7 @@ public class Account implements Serializable {
     private Collection<Application> applicationCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
     private Collection<Travelerprofile> travelerprofileCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
     private Collection<Session> sessionCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountIdaccount")
     private Collection<Approval> approvalCollection;
