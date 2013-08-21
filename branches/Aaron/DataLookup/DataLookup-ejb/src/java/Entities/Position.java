@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package entities;
+package Entities;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -21,50 +21,50 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author aaron
  */
 @Entity
-@Table(name = "LEAVELOOKUP")
+@Table(name = "POSITION")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Leavelookup.findAll", query = "SELECT l FROM Leavelookup l"),
-    @NamedQuery(name = "Leavelookup.findByLeavetype", query = "SELECT l FROM Leavelookup l WHERE l.leavetype = :leavetype")})
-public class Leavelookup implements Serializable {
+    @NamedQuery(name = "Position.findAll", query = "SELECT p FROM Position p"),
+    @NamedQuery(name = "Position.findByPosition", query = "SELECT p FROM Position p WHERE p.position = :position")})
+public class Position implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "LEAVETYPE")
-    private String leavetype;
+    @Column(name = "POSITION")
+    private String position;
 
-    public Leavelookup() {
+    public Position() {
     }
 
-    public Leavelookup(String leavetype) {
-        this.leavetype = leavetype;
+    public Position(String position) {
+        this.position = position;
     }
 
-    public String getLeavetype() {
-        return leavetype;
+    public String getPosition() {
+        return position;
     }
 
-    public void setLeavetype(String leavetype) {
-        this.leavetype = leavetype;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (leavetype != null ? leavetype.hashCode() : 0);
+        hash += (position != null ? position.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Leavelookup)) {
+        if (!(object instanceof Position)) {
             return false;
         }
-        Leavelookup other = (Leavelookup) object;
-        if ((this.leavetype == null && other.leavetype != null) || (this.leavetype != null && !this.leavetype.equals(other.leavetype))) {
+        Position other = (Position) object;
+        if ((this.position == null && other.position != null) || (this.position != null && !this.position.equals(other.position))) {
             return false;
         }
         return true;
@@ -72,7 +72,7 @@ public class Leavelookup implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Leavelookup[ leavetype=" + leavetype + " ]";
+        return "entities.Position[ position=" + position + " ]";
     }
     
 }

@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package dataAcess;
+package DataAccess;
 
-import entities.Title;
+import Entities.City;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author aaron
  */
 @Stateless
-public class TitleFacade extends AbstractFacade<Title> implements TitleFacadeLocal {
+public class CityFacade extends AbstractFacade<City> implements CityFacadeLocal {
     @PersistenceContext(unitName = "DataLookup-ejbPU")
     private EntityManager em;
 
@@ -23,8 +23,8 @@ public class TitleFacade extends AbstractFacade<Title> implements TitleFacadeLoc
         return em;
     }
 
-    public TitleFacade() {
-        super(Title.class);
+    public CityFacade() {
+        super(City.class);
     }
     
 }

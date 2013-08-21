@@ -2,20 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package service;
+package ServiceLayer;
 
-import dataAcess.CountryFacadeLocal;
-import dataAcess.CurrencyFacadeLocal;
-import dataAcess.DepartmentFacadeLocal;
-import dataAcess.LeavelookupFacadeLocal;
-import dataAcess.PositionFacadeLocal;
-import dataAcess.TitleFacadeLocal;
-import entities.Country;
-import entities.Currency;
-import entities.Department;
-import entities.Leavelookup;
-import entities.Position;
-import entities.Title;
+import DataAccess.CountryFacadeLocal;
+import DataAccess.CurrencyFacadeLocal;
+import DataAccess.DepartmentFacadeLocal;
+import DataAccess.LeavelookupFacadeLocal;
+import DataAccess.PositionFacadeLocal;
+import DataAccess.TitleFacadeLocal;
+import Entities.Country;
+import Entities.Currency;
+import Entities.Department;
+import Entities.Leavelookup;
+import Entities.Position;
+import Entities.Title;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -58,7 +58,7 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
     // "Insert Code > Add Business Method")
     @Override
     public List<String> allTitleStr() {
-        List<String> StringList = new ArrayList<>();
+        List<String> StringList = new ArrayList<String>();
         for (Title titleEl : daoTitle.findAll()) {
             StringList.add(titleEl.getTitle());
         }
@@ -102,7 +102,7 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
 
     @Override
     public List<String> allPositionStr() {
-        List<String> StringList = new ArrayList<>();
+        List<String> StringList = new ArrayList<String>();
         for (Position postitionEl : daoPosition.findAll()) {
             StringList.add(postitionEl.getPosition());
         }
@@ -131,7 +131,7 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
 
     @Override
     public List<String> allLeaveStr() {
-        List<String> StringList = new ArrayList<>();
+        List<String> StringList = new ArrayList<String>();
         for (Leavelookup leaveEl : daoLeave.findAll()) {
             StringList.add(leaveEl.getLeavetype());
         }
@@ -175,7 +175,7 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
 
     @Override
     public List<String> allDepartmentStr() {
-        List<String> StringList = new ArrayList<>();
+        List<String> StringList = new ArrayList<String>();
         for (Department DepartmentEl : daoDepartment.findAll()) {
             StringList.add(DepartmentEl.getDepartment());
         }
@@ -209,7 +209,7 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
 
     @Override
     public List<String> allCurrencyStr() {
-        List<String> StringList = new ArrayList<>();
+        List<String> StringList = new ArrayList<String>();
         for (Currency CurrencyEl : daoCurrency.findAll()) {
             StringList.add(CurrencyEl.getCurrencycode3() + ", " + CurrencyEl.getCurrencyname() + ", " + CurrencyEl.getCountryname());
         }
@@ -242,7 +242,7 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
 
     @Override
     public List<String> allCountriesStr() {
-        List<String> StringList = new ArrayList<>();
+        List<String> StringList = new ArrayList<String>();
         for (Country CountryEl : daoCountry.findAll()) {
             StringList.add(CountryEl.getCode3() + ", " + CountryEl.getName());
         }

@@ -2,14 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package service;
+package ServiceLayer;
 
-import entities.Country;
-import entities.Currency;
-import entities.Department;
-import entities.Leavelookup;
-import entities.Position;
-import entities.Title;
+import Entities.Country;
+import Entities.Currency;
+import Entities.Department;
+import Entities.Leavelookup;
+import Entities.Position;
+import Entities.Title;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.Local;

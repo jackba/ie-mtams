@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package dataAcess;
+package DataAccess;
 
-import entities.Region;
+import Entities.Country;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author aaron
  */
 @Stateless
-public class RegionFacade extends AbstractFacade<Region> implements RegionFacadeLocal {
+public class CountryFacade extends AbstractFacade<Country> implements CountryFacadeLocal {
     @PersistenceContext(unitName = "DataLookup-ejbPU")
     private EntityManager em;
 
@@ -23,8 +23,8 @@ public class RegionFacade extends AbstractFacade<Region> implements RegionFacade
         return em;
     }
 
-    public RegionFacade() {
-        super(Region.class);
+    public CountryFacade() {
+        super(Country.class);
     }
     
 }

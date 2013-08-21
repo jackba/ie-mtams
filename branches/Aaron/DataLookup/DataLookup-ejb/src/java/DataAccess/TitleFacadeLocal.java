@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package dataAcess;
+package DataAccess;
 
-import entities.Title;
+import Entities.Title;
 import java.util.List;
 import javax.ejb.Local;
 
