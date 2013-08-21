@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Badger
+ * @author aaron
  */
 @Stateless
 public class TitleFacade extends AbstractFacade<Title> implements TitleFacadeLocal {

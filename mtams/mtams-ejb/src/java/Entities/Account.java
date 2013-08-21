@@ -5,8 +5,8 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Badger
+ * @author aaron
  */
 @Entity
 @Table(name = "ACCOUNT")
@@ -67,15 +67,15 @@ public class Account implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date datelogin;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountIdaccount")
-    private List<Application> applicationList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountIdaccount")
-    private List<Approval> approvalList;
+    private Collection<Application> applicationCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
-    private List<Travelerprofile> travelerprofileList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-    private List<Session> sessionList;
+    private Collection<Travelerprofile> travelerprofileCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
+    private Collection<Session> sessionCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountIdaccount")
+    private Collection<Approval> approvalCollection;
     @OneToMany(mappedBy = "accountid")
-    private List<Accountrole> accountroleList;
+    private Collection<Accountrole> accountroleCollection;
 
     public Account() {
     }
@@ -139,48 +139,48 @@ public class Account implements Serializable {
     }
 
     @XmlTransient
-    public List<Application> getApplicationList() {
-        return applicationList;
+    public Collection<Application> getApplicationCollection() {
+        return applicationCollection;
     }
 
-    public void setApplicationList(List<Application> applicationList) {
-        this.applicationList = applicationList;
-    }
-
-    @XmlTransient
-    public List<Approval> getApprovalList() {
-        return approvalList;
-    }
-
-    public void setApprovalList(List<Approval> approvalList) {
-        this.approvalList = approvalList;
+    public void setApplicationCollection(Collection<Application> applicationCollection) {
+        this.applicationCollection = applicationCollection;
     }
 
     @XmlTransient
-    public List<Travelerprofile> getTravelerprofileList() {
-        return travelerprofileList;
+    public Collection<Travelerprofile> getTravelerprofileCollection() {
+        return travelerprofileCollection;
     }
 
-    public void setTravelerprofileList(List<Travelerprofile> travelerprofileList) {
-        this.travelerprofileList = travelerprofileList;
-    }
-
-    @XmlTransient
-    public List<Session> getSessionList() {
-        return sessionList;
-    }
-
-    public void setSessionList(List<Session> sessionList) {
-        this.sessionList = sessionList;
+    public void setTravelerprofileCollection(Collection<Travelerprofile> travelerprofileCollection) {
+        this.travelerprofileCollection = travelerprofileCollection;
     }
 
     @XmlTransient
-    public List<Accountrole> getAccountroleList() {
-        return accountroleList;
+    public Collection<Session> getSessionCollection() {
+        return sessionCollection;
     }
 
-    public void setAccountroleList(List<Accountrole> accountroleList) {
-        this.accountroleList = accountroleList;
+    public void setSessionCollection(Collection<Session> sessionCollection) {
+        this.sessionCollection = sessionCollection;
+    }
+
+    @XmlTransient
+    public Collection<Approval> getApprovalCollection() {
+        return approvalCollection;
+    }
+
+    public void setApprovalCollection(Collection<Approval> approvalCollection) {
+        this.approvalCollection = approvalCollection;
+    }
+
+    @XmlTransient
+    public Collection<Accountrole> getAccountroleCollection() {
+        return accountroleCollection;
+    }
+
+    public void setAccountroleCollection(Collection<Accountrole> accountroleCollection) {
+        this.accountroleCollection = accountroleCollection;
     }
 
     @Override

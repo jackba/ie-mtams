@@ -6,9 +6,12 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -20,48 +23,46 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Badger
+ * @author aaron
  */
 @Entity
 @Table(name = "SESSION")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Session.findAll", query = "SELECT s FROM Session s"),
-    @NamedQuery(name = "Session.findByIdsessions", query = "SELECT s FROM Session s WHERE s.sessionPK.idsessions = :idsessions"),
-    @NamedQuery(name = "Session.findByAccountid", query = "SELECT s FROM Session s WHERE s.sessionPK.accountid = :accountid"),
+    @NamedQuery(name = "Session.findByIdsessions", query = "SELECT s FROM Session s WHERE s.idsessions = :idsessions"),
     @NamedQuery(name = "Session.findByDate", query = "SELECT s FROM Session s WHERE s.date = :date"),
     @NamedQuery(name = "Session.findByExpires", query = "SELECT s FROM Session s WHERE s.expires = :expires")})
 public class Session implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected SessionPK sessionPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "IDSESSIONS")
+    private Integer idsessions;
     @Column(name = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     @Column(name = "EXPIRES")
     @Temporal(TemporalType.TIMESTAMP)
     private Date expires;
-    @JoinColumn(name = "ACCOUNTID", referencedColumnName = "IDACCOUNT", insertable = false, updatable = false)
+    @JoinColumn(name = "ACCOUNTID", referencedColumnName = "IDACCOUNT")
     @ManyToOne(optional = false)
-    private Account account;
+    private Account accountid;
 
     public Session() {
     }
 
-    public Session(SessionPK sessionPK) {
-        this.sessionPK = sessionPK;
+    public Session(Integer idsessions) {
+        this.idsessions = idsessions;
     }
 
-    public Session(int idsessions, int accountid) {
-        this.sessionPK = new SessionPK(idsessions, accountid);
+    public Integer getIdsessions() {
+        return idsessions;
     }
 
-    public SessionPK getSessionPK() {
-        return sessionPK;
-    }
-
-    public void setSessionPK(SessionPK sessionPK) {
-        this.sessionPK = sessionPK;
+    public void setIdsessions(Integer idsessions) {
+        this.idsessions = idsessions;
     }
 
     public Date getDate() {
@@ -80,18 +81,18 @@ public class Session implements Serializable {
         this.expires = expires;
     }
 
-    public Account getAccount() {
-        return account;
+    public Account getAccountid() {
+        return accountid;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setAccountid(Account accountid) {
+        this.accountid = accountid;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (sessionPK != null ? sessionPK.hashCode() : 0);
+        hash += (idsessions != null ? idsessions.hashCode() : 0);
         return hash;
     }
 
@@ -102,7 +103,7 @@ public class Session implements Serializable {
             return false;
         }
         Session other = (Session) object;
-        if ((this.sessionPK == null && other.sessionPK != null) || (this.sessionPK != null && !this.sessionPK.equals(other.sessionPK))) {
+        if ((this.idsessions == null && other.idsessions != null) || (this.idsessions != null && !this.idsessions.equals(other.idsessions))) {
             return false;
         }
         return true;
@@ -110,7 +111,7 @@ public class Session implements Serializable {
 
     @Override
     public String toString() {
-        return "Entities.Session[ sessionPK=" + sessionPK + " ]";
+        return "Entities.Session[ idsessions=" + idsessions + " ]";
     }
     
 }

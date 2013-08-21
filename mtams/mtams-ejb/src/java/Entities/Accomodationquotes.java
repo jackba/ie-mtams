@@ -5,8 +5,8 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Badger
+ * @author aaron
  */
 @Entity
 @Table(name = "ACCOMODATIONQUOTES")
@@ -42,6 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Accomodationquotes.findByDescription", query = "SELECT a FROM Accomodationquotes a WHERE a.description = :description"),
     @NamedQuery(name = "Accomodationquotes.findByAccomodationprovider", query = "SELECT a FROM Accomodationquotes a WHERE a.accomodationprovider = :accomodationprovider"),
     @NamedQuery(name = "Accomodationquotes.findByQuotesource", query = "SELECT a FROM Accomodationquotes a WHERE a.quotesource = :quotesource"),
+    @NamedQuery(name = "Accomodationquotes.findByCurrency", query = "SELECT a FROM Accomodationquotes a WHERE a.currency = :currency"),
     @NamedQuery(name = "Accomodationquotes.findByQuotecost", query = "SELECT a FROM Accomodationquotes a WHERE a.quotecost = :quotecost")})
 public class Accomodationquotes implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -72,10 +73,13 @@ public class Accomodationquotes implements Serializable {
     @Column(name = "QUOTESOURCE")
     private String quotesource;
     @Size(max = 45)
+    @Column(name = "CURRENCY")
+    private String currency;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "QUOTECOST")
-    private String quotecost;
+    private Double quotecost;
     @OneToMany(mappedBy = "accomodationquotesIdaccomodationquotes")
-    private List<Attachement> attachementList;
+    private Collection<Attachement> attachementCollection;
     @JoinColumn(name = "QUOTES_IDQUOTES", referencedColumnName = "IDQUOTES")
     @ManyToOne(optional = false)
     private Quotes quotesIdquotes;
@@ -151,21 +155,29 @@ public class Accomodationquotes implements Serializable {
         this.quotesource = quotesource;
     }
 
-    public String getQuotecost() {
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public Double getQuotecost() {
         return quotecost;
     }
 
-    public void setQuotecost(String quotecost) {
+    public void setQuotecost(Double quotecost) {
         this.quotecost = quotecost;
     }
 
     @XmlTransient
-    public List<Attachement> getAttachementList() {
-        return attachementList;
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
     }
 
-    public void setAttachementList(List<Attachement> attachementList) {
-        this.attachementList = attachementList;
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
     }
 
     public Quotes getQuotesIdquotes() {

@@ -5,8 +5,8 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Badger
+ * @author aaron
  */
 @Entity
 @Table(name = "FOREXORDER")
@@ -41,6 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Forexorder.findByDateofdepart", query = "SELECT f FROM Forexorder f WHERE f.dateofdepart = :dateofdepart"),
     @NamedQuery(name = "Forexorder.findByDateofreturn", query = "SELECT f FROM Forexorder f WHERE f.dateofreturn = :dateofreturn"),
     @NamedQuery(name = "Forexorder.findByTravelerscheques", query = "SELECT f FROM Forexorder f WHERE f.travelerscheques = :travelerscheques"),
+    @NamedQuery(name = "Forexorder.findByCurrency", query = "SELECT f FROM Forexorder f WHERE f.currency = :currency"),
     @NamedQuery(name = "Forexorder.findByCash", query = "SELECT f FROM Forexorder f WHERE f.cash = :cash"),
     @NamedQuery(name = "Forexorder.findByCashpassport", query = "SELECT f FROM Forexorder f WHERE f.cashpassport = :cashpassport"),
     @NamedQuery(name = "Forexorder.findByCctype", query = "SELECT f FROM Forexorder f WHERE f.cctype = :cctype"),
@@ -74,15 +75,16 @@ public class Forexorder implements Serializable {
     @Column(name = "DATEOFRETURN")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateofreturn;
-    @Size(max = 45)
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "TRAVELERSCHEQUES")
-    private String travelerscheques;
+    private Double travelerscheques;
     @Size(max = 45)
+    @Column(name = "CURRENCY")
+    private String currency;
     @Column(name = "CASH")
-    private String cash;
-    @Size(max = 45)
+    private Double cash;
     @Column(name = "CASHPASSPORT")
-    private String cashpassport;
+    private Double cashpassport;
     @Size(max = 45)
     @Column(name = "CCTYPE")
     private String cctype;
@@ -95,16 +97,15 @@ public class Forexorder implements Serializable {
     @Column(name = "CCEXPIRYDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ccexpirydate;
-    @Size(max = 45)
     @Column(name = "CCPAYMENTAMOUNT")
-    private String ccpaymentamount;
+    private Double ccpaymentamount;
     @Size(max = 500)
     @Column(name = "REASONFORTRAVEL")
     private String reasonfortravel;
-    @OneToMany(mappedBy = "forexorderIdforexorder")
-    private List<Attachement> attachementList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "forexorderIdforexorder")
-    private List<Application> applicationList;
+    private Collection<Application> applicationCollection;
+    @OneToMany(mappedBy = "forexorderIdforexorder")
+    private Collection<Attachement> attachementCollection;
 
     public Forexorder() {
     }
@@ -169,27 +170,35 @@ public class Forexorder implements Serializable {
         this.dateofreturn = dateofreturn;
     }
 
-    public String getTravelerscheques() {
+    public Double getTravelerscheques() {
         return travelerscheques;
     }
 
-    public void setTravelerscheques(String travelerscheques) {
+    public void setTravelerscheques(Double travelerscheques) {
         this.travelerscheques = travelerscheques;
     }
 
-    public String getCash() {
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public Double getCash() {
         return cash;
     }
 
-    public void setCash(String cash) {
+    public void setCash(Double cash) {
         this.cash = cash;
     }
 
-    public String getCashpassport() {
+    public Double getCashpassport() {
         return cashpassport;
     }
 
-    public void setCashpassport(String cashpassport) {
+    public void setCashpassport(Double cashpassport) {
         this.cashpassport = cashpassport;
     }
 
@@ -225,11 +234,11 @@ public class Forexorder implements Serializable {
         this.ccexpirydate = ccexpirydate;
     }
 
-    public String getCcpaymentamount() {
+    public Double getCcpaymentamount() {
         return ccpaymentamount;
     }
 
-    public void setCcpaymentamount(String ccpaymentamount) {
+    public void setCcpaymentamount(Double ccpaymentamount) {
         this.ccpaymentamount = ccpaymentamount;
     }
 
@@ -242,21 +251,21 @@ public class Forexorder implements Serializable {
     }
 
     @XmlTransient
-    public List<Attachement> getAttachementList() {
-        return attachementList;
+    public Collection<Application> getApplicationCollection() {
+        return applicationCollection;
     }
 
-    public void setAttachementList(List<Attachement> attachementList) {
-        this.attachementList = attachementList;
+    public void setApplicationCollection(Collection<Application> applicationCollection) {
+        this.applicationCollection = applicationCollection;
     }
 
     @XmlTransient
-    public List<Application> getApplicationList() {
-        return applicationList;
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
     }
 
-    public void setApplicationList(List<Application> applicationList) {
-        this.applicationList = applicationList;
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
     }
 
     @Override
