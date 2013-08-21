@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.validation.constraints.Pattern;
@@ -25,7 +25,7 @@ import org.primefaces.component.api.UIData;
  * @author Alexandre Manuel Damasio
  */
 @Named(value = "superAdminBean")
-@ConversationScoped
+@SessionScoped
 public class SuperAdminBean implements Serializable {
 
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z0-9]{0,}")
@@ -36,11 +36,13 @@ public class SuperAdminBean implements Serializable {
     private String role;
     private String roleDescription;
     //Department Handler Details
-    
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z ]{0,}")
     private String departmentName;
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z ]{0,}")
     private String departmentEditName;
     private int departmentID;
     private Department selectedDepartment;
+    private Department departmentRef;
     private UIData dataTable;
     private List<Department> allDepartments = new ArrayList<Department>();
     
@@ -195,21 +197,27 @@ public class SuperAdminBean implements Serializable {
     }
     
     public void createDepartment(){
-        Department departmentRef = new Department();
+        departmentRef = new Department();
         departmentRef.setDepartment(departmentName);
         departmentHandler.createDepartment(departmentRef);
+        FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success.","Department Created"));
+    }
+    
+    public void load(){
+        departmentRef = selectedDepartment;
     }
     
     public void editDepartment(){
-        Department departmentRef = selectedDepartment;
-        departmentRef.setDepartment(departmentEditName);
-        departmentHandler.editDepartment(departmentRef);
-       
+        //Department 
+        selectedDepartment.setDepartment(getDepartmentEditName());
+        departmentHandler.editDepartment(selectedDepartment);
+        FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success.","Department Edited"));
     }
     
-    public void deleteDepartment(){
-        
+    public void deleteDepartment(){        
         departmentHandler.deleteDepartment(selectedDepartment);
+        FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success.","Department Deleted"));
+        
     }    
 
     public List<Department> getAllDepartments() {

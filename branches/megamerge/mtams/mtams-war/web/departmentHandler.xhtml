@@ -38,9 +38,9 @@
                                 <p:menuitem value="Department Handler" outcome="#{superAdminBean.goToDepartmentHandler()}" />                    
                             </p:submenu>
                         </p:menubar>
-                        <p:messages id="departmentHandlerMessage" showDetail="true" closable="true" autoUpdate="true"/>
+                        <p:messages id="departmentHandlerMessage" globalOnly="true" showDetail="true" closable="true" autoUpdate="true"/>
                         <p:dataTable id="dataTable" var="department" value="#{superAdminBean.allDepartments}" binding="#{superAdminBean.dataTable}" rowKey="#{department.iddepartment}" selection="#{superAdminBean.selectedDepartment}" selectionMode="single">  
-
+                            <p:ajax event="rowSelect" listener="#{superAdminBean.load()}" update="dataTable" />
                             <f:facet name="header">  
                                 Please Select an Account to Edit or Delete, or Simply Create a New One
                             </f:facet>  
@@ -58,26 +58,33 @@
                                 <p:commandButton  id="showDialogButton" type="button" value="Create" icon="ui-icon-plusthick"  
                                                   onclick="dlg1.show();" />
 
-                                <p:dialog id="createDialog" header="Enter Department Name" widgetVar="dlg1" resizable="false">                                     
-                                    <h:outputLabel for="deptName" value="Name:" />  
-                                    <p:inputText id="deptName" value="#{superAdminBean.departmentName}" />
-
-                                    <p:commandButton id="submit" value="Submit" action="#{superAdminBean.createDepartment()}" ajax="false" oncomplete="dlg1.hide();"/>  
+                                <p:dialog id="createDialog" header="Enter Department Name" widgetVar="dlg1" resizable="true">                                     
+                                    <h:panelGrid columns="3" styleClass="panelGrid">
+                                        <h:outputLabel for="deptName" value="Name:" />  
+                                        <p:inputText id="deptName" required="true" requiredMessage="Required Field" value="#{superAdminBean.departmentName}" >
+                                            <p:ajax update="createM" event="keyup" />
+                                        </p:inputText>
+                                        <p:message for="deptName" id="createM"/>
+                                    </h:panelGrid>
+                                    <p:commandButton id="submit" value="Submit" actionListener="#{superAdminBean.createDepartment()}" ajax="false" oncomplete="dlg1.hide();" />  
 
                                 </p:dialog>
-                                
+
                                 <!-- ///////////////////Edit///////////////////-->
-                                <p:commandButton  id="showDialogButton2" type="button" value="Edit" icon="ui-icon-pencil"  
+                                <p:commandButton  id="showDialogButton2" type="button" value="Edit" icon="ui-icon-pencil" ajax="false"  
                                                   onclick="dlg2.show();" />
 
-                                <p:dialog id="editDialog" header="Enter Department Name" widgetVar="dlg2" resizable="false">                                     
-                                    <h:outputLabel for="deptName2" value="Name:" />  
-                                    <p:inputText id="deptName2" value="#{superAdminBean.departmentEditName}" />
-
-                                    <p:commandButton id="submit2" value="Submit" action="#{superAdminBean.editDepartment()}" ajax="false" oncomplete="dlg2.hide();"/>  
-
+                                <p:dialog id="editDialog" header="Enter Department Name" widgetVar="dlg2" resizable="true">                                     
+                                    <h:panelGrid columns="3" styleClass="panelGrid">
+                                        <h:outputLabel for="deptName2" value="Name:" />  
+                                        <p:inputText id="deptName2" required="true" requiredMessage="Required Field" value="#{superAdminBean.departmentEditName}">
+                                            <p:ajax update="editM" event="keyup" />
+                                        </p:inputText>
+                                        <p:message for="deptName2" id="editM"/>                                      
+                                    </h:panelGrid>
+                                    <p:commandButton id="submit2" value="Submit" actionListener="#{superAdminBean.editDepartment()}" ajax="false"  oncomplete="dlg2.hide();"/>
                                 </p:dialog>
-                                
+
                                 <!-- ///////////////////Delete///////////////////-->
                                 <p:commandButton value="Delete" update=":departmentHandlerForm" action="#{superAdminBean.deleteDepartment()}" icon="ui-icon-closethick"/>
                             </f:facet>
