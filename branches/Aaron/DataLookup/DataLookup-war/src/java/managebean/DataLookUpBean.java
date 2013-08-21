@@ -4,11 +4,11 @@
  */
 package managebean;
 
-import entities.Currency;
-import entities.Department;
-import entities.Leavelookup;
-import entities.Position;
-import entities.Title;
+import Entities.Currency;
+import Entities.Department;
+import Entities.Leavelookup;
+import Entities.Position;
+import Entities.Title;
 import javax.inject.Named;
 //import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -17,7 +17,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import service.DataLookUpHandlerLocal;
+import ServiceLayer.DataLookUpHandlerLocal;
+import javax.faces.context.FacesContext;
 //import sun.util.resources.CurrencyNames_en_GB;
 
 /**
@@ -83,10 +84,10 @@ public class DataLookUpBean implements Serializable {
         this.aTitleRef = daoDataLookUp.getTitle("pHD");
         this.titleString = aTitleRef.getTitle();
 
-        this.titleList = new ArrayList<>();
+        this.titleList = new ArrayList<Title>();
         titleList.addAll(daoDataLookUp.allTitles());
 
-        this.titleStrings = new ArrayList<>();
+        this.titleStrings = new ArrayList<String>();
         titleStrings.addAll(daoDataLookUp.allTitleStr());
 
         // Position References        
@@ -95,10 +96,10 @@ public class DataLookUpBean implements Serializable {
         this.aPositionRef = daoDataLookUp.getPosition("Tutor");
         this.positionString = aPositionRef.getPosition();
 
-        this.positionList = new ArrayList<>();
+        this.positionList = new ArrayList<Position>();
         positionList.addAll(daoDataLookUp.allPositions());
 
-        this.positionStrings = new ArrayList<>();
+        this.positionStrings = new ArrayList<String>();
         positionStrings.addAll(daoDataLookUp.allPositionStr());
 
         // Leave References
@@ -107,10 +108,10 @@ public class DataLookUpBean implements Serializable {
         this.aLeaveRef = daoDataLookUp.getLeave("sick leave");
         this.leaveString = aLeaveRef.getLeavetype();
 
-        this.leaveList = new ArrayList<>();
+        this.leaveList = new ArrayList<Leavelookup>();
         leaveList.addAll(daoDataLookUp.allLeaves());
 
-        this.leaveStrings = new ArrayList<>();
+        this.leaveStrings = new ArrayList<String>();
         leaveStrings.addAll(daoDataLookUp.allLeaveStr());
 
         // Department References
@@ -119,10 +120,10 @@ public class DataLookUpBean implements Serializable {
         this.aDepartmentRef = daoDataLookUp.getDepartment("finance");
         this.departmentString = aDepartmentRef.getDepartment();
 
-        this.departmentList = new ArrayList<>();
+        this.departmentList = new ArrayList<Department>();
         departmentList.addAll(daoDataLookUp.allDepartments());
 
-        this.departmentStrings = new ArrayList<>();
+        this.departmentStrings = new ArrayList<String>();
         departmentStrings.addAll(daoDataLookUp.allDepartmentStr());
 
         // Currency References
@@ -131,11 +132,13 @@ public class DataLookUpBean implements Serializable {
         this.aCurrencyRef = daoDataLookUp.getCurrency("eur");
         this.currencyString = aCurrencyRef.getCurrencycode3();
 
-        this.currencyList = new ArrayList<>();
+        this.currencyList = new ArrayList<Currency>();
         currencyList.addAll(daoDataLookUp.allCurrency());
 
-        this.currencyStrings = new ArrayList<>();
+        this.currencyStrings = new ArrayList<String>();
         currencyStrings.addAll(daoDataLookUp.allCurrencyStr());
+        
+         FacesContext.getCurrentInstance().getExternalContext().getSession(true);
     }
 
     public List<String> getTitleStrings() {
