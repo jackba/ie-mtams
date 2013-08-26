@@ -188,7 +188,7 @@
 
 
                                     <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="ExpireDate" value="Expiry Date: "/>
-                                    <p:calendar rendered="#{foreignBean.isUsingCC eq '1'}" id="ExpireDate" value="#{foreignBean.expire}" />
+                                    <p:calendar rendered="#{foreignBean.isUsingCC eq '1'}" id="ExpireDate" value="#{foreignBean.expire}" mindate="#{foreignBean.currentDate}" />
                                     <p:message for="ExpireDate"/>
 
                                     <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="ccCur" value="Currency: "/>
@@ -219,13 +219,13 @@
                                 <h:panelGrid columns="3" columnClasses="label, value, error">  
 
                                     <h:outputText value="Date and time:* " />                              
-                                    <p:calendar id="dateRe" value="#{foreignBean.dateRequired}" required="true" requiredMessage="required field" mindate="#{foreignBean.currentDate}">
+                                    <p:calendar id="dateRe" value="#{foreignBean.dateRequired}" required="true" requiredMessage="required field" >
 
                                     </p:calendar>
                                     <p:message for="dateRe" id="msgDT"/>
 
                                     <h:outputText value="Date and Time: (Will be confirmed by Forex Consultant) " />  
-                                    <p:calendar id="forexCon" value="#{foreignBean.dateForex}" required="true" requiredMessage="required field"/>
+                                    <p:calendar id="forexCon" value="#{foreignBean.dateForex}" required="true" requiredMessage="required field" />
                                     <p:message for="forexCon"/>
 
                                 </h:panelGrid>  
