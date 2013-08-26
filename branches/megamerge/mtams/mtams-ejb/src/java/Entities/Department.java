@@ -5,7 +5,9 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,14 +15,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Alexandre Damasio
+ * @author Badger
  */
 @Entity
 @Table(name = "DEPARTMENT")
@@ -41,6 +45,8 @@ public class Department implements Serializable {
     @Basic(optional = false)
     @Column(name = "IDDEPARTMENT")
     private Integer iddepartment;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iddepartment")
+    private Collection<Accountdepartment> accountdepartmentCollection;
 
     public Department() {
     }
@@ -68,6 +74,15 @@ public class Department implements Serializable {
 
     public void setIddepartment(Integer iddepartment) {
         this.iddepartment = iddepartment;
+    }
+
+    @XmlTransient
+    public Collection<Accountdepartment> getAccountdepartmentCollection() {
+        return accountdepartmentCollection;
+    }
+
+    public void setAccountdepartmentCollection(Collection<Accountdepartment> accountdepartmentCollection) {
+        this.accountdepartmentCollection = accountdepartmentCollection;
     }
 
     @Override

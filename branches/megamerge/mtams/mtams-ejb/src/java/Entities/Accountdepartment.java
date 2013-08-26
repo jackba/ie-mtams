@@ -8,40 +8,39 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author aaron
+ * @author Badger
  */
 @Entity
 @Table(name = "ACCOUNTDEPARTMENT")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Accountdepartment.findAll", query = "SELECT a FROM Accountdepartment a"),
-    @NamedQuery(name = "Accountdepartment.findByIdaccount", query = "SELECT a FROM Accountdepartment a WHERE a.idaccount = :idaccount"),
-    @NamedQuery(name = "Accountdepartment.findByIddepartment", query = "SELECT a FROM Accountdepartment a WHERE a.iddepartment = :iddepartment"),
     @NamedQuery(name = "Accountdepartment.findByIdaccountdepartment", query = "SELECT a FROM Accountdepartment a WHERE a.idaccountdepartment = :idaccountdepartment")})
 public class Accountdepartment implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "IDACCOUNT")
-    private int idaccount;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "IDDEPARTMENT")
-    private int iddepartment;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "IDACCOUNTDEPARTMENT")
     private Integer idaccountdepartment;
+    @JoinColumn(name = "IDDEPARTMENT", referencedColumnName = "IDDEPARTMENT")
+    @ManyToOne(optional = false)
+    private Department iddepartment;
+    @JoinColumn(name = "IDACCOUNT", referencedColumnName = "IDACCOUNT")
+    @ManyToOne(optional = false)
+    private Account idaccount;
 
     public Accountdepartment() {
     }
@@ -50,34 +49,28 @@ public class Accountdepartment implements Serializable {
         this.idaccountdepartment = idaccountdepartment;
     }
 
-    public Accountdepartment(Integer idaccountdepartment, int idaccount, int iddepartment) {
-        this.idaccountdepartment = idaccountdepartment;
-        this.idaccount = idaccount;
-        this.iddepartment = iddepartment;
-    }
-
-    public int getIdaccount() {
-        return idaccount;
-    }
-
-    public void setIdaccount(int idaccount) {
-        this.idaccount = idaccount;
-    }
-
-    public int getIddepartment() {
-        return iddepartment;
-    }
-
-    public void setIddepartment(int iddepartment) {
-        this.iddepartment = iddepartment;
-    }
-
     public Integer getIdaccountdepartment() {
         return idaccountdepartment;
     }
 
     public void setIdaccountdepartment(Integer idaccountdepartment) {
         this.idaccountdepartment = idaccountdepartment;
+    }
+
+    public Department getIddepartment() {
+        return iddepartment;
+    }
+
+    public void setIddepartment(Department iddepartment) {
+        this.iddepartment = iddepartment;
+    }
+
+    public Account getIdaccount() {
+        return idaccount;
+    }
+
+    public void setIdaccount(Account idaccount) {
+        this.idaccount = idaccount;
     }
 
     @Override

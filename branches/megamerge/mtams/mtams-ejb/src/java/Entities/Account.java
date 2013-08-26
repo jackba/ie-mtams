@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author aaron
+ * @author Badger
  */
 @Entity
 @Table(name = "ACCOUNT")
@@ -66,16 +66,8 @@ public class Account implements Serializable {
     @Column(name = "DATELOGIN")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datelogin;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountIdaccount")
-    private Collection<Application> applicationCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
-    private Collection<Travelerprofile> travelerprofileCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
-    private Collection<Session> sessionCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountIdaccount")
-    private Collection<Approval> approvalCollection;
-    @OneToMany(mappedBy = "accountid")
-    private Collection<Accountrole> accountroleCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idaccount")
+    private Collection<Accountdepartment> accountdepartmentCollection;
 
     public Account() {
     }
@@ -139,48 +131,12 @@ public class Account implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Application> getApplicationCollection() {
-        return applicationCollection;
+    public Collection<Accountdepartment> getAccountdepartmentCollection() {
+        return accountdepartmentCollection;
     }
 
-    public void setApplicationCollection(Collection<Application> applicationCollection) {
-        this.applicationCollection = applicationCollection;
-    }
-
-    @XmlTransient
-    public Collection<Travelerprofile> getTravelerprofileCollection() {
-        return travelerprofileCollection;
-    }
-
-    public void setTravelerprofileCollection(Collection<Travelerprofile> travelerprofileCollection) {
-        this.travelerprofileCollection = travelerprofileCollection;
-    }
-
-    @XmlTransient
-    public Collection<Session> getSessionCollection() {
-        return sessionCollection;
-    }
-
-    public void setSessionCollection(Collection<Session> sessionCollection) {
-        this.sessionCollection = sessionCollection;
-    }
-
-    @XmlTransient
-    public Collection<Approval> getApprovalCollection() {
-        return approvalCollection;
-    }
-
-    public void setApprovalCollection(Collection<Approval> approvalCollection) {
-        this.approvalCollection = approvalCollection;
-    }
-
-    @XmlTransient
-    public Collection<Accountrole> getAccountroleCollection() {
-        return accountroleCollection;
-    }
-
-    public void setAccountroleCollection(Collection<Accountrole> accountroleCollection) {
-        this.accountroleCollection = accountroleCollection;
+    public void setAccountdepartmentCollection(Collection<Accountdepartment> accountdepartmentCollection) {
+        this.accountdepartmentCollection = accountdepartmentCollection;
     }
 
     @Override
