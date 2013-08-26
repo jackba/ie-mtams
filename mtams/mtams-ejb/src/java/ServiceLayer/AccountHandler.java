@@ -79,10 +79,6 @@ public class AccountHandler implements AccountHandlerLocal {
         accID = newAccount.getIdaccount();
         accRoleDao.create(assignId(newAccount, role));
 
-        List<Accountdepartment> allAccDepts = accDepDao.findAll();
-
-        accDeptID = allAccDepts.size() + 1;
-
 
         Accountdepartment accDeptRef = new Accountdepartment();
         accDeptRef.setIdaccount(newAccount);
