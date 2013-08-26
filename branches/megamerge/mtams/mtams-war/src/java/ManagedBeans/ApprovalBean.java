@@ -146,6 +146,11 @@ public class ApprovalBean implements Serializable {
     private Itinerary itinRef;
     private Quotes quoteRef;
     
+    ///////////SELECTED/////////////
+    private Accomodationquotes selectedAccQte;
+    private Carquotes selectedCarQte;
+    private Flightquotes selectedFlgQte;
+    
     private String reasonForTravel;
     private Application newApplication;
     
@@ -172,9 +177,9 @@ public class ApprovalBean implements Serializable {
 //        allApps.add(tempApp);
         
         
-        profileRef = travelProfileHandler.findTravelProf(accountID);
+        profileRef = travelProfileHandler.findTravelProf(2);
         //loadValues();
-        int appnum = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("appID");
+        int appnum = 2;//(Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("appID");
         appRef = appHandler.getApplication(appnum);//selectedApp;
         
         quoteRef = appRef.getQuotesIdquotes();
@@ -659,6 +664,30 @@ public class ApprovalBean implements Serializable {
 
     public void setApproved(int approved) {
         this.approved = approved;
+    }
+
+    public Accomodationquotes getSelectedAccQte() {
+        return selectedAccQte;
+    }
+
+    public void setSelectedAccQte(Accomodationquotes selectedAccQte) {
+        this.selectedAccQte = selectedAccQte;
+    }
+
+    public Carquotes getSelectedCarQte() {
+        return selectedCarQte;
+    }
+
+    public void setSelectedCarQte(Carquotes selectedCarQte) {
+        this.selectedCarQte = selectedCarQte;
+    }
+
+    public Flightquotes getSelectedFlgQte() {
+        return selectedFlgQte;
+    }
+
+    public void setSelectedFlgQte(Flightquotes selectedFlgQte) {
+        this.selectedFlgQte = selectedFlgQte;
     }
     
     
