@@ -88,7 +88,7 @@
                                 <h:outputText value="#{appBean.itinRef.date}"/>
 
                                 <h:outputText value="Destination:" />
-                                <h:outputText value="#{appBean.itinRef.destination}"/>
+                                <h:outputText value="#{appBean.itinRef.destinationCity}"/>
 
                                 <h:outputText value="Business Leave/ Other:" />
                                 <h:outputText value="#{appBean.itinRef.leavetype}" />
@@ -108,16 +108,16 @@
                         <br /><fieldset><legend><h4>Flight Quotes</h4></legend>
                             <p:dataTable var="fQ" value="#{appBean.flights}">
                                 <p:column headerText="From">
-                                    <h:outputText value="#{fQ.flightfrom}" />
+                                    <h:outputText value="#{fQ.flightfromCity}" />
                                 </p:column>
                                 <p:column headerText="To">
-                                    <h:outputText value="#{fQ.flightto}" />
+                                    <h:outputText value="#{fQ.flighttoCity}" />
                                 </p:column>
                                 <p:column headerText="Departure from">
-                                    <h:outputText value="#{fQ.flightfrom}" />
+                                    <h:outputText value="#{fQ.flightfromCity}" />
                                 </p:column>
                                 <p:column headerText="Arrival to">
-                                    <h:outputText value="#{fQ.flightfrom}" />
+                                    <h:outputText value="#{fQ.flightfromCity}" />
                                 </p:column>
                                 <p:column headerText="Airline">
                                     <h:outputText value="#{fQ.quotesource}" />
