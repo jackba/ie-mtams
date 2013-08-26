@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author aaron
+ * @author Badger
  */
 @Stateless
 public class AccountFacade extends AbstractFacade<Account> implements AccountFacadeLocal {

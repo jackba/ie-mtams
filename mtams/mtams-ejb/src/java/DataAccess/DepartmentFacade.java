@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Alexandre Damasio
+ * @author Badger
  */
 @Stateless
 public class DepartmentFacade extends AbstractFacade<Department> implements DepartmentFacadeLocal {
