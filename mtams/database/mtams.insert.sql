@@ -120,8 +120,7 @@ INSERT INTO "LEAVELOOKUP" (LEAVETYPE) VALUES ('Other' /*not nullable*/);
 -- select idaccount from mtams.account where username = 'admin';
 
 -- first no role user. Similar to creating a user through admin.
-INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
-	VALUES ('s' /*not nullable*/,'s' /*not nullable*/,'s',current_timestamp,null);
+--INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 	VALUES ('s' /*not nullable*/,'s' /*not nullable*/,'s',current_timestamp,null);
 
 INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
 	VALUES ('MrT' /*not nullable*/,'mrt' /*not nullable*/,'s',current_timestamp,null);
