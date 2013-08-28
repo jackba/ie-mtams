@@ -46,7 +46,9 @@
                             </p:column>  
 
                             <p:column headerText="Last date modified" style="width:33%">  
-                                <h:outputText value="#{app.datemodified}" />  
+                                <h:outputText value="#{app.datemodified}" >
+                                    <f:convertDateTime type="date" dateStyle="long" />
+                                </h:outputText>
                             </p:column>  
 
                             <p:column headerText="Status" style="width:32%">  

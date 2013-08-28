@@ -5,22 +5,27 @@
 package ManagedBeans;
 
 import Entities.Account;
+import Entities.Department;
 import ServiceLayer.AccountHandlerLocal;
+import ServiceLayer.DepartmentHandlerLocal;
 import ServiceLayer.RoleHandlerLocal;
 import javax.inject.Named;
-import javax.enterprise.context.ConversationScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.validation.constraints.Pattern;
+import org.primefaces.component.api.UIData;
 
 /**
  *
  * @author Alexandre Manuel Damasio
  */
 @Named(value = "superAdminBean")
-@ConversationScoped
+@SessionScoped
 public class SuperAdminBean implements Serializable {
 
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z0-9]{0,}")
@@ -30,13 +35,26 @@ public class SuperAdminBean implements Serializable {
     private int roleID;
     private String role;
     private String roleDescription;
+    //Department Handler Details
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z ]{0,}")
+    private String departmentName;
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z ]{0,}")
+    private String departmentEditName;
+    private int departmentID;
+    private Department selectedDepartment;
+    private Department departmentRef;
+    private UIData dataTable;
+    private List<Department> allDepartments = new ArrayList<Department>();
     
     @EJB
     private AccountHandlerLocal handler;
     @EJB
     private RoleHandlerLocal handler1;
+    @EJB
+    private DepartmentHandlerLocal departmentHandler;
 
     public SuperAdminBean() {
+        
     }
     public String goToHome(){
         return "./superHome.xhtml";
@@ -53,6 +71,10 @@ public class SuperAdminBean implements Serializable {
     public String goToDeactivateAccount(){
         return "./deactivateAccount.xhtml";
     }
+    public String goToDepartmentHandler(){
+        return "./departmentHandler.xhtml";
+    }
+    
     public String createAdmin() {
         if (handler.checkUsername(getAdminName())) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Input Error", "Username already exists"));
@@ -132,5 +154,77 @@ public class SuperAdminBean implements Serializable {
 
     public void setRoleDescription(String roleDescription) {
         this.roleDescription = roleDescription;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
+    public String getDepartmentEditName() {
+        return departmentEditName;
+    }
+
+    public void setDepartmentEditName(String departmentEditName) {
+        this.departmentEditName = departmentEditName;
+    }
+
+    public int getDepartmentID() {
+        return departmentID;
+    }
+
+    public void setDepartmentID(int departmentID) {
+        this.departmentID = departmentID;
+    }
+
+    public Department getSelectedDepartment() {
+        return selectedDepartment;
+    }
+
+    public void setSelectedDepartment(Department selectedDepartment) {
+        this.selectedDepartment = selectedDepartment;       
+    }
+    
+    public UIData getDataTable() {
+        return dataTable;
+    }
+
+    public void setDataTable(UIData dataTable) {
+        this.dataTable = dataTable;
+    }
+    
+    public void createDepartment(){
+        departmentRef = new Department();
+        departmentRef.setDepartment(departmentName);
+        departmentHandler.createDepartment(departmentRef);
+        FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success.","Department Created"));
+    }
+    
+    public void load(){
+        departmentRef = selectedDepartment;
+    }
+    
+    public void editDepartment(){
+        //Department 
+        selectedDepartment.setDepartment(getDepartmentEditName());
+        departmentHandler.editDepartment(selectedDepartment);
+        FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success.","Department Edited"));
+    }
+    
+    public void deleteDepartment(){        
+        departmentHandler.deleteDepartment(selectedDepartment);
+        FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success.","Department Deleted"));
+        
+    }    
+
+    public List<Department> getAllDepartments() {
+        return allDepartments = departmentHandler.getAllDepartments();
+    }
+
+    public void setAllDepartments(List<Department> allDepartments) {
+        this.allDepartments = allDepartments;
     }
 }

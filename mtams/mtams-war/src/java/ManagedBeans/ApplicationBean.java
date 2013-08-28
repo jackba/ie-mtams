@@ -180,7 +180,7 @@ public class ApplicationBean implements Serializable {
         setReasonForTravel(travelRef.getDescription());
         
         setTempDate(itinRef.getDate());
-        setTempDest(itinRef.getDestination());
+        setTempDest(itinRef.getDestinationCity());
         setTempLeaveType(itinRef.getLeavetype());
         setTempTravelDay(itinRef.getTravelday());
         
@@ -210,7 +210,7 @@ public class ApplicationBean implements Serializable {
         newAcc = new Accomodationquotes();
 
         newAcc.setAccomodationprovider(hQHotel1);
-        newAcc.setQuotecost(hQCost1);
+        newAcc.setQuotecost(Double.parseDouble(hQCost1));
         newAcc.setCity(hQLocation);
         newAcc.setDatecheckin(hQDateIn);
         newAcc.setDatecheckout(hQDateOut);
@@ -220,7 +220,7 @@ public class ApplicationBean implements Serializable {
         newAcc = new Accomodationquotes();
 
         newAcc.setAccomodationprovider(hQHotel2);
-        newAcc.setQuotecost(hQCost2);
+        newAcc.setQuotecost(Double.parseDouble(hQCost2));
         newAcc.setCity(hQLocation);
         newAcc.setDatecheckin(hQDateIn);
         newAcc.setDatecheckout(hQDateOut);
@@ -233,7 +233,7 @@ public class ApplicationBean implements Serializable {
         newCar.setDatecollect(cQDateCollected);
         newCar.setDatereturn(cQDateReturned);
         newCar.setProvider(cQHire1);
-        newCar.setQuotecost(cQCost1);
+        newCar.setQuotecost(Double.parseDouble(cQCost1));
 
         carQuotes.add(newCar);
 
@@ -242,34 +242,34 @@ public class ApplicationBean implements Serializable {
         newCar.setDatecollect(cQDateCollected);
         newCar.setDatereturn(cQDateReturned);
         newCar.setProvider(cQHire2);
-        newCar.setQuotecost(cQCost2);
+        newCar.setQuotecost(Double.parseDouble(cQCost2));
 
         carQuotes.add(newCar);
 
         flightQuotes = new ArrayList<Flightquotes>();
         newFlight = new Flightquotes();
 
-        newFlight.setFlightfrom(fQFrom);
-        newFlight.setFlightto(fQTo);
+        newFlight.setFlightfromCity(fQFrom);
+        newFlight.setFlighttoCity(fQTo);
         newFlight.setDatedeparture(fQDate);
         newFlight.setQuotesource(fQFlight1);
-        newFlight.setQuotecost(fQCost1);
+        newFlight.setQuotecost(Double.parseDouble(fQCost1));
 
         flightQuotes.add(newFlight);
 
         newFlight = new Flightquotes();
 
-        newFlight.setFlightfrom(fQFrom);
-        newFlight.setFlightto(fQTo);
+        newFlight.setFlightfromCity(fQFrom);
+        newFlight.setFlighttoCity(fQTo);
         newFlight.setDatedeparture(fQDate);
         newFlight.setQuotesource(fQFlight2);
-        newFlight.setQuotecost(fQCost2);
+        newFlight.setQuotecost(Double.parseDouble(fQCost2));
 
         flightQuotes.add(newFlight);
 
         tempItin = new Itinerary();
         tempItin.setDate(getTempDate());
-        tempItin.setDestination(getTempDest());
+        tempItin.setDestinationCity(getTempDest());
         tempItin.setLeavetype(getTempLeaveType());
         tempItin.setTravelday(getTempTravelDay());
 
@@ -288,7 +288,7 @@ public class ApplicationBean implements Serializable {
 
     public String reinit() {
         tempItin.setDate(getTempDate());
-        tempItin.setDestination(getTempDest());
+        tempItin.setDestinationCity(getTempDest());
         tempItin.setLeavetype(getTempLeaveType());
         tempItin.setTravelday(getTempTravelDay());
         hops.add(tempItin);
@@ -337,7 +337,7 @@ public class ApplicationBean implements Serializable {
         travelRef.setDescription(reasonForTravel);
         
         itinRef.setDate(tempDate);
-        itinRef.setDestination(tempDest);
+        itinRef.setDestinationCity(tempDest);
         itinRef.setLeavetype(tempLeaveType);
         itinRef.setTravelday(tempTravelDay);
         
@@ -368,7 +368,7 @@ public class ApplicationBean implements Serializable {
         setReasonForTravel(travelRef.getDescription());
         
         setTempDate(itinRef.getDate());
-        setTempDest(itinRef.getDestination());
+        setTempDest(itinRef.getDestinationCity());
         setTempLeaveType(itinRef.getLeavetype());
         setTempTravelDay(itinRef.getTravelday());
         

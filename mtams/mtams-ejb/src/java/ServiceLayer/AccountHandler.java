@@ -39,7 +39,7 @@ public class AccountHandler implements AccountHandlerLocal {
     @EJB
     private DepartmentFacadeLocal deptsDao;
     
-	private int deptID;
+	private Department dept;
     private int accID;
     private int accDeptID;
     private List<Account> adminList = new ArrayList<Account>();
@@ -73,18 +73,16 @@ public class AccountHandler implements AccountHandlerLocal {
         List<Department> allDepartments = deptsDao.findAll();
         for (Department each : allDepartments) {
             if (each.getDepartment().equalsIgnoreCase(department)) {
-                deptID = each.getIddepartment();
+                dept = each;
             }
         }
         accID = newAccount.getIdaccount();
         accRoleDao.create(assignId(newAccount, role));
 
-        List<Accountdepartment> allAccDepts = accDepDao.findAll();
 
-        accDeptID = allAccDepts.size() + 1;
-
-
-        Accountdepartment accDeptRef = new Accountdepartment(accDeptID, accID, deptID);
+        Accountdepartment accDeptRef = new Accountdepartment();
+        accDeptRef.setIdaccount(newAccount);
+        accDeptRef.setIddepartment(dept);
         accDepDao.create(accDeptRef);
     }
 	

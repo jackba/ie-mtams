@@ -5,7 +5,7 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Badger
+ * @author aaron
  */
 @Entity
 @Table(name = "TASK")
@@ -47,7 +47,7 @@ public class Task implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tasksIdtasks")
-    private List<Permission> permissionList;
+    private Collection<Permission> permissionCollection;
 
     public Task() {
     }
@@ -81,12 +81,12 @@ public class Task implements Serializable {
     }
 
     @XmlTransient
-    public List<Permission> getPermissionList() {
-        return permissionList;
+    public Collection<Permission> getPermissionCollection() {
+        return permissionCollection;
     }
 
-    public void setPermissionList(List<Permission> permissionList) {
-        this.permissionList = permissionList;
+    public void setPermissionCollection(Collection<Permission> permissionCollection) {
+        this.permissionCollection = permissionCollection;
     }
 
     @Override
