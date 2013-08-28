@@ -29,6 +29,7 @@ public class SessionBean implements Serializable {
     private String password;
     private HttpSession session;
     private Account user;
+    private Integer roleNum;
     @EJB
     private LoginHandlerLocal handler;
 
@@ -84,6 +85,7 @@ public class SessionBean implements Serializable {
     private void setSessionVariables() {
         //FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", user.getIdaccount());
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userRole", roleNum);
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", user.getUsername());
         //session.setAttribute("userID", user.getIdaccount());
 //        session.setAttribute("username", user.getUsername());
@@ -91,7 +93,7 @@ public class SessionBean implements Serializable {
 
     public String validate() {
         user = handler.authenticate(this.username, this.password);
-        Integer roleNum = handler.getAccountRole(user);
+        roleNum = handler.getAccountRole(user);
         if (user != null && roleNum != null) {
             
                 if (roleNum == 11) {

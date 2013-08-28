@@ -5,7 +5,6 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,17 +16,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author aaron
+ * @author Badger
  */
 @Entity
 @Table(name = "FLIGHTQUOTES")
@@ -45,7 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Flightquotes.findByQuotesourcedescription", query = "SELECT f FROM Flightquotes f WHERE f.quotesourcedescription = :quotesourcedescription"),
     @NamedQuery(name = "Flightquotes.findByQuotesource", query = "SELECT f FROM Flightquotes f WHERE f.quotesource = :quotesource"),
     @NamedQuery(name = "Flightquotes.findByCurrency", query = "SELECT f FROM Flightquotes f WHERE f.currency = :currency"),
-    @NamedQuery(name = "Flightquotes.findByQuotecost", query = "SELECT f FROM Flightquotes f WHERE f.quotecost = :quotecost")})
+    @NamedQuery(name = "Flightquotes.findByQuotecost", query = "SELECT f FROM Flightquotes f WHERE f.quotecost = :quotecost"),
+    @NamedQuery(name = "Flightquotes.findBySelected", query = "SELECT f FROM Flightquotes f WHERE f.selected = :selected")})
 public class Flightquotes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -86,8 +85,10 @@ public class Flightquotes implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "QUOTECOST")
     private Double quotecost;
-    @OneToMany(mappedBy = "flightquotesIdflightquotes")
-    private Collection<Attachement> attachementCollection;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "SELECTED")
+    private short selected;
     @JoinColumn(name = "QUOTES_IDQUOTES", referencedColumnName = "IDQUOTES")
     @ManyToOne(optional = false)
     private Quotes quotesIdquotes;
@@ -97,6 +98,11 @@ public class Flightquotes implements Serializable {
 
     public Flightquotes(Integer idflightquotes) {
         this.idflightquotes = idflightquotes;
+    }
+
+    public Flightquotes(Integer idflightquotes, short selected) {
+        this.idflightquotes = idflightquotes;
+        this.selected = selected;
     }
 
     public Integer getIdflightquotes() {
@@ -195,13 +201,12 @@ public class Flightquotes implements Serializable {
         this.quotecost = quotecost;
     }
 
-    @XmlTransient
-    public Collection<Attachement> getAttachementCollection() {
-        return attachementCollection;
+    public short getSelected() {
+        return selected;
     }
 
-    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
-        this.attachementCollection = attachementCollection;
+    public void setSelected(short selected) {
+        this.selected = selected;
     }
 
     public Quotes getQuotesIdquotes() {

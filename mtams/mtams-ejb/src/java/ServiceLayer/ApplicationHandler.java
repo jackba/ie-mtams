@@ -75,6 +75,13 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
         
         return apps;
     }
+
+    @Override
+    public List<Application> getAllAppList(Integer id) {
+        return appDao.findAll();
+    }
+    
+    
     
     @Override
     public Application getApplication(Integer id){
@@ -230,6 +237,13 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
         travDao.edit(trav);
         itinDao.edit(itin);
         appDao.edit(app);
+    }
+
+    @Override
+    public void selectQuotes(Accomodationquotes acc, Carquotes car, Flightquotes flg) {
+        accDao.edit(acc);
+        carDao.edit(car);
+        flightDao.edit(flg);
     }
     
     

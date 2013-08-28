@@ -69,11 +69,15 @@
 
 
                                 <h:outputText value="Date of initial departure:" />
-                                <h:outputText id="departDate" value="#{appBean.travelRef.datedeparture}" />
+                                <h:outputText id="departDate" value="#{appBean.travelRef.datedeparture}">
+                                    <f:convertDateTime type="date" dateStyle="long" />
+                                </h:outputText>
 
 
                                 <h:outputText value="Date of final return:" />
-                                <h:outputText id="returnDate" value="#{appBean.travelRef.datereturn}" />
+                                <h:outputText id="returnDate" value="#{appBean.travelRef.datereturn}">
+                                    <f:convertDateTime type="date" dateStyle="long" />
+                                </h:outputText>
 
 
                                 <h:outputText value="Description of purpose of travel:" />
@@ -85,7 +89,9 @@
                         <br /><fieldset><legend><h4>Itinerary</h4></legend>
                             <h:panelGrid columns="2" columnClasses="label, value">
                                 <h:outputText value="Date:" />
-                                <h:outputText value="#{appBean.itinRef.date}"/>
+                                <h:outputText value="#{appBean.itinRef.date}">
+                                    <f:convertDateTime type="date" dateStyle="long" />
+                                </h:outputText>
 
                                 <h:outputText value="Destination:" />
                                 <h:outputText value="#{appBean.itinRef.destinationCity}"/>
@@ -130,16 +136,24 @@
                         <br /><fieldset><legend><h4>Car Quotes</h4></legend>
                             <p:dataTable var="cQ" value="#{appBean.cars}">
                                 <p:column headerText="Collect date">
-                                    <h:outputText value="#{cQ.datecollect}" />
+                                    <h:outputText value="#{cQ.datecollect}" >
+                                        <f:convertDateTime type="date" dateStyle="long" />
+                                    </h:outputText>
                                 </p:column>
                                 <p:column headerText="Return date">
-                                    <h:outputText value="#{cQ.datereturn}" />
+                                    <h:outputText value="#{cQ.datereturn}" >
+                                        <f:convertDateTime type="date" dateStyle="long" />
+                                    </h:outputText>
                                 </p:column>
                                 <p:column headerText="Date Collected">
-                                    <h:outputText value="#{cQ.datecollect}" />
+                                    <h:outputText value="#{cQ.datecollect}" >
+                                        <f:convertDateTime type="date" dateStyle="long" />
+                                    </h:outputText>
                                 </p:column>
                                 <p:column headerText="Date Returned">
-                                    <h:outputText value="#{cQ.datereturn}" />
+                                    <h:outputText value="#{cQ.datereturn}" >
+                                        <f:convertDateTime type="date" dateStyle="long" />
+                                    </h:outputText>
                                 </p:column>
                                 <p:column headerText="Rental Company">
                                     <h:outputText value="#{cQ.provider}" />
@@ -155,10 +169,14 @@
                                     <h:outputText value="#{hQ.city}" />
                                 </p:column>
                                 <p:column headerText="Checkin date">
-                                    <h:outputText value="#{hQ.datecheckin}" />
+                                    <h:outputText value="#{hQ.datecheckin}" >
+                                        <f:convertDateTime type="date" dateStyle="long" />
+                                    </h:outputText>
                                 </p:column>
                                 <p:column headerText="Checkout date">
-                                    <h:outputText value="#{hQ.datecheckout}" />
+                                    <h:outputText value="#{hQ.datecheckout}" >
+                                        <f:convertDateTime type="date" dateStyle="long" />
+                                    </h:outputText>
                                 </p:column>
                                 <p:column headerText="Hotel">
                                     <h:outputText value="#{hQ.accomodationprovider}" />

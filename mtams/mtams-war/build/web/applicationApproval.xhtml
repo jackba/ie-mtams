@@ -22,7 +22,7 @@
 
                     <ul><h:form>
                         <li>Help</li>
-                        <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout</p:commandLink></li>
+                        <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout (Authorizer)</p:commandLink></li>
                         </h:form>
                     </ul>
                 </div>
@@ -34,6 +34,7 @@
                         </p:menubar></h:form>
                 </div>
                 <h:form>
+                    <p:messages autoUpdate="true" showDetail="true" id="approvalTop" closable="true" />
                     <p:panel id="viewApplicationPanel" header="Application pending approval">
                         <fieldset><legend><h4>Personal Details</h4></legend>
                             <h:panelGrid columns="2">
@@ -67,11 +68,15 @@
 
 
                                 <h:outputText value="Date of initial departure:" />
-                                <h:outputText id="departDate" value="#{approvalBean.travelRef.datedeparture}" />
+                                <h:outputText id="departDate" value="#{approvalBean.travelRef.datedeparture}" >
+                                    <f:convertDateTime type="date" dateStyle="long" />
+                                </h:outputText>
 
 
                                 <h:outputText value="Date of final return:" />
-                                <h:outputText id="returnDate" value="#{approvalBean.travelRef.datereturn}" />
+                                <h:outputText id="returnDate" value="#{approvalBean.travelRef.datereturn}" >
+                                    <f:convertDateTime type="date" dateStyle="long" />
+                                </h:outputText>
 
 
                                 <h:outputText value="Description of purpose of travel:" />
@@ -83,7 +88,9 @@
                         <br /><fieldset><legend><h4>Itinerary</h4></legend>
                             <h:panelGrid columns="2" >
                                 <h:outputText value="Date:" />
-                                <h:outputText value="#{approvalBean.itinRef.date}"/>
+                                <h:outputText value="#{approvalBean.itinRef.date}">
+                                    <f:convertDateTime type="date" dateStyle="long" />
+                                </h:outputText>
 
                                 <h:outputText value="Destination:" />
                                 <h:outputText value="#{approvalBean.itinRef.destinationCity}"/>
@@ -108,7 +115,7 @@
                         <h3>Please select the approved quote</h3>
                         <fieldset><legend><h4>Flight Quotes</h4></legend>
                             <p:dataTable var="fQ" value="#{approvalBean.flights}" selectionMode="single" selection="#{approvalBean.selectedFlgQte}" rowKey="#{fQ.idflightquotes}" >
-                                
+                                <p:ajax event="rowSelect" update="#{approvalBean.selectedFlgQte}" />
                                 <p:column headerText="From">
                                     <h:outputText value="#{fQ.flightfromCity}" />
                                 </p:column>
@@ -134,16 +141,24 @@
                             <p:dataTable var="cQ" value="#{approvalBean.cars}" selectionMode="single" selection="#{approvalBean.selectedCarQte}" rowKey="#{cQ.idcarquotes}">
                                 
                                 <p:column headerText="Collect date">
-                                    <h:outputText value="#{cQ.datecollect}" />
+                                    <h:outputText value="#{cQ.datecollect}" >
+                                        <f:convertDateTime type="date" dateStyle="long" />
+                                    </h:outputText>
                                 </p:column>
                                 <p:column headerText="Return date">
-                                    <h:outputText value="#{cQ.datereturn}" />
+                                    <h:outputText value="#{cQ.datereturn}" >
+                                        <f:convertDateTime type="date" dateStyle="long" />
+                                    </h:outputText>
                                 </p:column>
                                 <p:column headerText="Date Collected">
-                                    <h:outputText value="#{cQ.datecollect}" />
+                                    <h:outputText value="#{cQ.datecollect}" >
+                                        <f:convertDateTime type="date" dateStyle="long" />
+                                    </h:outputText>
                                 </p:column>
                                 <p:column headerText="Date Returned">
-                                    <h:outputText value="#{cQ.datereturn}" />
+                                    <h:outputText value="#{cQ.datereturn}" >
+                                        <f:convertDateTime type="date" dateStyle="long" />
+                                    </h:outputText>
                                 </p:column>
                                 <p:column headerText="Rental Company">
                                     <h:outputText value="#{cQ.provider}" />
@@ -162,10 +177,14 @@
                                     <h:outputText value="#{hQ.city}" />
                                 </p:column>
                                 <p:column headerText="Checkin date">
-                                    <h:outputText value="#{hQ.datecheckin}" />
+                                    <h:outputText value="#{hQ.datecheckin}" >
+                                        <f:convertDateTime type="date" dateStyle="long" />
+                                    </h:outputText>
                                 </p:column>
                                 <p:column headerText="Checkout date">
-                                    <h:outputText value="#{hQ.datecheckout}" />
+                                    <h:outputText value="#{hQ.datecheckout}" >
+                                        <f:convertDateTime type="date" dateStyle="long" />
+                                    </h:outputText>
                                 </p:column>
                                 <p:column headerText="Hotel">
                                     <h:outputText value="#{hQ.accomodationprovider}" />
@@ -203,7 +222,7 @@
 
                             </h:panelGrid>
 
-                            <p:button value="Cancel" outcome="#{userBean.goHome()}" />
+                            <p:button value="Cancel" outcome="#{approvalBean.goHome()}" />
                             <p:commandButton  value="Submit" action="#{approvalBean.approve()}" update="viewApplicationPanel" ajax="false" />
                         </fieldset>
                     </p:panel>
