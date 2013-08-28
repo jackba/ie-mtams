@@ -124,6 +124,7 @@ INSERT INTO "LEAVELOOKUP" (LEAVETYPE) VALUES ('Other' /*not nullable*/);
 
 INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
 	VALUES ('MrT' /*not nullable*/,'mrt' /*not nullable*/,'s',current_timestamp,null);
+INSERT INTO "ACCOUNTROLE" (ACCOUNTID,ROLEID) VALUES (2,21);
 
 
 
