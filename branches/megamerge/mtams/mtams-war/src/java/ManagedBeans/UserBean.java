@@ -145,7 +145,11 @@ public class UserBean implements Serializable {
     }
 
     public List<Application> getAllApps() {
-        allApps = appHandler.getAppList(accountID);
+        if (((Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userRole")) == 11) {
+            allApps = appHandler.getAppList(accountID);
+        } else {
+            allApps = appHandler.getAllAppList(accountID);
+        }
         return allApps;
     }
 

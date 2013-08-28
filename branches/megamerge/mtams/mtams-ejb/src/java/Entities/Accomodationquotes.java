@@ -5,7 +5,6 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,17 +16,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author aaron
+ * @author Badger
  */
 @Entity
 @Table(name = "ACCOMODATIONQUOTES")
@@ -43,7 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Accomodationquotes.findByAccomodationprovider", query = "SELECT a FROM Accomodationquotes a WHERE a.accomodationprovider = :accomodationprovider"),
     @NamedQuery(name = "Accomodationquotes.findByQuotesource", query = "SELECT a FROM Accomodationquotes a WHERE a.quotesource = :quotesource"),
     @NamedQuery(name = "Accomodationquotes.findByCurrency", query = "SELECT a FROM Accomodationquotes a WHERE a.currency = :currency"),
-    @NamedQuery(name = "Accomodationquotes.findByQuotecost", query = "SELECT a FROM Accomodationquotes a WHERE a.quotecost = :quotecost")})
+    @NamedQuery(name = "Accomodationquotes.findByQuotecost", query = "SELECT a FROM Accomodationquotes a WHERE a.quotecost = :quotecost"),
+    @NamedQuery(name = "Accomodationquotes.findBySelected", query = "SELECT a FROM Accomodationquotes a WHERE a.selected = :selected")})
 public class Accomodationquotes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -78,8 +77,10 @@ public class Accomodationquotes implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "QUOTECOST")
     private Double quotecost;
-    @OneToMany(mappedBy = "accomodationquotesIdaccomodationquotes")
-    private Collection<Attachement> attachementCollection;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "SELECTED")
+    private short selected;
     @JoinColumn(name = "QUOTES_IDQUOTES", referencedColumnName = "IDQUOTES")
     @ManyToOne(optional = false)
     private Quotes quotesIdquotes;
@@ -89,6 +90,11 @@ public class Accomodationquotes implements Serializable {
 
     public Accomodationquotes(Integer idaccomodationquotes) {
         this.idaccomodationquotes = idaccomodationquotes;
+    }
+
+    public Accomodationquotes(Integer idaccomodationquotes, short selected) {
+        this.idaccomodationquotes = idaccomodationquotes;
+        this.selected = selected;
     }
 
     public Integer getIdaccomodationquotes() {
@@ -171,13 +177,12 @@ public class Accomodationquotes implements Serializable {
         this.quotecost = quotecost;
     }
 
-    @XmlTransient
-    public Collection<Attachement> getAttachementCollection() {
-        return attachementCollection;
+    public short getSelected() {
+        return selected;
     }
 
-    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
-        this.attachementCollection = attachementCollection;
+    public void setSelected(short selected) {
+        this.selected = selected;
     }
 
     public Quotes getQuotesIdquotes() {

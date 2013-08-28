@@ -65,10 +65,6 @@ public class ApprovalHandler implements ApprovalHandlerLocal{
         // set global references for approval for persistant use 
         approvalRef = approval;
         // set the approval account / application to the curretly logged in account
-        account = daoAccount.find(1);
-        app = daoApplication.find(1);
-        approval.setAccountIdaccount(account);
-        approval.setApplicationIdapplication(app);
         daoApproval.create(approval);
         
         // set the final costing to quotes selected
