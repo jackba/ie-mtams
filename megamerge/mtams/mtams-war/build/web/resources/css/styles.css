@@ -1,0 +1,240 @@
+/* LOGIN_ B O X*/
+.form-2 {
+    /*background: #fffaf6;*/
+    border-radius: 4px;
+    /*color: #7e7975;*/
+    box-shadow:
+        0 2px 2px rgba(0,0,0,0.2),        
+        0 1px 5px rgba(0,0,0,0.2),        
+        0 0 0 12px rgba(255,255,255,0.4);
+}
+
+.form-2 h1 .log-in {
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.form-2 h1 .log-in {
+    color: #6c6763;
+    padding-right: 2px;
+}
+
+.form-2 button {
+    float:right;
+    margin-left: 1%;
+    /*background: linear-gradient(rgb(251, 213, 104), rgb(255, 179, 71)) repeat scroll 0% 0% transparent;*/
+    /*border: 1px solid rgb(244, 171, 76);*/
+    /*color: rgb(153, 99, 25);*/
+    /*text-shadow: 0px 1px rgba(255, 255, 255, 0.3);*/
+}
+
+.form-2 h1 {
+    font-size: 15px;
+    font-weight: bold;
+    /*color: #bdb5aa;*/
+    padding-bottom: 8px;
+    border-bottom: 1px solid #EBE6E2;
+    text-shadow: 0 2px 0 rgba(255,255,255,0.8);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.8);
+}
+
+.form-2 input[type=text]:hover,
+.form-2 input[type=password]:hover {
+    /*border-color: sandybrown;*/
+}
+
+.form-2 label:hover ~ input {
+    /*border-color: sandybrown;*/
+}
+
+.form-2 input[type=text]:focus,
+.form-2 input[type=password]:focus {
+    /*border-color: sandybrown;*/
+    outline: none; /* Remove Chrome's outline */
+}
+
+/* TINY_ T W E A K S */
+p.legal {
+    font-size: .90em;
+    color: #666;
+}
+
+form {
+    padding:10px;
+    overflow: hidden;
+}
+
+ul {
+    list-style-image: url(img/arrow.png);
+}
+
+h3 {
+    font-size: 1.3em;
+    margin: 0 0 0.769em;
+    font-weight: normal;
+}
+
+a:link, a:visited {
+    color: #094c93;
+}
+
+.label {
+    vertical-align: top;
+    margin-right: 10%;
+    width:250px;
+}
+
+.value { 
+    float:left;
+}
+
+button {
+    margin: 1.2% 0%;
+}
+
+
+
+
+
+
+
+
+
+
+/* LAYOUT_ G E N E R A L */
+
+html {
+    /* help from http://www.css3.me/ */
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+
+    -moz-box-shadow: 0px 0px 2px #000000;
+    -webkit-box-shadow: 0px 0px 2px #000000;
+    box-shadow: 0px 0px 2px #000000;
+}
+body {
+    height: 100%;
+}
+
+body {
+    background: #d0d0d0 url(img/site-background.png) repeat-x 0 0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;	
+    font: normal 87.5%/1.3 Arial, sans-serif;
+    width:75%;
+
+
+}
+
+#wrap {
+    min-height: 100%;
+}
+
+
+/* H E A D E R */
+
+#header {
+    padding-top: 2.6em;
+    position: relative;
+    padding-bottom: 1.3em;
+    width: 100%;
+}	
+
+#header .logo {
+    display: inline;
+}
+
+#header ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: right;
+    width: 95%;
+    font-size: 90%;
+    margin: 0;
+    list-style: none;
+    margin-top: 1.3em;
+}
+
+#header li {
+    border-left: 1px solid #a4a4a4;
+    display: inline-block;
+}
+
+#header li a {
+    padding: .5em;
+    display: inline-block;
+}
+
+#header .skip {
+    float: left;
+    border-width: 0;
+}
+
+#header .skip a {
+    padding-left: 0;
+}
+
+
+/* C O N T E N T */
+#content {
+    min-height: 100%;
+    margin-bottom: 1%;
+    /* background: red; */
+}
+
+
+/* N A V I G A T I O N */
+#nav {
+    margin-top: 4%;
+    margin-bottom: 2%;
+
+}
+
+.menuBar {
+    background: black;
+    background-color: #9CC4E4;
+    position:relative;
+    z-index:999;
+    left:0px;
+    display:inline-block;
+}
+
+.menuBar_after_detach {
+    /* background-color: #9CC4E4;  Needs IE color fix */
+    position:relative;
+    z-index:999;
+    height:28px;
+    width:100%;
+    left:0px;
+}
+
+.ui-menu .ui-menuitem {
+    margin: 1px 15px !important;
+}
+
+/* F O O T E R */
+#footer {
+    border-top: 1px solid #a4a4a4;
+    padding-top: 1.3em;
+    margin: 2em 0 2em 0;
+
+
+    position: relative;
+    margin-top: 70%; /* negative value of footer height */
+    height: 23%;
+    clear:both;
+    /* background: #BFF08E; */
+}
+
+#footer .col {
+    float: left;
+    width: 219px;
+    min-height: 150px;
+    border-right: 1px solid #a4a4a4;
+    margin: 0 20px 0 0;
+}
