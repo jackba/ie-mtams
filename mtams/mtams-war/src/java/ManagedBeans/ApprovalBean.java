@@ -34,6 +34,7 @@ import javax.faces.component.UIForm;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Pattern;
 
@@ -56,7 +57,7 @@ public class ApprovalBean implements Serializable {
     private static final Logger logger = Logger.getLogger(ApplicationBean.class.getName());
     private List<Application> allApps;
     private Application selectedApp;
-    private Integer accountID = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+    private Integer accountID = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
     private Travelerprofile profileRef;// = travelProfileHandler.findTravelProf(accountID);
     private Account accRef;
     private Date modifiedDate;
@@ -172,7 +173,8 @@ public class ApprovalBean implements Serializable {
         accRef = accHandler.getAccount(accountID);
         profileRef = travelProfileHandler.findTravelProf(accountID);
         //loadValues();
-        int appnum = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("appID");
+        
+        int appnum = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
         appRef = appHandler.getApplication(appnum);//selectedApp;
 
         quoteRef = appRef.getQuotesIdquotes();

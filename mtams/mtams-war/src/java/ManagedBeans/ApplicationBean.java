@@ -29,6 +29,7 @@ import javax.faces.application.FacesMessage;
 
 import javax.faces.component.*;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Pattern;
@@ -52,7 +53,8 @@ public class ApplicationBean implements Serializable {
     private List<Application> allApps;
     private Application selectedApp;
     
-    private Integer accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+    /////////////////////NEW SESSION RETRIEVAL CODE///////////////////////
+    private Integer accountID = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");//.getSessionMap().get("userID");
     private Travelerprofile profileRef;// = travelProfileHandler.findTravelProf(accountID);
     
     private Date modifiedDate;
@@ -151,7 +153,7 @@ public class ApplicationBean implements Serializable {
 
     //@PostConstruct
     public void initialize() {
-        accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+        //accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 //        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 
 //        Application tempApp = new Application();
@@ -163,7 +165,8 @@ public class ApplicationBean implements Serializable {
         
         profileRef = travelProfileHandler.findTravelProf(accountID);
         //loadValues();
-        int appnum = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("appID");
+        
+        int appnum = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
         appRef = appHandler.getApplication(appnum);//selectedApp;
         
         quoteRef = appRef.getQuotesIdquotes();
