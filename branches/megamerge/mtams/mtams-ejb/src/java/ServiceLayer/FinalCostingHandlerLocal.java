@@ -16,7 +16,7 @@ import javax.ejb.Local;
 public interface FinalCostingHandlerLocal {
     public void persistFinalcosting(Finalcosting finalcosting);
     
-    public void persistQuoteFinalcosting(Finalcosting finalcosting, Quotes quote);
+    //public void persistQuoteFinalcosting(Finalcosting finalcosting, Quotes quote);
     
     public void updateFinalcosting(Finalcosting finalcosting, Integer finalcostingID);
         

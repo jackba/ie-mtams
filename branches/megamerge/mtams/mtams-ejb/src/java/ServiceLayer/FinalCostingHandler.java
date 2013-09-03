@@ -12,6 +12,7 @@ import DataAccess.QuotesFacadeLocal;
 import Entities.Finalcosting;
 import Entities.Quotes;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -58,19 +59,19 @@ public class FinalCostingHandler implements FinalCostingHandlerLocal {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    @Override
-    public void persistQuoteFinalcosting(Finalcosting finalcosting, Quotes quote) {
-        // set global references for finalcosting for persistant use 
-        //fcostingRef = finalcosting;
-        // set the approval account / application to the curretly logged in account               
-        // set the final costing to quotes selected
-        //quotes.setIdquotes(1);
-        //quotes = daoQuotesFacadeLocal.find(1);
-        finalcosting.setQuotesIdquotes(quote);
-        
-        finalDao.create(finalcosting);       
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    @Override
+//    public void persistQuoteFinalcosting(Finalcosting finalcosting, Quotes quote) {
+//        // set global references for finalcosting for persistant use 
+//        //fcostingRef = finalcosting;
+//        // set the approval account / application to the curretly logged in account               
+//        // set the final costing to quotes selected
+//        //quotes.setIdquotes(1);
+//        //quotes = daoQuotesFacadeLocal.find(1);
+//        finalcosting.setQuotesIdquotes(quote);
+//        
+//        finalDao.create(finalcosting);       
+//        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
     @Override
     public void updateFinalcosting(Finalcosting finalcosting, Integer finalcostingID) {
@@ -110,6 +111,19 @@ public class FinalCostingHandler implements FinalCostingHandlerLocal {
         }
         return null;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+//    public void getSelectedQuotes(Quotes quote) {
+//        String QuoteType = "";
+//        int t = 0;
+//        new Map<Object, Object>
+//                
+//        
+//        
+//    }
+    
+    public void getSelectedQuotes(int quoteID) {
+        
     }
 
     // Add business logic below. (Right-click in editor and choose
