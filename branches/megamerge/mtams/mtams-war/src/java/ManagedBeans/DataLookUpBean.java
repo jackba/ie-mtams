@@ -18,6 +18,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import ServiceLayer.DataLookUpHandlerLocal;
+import javax.faces.context.FacesContext;
 //import sun.util.resources.CurrencyNames_en_GB;
 
 /**
@@ -136,6 +137,10 @@ public class DataLookUpBean implements Serializable {
 
         this.currencyStrings = new ArrayList<String>();
         currencyStrings.addAll(daoDataLookUp.allCurrencyStr());
+        
+        // need to stop headers being set till dialogs are built and ajax requests
+        // can be handled
+        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
     }
 
     public List<String> getTitleStrings() {
