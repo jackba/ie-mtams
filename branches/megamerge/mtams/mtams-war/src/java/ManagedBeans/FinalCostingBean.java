@@ -4,6 +4,7 @@
  */
 package ManagedBeans;
 
+import DataAccess.FlightquotesFacadeLocal;
 import Entities.Accomodationquotes;
 import Entities.Account;
 import Entities.Application;
@@ -31,8 +32,10 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
+import sun.util.BuddhistCalendar;
 
 /**
  *
@@ -43,10 +46,11 @@ import org.primefaces.event.FlowEvent;
 public class FinalCostingBean implements Serializable {
     ////////////////
 
-    private Integer accountID = 2;
-    private Integer appnum = 0;
+    //private Integer accountID = 3;
+    private Integer accountID = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
+    //private Integer appnum = 1;
+    private Integer appnum;
     // /////////////////////
-
     @EJB
     private TravelProfileHandlerLocal travelProfileHandler;
     @EJB
@@ -57,6 +61,8 @@ public class FinalCostingBean implements Serializable {
     private FinalCostingHandlerLocal finalHandler;
     @EJB
     private AccountHandlerLocal accHandler;
+//    @EJB
+//    private FlightquotesFacadeLocal flightquotesFLHandler;
     // logger object for use in this class
     private static final Logger logger = Logger.getLogger(ApplicationBean.class.getName());
     // 
@@ -149,26 +155,21 @@ public class FinalCostingBean implements Serializable {
     public FinalCostingBean() {
         logger.log(Level.INFO, "Constructor");
         logger.log(Level.INFO, "test : {0}", accountID);
-        logger.log(Level.INFO, "test : {0}", appnum);
+        //logger.log(Level.INFO, "test : {0}", appnum);
 
     }
 
     @PostConstruct
     public void initialize() {
         logger.log(Level.INFO, "initialize");
+        int appnum = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
         logger.log(Level.INFO, "accountID : {0}, appnum: {1}", new Object[]{accountID, appnum});
-        //logger.log(Level.INFO, "test : {0}", appnum);
-        //accountID = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
-        accountID = 3;
-        appnum = 1;
-        //cities="WITBANK";
-        //countries="SOUTH AFRICA";
-        checks = 0;
+        //logger.log(Level.INFO, "test : {0}", appnum);        
 
         accountRef = accHandler.getAccount(accountID);
         profileRef = travelProfileHandler.findTravelProf(accountID);
-        //loadValues();
-        //appnum = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("appID");
+
+
         appRef = appHandler.getApplication(appnum);//selectedApp;
 
         quoteRef = appRef.getQuotesIdquotes();
@@ -179,10 +180,34 @@ public class FinalCostingBean implements Serializable {
         travelRef = appRef.getTravelIdtravel();
         itinRef = appHandler.getItinerary(travelRef.getIdtravel());
 
-        administrativeunit = profileRef.getDepartment();
-        Name = profileRef.getFirstname() + " " + profileRef.getFamilyname();
-        countries = itinRef.getDestinationCountry();
-        cities = itinRef.getDestinationCity();
+        //fCostRef = finalHandler.findFinalcosting(1);
+        fCostRef = finalHandler.findFinalcosting(appRef.getFinalcostingIdfinalcosting().getIdfinalcosting());
+        //aprrovalRef = approvalHandler.findApproval(appRef. appnum)findApprovalbyApplication(appnum);
+
+
+        if (fCostRef.getAdministrativeunit() == null) {
+            setAdministrativeunit(profileRef.getDepartment());
+        } else {
+            setAdministrativeunit(fCostRef.getAdministrativeunit());
+        }
+
+        if (fCostRef.getCountries() == null) {
+            setCountries(itinRef.getDestinationCountry());
+        } else {
+            setCountries(fCostRef.getCountries());
+        }
+
+        if (fCostRef.getCitys() == null) {
+            setCities(itinRef.getDestinationCity());
+        } else {
+            setCities(fCostRef.getCitys());
+        }
+
+        if (fCostRef.getName() == null) {
+            setName(profileRef.getFirstname() + " " + profileRef.getFamilyname());
+        } else {
+            setName(fCostRef.getName());
+        }
 
         // 
         // authorisation table
@@ -190,8 +215,85 @@ public class FinalCostingBean implements Serializable {
         logger.log(Level.INFO, "dateStamp : {0}", DateStamp);
         Date today = new Date();
         if (DateStamp == null) {
-            DateStamp = today;
+            setDateStamp(today);
         }
+        logger.log(Level.INFO, "after dateStamp : {0}", DateStamp);
+
+//        logger.log(Level.INFO, "AirfareCost : {0}", AirfareCost);
+        flightSelected = findflightSelected();
+//        logger.log(Level.INFO, "flightSelected : {0}", flightSelected);
+        if (flightSelected == null) {
+            setAirfareCost(((fCostRef.getAirfarecost() == null) ? 0 : fCostRef.getAirfarecost()));
+//            logger.log(Level.INFO, "flightSelected == null : {0}", flightSelected);
+        } else {
+            setAirfareCost(flightSelected.getQuotecost());
+//            logger.log(Level.INFO, "flightSelected.getQuotecost() : {0}", flightSelected.getQuotecost());
+//            logger.log(Level.INFO, "AirfareCost : {0}", AirfareCost);
+        }
+//        logger.log(Level.INFO, "flightSelected : {0}", flightSelected.toString());
+//        logger.log(Level.INFO, "AirfareCost : {0}", AirfareCost);
+
+        carSelected = findcarSelected();
+        if (carSelected == null) {
+            setCarRentalCost(((fCostRef.getCarrentalcost() == null) ? 0 : fCostRef.getCarrentalcost()));
+        } else {
+            setCarRentalCost(carSelected.getQuotecost());
+        }
+
+        accomodationSelected = findaccomodationSelected();
+        if (accomodationSelected == null) {
+            setAccommodationCost(((fCostRef.getAccommodationcost() == null) ? 0 : fCostRef.getAccommodationcost()));
+        } else {
+            setAccommodationCost(accomodationSelected.getQuotecost());
+        }
+
+        //boolean test = (fCostRef.getAccommodatedays() == null);
+        //int test2 = ((fCostRef.getAbsencebussiness() == null) ? 0 : 1);
+
+        setAbsencebussiness(((fCostRef.getAbsencebussiness() == null) ? 0 : fCostRef.getAbsencebussiness()));
+        setAbsenceprivate(((fCostRef.getAbsenceprivate() == null) ? 0 : fCostRef.getAbsenceprivate()));
+        //setAccommodatedays(((fCostRef.getAccommodatedays() == null) ? 0 : fCostRef.getAccommodatedays()));
+        setAccommodatedays(fCostRef.getAccommodatedays());
+
+        setAccommodationBudget(((fCostRef.getAccommodationbudget() == null) ? 0 : fCostRef.getAccommodationbudget()));
+
+//      setAdministrativeunit(((fCostRef.getAdministrativeunit() == null) ? 0 : fCostRef.getAdministrativeunit()));
+        setAirfareBudget(((fCostRef.getAirfarebudget() == null) ? 0 : fCostRef.getAirfarebudget()));
+
+        setCarRentalBudget(((fCostRef.getCarrentalbudget() == null) ? 0 : fCostRef.getCarrentalbudget()));
+
+
+        setChecks(((fCostRef.getChecks() == null) ? 0 : fCostRef.getChecks()));
+        //setCities(((fCostRef.getCitys() == null) ? 0 : fCostRef.getCitys()));
+        setConferencebudget(((fCostRef.getConferencebudget() == null) ? 0 : fCostRef.getConferencebudget()));
+        setConferencecost(((fCostRef.getConferencecost() == null) ? 0 : fCostRef.getConferencecost()));
+        //setCountries(((fCostRef.getCountries() == null) ? 0 : fCostRef.getCountries()));
+        setCurrency(((fCostRef.getCurrency() == null) ? "" : fCostRef.getCurrency()));
+        setFromoz(((fCostRef.getFromoz() == null) ? 0 : fCostRef.getFromoz()));
+        //setName(((fCostRef.getName() == null) ? 0 : fCostRef.getName()));
+        setOtherbudget(((fCostRef.getOtherbudget() == null) ? 0 : fCostRef.getOtherbudget()));
+        setOthercost(((fCostRef.getOthercost() == null) ? 0 : fCostRef.getOthercost()));
+        setOtherdiscription(((fCostRef.getOtherdiscription() == null) ? "" : fCostRef.getOtherdiscription()));
+        setOzemail(((fCostRef.getOzemail() == null) ? "" : fCostRef.getOzemail()));
+        setOzname(((fCostRef.getOzname() == null) ? "" : fCostRef.getOzname()));
+        setOztel(((fCostRef.getOztel() == null) ? "" : fCostRef.getOztel()));
+        setPerdiembudget(((fCostRef.getPerdiembudget() == null) ? 0 : fCostRef.getPerdiembudget()));
+        setPerdiemcost(((fCostRef.getPerdiemcost() == null) ? 0 : fCostRef.getPerdiemcost()));
+        //setPerdiemdays(((fCostRef.getPerdiemdays() == null) ? 0 : fCostRef.getPerdiemdays()));
+        setPerdiemdays(fCostRef.getPerdiemdays());
+        //setQuotesIdquotes(((fCostRef.getQuotesIdquotes() == null) ? 0 : fCostRef.getQuotesIdquotes()));
+        setVisabudget(((fCostRef.getVisabudget() == null) ? 0 : fCostRef.getVisabudget()));
+        setVisacost(((fCostRef.getVisacost() == null) ? 0 : fCostRef.getVisacost()));
+
+        setApprovedbudget(((fCostRef.getApprovedbudget() == null) ? 0 : fCostRef.getApprovedbudget()));
+        setApprovedcost(((fCostRef.getApprovedcost() == null) ? 0 : fCostRef.getApprovedcost()));
+
+
+        setFromsection("Final Costing");
+
+        logger.log(Level.INFO, "bflightSelected : {0}", flightSelected.toString());
+        logger.log(Level.INFO, "bAirfareCost : {0}", AirfareCost);
+
         logger.log(Level.INFO, "dateStamp : {0}", DateStamp);
 
         logger.log(Level.INFO, "Itineary : {0}", itinRef.toString());
@@ -203,8 +305,117 @@ public class FinalCostingBean implements Serializable {
         logger.log(Level.INFO, "application : {0}", appnum);
     }
 
+    private Flightquotes findflightSelected() {
+        logger.log(Level.INFO, "findflightSelected : {0}", flights.toString());
+        for (Flightquotes FQ : flights) {
+            if (FQ.getSelected() == 1) {
+                return FQ;
+            }
+        }
+        return null;
+    }
+
+    private Carquotes findcarSelected() {
+        for (Carquotes CQ : cars) {
+            if (CQ.getSelected() == 1) {
+                return CQ;
+            }
+        }
+        return null;
+    }
+
+    private Accomodationquotes findaccomodationSelected() {
+        for (Accomodationquotes AQ : hotels) {
+            if (AQ.getSelected() == 1) {
+                return AQ;
+            }
+        }
+        return null;
+    }
+
+    public void budgetCalc() {
+        approvedbudget = calcTotalBudget();
+    }
+
+    public void costCalc() {
+        approvedcost = calcTotalCost();
+    }
+
+    private double calcTotalBudget() {
+        return AccommodationBudget + AirfareBudget + CarRentalBudget + conferencebudget + otherbudget + perdiembudget + visabudget;
+    }
+
+    private double calcTotalCost() {
+        return AccommodationCost + AirfareCost + CarRentalCost + conferencecost + othercost + perdiemcost + visacost;
+    }
+
     public String createFinalCosting() {
         //profileRef = travelProfileHandler.findTravelProf(accountID);
+
+        newFinalCosting = new Finalcosting();
+        // items in alphabetic listing
+        newFinalCosting.setAbsencebussiness(absencebussiness);
+        newFinalCosting.setAbsenceprivate(absenceprivate);
+        newFinalCosting.setAccommodatedays(accommodatedays);
+        newFinalCosting.setAccommodationbudget(AccommodationBudget);
+        newFinalCosting.setAccommodationcost(AccommodationCost);
+        newFinalCosting.setAdministrativeunit(administrativeunit);
+        newFinalCosting.setAirfarebudget(AirfareBudget);
+        newFinalCosting.setAirfarecost(AirfareCost);
+        //newFinalCosting.setApplicationCollection(null);
+        newFinalCosting.setApprovedbudget(calcTotalBudget());
+        newFinalCosting.setApprovedcost(calcTotalCost());
+        newFinalCosting.setCarrentalbudget(CarRentalBudget);
+        newFinalCosting.setCarrentalcost(CarRentalCost);
+        newFinalCosting.setChecks(checks);
+        newFinalCosting.setCitys(cities);
+        newFinalCosting.setConferencebudget(conferencebudget);
+        newFinalCosting.setConferencecost(conferencecost);
+        newFinalCosting.setCountries(countries);
+        newFinalCosting.setCurrency(Currency);
+        newFinalCosting.setFromoz(fromoz);
+        newFinalCosting.setName(Name);
+        newFinalCosting.setOtherbudget(otherbudget);
+        newFinalCosting.setOthercost(othercost);
+        newFinalCosting.setOtherdiscription(otherdiscription);
+        newFinalCosting.setOzemail(ozemail);
+        newFinalCosting.setOzname(ozname);
+        newFinalCosting.setOztel(oztel);
+        newFinalCosting.setPerdiembudget(perdiembudget);
+        newFinalCosting.setPerdiemcost(perdiemcost);
+        newFinalCosting.setPerdiemdays(perdiemdays);
+        newFinalCosting.setQuotesIdquotes(quoteRef);
+        newFinalCosting.setVisabudget(visabudget);
+        newFinalCosting.setVisacost(visacost);
+
+        finalHandler.persistFinalcosting(newFinalCosting);
+
+
+        newApproval = new Approval();
+
+        newApproval.setApplicationIdapplication(appRef);
+        newApproval.setAccountIdaccount(accountRef);
+        newApproval.setDate(DateStamp);
+        newApproval.setNotes(Notes);
+        newApproval.setFromsection("Final Costing");
+        newApproval.setSectionid(sectionid);
+
+        approvalHandler.persistApproval(newApproval);
+
+        FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Final Costing Created and Authorised"));
+        return "finalCostingView";
+    }
+
+    public void update() {
+        logger.log(Level.INFO, "loadValues");
+
+//        accountRef = accHandler.getAccount(accountID);
+//        
+//        profileRef = travelProfileHandler.findTravelProf(accountID);        
+//
+//        appRef = appHandler.getApplication(appnum);//selectedApp;
+//        
+//        fCostRef = finalHandler.findFinalcosting(appRef.getFinalcostingIdfinalcosting().getIdfinalcosting());
 
         newFinalCosting = new Finalcosting();
         // items in alphabetic listing
@@ -243,29 +454,20 @@ public class FinalCostingBean implements Serializable {
         newFinalCosting.setVisacost(visacost);
 
         finalHandler.persistFinalcosting(newFinalCosting);
-        
-        
+
+
         newApproval = new Approval();
-        
+
         newApproval.setApplicationIdapplication(appRef);
         newApproval.setAccountIdaccount(accountRef);
         newApproval.setDate(DateStamp);
         newApproval.setNotes(Notes);
         newApproval.setFromsection("Final Costing");
         newApproval.setSectionid(sectionid);
-        
+
         approvalHandler.persistApproval(newApproval);
-        
-        FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Final Costing Created"));
-        return "FinalCostingView.xhtml";
-    }
 
-    public void loadValues() {
-        logger.log(Level.INFO, "loadValues");
-        profileRef = travelProfileHandler.findTravelProf(accountID);
-        //loadValues();
 
-        appRef = appHandler.getApplication(appnum);//selectedApp;
     }
 
     // Used for the tab wizzard <p:wizard
@@ -273,8 +475,15 @@ public class FinalCostingBean implements Serializable {
         logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());
         logger.log(Level.INFO, "Next step:{0}", event.getNewStep());
 
-        logger.log(Level.INFO, "getDepartment : {0}", profileRef.getDepartment());
-        logger.log(Level.INFO, "currency : {0}", Currency);
+//        logger.log(Level.INFO, "getDepartment : {0}", profileRef.getDepartment());
+//        logger.log(Level.INFO, "currency : {0}", Currency);
+        
+        if (event.getOldStep() == "authotabCosting") {
+            budgetCalc();
+            costCalc();
+        }
+
+
         return event.getNewStep();
     }
 
@@ -283,11 +492,6 @@ public class FinalCostingBean implements Serializable {
     // Auto generated setters && getters.
     //
     ///////////////////////////////
-    public Flightquotes getFlightSelectedtmp() {
-        //flights.
-        return flightSelected;
-    }
-
     public Flightquotes getFlightSelected() {
         return flightSelected;
     }
