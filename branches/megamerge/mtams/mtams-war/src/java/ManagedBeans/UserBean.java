@@ -26,6 +26,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIData;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
@@ -40,7 +41,7 @@ import org.primefaces.model.SelectableDataModelWrapper;
 public class UserBean implements Serializable {
     //======change===change=========change============change=========change====
 
-    private Integer accountID = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+    private Integer accountID = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
     //======change========change=========change=============change=============
     private static final Logger logger = Logger.getLogger(ManagedBeans.UserBean.class.getName());
     @EJB
@@ -145,7 +146,8 @@ public class UserBean implements Serializable {
     }
 
     public List<Application> getAllApps() {
-        if (((Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userRole")) == 11) {
+        
+        if ((Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userRole") == 11) {
             allApps = appHandler.getAppList(accountID);
         } else {
             allApps = appHandler.getAllAppList(accountID);
@@ -271,8 +273,8 @@ public class UserBean implements Serializable {
          handler.persistReward(reward3);
          }*/
 
-
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
+        ((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).setAttribute("isFirst", false);
+        //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
         FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Travel Profile active"));
         return "userHome";
     }
@@ -904,7 +906,8 @@ public class UserBean implements Serializable {
 
     public void view() {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("appID", selectedApp.getIdapplication());
+            ((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).setAttribute("appID", selectedApp.getIdapplication());
+            //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("appID", selectedApp.getIdapplication());
             //return "./applicationApproval.xhtml";
 
             ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
@@ -917,7 +920,8 @@ public class UserBean implements Serializable {
 
     public void display() {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("appID", selectedApp.getIdapplication());
+            ((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).setAttribute("appID", selectedApp.getIdapplication());
+            //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("appID", selectedApp.getIdapplication());
             //return "./applicationApproval.xhtml";
 
             ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
