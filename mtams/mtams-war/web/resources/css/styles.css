@@ -238,3 +238,47 @@ body {
     border-right: 1px solid #a4a4a4;
     margin: 0 20px 0 0;
 }
+
+/* Aarons */
+
+/* F I N A L C O S T I N G */
+
+/*
+.noborders tr {
+    border: navy;
+}
+*/
+
+.ui-panelgrid td {
+    border: none;
+    float: left;
+}
+
+.ui-widget-content tr {
+    /*
+    border: navy;
+    border-color: navy;
+    border-width: 5px;
+    */
+    border: none;
+}
+
+td.columnMessage  {
+    width: 30%;
+    border: none;
+}
+
+td.columnLabel  {
+    width: 250px;
+    border: none;
+}
+
+/*
+Over ride need to match department dropdown width
+*/
+.inputWidthDepartment {
+    width: 255px;
+}
+.inputWidth {
+    width: 163px;
+}
