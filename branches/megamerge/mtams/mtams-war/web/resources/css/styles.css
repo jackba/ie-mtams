@@ -126,8 +126,6 @@ body {
     margin-right: auto;	
     font: normal 87.5%/1.3 Arial, sans-serif;
     width:75%;
-
-
 }
 
 #wrap {
@@ -222,11 +220,11 @@ body {
     border-top: 1px solid #a4a4a4;
     padding-top: 1.3em;
     margin: 2em 0 2em 0;
-
+    height: 100%;
+    width: 100%;
 
     position: relative;
-    margin-top: 70%; /* negative value of footer height */
-    height: 23%;
+    margin-top: 40%;
     clear:both;
     /* background: #BFF08E; */
 }
