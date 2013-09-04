@@ -10,6 +10,7 @@ import Entities.Account;
 import Entities.Application;
 import Entities.Approval;
 import Entities.Carquotes;
+import Entities.Currency;
 import Entities.Finalcosting;
 import Entities.Flightquotes;
 import Entities.Itinerary;
@@ -19,6 +20,7 @@ import Entities.Travelerprofile;
 import ServiceLayer.AccountHandlerLocal;
 import ServiceLayer.ApplicationHandlerLocal;
 import ServiceLayer.ApprovalHandlerLocal;
+import ServiceLayer.DataLookUpHandlerLocal;
 import ServiceLayer.FinalCostingHandlerLocal;
 import ServiceLayer.TravelProfileHandlerLocal;
 import javax.inject.Named;
@@ -61,6 +63,8 @@ public class FinalCostingBean implements Serializable {
     private FinalCostingHandlerLocal finalHandler;
     @EJB
     private AccountHandlerLocal accHandler;
+    @EJB
+    private DataLookUpHandlerLocal daoDataLookUp;
 //    @EJB
 //    private FlightquotesFacadeLocal flightquotesFLHandler;
     // logger object for use in this class
@@ -148,6 +152,7 @@ public class FinalCostingBean implements Serializable {
     private List<Flightquotes> flights;
     private List<Accomodationquotes> hotels;
     private List<Carquotes> cars;
+    
 
     /**
      * Creates a new instance of FinalCostingBean
@@ -221,7 +226,7 @@ public class FinalCostingBean implements Serializable {
 
 //        logger.log(Level.INFO, "AirfareCost : {0}", AirfareCost);
         flightSelected = findflightSelected();
-//        logger.log(Level.INFO, "flightSelected : {0}", flightSelected);
+        logger.log(Level.INFO, "flightSelected : {0}", flightSelected);
         if (flightSelected == null) {
             setAirfareCost(((fCostRef.getAirfarecost() == null) ? 0 : fCostRef.getAirfarecost()));
 //            logger.log(Level.INFO, "flightSelected == null : {0}", flightSelected);
@@ -231,21 +236,41 @@ public class FinalCostingBean implements Serializable {
 //            logger.log(Level.INFO, "AirfareCost : {0}", AirfareCost);
         }
 //        logger.log(Level.INFO, "flightSelected : {0}", flightSelected.toString());
-//        logger.log(Level.INFO, "AirfareCost : {0}", AirfareCost);
+        logger.log(Level.INFO, "AirfareCost : {0}", AirfareCost);
 
         carSelected = findcarSelected();
+        logger.log(Level.INFO, "carSelected : {0}", carSelected);
         if (carSelected == null) {
             setCarRentalCost(((fCostRef.getCarrentalcost() == null) ? 0 : fCostRef.getCarrentalcost()));
         } else {
             setCarRentalCost(carSelected.getQuotecost());
         }
+        logger.log(Level.INFO, "CarRentalCost : {0}", CarRentalCost);
 
         accomodationSelected = findaccomodationSelected();
+        logger.log(Level.INFO, "accomodationSelected : {0}", accomodationSelected);
         if (accomodationSelected == null) {
             setAccommodationCost(((fCostRef.getAccommodationcost() == null) ? 0 : fCostRef.getAccommodationcost()));
         } else {
             setAccommodationCost(accomodationSelected.getQuotecost());
         }
+        logger.log(Level.INFO, "AccommodationCost : {0}", AccommodationCost);
+
+
+        logger.log(Level.INFO, "fCostRef.getCurrency( : {0}", fCostRef.getCurrency());
+        if (fCostRef.getCurrency() == null) {
+            Currency aCurrencyRef;
+
+            //private Currency aCurrencySelection;
+            aCurrencyRef = daoDataLookUp.getCurrency("ZAR");
+            logger.log(Level.INFO, "aCurrencyRef : {0}", aCurrencyRef.toString());
+            setCurrency(aCurrencyRef.getCurrencycode3());
+        } else {
+            setCurrency(fCostRef.getCurrency());
+        }
+        logger.log(Level.INFO, "Currency : {0}", Currency);
+        
+        //setCurrency(((fCostRef.getCurrency() == null) ? "" : fCostRef.getCurrency()));
 
         //boolean test = (fCostRef.getAccommodatedays() == null);
         //int test2 = ((fCostRef.getAbsencebussiness() == null) ? 0 : 1);
@@ -268,7 +293,7 @@ public class FinalCostingBean implements Serializable {
         setConferencebudget(((fCostRef.getConferencebudget() == null) ? 0 : fCostRef.getConferencebudget()));
         setConferencecost(((fCostRef.getConferencecost() == null) ? 0 : fCostRef.getConferencecost()));
         //setCountries(((fCostRef.getCountries() == null) ? 0 : fCostRef.getCountries()));
-        setCurrency(((fCostRef.getCurrency() == null) ? "" : fCostRef.getCurrency()));
+
         setFromoz(((fCostRef.getFromoz() == null) ? 0 : fCostRef.getFromoz()));
         //setName(((fCostRef.getName() == null) ? 0 : fCostRef.getName()));
         setOtherbudget(((fCostRef.getOtherbudget() == null) ? 0 : fCostRef.getOtherbudget()));
@@ -351,9 +376,13 @@ public class FinalCostingBean implements Serializable {
 
     public String createFinalCosting() {
         //profileRef = travelProfileHandler.findTravelProf(accountID);
+        logger.log(Level.INFO, "createFinalCosting : {0}", "start");
 
         newFinalCosting = new Finalcosting();
         // items in alphabetic listing
+        logger.log(Level.INFO, "newFinalCosting : {0}", "start");
+        logger.log(Level.INFO, "newFinalCosting : {0}", newFinalCosting.toString());
+        
         newFinalCosting.setAbsencebussiness(absencebussiness);
         newFinalCosting.setAbsenceprivate(absenceprivate);
         newFinalCosting.setAccommodatedays(accommodatedays);
@@ -387,6 +416,8 @@ public class FinalCostingBean implements Serializable {
         newFinalCosting.setQuotesIdquotes(quoteRef);
         newFinalCosting.setVisabudget(visabudget);
         newFinalCosting.setVisacost(visacost);
+        logger.log(Level.INFO, "newFinalCosting : {0}", "end");
+        logger.log(Level.INFO, "newFinalCosting : {0}", newFinalCosting.toString());
 
         finalHandler.persistFinalcosting(newFinalCosting);
 
@@ -477,8 +508,8 @@ public class FinalCostingBean implements Serializable {
 
 //        logger.log(Level.INFO, "getDepartment : {0}", profileRef.getDepartment());
 //        logger.log(Level.INFO, "currency : {0}", Currency);
-        
-        if (event.getOldStep() == "authotabCosting") {
+
+        if (event.getOldStep().equalsIgnoreCase("authotabCosting")) {
             budgetCalc();
             costCalc();
         }
