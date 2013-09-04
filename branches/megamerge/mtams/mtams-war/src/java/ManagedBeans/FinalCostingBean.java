@@ -165,7 +165,7 @@ public class FinalCostingBean implements Serializable {
     @PostConstruct
     public void initialize() {
         logger.log(Level.INFO, "initialize");
-        int appnum = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
+        appnum = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
         logger.log(Level.INFO, "accountID : {0}, appnum: {1}", new Object[]{accountID, appnum});
         //logger.log(Level.INFO, "test : {0}", appnum);        
 
