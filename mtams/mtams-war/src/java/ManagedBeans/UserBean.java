@@ -4,14 +4,17 @@
  */
 package ManagedBeans;
 
+import Entities.Account;
 import Entities.Application;
 import Entities.Approval;
 import javax.inject.Named;
 import Entities.Rewardsprogram;
 import Entities.Traveldocument;
 import Entities.Travelerprofile;
+import ServiceLayer.AccountHandlerLocal;
 import ServiceLayer.ApplicationHandlerLocal;
 import ServiceLayer.ApprovalHandlerLocal;
+import ServiceLayer.LoginHandlerLocal;
 import ServiceLayer.TravelProfileHandlerLocal;
 import java.io.IOException;
 import java.io.Serializable;
@@ -28,9 +31,9 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
-import org.primefaces.model.SelectableDataModelWrapper;
 
 /**
  *
@@ -49,10 +52,14 @@ public class UserBean implements Serializable {
     private List<Application> allApps;
     @EJB
     private ApprovalHandlerLocal apprHandler;
+    @EJB
+    private AccountHandlerLocal accHandler;
+    @EJB
+    private LoginHandlerLocal logHandler;
     private List<Approval> allApproved;
     private Application selectedApp;
     private String department;
-    @Pattern(message = "Incorrect ID", regexp = "[0-9]{8}")
+    @Pattern(message = "Incorrect ID", regexp = "[0-9a-zA-Z]{9}")
     private String staffID;
     private String position;
     @Pattern(message = "Incorrect Name", regexp = "[a-zA-Z ]+${0,}")
@@ -94,6 +101,7 @@ public class UserBean implements Serializable {
     @Pattern(message = "Incorrect Passport ID", regexp = "[0-9a-zA-Z]{8,10}")
     private String passportNo;
     private String country;
+    @Past(message = "Date must be further into the past")
     private Date dateOfIssue;
     @Future(message = "Date needs to be further into the future")
     private Date expiryDate;
@@ -272,9 +280,11 @@ public class UserBean implements Serializable {
          reward3.setMembershipnumber(cardNum3);
          handler.persistReward(reward3);
          }*/
-
+        Account user = accHandler.getAccount(accountID);
         ((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).setAttribute("isFirst", false);
         //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
+        user.setDatelogin(new Date());
+        logHandler.modifyAccount(user);
         FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Travel Profile active"));
         return "userHome";
     }

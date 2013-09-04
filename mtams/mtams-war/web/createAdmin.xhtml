@@ -19,11 +19,12 @@
                             </h:commandLink>
                         </h:form>
                     </div>
-
-                    <ul>
-                        <li>Help</li>
-                        <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout</p:commandLink></li>
-                    </ul>
+                    <h:form>
+                        <ul>
+                            <li>Help</li>
+                            <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout</p:commandLink></li>
+                        </ul>
+                    </h:form>
                 </div>
                 <div id = "content">
                     <h:form id="createAdmin">
@@ -43,15 +44,24 @@
                             <p:messages autoUpdate="true" closable="true" showDetail="true" globalOnly="true"/>
                             <h:panelGrid columns="3" styleClass="grid">
                                 <h:outputText value="Administrator Username:" />
-                                <p:inputText id="adminName" required="true" value="#{superAdminBean.adminName}" requiredMessage="Required Field"/>
-                                <p:message for="adminName"/>
+                                <p:inputText id="adminName" required="true" value="#{superAdminBean.adminName}" requiredMessage="Required Field">
+                                    <p:ajax update="adminMIP" event="blur" />
+                                </p:inputText>
+                                <p:message for="adminName" id="adminMIP"/>
+
 
                                 <h:outputText value="Password:"/>
-                                <p:password id="adminPassword" label="Password" required="true" match="adminPasswordConf" value="#{superAdminBean.adminPassword}" requiredMessage="Required Field"/>
+                                <p:password id="adminPassword" label="Password" required="true" match="adminPasswordConf" value="#{superAdminBean.adminPassword}" requiredMessage="Required Field"
+                                            feedback="true" weakLabel="Weak :/" goodLabel="Good :)" strongLabel="Strong :D">
+                                    <f:validateLength minimum="5"/>                            
+                                    <p:ajax update="passMessage1,passMessage2" event="blur" async="true"/>
+                                </p:password>
                                 <p:message id="passMessage1" for="adminPassword"/>
 
                                 <h:outputText value="Confirm Password:"/>
-                                <p:password id="adminPasswordConf" label="Check Password" required="true" value="#{superAdminBean.adminPassword}" requiredMessage="Required Field"/>                            
+                                <p:password id="adminPasswordConf" label="Check Password" required="true" value="#{superAdminBean.adminPassword}" requiredMessage="Required Field">
+                                    <p:ajax update="passMessage2,passMessage1" event="blur" async="true"/>
+                                </p:password>
                                 <p:message id="passMessage2" for="adminPasswordConf"/>
 
                                 <h:outputText value="Assigned Department:" />
@@ -67,21 +77,6 @@
                             <p:commandButton value="Submit" update="createAdmin" action="#{superAdminBean.createAdmin()}"></p:commandButton>
                         </fieldset>
                     </h:form>
-                </div>
-
-                <div id= "footer">
-                    <div class="row group">
-                        <div class="col">
-                            <h3>Quick links</h3>
-                            <ul>
-                                <li><a href="">Site Map</a></li>
-                                <li><a href="">FAQ</a></li>
-                                <li><a href="">Contact us</a></li>
-                            </ul>
-                        </div>
-                        <h3>Legal</h3>
-                        <p class="legal">Created by School of IT, Monash South Africa</p>		
-                    </div>
                 </div>
             </ui:define>
 
