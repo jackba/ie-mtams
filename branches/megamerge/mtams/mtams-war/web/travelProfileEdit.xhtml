@@ -53,9 +53,9 @@
 
                         <h:outputText value="Staff ID: *" />  
                         <p:inplace id="staffID">
-                            <p:inputText id="staffIDIP" value="#{editTrav.staffID}" required="true" requiredMessage="Required Field">
+                            <p:inputMask id="staffIDIP" value="#{editTrav.staffID}" required="true" requiredMessage="Required Field" mask="a99999999">
                                 <p:ajax update="staffIDIPM" event="blur" />
-                            </p:inputText>
+                            </p:inputMask>
                         </p:inplace>
                         <p:message for="staffIDIP" id="staffIDIPM"/>
 

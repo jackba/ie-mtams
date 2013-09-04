@@ -23,6 +23,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
 
@@ -36,71 +37,61 @@ public class EditTravelProfileBean implements Serializable {
 
     public EditTravelProfileBean() {
     }
-    
     //======change===change=========change============change=========change====
-    private Integer accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+    private Integer accountID = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
     //======change========change=========change=============change=============
-    
     private static final Logger logger = Logger.getLogger(ManagedBeans.UserBean.class.getName());
-    
     @EJB
     private ApplicationHandlerLocal appHandler;
     private List<Application> allApps;
-    
-    
-    private String department; 
-    @Pattern(message="Incorrect ID", regexp="[0-9]{8}")
+    private String department;
+    @Pattern(message = "Incorrect ID", regexp = "[0-9]{8}")
     private String staffID;
     private String position;
-    @Pattern(message="Incorrect Name", regexp="[a-zA-Z ]+${0,}")
+    @Pattern(message = "Incorrect Name", regexp = "[a-zA-Z ]+${0,}")
     private String travelBooker;
-    @Pattern(message="Incorrect Name", regexp="[a-zA-Z]{0,}")
+    @Pattern(message = "Incorrect Name", regexp = "[a-zA-Z]{0,}")
     private String firstName;
-    @Pattern(message="Incorrect Name", regexp="[a-zA-Z]{0,}")
+    @Pattern(message = "Incorrect Name", regexp = "[a-zA-Z]{0,}")
     private String surname;
-	@Pattern(message="Incorrect Name", regexp="([a-zA-Z]{0,})?")
+    @Pattern(message = "Incorrect Name", regexp = "([a-zA-Z]{0,})?")
     private String middleName;
     private String title;
-    @Pattern(message="Incorrect ID", regexp="[0-9]{13,15}")
+    @Pattern(message = "Incorrect ID", regexp = "[0-9]{13,15}")
     private String idNo;
     private String busAddress;
-    @Pattern(message="Incorrect Number", regexp="[+0-9]{10,16}")
+    @Pattern(message = "Incorrect Number", regexp = "[+0-9]{10,16}")
     private String busPhone;
-    @Pattern(message="Incorrect Number", regexp="([+0-9]{10,16})?")
+    @Pattern(message = "Incorrect Number", regexp = "([+0-9]{10,16})?")
     private String busFax;
     private String homeAddress;
-    @Pattern(message="Incorrect Number", regexp="[+0-9]{10,16}")
+    @Pattern(message = "Incorrect Number", regexp = "[+0-9]{10,16}")
     private String mobilePhone;
-    @Pattern(message="Incorrect Number", regexp="([+0-9]{10,16})?")
+    @Pattern(message = "Incorrect Number", regexp = "([+0-9]{10,16})?")
     private String homePhone;
-    
-    @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
+    @Pattern(message = "Incorrect E-mail format", regexp = "^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String email;
-	
-    @Pattern(message="Incorrect Name", regexp="([a-zA-Z]{0,})?")
+    @Pattern(message = "Incorrect Name", regexp = "([a-zA-Z]{0,})?")
     private String spouseName;
-    @Pattern(message="Incorrect Number", regexp="([+0-9]{10,16})?")
+    @Pattern(message = "Incorrect Number", regexp = "([+0-9]{10,16})?")
     private String spouseContactNo;
-    @Pattern(message="Incorrect E-mail format", regexp="(^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$)?")
+    @Pattern(message = "Incorrect E-mail format", regexp = "(^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$)?")
     private String spouseEmail;
-	
-	@Pattern(message="Incorrect Name", regexp="([a-zA-Z]{0,})?")
+    @Pattern(message = "Incorrect Name", regexp = "([a-zA-Z]{0,})?")
     private String docName;
-    @Pattern(message="Incorrect Number", regexp="[+0-9]{10,16}")
+    @Pattern(message = "Incorrect Number", regexp = "[+0-9]{10,16}")
     private String docContactNo;
-    
-    @Pattern(message="Incorrect E-mail format", regexp="^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
+    @Pattern(message = "Incorrect E-mail format", regexp = "^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String docEmail;
     private String knownMedConditions;
-    
-    @Pattern(message="Incorrect Passport ID", regexp="[0-9a-zA-Z]{8,10}")
+    @Pattern(message = "Incorrect Passport ID", regexp = "[0-9a-zA-Z]{8,10}")
     private String passportNo;
     private String country;
+    @Past(message = "Date must be further into the past")
     private Date dateOfIssue;
-	@Future(message="Date must be further into the future")
+    @Future(message = "Date must be further into the future")
     private Date expiryDate;
     private String validVisas;
-    
     private String seat;
     private String airPosition;
     private String classDomestic;
@@ -116,43 +107,36 @@ public class EditTravelProfileBean implements Serializable {
     private String status1;
     private String status2;
     private String status3;
-    @Pattern(message="Incorrect Card Number", regexp="[0-9]{0,15}")
+    @Pattern(message = "Incorrect Card Number", regexp = "[0-9]{0,15}")
     private String cardNum1;
-    @Pattern(message="Incorrect Card Number", regexp="[0-9]{0,15}")
+    @Pattern(message = "Incorrect Card Number", regexp = "[0-9]{0,15}")
     private String cardNum2;
-    @Pattern(message="Incorrect Card Number", regexp="[0-9]{0,15}")
-    private String cardNum3;    
+    @Pattern(message = "Incorrect Card Number", regexp = "[0-9]{0,15}")
+    private String cardNum3;
     private String carCompPref1;
     private String carCompPref2;
     private String carGroup;
     private String transmissionType;
     private String aircon;
-            
     private String carAdditionalReq;
     private String hotelPreference;
     private String freqGuestNo;
     private String smoking;
     private String hotelAdditionalReq;
-    
     private UIData dataTable;
-    
     private Travelerprofile profile;
     private Travelerprofile profileRef;
     private Travelerprofile profileEditRef;
-    
     private Traveldocument passport;
     private Traveldocument passportRef;
     private Traveldocument passportEditRef;
-    
     private Rewardsprogram reward1;
     private Rewardsprogram reward2;
     private Rewardsprogram reward3;
-    
     @EJB
     private TravelProfileHandlerLocal handler;
 
-    
-        public List<Application> getAllApps() {
+    public List<Application> getAllApps() {
         allApps = appHandler.getAppList(accountID);
         return allApps;
     }
@@ -160,32 +144,33 @@ public class EditTravelProfileBean implements Serializable {
     public void setAllApps(List<Application> allApps) {
         this.allApps = allApps;
     }
-    
-    public String goToProfile(){
+
+    public String goToProfile() {
         return "travelProfile";
     }
-    
-    public String viewProfile(){
-        
+
+    public String viewProfile() {
+
         return "viewTravelProfile";
     }
-    
-    public String goNewApp(){
+
+    public String goNewApp() {
         return "createApplication";
     }
-    public String editProfile(){
+
+    public String editProfile() {
         getProfile();
         return "editTravelProfile";
     }
 
-    public String save() {  
-        
+    public String save() {
+
 
         //Pesonal Details
         profile = new Travelerprofile();
-        
+
         //Pesonal Details        
-        
+
         profile.setDepartment(department);
         profile.setStaffid(staffID);
         profile.setPosition(position);
@@ -226,67 +211,67 @@ public class EditTravelProfileBean implements Serializable {
         profile.setHotelprefrence(hotelPreference);
         profile.setFrequentguestnum(freqGuestNo);
         profile.setSmoking(smoking);
-        profile.setHoteladditionalrequirements(hotelAdditionalReq);        
-        
+        profile.setHoteladditionalrequirements(hotelAdditionalReq);
+
         //Passport & Visa
         passport = new Traveldocument();
-        
+
         passport.setPassportnumber(passportNo);
         passport.setCountry(country);
         passport.setDateofissue(dateOfIssue);
         passport.setExpirydate(expiryDate);
         passport.setValidvisa(validVisas);
-        handler.persist(accountID,profile,passport);        
-        
+        handler.persist(accountID, profile, passport);
+
         //Rewards Program (Airline)
         reward1 = new Rewardsprogram();
         reward2 = new Rewardsprogram();
         reward3 = new Rewardsprogram();
-        
+
         /*if(!memOne.isEmpty() && !airType1.isEmpty() && !status1.isEmpty() && !cardNum1.isEmpty()){
-            reward1.setMembershiptype(memOne);
-            reward1.setProvider(airType1);
-            reward1.setDescription(status1);
-            reward1.setMembershipnumber(cardNum1);
-            handler.persistReward(reward1);
-        }
-        if(!memTwo.isEmpty() && !airType2.isEmpty() && !status2.isEmpty() && !cardNum2.isEmpty()){
-            reward2.setMembershiptype(memTwo);
-            reward2.setProvider(airType2);
-            reward2.setDescription(status2);
-            reward2.setMembershipnumber(cardNum2);
-            handler.persistReward(reward2);
-        }
-        if(!memThree.isEmpty() && !airType3.isEmpty() && !status3.isEmpty() && !cardNum3.isEmpty()){
-            reward3.setMembershiptype(memThree);
-            reward3.setProvider(airType3);
-            reward3.setDescription(status3);
-            reward3.setMembershipnumber(cardNum3);
-            handler.persistReward(reward3);
-        }*/
-        
-        
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst",false);
-        FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success","Travel Profile active"));
+         reward1.setMembershiptype(memOne);
+         reward1.setProvider(airType1);
+         reward1.setDescription(status1);
+         reward1.setMembershipnumber(cardNum1);
+         handler.persistReward(reward1);
+         }
+         if(!memTwo.isEmpty() && !airType2.isEmpty() && !status2.isEmpty() && !cardNum2.isEmpty()){
+         reward2.setMembershiptype(memTwo);
+         reward2.setProvider(airType2);
+         reward2.setDescription(status2);
+         reward2.setMembershipnumber(cardNum2);
+         handler.persistReward(reward2);
+         }
+         if(!memThree.isEmpty() && !airType3.isEmpty() && !status3.isEmpty() && !cardNum3.isEmpty()){
+         reward3.setMembershiptype(memThree);
+         reward3.setProvider(airType3);
+         reward3.setDescription(status3);
+         reward3.setMembershipnumber(cardNum3);
+         handler.persistReward(reward3);
+         }*/
+
+
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
+        FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Travel Profile active"));
         return "userHome";
     }
-    
-    public String update(){
+
+    public String update() {
         profileEditRef.setDepartment(department);
         profileEditRef.setStaffid(staffID);
         profileEditRef.setPosition(position);
         profileEditRef.setTravelbooker(travelBooker);
-        profileEditRef.setFirstname(firstName);        
-                
-        profileEditRef.setFamilyname(surname);        
+        profileEditRef.setFirstname(firstName);
+
+        profileEditRef.setFamilyname(surname);
         profileEditRef.setMiddlename(middleName);
         profileEditRef.setTitle(title);
         profileEditRef.setIdnumber(idNo);
-        
+
         profileEditRef.setBusinessaddress(busAddress);
         profileEditRef.setBusinessphone(busPhone);
         profileEditRef.setBusinessfax(busFax);
-        
+
         profileEditRef.setHomeaddress(homeAddress);
         profileEditRef.setHomephone(homePhone);
         profileEditRef.setHomeemail(email);
@@ -294,23 +279,23 @@ public class EditTravelProfileBean implements Serializable {
         profileEditRef.setSpousename(spouseName);
         profileEditRef.setSpousecontactnumber(spouseContactNo);
         profileEditRef.setSpouseemail(spouseEmail);
-        
+
         profileEditRef.setDoctorsname(docName);
         profileEditRef.setDoctorsconctactnumber(docContactNo);
         profileEditRef.setDoctorsemail(docEmail);
         profileEditRef.setKnownmedicalconditions(knownMedConditions);
-        
+
         //Airline
-        
+
         profileEditRef.setSeatingposition(seat);
         profileEditRef.setSeatinglocation(airPosition);
         profileEditRef.setClassdomestic(classDomestic);
         profileEditRef.setClassinternational(classInternational);
         profileEditRef.setMealrequirements(specialMealReq);
         profileEditRef.setAiradditionalrequirements(airAdditionalReq);
-        
+
         //Hotel&Car
-        
+
         profileEditRef.setManualautomatic(transmissionType);
         profileEditRef.setAircon(aircon);
         profileEditRef.setCarpreference1(carCompPref1);
@@ -321,42 +306,42 @@ public class EditTravelProfileBean implements Serializable {
         profileEditRef.setFrequentguestnum(freqGuestNo);
         profileEditRef.setHoteladditionalrequirements(hotelAdditionalReq);
         profileEditRef.setSmoking(smoking);
-        
+
         //Passport
-        
+
         passportEditRef.setPassportnumber(passportNo);
         passportEditRef.setCountry(country);
         passportEditRef.setDateofissue(dateOfIssue);
         passportEditRef.setExpirydate(expiryDate);
         passportEditRef.setValidvisa(validVisas);
-        
-        handler.persistProfileEdit(profileEditRef,accountID);
-        FacesContext.getCurrentInstance().addMessage("travelViewMessage", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success.","Changes have been saved"));
+
+        handler.persistProfileEdit(profileEditRef, accountID);
+        FacesContext.getCurrentInstance().addMessage("travelViewMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Changes have been saved"));
         return "travelProfileView";
     }
-    
+
     @PostConstruct
     private void getProfile() {
-        
+
         logger.log(Level.INFO, "user id", accountID);
-        
+
         Travelerprofile ref = handler.findTravelProf(accountID);
         Traveldocument pRef = handler.findTravelDoc(ref.getIdtravelerprofile());
         setDepartment(ref.getDepartment());
         setStaffID(ref.getStaffid());
         setPosition(ref.getPosition());
         setTravelBooker(ref.getTravelbooker());
-        setFirstName(ref.getFirstname());       
+        setFirstName(ref.getFirstname());
         setSurname(ref.getFamilyname());
-         
+
         setMiddleName(ref.getMiddlename());
         setTitle(ref.getTitle());
         setIdNo(ref.getIdnumber());
-        
+
         setBusAddress(ref.getBusinessaddress());
         setBusPhone(ref.getBusinessphone());
         setBusFax(ref.getBusinessfax());
-        
+
         setHomeAddress(ref.getHomeaddress());
         setHomePhone(ref.getHomephone());
         setMobilePhone(ref.getMobilephone());
@@ -364,20 +349,20 @@ public class EditTravelProfileBean implements Serializable {
         setSpouseName(ref.getSpousename());
         setSpouseContactNo(ref.getSpousecontactnumber());
         setSpouseEmail(ref.getSpouseemail());
-        
+
         setDocName(ref.getDoctorsname());
         setDocContactNo(ref.getDoctorsconctactnumber());
         setDocEmail(ref.getDoctorsemail());
         setKnownMedConditions(ref.getKnownmedicalconditions());
-        
+
         //Passport
-       if(pRef != null){
-        setPassportNo(pRef.getPassportnumber());
-        setCountry(pRef.getCountry());
-        setDateOfIssue(pRef.getDateofissue());
-        setExpiryDate(pRef.getExpirydate());
-        setValidVisas(pRef.getValidvisa());
-       }
+        if (pRef != null) {
+            setPassportNo(pRef.getPassportnumber());
+            setCountry(pRef.getCountry());
+            setDateOfIssue(pRef.getDateofissue());
+            setExpiryDate(pRef.getExpirydate());
+            setValidVisas(pRef.getValidvisa());
+        }
         //Airline Details
         setSeat(ref.getSeatingposition());
         setAirPosition(ref.getSeatinglocation());
@@ -385,7 +370,7 @@ public class EditTravelProfileBean implements Serializable {
         setClassInternational(ref.getClassinternational());
         setSpecialMealReq(ref.getMealrequirements());
         setAirAdditionalReq(ref.getAiradditionalrequirements());
-        
+
         //Car and Hotel
         setTransmissionType(ref.getManualautomatic());
         setAircon(ref.getAircon());
@@ -397,9 +382,9 @@ public class EditTravelProfileBean implements Serializable {
         setFreqGuestNo(ref.getFrequentguestnum());
         setHotelAdditionalReq(ref.getHoteladditionalrequirements());
         setSmoking(ref.getSmoking());
-        
+
         passportEditRef = pRef;
-        profileEditRef = ref;    
+        profileEditRef = ref;
     }
 
     public Traveldocument getPassportRef() {
@@ -411,7 +396,7 @@ public class EditTravelProfileBean implements Serializable {
     public void setPassportRef(Traveldocument passportRef) {
         this.passportRef = passportRef;
     }
-    
+
     public Travelerprofile getProfileRef() {
         logger.log(Level.INFO, "account", accountID);
         profileRef = handler.findTravelProf(accountID);
@@ -420,8 +405,8 @@ public class EditTravelProfileBean implements Serializable {
 
     public void setProfileRef(Travelerprofile profileRef) {
         this.profileRef = profileRef;
-    }  
-      
+    }
+
     public String onFlowProcess(FlowEvent event) {
         logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());
         logger.log(Level.INFO, "Next step:{0}", event.getNewStep());
@@ -429,8 +414,8 @@ public class EditTravelProfileBean implements Serializable {
 
         return event.getNewStep();
     }
-    
-    public List<Rewardsprogram> getAllRewards(){
+
+    public List<Rewardsprogram> getAllRewards() {
         return handler.findRewards(profileRef.getIdtravelerprofile());
     }
 
@@ -441,7 +426,7 @@ public class EditTravelProfileBean implements Serializable {
     public void setDataTable(UIData dataTable) {
         this.dataTable = dataTable;
     }
-    
+
     public String getDepartment() {
         return department;
     }
@@ -625,7 +610,7 @@ public class EditTravelProfileBean implements Serializable {
     public void setKnownMedConditions(String knownMedConditions) {
         this.knownMedConditions = knownMedConditions;
     }
-     
+
     public String getPassportNo() {
         return passportNo;
     }
@@ -697,7 +682,7 @@ public class EditTravelProfileBean implements Serializable {
     public void setClassInternational(String classInternational) {
         this.classInternational = classInternational;
     }
-    
+
     public String getSpecialMealReq() {
         return specialMealReq;
     }
@@ -785,7 +770,7 @@ public class EditTravelProfileBean implements Serializable {
     public void setStatus3(String status3) {
         this.status3 = status3;
     }
-    
+
     public String getCardNum1() {
         return cardNum1;
     }
@@ -833,7 +818,7 @@ public class EditTravelProfileBean implements Serializable {
     public void setCarGroup(String carGroup) {
         this.carGroup = carGroup;
     }
-    
+
     public String getTransmissionType() {
         return transmissionType;
     }
@@ -849,7 +834,7 @@ public class EditTravelProfileBean implements Serializable {
     public void setAircon(String aircon) {
         this.aircon = aircon;
     }
-        
+
     public String getCarAdditionalReq() {
         return carAdditionalReq;
     }
@@ -889,9 +874,8 @@ public class EditTravelProfileBean implements Serializable {
     public void setHotelAdditionalReq(String hotelAdditionalReq) {
         this.hotelAdditionalReq = hotelAdditionalReq;
     }
-    
-    public String goHome(){
+
+    public String goHome() {
         return "userHome";
     }
 }
-

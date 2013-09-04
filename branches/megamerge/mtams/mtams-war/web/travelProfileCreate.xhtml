@@ -14,15 +14,15 @@
                 <div id="header">
                     <div id="logo">
                         <h:form>
-                            
-                                <h:graphicImage value="resources/img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
-                            
+
+                            <h:graphicImage value="resources/img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
+
                         </h:form>
                     </div>
 
                     <ul>
                         <li>Help</li>
-                        <li>Logout</li>
+                        <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout</p:commandLink></li>
                     </ul>
                 </div>
                 <h4>As this is your first time logging in, please fill out your travel profile</h4>
@@ -47,9 +47,9 @@
                                         <p:message for="dept"/>
 
                                         <h:outputText value="Staff ID: *" />  
-                                        <p:inputText id="staffID" value="#{userBean.staffID}" required="true" requiredMessage="Required Field">
+                                        <p:inputMask id="staffID" value="#{userBean.staffID}" required="true" requiredMessage="Required Field" mask="a99999999">
                                             <p:ajax update="staffMID" event="blur" />
-                                        </p:inputText>
+                                        </p:inputMask>                                        
                                         <p:message for="staffID" id="staffMID"/>
 
                                         <h:outputText value="Position: *" />  
@@ -211,7 +211,9 @@
                                     <p:message for="country" id="countryM"/>
 
                                     <h:outputText value="Date of Issue: *" />  
-                                    <p:calendar id="cal" value="#{userBean.dateOfIssue}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field"/>
+                                    <p:calendar id="cal" value="#{userBean.dateOfIssue}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field">
+                                        <p:ajax update="calM" event="blur" />
+                                    </p:calendar>
                                     <p:message for="cal" id="calM"/>
 
                                     <h:outputText value="Expiry Date: *"/>  
