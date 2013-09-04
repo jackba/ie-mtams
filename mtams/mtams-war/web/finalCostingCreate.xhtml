@@ -126,7 +126,7 @@
                                                 <h:outputText value="Destination countries: " />
                                             </p:column>
                                             <p:column colspan="1">
-                                                <p:inputText id="countries" value="#{finalCBean.countries}" required="false" requiredMessage="Destination countries is a required Field"  styleClass="inputWidthDepartment">
+                                                <p:inputText id="countries" value="#{finalCBean.countries}" required="true" requiredMessage="Destination countries is a required Field"  styleClass="inputWidthDepartment">
                                                     <p:ajax update="countries" event="blur" />
                                                 </p:inputText>
                                             </p:column>
@@ -140,7 +140,7 @@
                                                 <h:outputText value="Destination cities: " />
                                             </p:column>
                                             <p:column colspan="1">
-                                                <p:inputText id="cities" value="#{finalCBean.cities}" required="false" requiredMessage="Destination cities is a required Field" styleClass="inputWidthDepartment">
+                                                <p:inputText id="cities" value="#{finalCBean.cities}" required="true" requiredMessage="Destination cities is a required Field" styleClass="inputWidthDepartment">
                                                     <p:ajax update="cities" event="blur" />
                                                 </p:inputText>
                                             </p:column>
@@ -156,13 +156,7 @@
                                 </p:panel>
                             </p:tab>
 
-                            <ui:remove>
 
-                                <!--
-
-                                -->
-
-                            </ui:remove>
 
                             <p:tab id="authotabCosting" title="Final Costing">
                                 <p:panel header="Final Costing">
@@ -210,12 +204,25 @@
                                                 <p:column>
                                                     <p:inputText id="airfareBudget" value="#{finalCBean.airfareBudget}" required="true" requiredMessage="Airfare budgeted Cost is a required Field" validatorMessage="Must be a number" styleClass="inputWidth">
                                                         <p:ajax update="airfareBudget" event="blur" />
+                                                        <p:ajax update="TotalBudget" event="blur" listener="#{finalCBean.budgetCalc}"/>
+
                                                     </p:inputText>
+                                                    <ui:remove>
+
+                                                        <!--
+                                                                                
+                                                         <p:ajax update="#{finalCBean.budgetCalc}" event="blur" />
+                                                        <p:ajax update="#{finalCBean.budgetCalc}" event="blur" />
+                        
+                                                        -->
+
+                                                    </ui:remove>
                                                 </p:column>
 
                                                 <p:column>
                                                     <p:inputText id="airfareCost" value="#{finalCBean.airfareCost}" required="true" requiredMessage="Airfare actual Cost is a required Field" styleClass="inputWidth" >
                                                         <p:ajax update="airfareCost" event="blur" />
+                                                        <p:ajax update="TotalCost" event="blur" listener="#{finalCBean.costCalc}"/>
                                                     </p:inputText>
                                                 </p:column>
 
@@ -259,12 +266,14 @@
                                                 <p:column>
                                                     <p:inputText id="carRentalBudget" value="#{finalCBean.carRentalBudget}" required="true" requiredMessage="Car rental budgeted Cost is a required Field" styleClass="inputWidth">
                                                         <p:ajax update="carRentalBudget" event="blur" />
+                                                        <p:ajax update="TotalBudget" event="blur" listener="#{finalCBean.budgetCalc}"/>
                                                     </p:inputText>
                                                 </p:column>
 
                                                 <p:column>
                                                     <p:inputText id="carRentalCost" value="#{finalCBean.carRentalCost}" required="true" requiredMessage="Car rental actual Cost is a required Field" styleClass="inputWidth">
                                                         <p:ajax update="carRentalCost" event="blur" />
+                                                        <p:ajax update="TotalCost" event="blur" listener="#{finalCBean.costCalc}"/>
                                                     </p:inputText>
                                                 </p:column>
 
@@ -288,6 +297,7 @@
                                                 <p:column>
                                                     <p:inputText id="accomodationBudget" value="#{finalCBean.accommodationBudget}" required="true" requiredMessage="Accommodation budgeted Cost is a required Field" styleClass="inputWidth">
                                                         <p:ajax update="accomodationBudget" event="blur" />
+                                                        <p:ajax update="TotalBudget" event="blur" listener="#{finalCBean.budgetCalc}"/>
                                                     </p:inputText>
 
                                                 </p:column>
@@ -296,6 +306,7 @@
 
                                                     <p:inputText id="accomodationCost" value="#{finalCBean.accommodationCost}" required="true" requiredMessage="Accommodation actual Cost is a required Field" styleClass="inputWidth">
                                                         <p:ajax update="accomodationCost" event="blur" />
+                                                        <p:ajax update="TotalCost" event="blur" listener="#{finalCBean.costCalc}"/>
                                                     </p:inputText>
                                                 </p:column>
 
@@ -320,6 +331,7 @@
                                                 <p:column >
                                                     <p:inputText id="accomodationDays" value="#{finalCBean.accommodatedays}" required="true" requiredMessage="Accommodation number of days is a required Field" styleClass="inputWidth">
                                                         <p:ajax update="accomodationDays" event="blur" />
+
                                                     </p:inputText>
                                                 </p:column>
 
@@ -346,6 +358,7 @@
                                                 <p:column>
                                                     <p:inputText id="ConferenceBudget" value="#{finalCBean.conferencebudget}" required="true" requiredMessage="Conference budgeted Cost is a required Field" styleClass="inputWidth">
                                                         <p:ajax update="ConferenceBudget" event="blur" />
+                                                        <p:ajax update="TotalBudget" event="blur" listener="#{finalCBean.budgetCalc}"/>
                                                     </p:inputText>
 
                                                 </p:column>
@@ -355,6 +368,7 @@
                                                 <p:column>
                                                     <p:inputText id="ConferenceCost" value="#{finalCBean.conferencecost}" required="true" requiredMessage="Conference actual Cost is a required Field" styleClass="inputWidth">
                                                         <p:ajax update="ConferenceCost" event="blur" />
+                                                        <p:ajax update="TotalCost" event="blur" listener="#{finalCBean.costCalc}"/>
                                                     </p:inputText>
                                                 </p:column>
 
@@ -384,6 +398,7 @@
                                                 <p:column>
                                                     <p:inputText id="PerdiemBudget" value="#{finalCBean.perdiembudget}" required="true" requiredMessage="Per diem budgeted Cost is a required Field" styleClass="inputWidth">
                                                         <p:ajax update="PerdiemBudget" event="blur" />
+                                                        <p:ajax update="TotalBudget" event="blur" listener="#{finalCBean.budgetCalc}"/>
                                                     </p:inputText>
 
                                                 </p:column>
@@ -391,6 +406,7 @@
                                                 <p:column>
                                                     <p:inputText id="PerdiemCost" value="#{finalCBean.perdiemcost}" required="true" requiredMessage="Per diem actual Cost is a required Field" styleClass="inputWidth">
                                                         <p:ajax update="PerdiemCost" event="blur" />
+                                                        <p:ajax update="TotalCost" event="blur" listener="#{finalCBean.costCalc}"/>
                                                     </p:inputText>
                                                 </p:column>
 
@@ -411,6 +427,7 @@
                                                 <p:column>
                                                     <p:inputText id="PerdiemDays" value="#{finalCBean.perdiemdays}" required="true" requiredMessage="Per diem number of days is a required Field" styleClass="inputWidth">
                                                         <p:ajax update="PerdiemDays" event="blur" />
+
                                                     </p:inputText>
                                                 </p:column>
 
@@ -435,6 +452,7 @@
                                                 <p:column>
                                                     <p:inputText id="VisaBudget" value="#{finalCBean.visabudget}" required="true" requiredMessage="Visa budgeted Cost is a required Field" styleClass="inputWidth">
                                                         <p:ajax update="VisaBudget" event="blur" />
+                                                        <p:ajax update="TotalBudget" event="blur" listener="#{finalCBean.budgetCalc}"/>
                                                     </p:inputText>
 
                                                 </p:column>
@@ -444,6 +462,7 @@
 
                                                     <p:inputText id="VisaCost" value="#{finalCBean.visacost}" required="true" requiredMessage="Visa actual Cost is a required Field" styleClass="inputWidth">
                                                         <p:ajax update="VisaCost" event="blur" />
+                                                        <p:ajax update="TotalCost" event="blur" listener="#{finalCBean.costCalc}"/>
                                                     </p:inputText>
                                                 </p:column>
 
@@ -462,6 +481,7 @@
                                                 <p:column>
                                                     <p:inputText id="otherBudget" value="#{finalCBean.otherbudget}" required="false" requiredMessage="Other budgeted Cost is a required Field" styleClass="inputWidth">
                                                         <p:ajax update="otherBudget" event="blur" />
+                                                        <p:ajax update="TotalBudget" event="blur" listener="#{finalCBean.budgetCalc}"/>
                                                     </p:inputText>
 
                                                 </p:column>
@@ -471,6 +491,7 @@
 
                                                     <p:inputText id="otherCost" value="#{finalCBean.othercost}" required="false" requiredMessage="Other actual Cost is a required Field" styleClass="inputWidth">
                                                         <p:ajax update="otherCost" event="blur" />
+                                                        <p:ajax update="TotalCost" event="blur" listener="#{finalCBean.costCalc}"/>
                                                     </p:inputText>
                                                 </p:column>
 
@@ -487,7 +508,7 @@
 
                                                 <p:column colspan="2">
                                                     <p:inputTextarea id="otherDescription" value="#{finalCBean.otherdiscription}" required="false" styleClass="inputWidth" >
-                                                        <p:ajax update="otherDescription" event="blur" />
+                                                        <p:ajax update="otherDescription" event="blur" />                                                        
                                                     </p:inputTextarea>
                                                 </p:column>
 
@@ -500,6 +521,34 @@
                                     </fieldset>
                                     <fieldset><legend><h4>Total</h4></legend>
                                         <p:panelGrid id="budgetTotal" >
+
+                                            <p:row>
+                                                <p:column styleClass="columnLabel">
+                                                    <h:outputText value="Total:" />
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:inputText id="TotalBudget" value="#{finalCBean.approvedbudget}" required="true" requiredMessage="Total budgeted Cost is a required Field" styleClass="inputWidth">
+                                                        <p:ajax update="TotalBudget" event="blur" />
+
+
+                                                    </p:inputText>
+
+                                                </p:column>
+
+                                                <p:column>
+
+                                                    <p:inputText id="TotalCost" value="#{finalCBean.approvedcost}" required="true" requiredMessage="Total actual Cost is a required Field" styleClass="inputWidth ">
+                                                        <p:ajax update="TotalCost" event="blur" />
+
+                                                    </p:inputText>
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:message for="TotalBudget"/>
+                                                    <p:message for="TotalCost"/>
+                                                </p:column>
+                                            </p:row>
                                             <p:row>
                                                 <p:column styleClass="columnLabel">
                                                     <h:outputText value="Calculate total: " />
@@ -513,32 +562,6 @@
                                                 <p:column>
 
                                                     <p:commandButton value="Calculate Cost"  actionListener="#{finalCBean.costCalc}" update="TotalCost" styleClass="inputWidth butCalc"/>
-                                                </p:column>
-
-                                                <p:column>
-                                                    <p:message for="TotalBudget"/>
-                                                    <p:message for="TotalCost"/>
-                                                </p:column>
-
-
-                                            </p:row>
-                                            <p:row>
-                                                <p:column styleClass="columnLabel">
-                                                    <h:outputText value="Total:" />
-                                                </p:column>
-
-                                                <p:column>
-                                                    <p:inputText id="TotalBudget" value="#{finalCBean.approvedbudget}" required="true" requiredMessage="Total budgeted Cost is a required Field" styleClass="inputWidth">
-                                                        <p:ajax update="TotalBudget" event="blur" />
-                                                    </p:inputText>
-
-                                                </p:column>
-
-                                                <p:column>
-
-                                                    <p:inputText id="TotalCost" value="#{finalCBean.approvedcost}" required="true" requiredMessage="Total actual Cost is a required Field" styleClass="inputWidth ">
-                                                        <p:ajax update="TotalCost" event="blur" />
-                                                    </p:inputText>
                                                 </p:column>
 
                                                 <p:column>
@@ -571,6 +594,8 @@
                                                 <p:selectOneRadio id="CostFromOz" required="true" requiredMessage="Recovered cost from Australia" value="#{finalCBean.fromoz}">
                                                     <f:selectItem itemValue="1" itemLabel="Yes" />
                                                     <f:selectItem itemValue="0" itemLabel="No" />
+                                                    <p:ajax event="change" update="CostFrom0z"/>
+                                                    <p:ajax update="CostFrom0z"/>
                                                 </p:selectOneRadio>
 
                                             </p:column>
@@ -581,7 +606,17 @@
 
 
                                         </p:row>
+                                    </p:panelGrid>
 
+                                    <ui:remove>
+
+                                        <!--
+                                        <p:panelGrid id="CostFrom0z" rendered="#{finalCBean.fromoz eq '1'}" >
+                                        -->
+
+                                    </ui:remove>
+
+                                    <p:panelGrid id="CostFrom0z"  >
                                         <p:row>
 
                                             <p:column styleClass="columnLabel">
@@ -653,24 +688,6 @@
                                             <ui:remove>
 
                                                 <!--
-
-
-
-
-                                                        <p:row>
-
-                                                            <p:column>
-                                                                <h:outputText value="From to be approved " />
-                                                            </p:column>
-                                                            <p:column>
-
-                                                                <p:inputText id="authfromsection" value="#{finalCBean.fromsection}" required="false" requiredMessage="Contact Name: is a required Field" />
-                                                            </p:column>
-                                                            <p:column>
-                                                                <p:message for="authfromsection"/>
-                                                            </p:column>
-
-                                                        </p:row>
                                                 -->
 
                                             </ui:remove>
