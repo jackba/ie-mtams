@@ -60,13 +60,13 @@
                                         <p:message id="nameMsg" for="desc" />
 
                                         <h:outputText value="Date of Initial Departure: *" />
-                                        <p:calendar id="departDate" required="true" requiredMessage="Date Required" value="#{appBean.departureDate}" immediate="true" mindate="#{appBean.currentDate}" >
+                                        <p:calendar id="departDate" required="true" requiredMessage="Date Required" value="#{appBean.departureDate}" mindate="#{userBean.currentDate}" >
 
                                         </p:calendar>
                                         <p:message id="depDateMsg" for="departDate" />
 
                                         <h:outputText value="Date of Final Return: *" />
-                                        <p:calendar id="returnDate" required="true" requiredMessage="Date Required" value="#{appBean.returnDate}" immediate="true"  mindate="#{appBean.currentDate}" >
+                                        <p:calendar id="returnDate" required="true" requiredMessage="Date Required" value="#{appBean.returnDate}" mindate="#{userBean.currentDate}" >
 
                                         </p:calendar>
                                         <p:message id="retDateMsg" for="returnDate" />
@@ -93,11 +93,12 @@
                                         <h:outputText value="Travel Day/Work Day:" />
                                         <h:outputText value="" />
 
-                                        <p:calendar id="tempDate" value="#{appBean.tempDate}" required="true" requiredMessage="Date required" mindate="#{appBean.currentDate}"></p:calendar> 
+                                        <p:calendar id="tempDate" value="#{appBean.tempDate}" required="true" requiredMessage="Date required" mindate="#{userBean.currentDate}"></p:calendar> 
                                         <p:inputText id="tempDest" value="#{appBean.tempDest}" required="true" maxlength="20" requiredMessage="Entry required"><p:ajax update="tempDest" event="blur"  /></p:inputText>
                                         <p:selectOneMenu id="tempLeaveType" value="#{appBean.tempLeaveType}" required="true" requiredMessage="Entry required">
                                             <f:selectItem  itemLabel="Select Leave Type" itemValue=""/>
                                             <f:selectItems value="#{dataLookUpBean.leaveStrings}" />
+                                            <p:ajax event="blur" update="tempLeaveType" />
                                         </p:selectOneMenu>
                                         <p:selectOneMenu id="tempTravelDay" value="#{appBean.tempTravelDay}" required="true" requiredMessage="Entry required">
                                             <f:selectItem  itemLabel="Select Leave Type" itemValue=""/>
@@ -105,7 +106,7 @@
                                             <f:selectItem itemLabel="Work Day" itemValue="Work Day" />
                                         </p:selectOneMenu>
                                         
-                                        <p:button value="+" />
+                                        <p:button icon="ui-icon-plus" disabled="true" />
                                     </h:panelGrid>
 
 
@@ -114,7 +115,7 @@
                             <p:tab id="Quotes" title="Quotes">
 
                                 <p:panel id="quotePanel" header="Quotes">
-
+                                    <h5>All fields are required on this page</h5>
                                     <h:panelGrid columns="3" columnClasses="label, value, error">
                                         <h:outputText value="Cost Centre:" />
                                         <p:inputMask mask="999999-9999" id="costCentre" value="#{appBean.costCentre}" required="true" requiredMessage="Cost centre code required" >
@@ -135,9 +136,9 @@
 
                                         <p:inputText id="flFrom" value="#{appBean.fQFrom}" required="true" maxlength="10" requiredMessage="Entry required"><p:ajax update="flFrom" event="blur"  /></p:inputText>
                                         <p:inputText id="flTo" value="#{appBean.fQTo}" required="true" maxlength="10" requiredMessage="Entry required"><p:ajax update="flTo" event="blur"  /></p:inputText>
-                                        <p:calendar id="flDate" value="#{appBean.fQDate}" required="true" requiredMessage="Entry required" mindate="#{appBean.currentDate}"></p:calendar>
-                                        <p:inputText id="flTime" type="time" value="#{appBean.fQTime}" required="true" maxlength="10" requiredMessage="Entry required"> <p:ajax update="flTime" event="blur"  /></p:inputText>
-
+                                        <p:calendar id="flDate" value="#{appBean.fQDate}" required="true" requiredMessage="Entry required" mindate="#{userBean.currentDate}"></p:calendar>
+                                        
+                                        <p:calendar id="flTime"  value="#{appBean.fQTime}" timeOnly="true" pattern="HH:mm" required="true" maxlength="10" requiredMessage="Entry required"></p:calendar>
                                         <h:outputText value="Flight Option #1" />
                                         <h:outputText value="Cost of Option #1" />
                                         <h:outputText value="Flight Option #2" />
@@ -159,8 +160,8 @@
 
                                         <p:inputText id="caFrom" value="#{appBean.cQFrom}" required="true" maxlength="10" requiredMessage="Entry required"><p:ajax update="caFrom" event="blur"  /></p:inputText>
                                         <p:inputText id="caTo" value="#{appBean.cQTo}" required="true" maxlength="10" requiredMessage="Entry required"><p:ajax update="caTo" event="blur"  /></p:inputText>
-                                        <p:calendar id="caDc" value="#{appBean.cQDateCollected}" required="true" maxlength="10" requiredMessage="Entry required" ></p:calendar>
-                                        <p:calendar id="caDr" value="#{appBean.cQDateReturned}" required="true" maxlength="10" requiredMessage="Entry required" mindate="#{appBean.currentDate}"></p:calendar>
+                                        <p:calendar id="caDc" value="#{appBean.cQDateCollected}" required="true" maxlength="10" requiredMessage="Entry required" mindate="#{userBean.currentDate}" ></p:calendar>
+                                        <p:calendar id="caDr" value="#{appBean.cQDateReturned}" required="true" maxlength="10" requiredMessage="Entry required" mindate="#{userBean.currentDate}"></p:calendar>
 
                                         <h:outputText value="Care Hire Option #1" />
                                         <h:outputText value="Cost of Option #1" />
@@ -182,8 +183,8 @@
                                         <h:outputText value="" />
 
                                         <p:inputText id="hoLo" value="#{appBean.hQLocation}" required="true" maxlength="10" requiredMessage="Entry required" ><p:ajax update="hoLo" event="blur"  /></p:inputText>
-                                        <p:calendar id="hoDi" value="#{appBean.hQDateIn}" required="true" maxlength="10" requiredMessage="Entry required" mindate="#{appBean.currentDate}"></p:calendar>
-                                        <p:calendar id="hoDo" value="#{appBean.hQDateOut}" required="true" maxlength="10" requiredMessage="Entry required" mindate="#{appBean.currentDate}"></p:calendar>
+                                        <p:calendar id="hoDi" value="#{appBean.hQDateIn}" required="true" maxlength="10" requiredMessage="Entry required" mindate="#{userBean.currentDate}"></p:calendar>
+                                        <p:calendar id="hoDo" value="#{appBean.hQDateOut}" required="true" maxlength="10" requiredMessage="Entry required" mindate="#{userBean.currentDate}"></p:calendar>
                                         <h:inputHidden />
 
                                         <h:outputText value="Hotel Option #1" />

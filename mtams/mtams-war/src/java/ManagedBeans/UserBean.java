@@ -59,7 +59,7 @@ public class UserBean implements Serializable {
     private List<Approval> allApproved;
     private Application selectedApp;
     private String department;
-    @Pattern(message = "Incorrect ID", regexp = "[0-9a-zA-Z]{9}")
+    @Pattern(message = "Incorrect ID", regexp = "[0-9a-zA-Z ]{9}")
     private String staffID;
     private String position;
     @Pattern(message = "Incorrect Name", regexp = "[a-zA-Z ]+${0,}")
@@ -931,6 +931,10 @@ public class UserBean implements Serializable {
         } catch (IOException ex) {
             Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public String viewHome(){
+        return "/applicationHome.xhtml";
     }
 
     public void display() {

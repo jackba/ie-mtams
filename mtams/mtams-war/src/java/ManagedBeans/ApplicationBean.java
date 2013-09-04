@@ -69,9 +69,9 @@ public class ApplicationBean implements Serializable {
     private Date tempDate;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String tempDest;
-    
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String tempLeaveType;
-    
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String tempTravelDay;
     
     private String costCentre;
@@ -737,8 +737,12 @@ public class ApplicationBean implements Serializable {
     public Application getAppRef() {
         //appRef = appHandler.getApplication(5);
         //description = appRef.getDescription();
-        int appnum = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
+        Integer appnum = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
+        if(appnum != null){
         appRef = appHandler.getApplication(appnum);
+        }else{
+            appRef = newApplication;
+        }
         return appRef;
     }
 
