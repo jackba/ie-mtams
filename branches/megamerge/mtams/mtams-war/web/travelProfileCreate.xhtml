@@ -11,20 +11,6 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-                <div id="header">
-                    <div id="logo">
-                        <h:form>
-
-                            <h:graphicImage value="resources/img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
-
-                        </h:form>
-                    </div>
-
-                    <ul>
-                        <li>Help</li>
-                        <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout</p:commandLink></li>
-                    </ul>
-                </div>
                 <h4>As this is your first time logging in, please fill out your travel profile</h4>
                 <h:form id="travelForm">
 

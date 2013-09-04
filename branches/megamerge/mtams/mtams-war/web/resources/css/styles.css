@@ -59,7 +59,7 @@ p.legal {
     color: #666;
 }
 
-form {
+.form-2 {
     padding:10px;
     overflow: hidden;
 }
@@ -213,7 +213,7 @@ body {
     left:0px;
 }
 
-.ui-menu .ui-menuitem {
+.ui-menu-list {
     margin: 1px 15px !important;
 }
 

@@ -11,27 +11,6 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-                <div id="header">
-                    <div id="logo">
-                        <h:form>
-                            <h:commandLink action="userHome.xhtml">
-                                <h:graphicImage value="resources/img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
-                            </h:commandLink>
-                        </h:form>
-                    </div>
-
-                    <ul>
-                        <li>Help</li>
-                        <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout</p:commandLink></li>
-                    </ul>
-                </div>
-                <div class="nav"><h:form>
-                        <p:menubar>
-                            <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goHome()}"/>
-                            <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
-
-                        </p:menubar></h:form>
-                </div>
                 <h:form>
                     <p:growl id="growl" sticky="true" showDetail="true"/>
                     <p:messages id="submitConfirm" showDetail="true" closable="true" autoUpdate="true" severity="info"/>

@@ -11,69 +11,28 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-                <div id="header">
-                    <div id="logo">
-                        <h:form>
-                            <h:commandLink action="superHome.xhtml">
-                                <h:graphicImage value="resources/img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
-                            </h:commandLink>
-                        </h:form>
-                    </div>
+                <h:form id="editAdminSelectForm">
+                    <p:messages autoUpdate="true" closable="true" showDetail="true" globalOnly="true"/>
 
-                    <ul>
-                        <li>Help</li>
-                        <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout</p:commandLink></li>
-                    </ul>
-                </div>
-        <div id = "content">
-            <h:form id="editAdminSelectForm">
-                <p:menubar>
-                    <p:menuitem value="Home" icon="ui-icon-home" outcome="#{superAdminBean.goToHome()}"/>
-                    <p:submenu label="Actions" icon="ui-icon-document">  
-                        <p:menuitem value="Create Admin" outcome="#{superAdminBean.goToCreateAdmin()}" />
-                        <p:menuitem value="Edit Admin" outcome="#{superAdminBean.goToEditAdmin()}" />
-                        <p:menuitem value="Create Role" outcome="#{superAdminBean.goToCreateRole()}" />
-                        <p:menuitem value="Deactivate Account" outcome="#{superAdminBean.goToDeactivateAccount()}" />
-                    </p:submenu>
-                </p:menubar>
+                    <p:dataTable id="dataTable" var="account" value="#{editAdminBean.adminAccList}" binding="#{editAdminBean.dataTable}" rowKey="#{account.idaccount}" selection="#{editAdminBean.selectedAcc}" selectionMode="single">  
 
-                <p:messages autoUpdate="true" closable="true" showDetail="true" globalOnly="true"/>
+                        <f:facet name="header">  
+                            Please Select the Account to be Edited
+                        </f:facet>  
 
-                <p:dataTable id="dataTable" var="account" value="#{editAdminBean.adminAccList}" binding="#{editAdminBean.dataTable}" rowKey="#{account.idaccount}" selection="#{editAdminBean.selectedAcc}" selectionMode="single">  
+                        <p:column headerText="StaffID">  
+                            <h:outputText value="#{account.idaccount}" />
+                        </p:column> 
 
-                    <f:facet name="header">  
-                        Please Select the Account to be Edited
-                    </f:facet>  
-
-                    <p:column headerText="StaffID">  
-                        <h:outputText value="#{account.idaccount}" />
-                    </p:column> 
-
-                    <p:column headerText="UserName">  
-                        <h:outputText value="#{account.username}" />  
-                    </p:column>
-                    <f:facet name="footer">  
-                        <p:commandButton id="editButton" value="Edit" icon="ui-icon-pencil"  
-                                         update=":editAdminSelectForm" action="#{editAdminBean.editAdmin()}"/>  
-                    </f:facet>
-                </p:dataTable>
-            </h:form>
-        </div>
-
-        <div id= "footer">
-            <div class="row group">
-                <div class="col">
-                    <h3>Quick links</h3>
-                    <ul>
-                        <li><a href="">Site Map</a></li>
-                        <li><a href="">FAQ</a></li>
-                        <li><a href="">Contact us</a></li>
-                    </ul>
-                </div>
-                <h3>Legal</h3>
-                <p class="legal">Created by School of IT, Monash South Africa</p>		
-            </div>
-        </div>
+                        <p:column headerText="UserName">  
+                            <h:outputText value="#{account.username}" />  
+                        </p:column>
+                        <f:facet name="footer">  
+                            <p:commandButton id="editButton" value="Edit" icon="ui-icon-pencil"  
+                                             update=":editAdminSelectForm" action="#{editAdminBean.editAdmin()}"/>  
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
             </ui:define>
 
         </ui:composition>

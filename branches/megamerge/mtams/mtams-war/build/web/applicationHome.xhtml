@@ -7,37 +7,39 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
     <body>
-        <!--
-                        <div>
-                            <h:outputText value="As this is your first time, please fill in your " rendered="#{sessionBean.checkFirstTime()}" />
-                            <h:link value="travel profile." outcome="#{userBean.goToProfile()}" rendered="#{sessionBean.checkFirstTime()}" />
-                        </div>
-                        <br />
-        -->
+
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
 
                 <h:form>
-
                     <p:messages autoUpdate="true" id="appHomeTop" closable="true" showDetail="true" />
-                    <p:dataTable id="applications" var="app" value="#{appBean.allApps}">
+                    <p:panel header="#{appBean.appRef.description}">
 
-                        <p:column headerText="Description">
-                            <h:outputText value="#{app.description}" />
-                        </p:column>
+                        <p:button value="Send for Approval" disabled="true" />
 
-                        <p:column headerText="Year">
-                            <h:outputText value="#{app.datemodified}" />
-                        </p:column>
+                        <fieldset>
+                            <legend><h4>Application Form</h4></legend>
+                            <p:button value="View/Edit Application Form" outcome="#{appBean.viewThis()}" />
+                        </fieldset>
+                        <fieldset>
+                            <legend><h4>Conference Attendance Request</h4></legend>
+                            <p:button value="Create Conference Attendance Request Form" disabled="true" />
+                            <p:button value="View/Edit Conference Attendance Request Form" disabled="true" rendered="false" />
+                        </fieldset>
+                        <fieldset>
+                            <legend><h4>Foreign Exchange Request Form</h4></legend>
+                            <p:button value="Create Foreign Exchange Form" outcome="#{appBean.goCreateForex()}" disabled="true" />
+                            <p:button value="View/Edit Foreign Exchange Form" outcome="#{appBean.goViewForex()}" disabled="true" rendered="false" />
+                        </fieldset>
+                        <fieldset>
+                            <legend><h4>Motivation Form</h4></legend>
+                            <p:button value="Create Motivation Form" disabled="true" />
+                            <p:button value="View/Edit Motivation Form" disabled="true" rendered="false" />
+                        </fieldset>
+                    </p:panel>
 
-                        <p:column>
-                            <p:commandButton id="selectButton" update="applications" icon="ui-icon-search" title="View">
-                                <f:setPropertyActionListener value="#{app}" target="#{appBean.selectedApp}" />
-                            </p:commandButton>
-                        </p:column>
 
-                    </p:dataTable>
                 </h:form>
             </ui:define>
 
