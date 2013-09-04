@@ -55,14 +55,15 @@ public class MenuBean implements Serializable {
         }
         model.addMenuItem(item);
 
+        //set profile for applicant and authorizer only
+        if (returnRole("11") || returnRole("12")) {
+            item = new MenuItem();
+            item.setValue("Profile");
+            item.setIcon("ui-icon-person");
+            item.setUrl(this.getURL("travelProfileView"));
 
-        item = new MenuItem();
-        item.setValue("Profile");
-        item.setIcon("ui-icon-person");
-        item.setUrl(this.getURL("travelProfileView"));
-
-        model.addMenuItem(item);
-
+            model.addMenuItem(item);
+        }
 
         //Applications 
         if (returnRole("11")) {

@@ -60,10 +60,13 @@ public class SessionBean implements Serializable {
 
     public boolean checkActive() {
         session();
-
-        //session.setAttribute("user", loggedUser);
-
         return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID") != null;
+    }
+    
+    public boolean checkMenuActive(){
+        session();
+        boolean value = (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID") != null) && checkNotFirstTime();
+        return value;
     }
 
     public boolean checkFirstTime() {
@@ -91,6 +94,7 @@ public class SessionBean implements Serializable {
     }
 
     public String getRole() {
+        session();
         int userRoleNumber = (Integer) session.getAttribute("userRole");
         String userRoleName;
         switch (userRoleNumber) {
@@ -114,6 +118,7 @@ public class SessionBean implements Serializable {
     }
     
     public String homePage() {
+        session();
         int userRoleNumber = (Integer) session.getAttribute("userRole");
         String userRolePage;
         switch (userRoleNumber) {

@@ -19,7 +19,7 @@
                         <p:tab id="personal" title="Personal Details" >  
 
                             <p:panel header="Personal Details"> 
-                                <fieldset><legend>Staff Details</legend>
+                                <fieldset><legend><h4>Staff Details</h4></legend>
                                     <h:panelGrid columns="3" columnClasses="label, value, error" >  
 
                                         <h:outputText value="Department: *" />  
@@ -30,7 +30,7 @@
                                         <p:message for="dept" id="deptM"/>
 
                                         <h:outputText value="Staff ID: *" />  
-                                        <p:inputMask id="staffID" value="#{userBean.staffID}" required="true" requiredMessage="Required Field" mask="a99999999">
+                                        <p:inputMask id="staffID" value="#{userBean.staffID}" required="true" requiredMessage="Required Field" mask="a99999999" title="Must be in the format A########">
                                             <p:ajax update="staffMID" event="blur" />
                                         </p:inputMask>                                        
                                         <p:message for="staffID" id="staffMID"/>
@@ -74,7 +74,7 @@
                                         <p:message for="ttl" id="ttlM"/>
 
                                         <h:outputText value="Identity Number: *" />  
-                                        <p:inputText id="identity" required="true" value="#{userBean.idNo}" requiredMessage="Required Field">
+                                        <p:inputText id="identity" required="true" value="#{userBean.idNo}" requiredMessage="Required Field" title="Must be between 13-15 numbers long">
                                             <p:ajax update="identityM" event="blur" />
                                         </p:inputText>
                                         <p:message for="identity" id="identityM"/>
@@ -104,7 +104,7 @@
                                         <p:message for="perEmail" id="perEmailM"/>
                                     </h:panelGrid>
                                 </fieldset>
-                                <fieldset><legend>Business</legend>
+                                <fieldset><legend><h4>Business</h4></legend>
                                     <h:panelGrid columns="3" columnClasses="label, value, error" >
                                         <h:outputText value="Business Address: *" />  
                                         <p:inputTextarea id="businessAdd" value="#{userBean.busAddress}" requiredMessage="Required Field" required="true">
@@ -125,7 +125,7 @@
                                         <p:message for="bFax" id="bFaxM"/>
                                     </h:panelGrid>
                                 </fieldset>
-                                <fieldset><legend>Spouse Details</legend>
+                                <fieldset><legend><h4>Spouse Details</h4></legend>
                                     <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid">
                                         <h:outputText value="Spouse's Name: " />  
                                         <p:inputText id="SpN" value="#{userBean.spouseName}">
@@ -146,7 +146,7 @@
                                         <p:message for="SpE" id="SpEM"/>
                                     </h:panelGrid>
                                 </fieldset>
-                                <fieldset><legend>Doctor Details</legend>
+                                <fieldset><legend><h4>Doctor Details</h4></legend>
                                     <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid">
                                         <h:outputText value="Doctor's Name:" />  
                                         <p:inputText id="docN" value="#{userBean.docName}" >
@@ -196,14 +196,14 @@
                                     <p:message for="country" id="countryM"/>
 
                                     <h:outputText value="Date of Issue: *" />  
-                                    <p:calendar id="cal" value="#{userBean.dateOfIssue}" maxdate="#{userBean.currentData}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field">
+                                    <p:calendar id="cal" value="#{userBean.dateOfIssue}" maxdate="#{userBean.currentDate}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field">
                                         
                                     </p:calendar>
                                     <p:message for="cal" id="calM"/>
 
                                     <h:outputText value="Expiry Date: *"/>  
-                                    <p:calendar id="calender" value="#{userBean.expiryDate}" mindate="#{userBean.currentData}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field">
-                                        <p:ajax update="calendarM" event="blur" />
+                                    <p:calendar id="calender" value="#{userBean.expiryDate}" mindate="#{userBean.currentDate}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field">
+                                        
                                     </p:calendar>
                                     <p:message for="calender" id="calendarM"/>
 
