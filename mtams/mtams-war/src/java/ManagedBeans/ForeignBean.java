@@ -4,8 +4,10 @@
  */
 package ManagedBeans;
 
+import Entities.Application;
 import Entities.Forexorder;
 import Entities.Itinerary;
+import Entities.Travel;
 import Entities.Traveldocument;
 import Entities.Travelerprofile;
 import ServiceLayer.TravelProfileHandlerLocal;
@@ -22,6 +24,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Future;
 import org.primefaces.event.FlowEvent;
@@ -39,7 +42,8 @@ public class ForeignBean implements Serializable {
     private TravelProfileHandlerLocal tph;
     //======change===change=========change============change=========change====
     //-------------------------------------------------------------------------
-    int accountID = 1;
+    //private Integer accountID = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
+    private Integer accountID = 3;
     //-------------------------------------------------------------------------
     //======change========change=========change=============change=============
     private Travelerprofile travelerP;
@@ -48,6 +52,8 @@ public class ForeignBean implements Serializable {
     private Forexorder viewForX;
     private Forexorder editForX;
     private Itinerary itinerary;
+    private Application appref;
+    private Travel travel;
     private String CompanyNameRegNum;
     private String passengerName;
     private String physicalAddress;
@@ -143,6 +149,22 @@ public class ForeignBean implements Serializable {
         this.viewForX = viewForX;
     }
 
+    public Application getAppref() {
+        return appref;
+    }
+
+    public void setAppref(Application appref) {
+        this.appref = appref;
+    }
+
+    public Travel getTravel() {
+        return travel;
+    }
+
+    public void setTravel(Travel travel) {
+        this.travel = travel;
+    }
+
     public Itinerary getItinerary() {
         itinerary = csi.findItinerary(accountID);
         return itinerary;
@@ -183,8 +205,8 @@ public class ForeignBean implements Serializable {
 
         //forX.setDateofdepart(departure);
         //forX.setDateofreturn(returnDate);
-        //forX.setTicketnum(ticketNumber);
-        //forX.setVoyagernum(voyagerNum);
+        forX.setTicketnum(ticketNumber);
+        forX.setVoyagernum(voyagerNum);
         forX.setTravelerscheques(travellerCheque);
         forX.setCash(foreignCash);
         //forX.setCashpassport(CashPassportCard);
@@ -198,25 +220,25 @@ public class ForeignBean implements Serializable {
         forX.setReasonfortravel(reasonForTravel);
 
         csi.updateForex(forX, accountID);
-        FacesContext.getCurrentInstance().addMessage("success", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Changes have been saved"));
+        FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Changes have been saved"));
         return "forexView";
     }
 
     @PostConstruct
     public void getForm() {
         viewForX = csi.findForX(accountID);
-        setDeparture(viewForX.getDateofdepart());
-        setReturnDate(viewForX.getDateofreturn());
-        setTicketNumber(viewForX.getTicketnum());
-        setVoyagerNum(viewForX.getVoyagernum());
-        setTravellerCheque(viewForX.getTravelerscheques());
-        setForeignCash(viewForX.getCash());
-        setCashPassportCard(viewForX.getCashpassport());
+        //setDeparture(viewForX.getDateofdepart());
+        //setReturnDate(viewForX.getDateofreturn());
+        //setTicketNumber(viewForX.getTicketnum());
+        //setVoyagerNum(viewForX.getVoyagernum());
+//        setTravellerCheque(viewForX.getTravelerscheques());
+//        setForeignCash(viewForX.getCash());
+        //setCashPassportCard(viewForX.getCashpassport());
         setType(viewForX.getCctype());
         setLast3(viewForX.getCclast3());
         setNumber(viewForX.getCcnumber());
         setExpire(viewForX.getCcexpirydate());
-        setAmount(viewForX.getCash());
+//        setAmount(viewForX.getCash());
         setDateRequired(viewForX.getDateofrequired());
         setDateForex(viewForX.getDatewillbeconfirmed());
         setReasonForTravel(viewForX.getReasonfortravel());
@@ -229,16 +251,16 @@ public class ForeignBean implements Serializable {
     public String updateForm() {
         editForX = new Forexorder();
 
-        editForX.setDateofdepart(departure);
-        editForX.setDateofreturn(returnDate);
+        //editForX.setDateofdepart(departure);
+        //editForX.setDateofreturn(returnDate);
         editForX.setTicketnum(ticketNumber);
         editForX.setVoyagernum(voyagerNum);
         editForX.setTravelerscheques(travellerCheque);
         editForX.setCash(foreignCash);
         editForX.setCashpassport(CashPassportCard);
         editForX.setCctype(type);
-        editForX.setCcnumber(number);
-        editForX.setCclast3(last3);
+        //editForX.setCcnumber(number);
+        //editForX.setCclast3(last3);
         editForX.setCcexpirydate(expire);
         editForX.setCcpaymentamount(amount);
         editForX.setDateofrequired(dateRequired);
