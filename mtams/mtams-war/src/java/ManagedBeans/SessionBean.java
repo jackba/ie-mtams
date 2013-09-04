@@ -168,11 +168,11 @@ public class SessionBean implements Serializable {
                 //logError = false;
                 return "superHome";
             } else {
-                FacesContext.getCurrentInstance().addMessage("loginMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Account has been deactivated. Please contact admin."));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Account has been deactivated. Please contact admin."));
                 return "login";
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage("loginMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Incorrect username/password combination"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Incorrect username/password combination"));
             return "login";
         }
 
