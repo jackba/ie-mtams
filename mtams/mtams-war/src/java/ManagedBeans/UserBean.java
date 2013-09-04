@@ -149,6 +149,11 @@ public class UserBean implements Serializable {
     private Rewardsprogram reward3;
     @EJB
     private TravelProfileHandlerLocal handler;
+    private Date currentDate = new Date();
+
+    public Date getCurrentDate() {
+        return currentDate;
+    }
 
     public UserBean() {
     }

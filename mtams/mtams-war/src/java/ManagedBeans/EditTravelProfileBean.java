@@ -22,6 +22,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -38,14 +39,14 @@ public class EditTravelProfileBean implements Serializable {
     public EditTravelProfileBean() {
     }
     //======change===change=========change============change=========change====
-    private Integer accountID = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+    private Integer accountID = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
     //======change========change=========change=============change=============
     private static final Logger logger = Logger.getLogger(ManagedBeans.UserBean.class.getName());
     @EJB
     private ApplicationHandlerLocal appHandler;
     private List<Application> allApps;
     private String department;
-    @Pattern(message = "Incorrect ID", regexp = "[0-9]{8}")
+    @Pattern(message = "Incorrect ID", regexp = "[0-9a-zA-Z]{9}")
     private String staffID;
     private String position;
     @Pattern(message = "Incorrect Name", regexp = "[a-zA-Z ]+${0,}")
@@ -136,6 +137,12 @@ public class EditTravelProfileBean implements Serializable {
     @EJB
     private TravelProfileHandlerLocal handler;
 
+    private Date currentDate = new Date();
+
+    public Date getCurrentDate() {
+        return currentDate;
+    }
+    
     public List<Application> getAllApps() {
         allApps = appHandler.getAppList(accountID);
         return allApps;
@@ -157,7 +164,7 @@ public class EditTravelProfileBean implements Serializable {
     public String goNewApp() {
         return "createApplication";
     }
-
+    // -----------------!!!!!!!!!!!!!!!!!!!!!!_---------------!!!!!!!!!!!!!!!!!_-------------------------
     public String editProfile() {
         getProfile();
         return "editTravelProfile";
@@ -319,7 +326,8 @@ public class EditTravelProfileBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage("travelViewMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Changes have been saved"));
         return "travelProfileView";
     }
-
+    
+    
     @PostConstruct
     private void getProfile() {
 
@@ -386,7 +394,7 @@ public class EditTravelProfileBean implements Serializable {
         passportEditRef = pRef;
         profileEditRef = ref;
     }
-
+    
     public Traveldocument getPassportRef() {
         int profileID = profileRef.getIdtravelerprofile();
         passportRef = handler.findTravelDoc(profileID);
