@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+
+            <ui:define name="content">
+                <div id="header">
+                    <div id="logo">
+                        <h:form>
+                            <h:commandLink action="userHome.xhtml">
+                                <h:graphicImage value="resources/img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
+                            </h:commandLink>
+                        </h:form>
+                    </div>
+
+                    <ul>
+                        <li>Help</li>
+                        <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout</p:commandLink></li>
+                    </ul>
+                </div>
+                <div class="nav"><h:form>
+                        <p:menubar>
+                            <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goHome()}"/>
+                            <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
+
+                        </p:menubar></h:form>
+                </div>
+                <h:form>
+                    <p:panel id="ViewFinalCostingPanel" header="View Final Costing" >
+                        <p:button outcome="#{appBean.goEdit()}" id="editButton"  title="Edit Button" value="Edit" />
+
+
+                        <fieldset><legend><h4>Final Costing Details</h4></legend> 
+                            <p:panelGrid id="authoriseTopGrid" styleClass="noborders" columns="2" columnClasses="label, value">
+
+                                <h:outputText value="Given name: " />
+                                <h:outputText id="givenName" value="#{finalCBean.profileRef.firstname}" />
+
+                                <h:outputText value="Family name: " />
+                                <h:outputText id="famName" value="#{finalCBean.profileRef.familyname}" />
+
+                                <h:outputText value="School / administrative unit: " />
+                                <h:outputText value="#{finalCBean.administrativeunit}" />
+
+                                <h:outputText value="Period of absence business: " />
+                                <h:outputText id="absencebussiness" value="#{finalCBean.absencebussiness}" />
+
+                                <h:outputText value="Period of absence private: " />
+                                <h:outputText id="absenceprivate" value="#{finalCBean.absenceprivate}" />
+
+                                <h:outputText value="Destination countries: " />
+                                <h:outputText id="countries" value="#{finalCBean.countries}" />
+
+                                <h:outputText value="Destination cities: " />
+                                <h:outputText id="cities" value="#{finalCBean.cities}" />
+                            </p:panelGrid>
+
+                            <p:panelGrid id="CurrencyFinalCostin" >
+
+                                <h:outputText value="#{finalCBean.currency}" />
+
+                            </p:panelGrid>
+                        </fieldset>
+
+
+                        <fieldset>
+                            <legend><h4>Travel Costs</h4></legend>
+                            <p:panelGrid id="authoriseFinalCostin" columns="3" columnClasses="label, value value" >
+
+                                <h:outputText value="Final Costing" />
+                                <h:outputText value="Budgeted Costs " />
+                                <h:outputText value="Actual Costs" />
+
+                                <h:outputText value="Airfare:" />
+                                <h:outputText id="airfareBudget" value="#{finalCBean.airfareBudget}" />
+                                <h:outputText id="airfareCost" value="#{finalCBean.airfareCost}" />
+
+                                <h:outputText value="Car rental: " />
+                                <h:outputText id="carRentalBudget" value="#{finalCBean.carRentalBudget}" />
+                                <h:outputText id="carRentalCost" value="#{finalCBean.carRentalCost}" />
+
+                                <h:outputText value="Accommodation: " />
+                                <h:outputText id="accomodationBudget" value="#{finalCBean.accommodationBudget}" />
+                                <h:outputText id="accomodationCost" value="#{finalCBean.accommodationCost}" />
+
+                                <h:outputText value="Accommodation number of days: " />
+                                <h:outputText id="accomodationDays" value="#{finalCBean.accommodatedays}" />
+                                <h:outputText />
+
+                                <h:outputText value="Conference: " />
+                                <h:outputText id="ConferenceBudget" value="#{finalCBean.conferencebudget}" />
+                                <h:outputText id="ConferenceCost" value="#{finalCBean.conferencecost}" />
+
+                                <ui:remove>
+                                    <!--
+                                    -->
+                                </ui:remove>
+                            </p:panelGrid>
+
+                        </fieldset>
+
+
+                        <fieldset>
+                            <legend><h4>Allowance</h4></legend>
+                            <p:panelGrid id="Allowance" columns="3" columnClasses="label, value value">
+
+                                <h:outputText value="Final Costing" />
+                                <h:outputText value="Budgeted Costs " />
+                                <h:outputText value="Actual Costs" />
+
+                                <h:outputText value="Per diem:" />
+                                <h:outputText id="PerdiemBudget" value="#{finalCBean.perdiembudget}" />
+                                <h:outputText id="PerdiemCost" value="#{finalCBean.perdiemcost}" />
+
+                                <h:outputText value="Per diem number of days: " />
+                                <h:outputText id="PerdiemDays" value="#{finalCBean.perdiemdays}" />
+                                <h:outputText />
+
+                                <h:outputText value="Visa Cost: " />
+                                <h:outputText id="VisaBudget" value="#{finalCBean.visabudget}" />
+                                <h:outputText id="VisaCost" value="#{finalCBean.visacost}" />
+
+
+                                <h:outputText value="Other Costs: " />
+                                <h:outputText id="otherBudget" value="#{finalCBean.otherbudget}" />
+                                <h:outputText id="otherCost" value="#{finalCBean.othercost}" />
+
+                                <h:outputText value="Other cost Description: " />
+                                <h:inputTextarea disabled="true" id="otherDescription" value="#{finalCBean.otherdiscription}" />
+                                <h:outputText />
+
+                            </p:panelGrid>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend><h4>Total</h4></legend>
+                            <p:panelGrid id="budgetTotal" columns="3" columnClasses="label, value value">
+
+                                <h:outputText value="Total:" />
+                                <h:outputText id="TotalBudget" value="#{finalCBean.approvedbudget}" />
+                                <h:outputText id="TotalCost" value="#{finalCBean.approvedcost}" />
+
+
+                            </p:panelGrid>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend><h4>Authorisation Cost From Australia</h4></legend>
+                            <p:panelGrid id="authoriseFromOz" columns="2" columnClasses="label, value" >
+
+                                <h:outputText value="Recovered cost from Australia: " />
+                                <p:selectOneRadio id="CostFromOz" value="#{finalCBean.fromoz}" required="true" requiredMessage="Recovered cost from Australia" >
+                                    <f:selectItem itemValue="1" itemLabel="Yes" />
+                                    <f:selectItem itemValue="0" itemLabel="No" />
+
+                                </p:selectOneRadio>
+
+
+                                <h:outputText value="Contact Name: " />
+
+                                <h:outputText id="ozname" value="#{finalCBean.ozname}" />
+
+
+
+                                <h:outputText value="Contact Telephone: " />
+
+                                <h:outputText id="oztel" value="#{finalCBean.oztel}" />
+
+
+                                <h:outputText value="Contact email: " />
+
+                                <h:outputText id="ozemail" value="#{finalCBean.ozemail}" />
+
+
+
+                            </p:panelGrid>
+                        </fieldset>
+
+                        <fieldset><legend><h4>Authorise Details</h4></legend>
+                            <p:panelGrid id="authoriseFrom" columns="2" columnClasses="label, value" >
+                                <ui:remove>
+
+                                    <!--
+                                    -->
+
+                                </ui:remove>
+                                <h:outputText value="Is this form approved:" />
+                                <p:selectOneRadio id="approvedCheck" disabled="true" value="#{finalCBean.sectionapproved}">
+                                    <f:selectItem itemValue="1" itemLabel="Yes" />
+                                    <f:selectItem itemValue="0" itemLabel="No" />
+                                </p:selectOneRadio>
+
+
+
+
+
+
+                                <h:outputText value="Given name: " />
+                                <h:outputText id="AuthgivenName" value="#{finalCBean.profileRef.firstname}" />
+
+                                <h:outputText value="Family name: " />
+                                <h:outputText id="AuthfamName" value="#{finalCBean.profileRef.familyname}" />
+
+                                <h:outputText value="Date: " />
+                                <p:calendar id="authdate" value="#{finalCBean.dateStamp}" disabled="true"  styleClass="inputWidthDepartment" />                                                       
+
+                                <h:outputText value="Notes: " />
+
+                                <h:inputTextarea disabled="true" id="authNotes" value="#{finalCBean.notes}" />
+
+                            </p:panelGrid>
+                        </fieldset>
+                        <fieldset><legend><h4>Policy Check</h4></legend>
+                            <p:panelGrid id="finalCostingPolicy" styleClass="noborders" columns="1" columnClasses="label">
+
+
+                                <h:outputText value="I hereby certify that the attached application meets requirements of the MSA travel policy and procedures. " />
+                                <h:outputText value="I hereby certify that the travel costs can be met within the specified budget. " />
+                                <h:outputText value="I hereby authorize the attached travel application." />
+                                <p:selectOneRadio id="policycheck" disabled="true"  value="#{finalCBean.checks}">
+                                    <f:selectItem itemValue="1" itemLabel="Yes" />
+                                    <f:selectItem itemValue="0" itemLabel="No" />
+                                </p:selectOneRadio>
+
+                            </p:panelGrid>
+                        </fieldset>
+
+                        <ui:remove> <!--  
+                        </p:tab>
+                        
+                        
+                        </p:wizard>
+                            --></ui:remove>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
