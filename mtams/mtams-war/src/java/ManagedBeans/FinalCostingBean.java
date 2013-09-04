@@ -314,7 +314,7 @@ public class FinalCostingBean implements Serializable {
 
         setFromsection("Final Costing");
 
-        logger.log(Level.INFO, "bflightSelected : {0}", flightSelected.toString());
+        //logger.log(Level.INFO, "bflightSelected : {0}", flightSelected.toString());
         logger.log(Level.INFO, "bAirfareCost : {0}", AirfareCost);
 
         logger.log(Level.INFO, "dateStamp : {0}", DateStamp);
@@ -503,6 +503,8 @@ public class FinalCostingBean implements Serializable {
     public String onFlowProcess(FlowEvent event) {
         logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());
         logger.log(Level.INFO, "Next step:{0}", event.getNewStep());
+        
+ //       logger.log(Level.INFO, "checks : {0}", checks);
 
 //        logger.log(Level.INFO, "getDepartment : {0}", profileRef.getDepartment());
 //        logger.log(Level.INFO, "currency : {0}", Currency);
