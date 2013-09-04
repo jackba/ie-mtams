@@ -12,7 +12,6 @@
 
             <ui:define name="content">
                 <h:form>
-                    <p:message id="success" /> 
 
                     <p:wizard widgetVar="wiz" flowListener="#{foreignBean.onFlowProcess}">  
 
@@ -21,61 +20,77 @@
                             <p:panel header="Business Travel">  
 
                                 <p:messages id="submitConfirm" showDetail="true" closable="true" autoUpdate="true" severity="info"/>
+                                
+                                <fieldset><legend><h4>Profile Details</h4></legend>
                                 <h:panelGrid columns="2" columnClasses="label, value"> 
                                     <h:outputText value="Company name/Reg. number: "/>  
                                     <h:outputText value="Monash South Africa" /> 
-                                        
-                                    <h:outputText value="Passenger (Full name) : " />  
-                                    <h:outputText value="#{foreignBean.travelerP.firstname}" />
+                                </h:panelGrid>
 
-                                    <h:outputText value="Physical address: " />  
-                                    <h:outputText value="#{foreignBean.travelerP.homeaddress}" />
+                                
+                                    <h:panelGrid columns="2" columnClasses="label, value"> 
+                                        <h:outputText value="Passenger (Full name) : " />  
+                                        <h:outputText value="#{foreignBean.travelerP.firstname}" />
 
-                                    <h:outputText value="Telephone number: " />  
-                                    <h:outputText value="#{foreignBean.travelerP.mobilephone}"/> 
+                                        <h:outputText value="Physical address: " />  
+                                        <h:outputText value="#{foreignBean.travelerP.homeaddress}" />
 
-                                    <h:outputText value="Fax number: " />  
-                                    <h:outputText value="#{foreignBean.travelerP.businessfax}" />
+                                        <h:outputText value="Telephone number: " />  
+                                        <h:outputText value="#{foreignBean.travelerP.mobilephone}"/> 
 
-
-                                    <h:outputText value="I.D. number: " />  
-                                    <h:outputText value="#{foreignBean.travelerP.idnumber}" />
-
-
-                                    <h:outputText value="Nationality of passport: " />  
-                                    <h:outputText value="#{foreignBean.travelD.country}" /> 
+                                        <h:outputText value="Fax number: " />  
+                                        <h:outputText value="#{foreignBean.travelerP.businessfax}" />
 
 
-                                    <h:outputText value="Passport number: " />  
-                                    <h:outputText value="#{foreignBean.travelD.passportnumber}" />
-                                    
-
-                                    <h:outputText value="Company contact name: " />  
-                                    <h:outputText value="#{foreignBean.travelerP.businessphone}" />  
+                                        <h:outputText value="I.D. number: " />  
+                                        <h:outputText value="#{foreignBean.travelerP.idnumber}" />
 
 
-                                    <h:outputText value="Destination: " />  
-                                    <h:outputText value="#{foreignBean.itinerary.destinationCity}" /> 
+                                        <h:outputText value="Nationality of passport: " />  
+                                        <h:outputText value="#{foreignBean.travelD.country}" /> 
 
 
-                                    <h:outputText value="Date of departure: " />  
-                                    <h:outputText id="dateDep" value="#{foreignBean.itinerary.datefrom}" />
+                                        <h:outputText value="Passport number: " />  
+                                        <h:outputText value="#{foreignBean.travelD.passportnumber}" />
 
 
-                                    <h:outputText value="Date of return: " />  
-                                    <h:outputText id="DateReturn" value="#{foreignBean.itinerary.dateto}"/>
+                                        <h:outputText value="Company contact name: " />  
+                                        <h:outputText value="#{foreignBean.travelerP.businessphone}" />  
+                                    </h:panelGrid>
+                                </fieldset>
+
+                                <fieldset><legend><h4>Travel Details</h4></legend>
+                                    <h:panelGrid columns="2" columnClasses="label, value"> 
+                                        <h:outputText value="Destination: " />  
+                                        <h:outputText value="#{foreignBean.itinerary.destinationCity}" /> 
 
 
-                                    <h:outputText value="Ticket number/ reference number: "  />  
-                                    <h:outputText id="ticket" value="#{foreignBean.viewForX.ticketnum}" /> 
+                                        <h:outputText value="Date of departure: " />  
+                                        <h:outputText id="dateDep" value="#{foreignBean.appref.travelIdtravel.datedeparture}" />
 
 
-                                    <h:outputText value="Voyager number: "  />  
-                                    <h:outputText id="Voyager" value="#{foreignBean.viewForX.voyagernum}" />
+                                        <h:outputText value="Date of return: " />  
+                                        <h:outputText id="DateReturn" value="#{foreignBean.appref.travelIdtravel.datereturn}"/>
+                                    </h:panelGrid>
+                                </fieldset>
 
+                                <fieldset><legend><h4>Travel Details</h4></legend>
+                                    <h:panelGrid columns="3" columnClasses="label, value, error">         
+                                        <h:outputText value="Ticket number/ reference number: "  />  
+                                        <p:inputText id="ticketref" value="#{foreignBean.ticketNumber}">
+                                            <f:validateLength minimum="1" maximum="30"/>
+                                            <p:ajax update="msgTicketref" event="keyup" />
+                                        </p:inputText>
+                                        <p:message for="ticketref" id="msgTicketref"/>
 
-
-                                </h:panelGrid>  
+                                        <h:outputText value="Voyager number: "  />  
+                                        <p:inputText id="voynum" value="#{foreignBean.voyagerNum}">
+                                            <f:validateLength minimum="1" maximum="30"/>
+                                            <p:ajax update="msgVoynum" event="keyup" />
+                                        </p:inputText>
+                                        <p:message for="voynum" id="msgVoynum"/>
+                                    </h:panelGrid>
+                                </fieldset>
                             </p:panel>  
                         </p:tab>  
 
@@ -86,7 +101,7 @@
 
                                 <!--                                foreign Cash                                  -->                             
 
-                                <fieldset><legend>Foreign Cheque</legend> 
+                                <fieldset><legend><h4>Foreign Cheque</h4></legend> 
 
                                     <h:panelGrid columns="3" columnClasses="label, value, error">                                   
 
@@ -101,14 +116,14 @@
 
                                     <h:panelGrid columns="3" id="isUsingCheqGrid" columnClasses="label, value">
                                         <p:outputLabel rendered="#{foreignBean.isUsingCheq eq '1'}" for="cheqCur" value="Currency: "/>
-                                        
+
                                         <p:selectOneMenu id="cheqCur" value="#{foreignBean.cheqCur}" rendered="#{foreignBean.isUsingCheq eq '1'}" filter="true" filterMatchMode="contains">
                                             <f:selectItem  itemLabel="Select a Currency" itemValue=""/>
                                             <f:selectItems value="#{dataLookUpBean.currencyStrings}" />
                                         </p:selectOneMenu>
-                                        
+
                                         <p:message for="cheqCur" rendered="#{foreignBean.isUsingCheq eq '1'}"/> 
-                                        
+
                                         <p:outputLabel rendered="#{foreignBean.isUsingCheq eq '1'}" for="travelC" value="Cheque Amount: "/>
                                         <p:inputText rendered="#{foreignBean.isUsingCheq eq '1'}" id="travelC" value="#{foreignBean.travellerCheque}">
                                             <f:validateLength minimum="1" maximum="15"/>
@@ -119,7 +134,7 @@
                                 </fieldset>
 
                                 <!--                                foreign Cash                                  -->
-                                <fieldset><legend>Foreign Cash</legend> 
+                                <fieldset><legend><h4>Foreign Cash</h4></legend> 
                                     <h:panelGrid columns="3" columnClasses="label, value, error">
                                         <h:outputText value="Using Foreign Cash"/>
                                         <p:selectOneRadio id="isUsingFC" value="#{foreignBean.isUsingFC}" required="true" >
@@ -150,7 +165,7 @@
                                 </fieldset>
 
                                 <!--                              CC                                                    -->
-                                <fieldset><legend>Credit Card</legend> 
+                                <fieldset><legend><h4>Credit Card</h4></legend> 
                                     <h:panelGrid columns="3" columnClasses="label, value, error">
                                         <h:outputText value="Using Credit Card"/>
                                         <p:selectOneRadio id="isUsingCC" value="#{foreignBean.isUsingCC}" required="true" >
@@ -209,7 +224,7 @@
                                     <h:outputText value="Delivery - Date and Time: " />                              
                                     <p:calendar id="dateRe" value="#{foreignBean.dateRequired}" required="true" pattern="dd/MM/yyyy HH:mm" requiredMessage="required field" >
                                     </p:calendar>
-                                    
+
                                     <p:message for="dateRe" id="msgDT"/>
 
                                     <h:outputText value="Date and Time: (Will be confirmed by Forex Consultant) " />  
