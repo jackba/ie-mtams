@@ -1,0 +1,72 @@
+
+
+/* Aarons */
+
+/* F I N A L C O S T I N G */
+
+/*
+.noborders tr {
+    border: navy;
+}
+
+*/
+
+
+
+.ui-panelgrid td {
+    border: none;
+    float: left;
+}
+
+
+.ui-widget-content tr {
+
+    border: none;
+}
+/*
+*/
+
+td.columnMessage  {
+    width: 20%;
+    border: none;
+}
+
+td.columnLabel  {
+    width: 250px;
+    border: none;
+    text-align: right;
+}
+
+
+/*
+Over ride need to match department dropdown width
+
+.inputWidthDepartment {
+    width: 257px;
+}
+
+input {
+    width: 163px;
+}
+*/
+
+.inputWidthDepartment input {
+    width: 257px;
+}
+
+.inputWidth {
+    width: 163px;
+}
+/*
+*/
+
+.columnHeading {
+  
+    font-weight: bolder;
+    width: 175px;
+    text-align: center;
+}
+
+.butCalc {
+    width: 171px;
+}
