@@ -926,7 +926,7 @@ public class UserBean implements Serializable {
             //return "./applicationApproval.xhtml";
 
             ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-            context.redirect(context.getRequestContextPath() + "/faces/applicationView.xhtml");
+            context.redirect(context.getRequestContextPath() + "/faces/applicationHome.xhtml");
             //FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success",(selectedApp.getIdapplication() + "Selected")));
         } catch (IOException ex) {
             Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);

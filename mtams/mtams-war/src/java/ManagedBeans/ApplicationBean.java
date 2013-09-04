@@ -69,9 +69,9 @@ public class ApplicationBean implements Serializable {
     private Date tempDate;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String tempDest;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    
     private String tempLeaveType;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    
     private String tempTravelDay;
     
     private String costCentre;
@@ -141,6 +141,8 @@ public class ApplicationBean implements Serializable {
     private Travel travelRef;
     private Itinerary itinRef;
     private Quotes quoteRef;
+    
+    private Date currentDate = new Date();
     
     private String reasonForTravel;
     private Application newApplication;
@@ -278,7 +280,7 @@ public class ApplicationBean implements Serializable {
 
         appHandler.persistApplication(newApplication, newQuote, accQuotes, carQuotes, flightQuotes, tempItin, newTravel, profileRef);
         FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Application Created"));
-        return "userHome";
+        return "applicationHome";
     }
 
     public String onFlowProcess(FlowEvent event) {
@@ -317,6 +319,10 @@ public class ApplicationBean implements Serializable {
     public String viewThis(){
         //loadValues();
         return "/applicationView.xhtml";
+    }
+    
+    public String goApplicationHome(){
+        return "/applicationHome.xhtml";
     }
     
     public String goEdit(){
@@ -731,6 +737,8 @@ public class ApplicationBean implements Serializable {
     public Application getAppRef() {
         //appRef = appHandler.getApplication(5);
         //description = appRef.getDescription();
+        int appnum = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
+        appRef = appHandler.getApplication(appnum);
         return appRef;
     }
 
@@ -764,6 +772,22 @@ public class ApplicationBean implements Serializable {
     public void setQuoteRef(Quotes quoteRef) {
         this.quoteRef = quoteRef;
     }
+
+    public Date getCurrentDate() {
+        return currentDate;
+    }
+
+    public void setCurrentDate(Date currentDate) {
+        this.currentDate = currentDate;
+    }
     
     
+    
+    public String goCreateForex(){
+        return "forexCreate";
+    }
+    
+    public String goViewForex(){
+        return "forexView";
+    }
 }
