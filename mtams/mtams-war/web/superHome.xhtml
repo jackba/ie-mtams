@@ -11,69 +11,26 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-                <div id="header">
-                    <div id="logo">
-                        <h:form>
-                            <h:commandLink action="superHome.xhtml">
-                                <h:graphicImage value="resources/img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
-                            </h:commandLink>
-                        </h:form>
-                    </div>
+                <p:messages id="superHomeTop" closable="true" showDetail="true" autoUpdate="true"/>
+                <p:dataTable id="dataTable" var="account" value="#{adminBean.allAccounts}" binding="#{adminBean.dataTable}">  
 
-                    <ul>
-                        <li>Help</li>
-                        <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout</p:commandLink></li>
-                    </ul>
-                </div>
-        <div id = "content">
+                    <f:facet name="header">  
+                        List of Accounts  
+                    </f:facet>  
 
-            <p:messages id="superHomeTop" closable="true" showDetail="true" autoUpdate="true"/>
-            <p:menubar>
-                <p:menuitem value="Home" icon="ui-icon-home" outcome="#{superAdminBean.goToHome()}"/>
-                <p:submenu label="Actions" icon="ui-icon-document">  
-                    <p:menuitem value="Create Admin" outcome="#{superAdminBean.goToCreateAdmin()}" />
-                    <p:menuitem value="Edit Admin" outcome="#{superAdminBean.goToEditAdmin()}" /> 
-                    <p:menuitem value="Create Role" outcome="#{superAdminBean.goToCreateRole()}" />
-                    <p:menuitem value="Deactivate Account" outcome="#{superAdminBean.goToDeactivateAccount()}" />
-                    <p:menuitem value="Department Handler" outcome="#{superAdminBean.goToDepartmentHandler()}" />                    
-                </p:submenu>
-            </p:menubar>
+                    <p:column headerText="StaffID">  
+                        <h:outputText value="#{account.idaccount}" />
+                    </p:column> 
 
-            <p:dataTable id="dataTable" var="account" value="#{adminBean.allAccounts}" binding="#{adminBean.dataTable}">  
+                    <p:column headerText="UserName">  
+                        <h:outputText value="#{account.username}" />  
+                    </p:column>  
 
-                <f:facet name="header">  
-                    List of Accounts  
-                </f:facet>  
+                    <p:column headerText="Last Login Date">  
+                        <h:outputText value="#{account.datelogin}" />  
+                    </p:column>  
 
-                <p:column headerText="StaffID">  
-                    <h:outputText value="#{account.idaccount}" />
-                </p:column> 
-
-                <p:column headerText="UserName">  
-                    <h:outputText value="#{account.username}" />  
-                </p:column>  
-
-                <p:column headerText="Last Login Date">  
-                    <h:outputText value="#{account.datelogin}" />  
-                </p:column>  
-
-            </p:dataTable>  
-        </div>
-
-        <div id= "footer">
-            <div class="row group">
-                <div class="col">
-                    <h3>Quick links</h3>
-                    <ul>
-                        <li><a href="">Site Map</a></li>
-                        <li><a href="">FAQ</a></li>
-                        <li><a href="">Contact us</a></li>
-                    </ul>
-                </div>
-                <h3>Legal</h3>
-                <p class="legal">Created by School of IT, Monash South Africa</p>		
-            </div>
-        </div>
+                </p:dataTable>  
             </ui:define>
 
         </ui:composition>

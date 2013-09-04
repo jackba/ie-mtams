@@ -11,28 +11,6 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-                <div id="header">
-                    <div id="logo">
-                        <h:form>
-                            <h:commandLink action="authorizerHome.xhtml">
-                                <h:graphicImage value="resources/img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
-                            </h:commandLink>
-                        </h:form>
-                    </div>
-
-                    <ul><h:form>
-                        <li>Help</li>
-                        <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout (Authorizer)</p:commandLink></li>
-                        </h:form>
-                    </ul>
-                </div>
-                <div class="nav"><h:form>
-                        <p:menubar>
-                            <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goAuthHome()}"/>
-                            <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
-
-                        </p:menubar></h:form>
-                </div>
                 <h:form>
                     <p:messages autoUpdate="true" showDetail="true" id="approvalTop" closable="true" />
                     <p:panel id="viewApplicationPanel" header="Application pending approval">
@@ -61,7 +39,10 @@
                             </h:panelGrid>
                         </fieldset>
 
-                        <br /><fieldset><legend><h4>Travel Details</h4></legend>
+                        <br />
+
+                        <fieldset>
+                            <legend><h4>Travel Details</h4></legend>
                             <h:panelGrid columns="2" >
                                 <h:outputText value="Application Name:" />
                                 <h:outputText id="desc" value="#{approvalBean.appRef.description}" />
@@ -85,7 +66,10 @@
 
                             </h:panelGrid>
                         </fieldset>
-                        <br /><fieldset><legend><h4>Itinerary</h4></legend>
+                        <br />
+
+                        <fieldset>
+                            <legend><h4>Itinerary</h4></legend>
                             <h:panelGrid columns="2" >
                                 <h:outputText value="Date:" />
                                 <h:outputText value="#{approvalBean.itinRef.date}">
@@ -103,17 +87,20 @@
 
                             </h:panelGrid>
                         </fieldset>
-                        <br /><fieldset><legend><h4>Quotes</h4></legend>
+                        <br />
+                        <fieldset>
+                            <legend><h4>Quotes</h4></legend>
                             <h:panelGrid columns="2">
                                 <h:outputText value="Cost Centre:" />
                                 <h:outputText id="costCentre" value="#{approvalBean.quoteRef.costcenter}"/>
 
                             </h:panelGrid>
                         </fieldset>
-                        
+
                         <br />
                         <h3>Please select the approved quote</h3>
-                        <fieldset><legend><h4>Flight Quotes</h4></legend>
+                        <fieldset>
+                            <legend><h4>Flight Quotes</h4></legend>
                             <p:dataTable var="fQ" value="#{approvalBean.flights}" selectionMode="single" selection="#{approvalBean.selectedFlgQte}" rowKey="#{fQ.idflightquotes}" >
                                 <p:ajax event="rowSelect" update="#{approvalBean.selectedFlgQte}" />
                                 <p:column headerText="From">
@@ -134,12 +121,15 @@
                                 <p:column headerText="Cost Quoted">
                                     <h:outputText value="#{fQ.quotecost}" />
                                 </p:column>
-                                
+
                             </p:dataTable>
                         </fieldset>
-                        <br /><fieldset><legend><h4>Car Quotes</h4></legend>
+                        <br />
+
+                        <fieldset>
+                            <legend><h4>Car Quotes</h4></legend>
                             <p:dataTable var="cQ" value="#{approvalBean.cars}" selectionMode="single" selection="#{approvalBean.selectedCarQte}" rowKey="#{cQ.idcarquotes}">
-                                
+
                                 <p:column headerText="Collect date">
                                     <h:outputText value="#{cQ.datecollect}" >
                                         <f:convertDateTime type="date" dateStyle="long" />
@@ -166,13 +156,16 @@
                                 <p:column headerText="Cost Quoted">
                                     <h:outputText value="#{cQ.quotecost}" />
                                 </p:column>
-                                
+
                             </p:dataTable>
                         </fieldset>
-                        <br /><fieldset><legend><h4>Accommodation Quotes</h4></legend>
+                        <br />
+
+                        <fieldset>
+                            <legend><h4>Accommodation Quotes</h4></legend>
                             <p:dataTable var="hQ" value="#{approvalBean.hotels}" selectionMode="single" selection="#{approvalBean.selectedAccQte}" rowKey="#{hQ.idaccomodationquotes}">
-                                
-                                
+
+
                                 <p:column headerText="Location">
                                     <h:outputText value="#{hQ.city}" />
                                 </p:column>
@@ -192,11 +185,13 @@
                                 <p:column headerText="Cost Quoted">
                                     <h:outputText value="#{hQ.quotecost}" />
                                 </p:column>
-                                
+
                             </p:dataTable>
                         </fieldset>
                         <br />
-                        <fieldset><legend><h4>Approval</h4></legend>
+
+                        <fieldset>
+                            <legend><h4>Approval</h4></legend>
                             <h:panelGrid columns="3" columnClasses="label, value, error" styleClass="grid">
 
                                 <h:outputText value="Approved:"/>

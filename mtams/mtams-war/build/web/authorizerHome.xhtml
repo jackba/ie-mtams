@@ -11,33 +11,10 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-                <div id="header">
-                    <div id="logo">
-                        <h:form>
-                            <h:commandLink action="authorizerHome.xhtml">
-                                <h:graphicImage value="resources/img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
-                            </h:commandLink>
-                        </h:form>
-                    </div>
-
-                    <ul>
-                        <li>Help</li>
-                        <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout (Authorizer)</p:commandLink></li>
-                    </ul>
-                </div>
-                <div class="nav"><h:form>
-                        <p:menubar>
-                            <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goAuthHome()}"/>
-                            <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
-
-                        </p:menubar></h:form>
-                </div>
                 <h:form id="authorizerHomeForm">
                     <p:messages autoUpdate="true" id="userTop" closable="true" showDetail="true" />
 
                     <p:panel id="appPanel" header="Current Applications">
-
-
 
                         <p:dataTable id="applications" var="app" binding="#{userBean.dataTable}" value="#{userBean.allApps}" rowKey="#{app.idapplication}" selectionMode="single" selection="#{userBean.selectedApp}" emptyMessage="No Applications have been Submitted for Approval">  
                             <p:ajax event="rowSelect" listener="#{userBean.display()}" 

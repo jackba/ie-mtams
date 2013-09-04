@@ -7,12 +7,15 @@ package ManagedBeans;
 import Entities.Account;
 import ServiceLayer.LoginHandlerLocal;
 import java.io.Serializable;
+import java.lang.annotation.Target;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.persistence.PostLoad;
+import javax.persistence.PostUpdate;
 import javax.servlet.http.HttpSession;
 
 ;
@@ -57,7 +60,7 @@ public class SessionBean implements Serializable {
 
     public boolean checkActive() {
         session();
-        
+
         //session.setAttribute("user", loggedUser);
 
         return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID") != null;
@@ -66,19 +69,19 @@ public class SessionBean implements Serializable {
     public boolean checkFirstTime() {
         session();
         return (Boolean) session.getAttribute("isFirst");
-                //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("isFirst");
+        //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("isFirst");
     }
 
     public boolean checkNotFirstTime() {
         session();
         return !(Boolean) session.getAttribute("isFirst");
-                //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("isFirst")).booleanValue();
+        //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("isFirst")).booleanValue();
     }
 
     public String greeting() {
         session();
         String userN = (String) session.getAttribute("username");
-                //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("username");
+        //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("username");
         //String
         if ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false) != null) {
             return "Hello " + userN;
@@ -86,8 +89,58 @@ public class SessionBean implements Serializable {
             return "You are not logged in or have performed a wrong navigation. Please click on the link to take you to the login page";
         }
     }
+
+    public String getRole() {
+        int userRoleNumber = (Integer) session.getAttribute("userRole");
+        String userRoleName;
+        switch (userRoleNumber) {
+            case 11:
+                userRoleName = "Applicant";
+                break;
+            case 12:
+                userRoleName = "Authorizer";
+                break;
+            case 21:
+                userRoleName = "Admin";
+                break;
+            case 22:
+                userRoleName = "Super Admin";
+                break;
+            default:
+                userRoleName = "Role Name";
+                break;
+        }
+        return userRoleName;
+    }
     
-    public void session(){
+    public String homePage() {
+        int userRoleNumber = (Integer) session.getAttribute("userRole");
+        String userRolePage;
+        switch (userRoleNumber) {
+            case 11:
+                userRolePage = "userHome";
+                break;
+            case 12:
+                userRolePage = "userHome";
+                break;
+            case 21:
+                userRolePage = "accountAll";
+                break;
+            case 22:
+                userRolePage = "superHome";
+                break;
+            default:
+                userRolePage = "test";
+                break;
+        }
+        return userRolePage;
+    }
+
+    public String getName() {
+        return (String) session.getAttribute("username");
+    }
+
+    public void session() {
         FacesContext context = FacesContext.getCurrentInstance();
         session = (HttpSession) context.getExternalContext().getSession(false);
     }
@@ -101,10 +154,10 @@ public class SessionBean implements Serializable {
         //FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         FacesContext context = FacesContext.getCurrentInstance();
         session = (HttpSession) context.getExternalContext().getSession(true);
-        
+
         session.setAttribute("userID", user.getIdaccount());
         session.setAttribute("userRole", roleNum);
-        session.setAttribute("username",user.getUsername());
+        session.setAttribute("username", user.getUsername());
 //        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", user.getIdaccount());
 //        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userRole", roleNum);
 //        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", user.getUsername());
@@ -126,14 +179,14 @@ public class SessionBean implements Serializable {
                     session.setAttribute("isFirst", true);
                     //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", true);
                     //addDate();
-                    return "./travelProfileCreate.xhtml";
+                    return "./travelProfileCreate.xhtml?faces-redirect=true";
                 } else {
                     //addDate();
                     setSessionVariables();
                     //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
                     session.setAttribute("isFirst", false);
                     addDate();
-                    return "./userHome.xhtml";//"viewApplication";//
+                    return "./userHome.xhtml?faces-redirect=true";//"viewApplication";//
                 }
                 //logError = false;
 
@@ -143,13 +196,13 @@ public class SessionBean implements Serializable {
                     setSessionVariables();
                     session.setAttribute("isFirst", true);
                     //addDate();
-                    return "./travelProfileCreate.xhtml";
+                    return "./travelProfileCreate.xhtml?faces-redirect=true";
                 } else {
                     //addDate();
                     setSessionVariables();
                     session.setAttribute("isFirst", false);
                     addDate();
-                    return "./authorizerHome.xhtml";//"viewApplication";//
+                    return "./userHome.xhtml?faces-redirect=true";//"viewApplication";//
                 }
 
             } else if (roleNum == 21) {
@@ -158,7 +211,7 @@ public class SessionBean implements Serializable {
                 // session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 setSessionVariables();
                 //logError = false;
-                return "accountAll";
+                return "accountAll?faces-redirect=true";
 
             } else if (roleNum == 22) {
 
@@ -166,7 +219,7 @@ public class SessionBean implements Serializable {
                 // session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 setSessionVariables();
                 //logError = false;
-                return "superHome";
+                return "superHome?faces-redirect=true";
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Account has been deactivated. Please contact admin."));
                 return "login";
@@ -192,9 +245,7 @@ public class SessionBean implements Serializable {
             FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         } catch (NullPointerException e) {
         } finally {
-            return "login";
+            return "login?faces-redirect=true";
         }
-
-
     }
 }

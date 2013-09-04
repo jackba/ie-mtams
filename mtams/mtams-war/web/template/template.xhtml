@@ -24,20 +24,34 @@
                  */
             });
         </script>
-        <!--
-        Need to check with marco, the style sheet ordering was not allowing our custom style sheet to load
-        last. This was recommend as a fix by optimus prime.
-        http://forum.primefaces.org/viewtopic.php?f=3&t=12807&start=50#p45833
-        http://blog.primefaces.org/?p=1433
-        we can comment out the following line to go back to the old way.
-        -->
-        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/faces/resources/css/override.css" />
-        
         <title>MSA Travel Application Management System</title>
     </h:head>
 
     <h:body>
         <div id="wrap">
+            <div id="header">
+                <div id="logo">
+                    <h:form>
+                        <h:commandLink action="#{sessionBean.homePage()}">
+                            <h:graphicImage value="resources/img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
+                        </h:commandLink>
+                    </h:form>
+                </div>
+
+                <h:form>
+                    <ul>
+                        <li><p:outputLabel value="#{sessionBean.getRole()}" rendered="#{sessionBean.checkActive()}"/></li>
+                        <li><h:link value="">Help</h:link></li>
+                        <li><p:commandLink value="Logout (#{sessionBean.getName()})" action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}"/></li>
+                    </ul>
+                </h:form>
+            </div>
+
+            <div id="nav">
+                <h:form>
+                    <p:menubar autoDisplay="false" model="#{menuBean.model}" rendered="#{sessionBean.checkActive()}"/>  
+                </h:form>
+            </div>
 
             <div id="content">
                 <ui:insert name="content"/>
