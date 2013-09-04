@@ -32,9 +32,15 @@ td.columnMessage  {
 }
 
 td.columnLabel  {
+    /*
+    padding-top: 5px;
+    
+    margin-top: 20px;
+    */
+    margin-top: 5px;
     width: 250px;
     border: none;
-    text-align: right;
+    text-align: left;
 }
 
 

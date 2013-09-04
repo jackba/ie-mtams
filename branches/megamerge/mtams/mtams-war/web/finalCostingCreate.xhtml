@@ -35,7 +35,7 @@
                 <h:form>
                     <p:growl id="growl" sticky="true" showDetail="true"/>
                     <p:messages id="submitConfirm" showDetail="true" closable="true" autoUpdate="true" severity="info"/>
-                    <p:panel id="applicationPanel" >
+                    <p:panel id="FinalCostingPanel" >
                         <p:wizard widgetVar="wiz" flowListener="#{finalCBean.onFlowProcess}">
 
 
@@ -528,7 +528,7 @@
                                                 </p:column>
 
                                                 <p:column>
-                                                    <p:inputText id="TotalBudget" value="#{finalCBean.approvedbudget}" required="true" requiredMessage="Total budgeted Cost is a required Field" styleClass="inputWidth">
+                                                    <p:inputText id="TotalBudget" value="#{finalCBean.approvedbudget}" disabled="true" required="true" requiredMessage="Total budgeted Cost is a required Field" styleClass="inputWidth">
                                                         <p:ajax update="TotalBudget" event="blur" />
 
 
@@ -538,7 +538,7 @@
 
                                                 <p:column>
 
-                                                    <p:inputText id="TotalCost" value="#{finalCBean.approvedcost}" required="true" requiredMessage="Total actual Cost is a required Field" styleClass="inputWidth ">
+                                                    <p:inputText id="TotalCost" value="#{finalCBean.approvedcost}" disabled="true" required="true" requiredMessage="Total actual Cost is a required Field" styleClass="inputWidth ">
                                                         <p:ajax update="TotalCost" event="blur" />
 
                                                     </p:inputText>
@@ -549,6 +549,7 @@
                                                     <p:message for="TotalCost"/>
                                                 </p:column>
                                             </p:row>
+
                                             <p:row>
                                                 <p:column styleClass="columnLabel">
                                                     <h:outputText value="Calculate total: " />
@@ -579,105 +580,142 @@
 
 
 
+
+                            <ui:remove>
+                                <!--
+                        <p:panel header="Authorisation Cost From Australia">
+
+                            <p:panelGrid id="authoriseFromOz"  columns="3" columnClasses="label, value, error">
+                                <h:outputText value="Recovered cost from Australia: " />
+                                <p:selectOneRadio id="CostFromOz" value="#{finalCBean.fromoz}" required="true" requiredMessage="Recovered cost from Australia" >
+                                    <f:selectItem itemValue="1" itemLabel="Yes" />
+                                    <f:selectItem itemValue="0" itemLabel="No" />
+                                    <p:ajax event="change" update="CostFrom0zGrid"/>
+           
+                                </p:selectOneRadio>
+                                <p:message for="CostFromOz"/>
+
+
+                            </p:panelGrid>
+
+
+
+
+                            <p:panelGrid id="CostFrom0zGrid"   columns="3" columnClasses="label, value, error">
+
+
+                            <h:outputText value="Contact Name: " rendered="#{finalCBean.fromoz eq '1'}"/>
+
+                            <p:inputText id="ozname" value="#{finalCBean.ozname}" rendered="#{finalCBean.fromoz eq '1'}" required="false" requiredMessage="Contact Name: is a required Field" styleClass="inputWidthDepartment">
+                                <p:ajax update="ozname" event="blur" />
+                            </p:inputText>
+                            <p:message for="ozname" rendered="#{finalCBean.fromoz eq '1'}"/>
+
+
+                            <h:outputText value="Contact Telephone: " rendered="#{finalCBean.fromoz eq '1'}"/>
+
+                            <p:inputText id="oztel" value="#{finalCBean.oztel}" rendered="#{finalCBean.fromoz eq '1'}" required="false" requiredMessage="Contact Telephone should be a phone number" styleClass="inputWidthDepartment">
+                                <p:ajax update="oztel" event="blur" />
+                            </p:inputText>
+                            <p:message for="oztel" rendered="#{finalCBean.fromoz eq '1'}"/>
+
+                            <h:outputText value="Contact email: " rendered="#{finalCBean.fromoz eq '1'}"/>
+
+                            <p:inputText id="ozemail" value="#{finalCBean.ozemail}" rendered="#{finalCBean.fromoz eq '1'}" required="false" requiredMessage="Contact email should be an email address" styleClass="inputWidthDepartment">
+                                <p:ajax update="ozemail" event="blur" />
+                            </p:inputText>
+                            <p:message for="ozemail" rendered="#{finalCBean.fromoz eq '1'}"/>
+
+
+
+                            </p:panelGrid>
+                            <p:panelGrid id="authoriseFromOz"  columns="3" columnClasses="label, value, error">
+                            </p:panelGrid>
+                                -->
+                            </ui:remove>
                             <p:tab id="authofromOz" title="Recovered from Australia">
+
                                 <p:panel header="Authorisation Cost From Australia">
 
-                                    <p:panelGrid id="authoriseFromOz" >
-
-                                        <p:row>
+                                    <p:panelGrid id="authoriseFromOz"  >
+                                        <p:row> 
 
                                             <p:column styleClass="columnLabel">
                                                 <h:outputText value="Recovered cost from Australia: " />
                                             </p:column>
-
-                                            <p:column colspan="1">
-                                                <p:selectOneRadio id="CostFromOz" required="true" requiredMessage="Recovered cost from Australia" value="#{finalCBean.fromoz}">
+                                            <p:column>
+                                                <p:selectOneRadio id="CostFromOz" value="#{finalCBean.fromoz}" required="true" requiredMessage="Recovered cost from Australia" >
                                                     <f:selectItem itemValue="1" itemLabel="Yes" />
                                                     <f:selectItem itemValue="0" itemLabel="No" />
-                                                    <p:ajax event="change" update="CostFrom0z"/>
-                                                    <p:ajax update="CostFrom0z"/>
-                                                </p:selectOneRadio>
+                                                    <p:ajax event="change" update="CostFrom0zGrid"/>
 
+                                                </p:selectOneRadio>
                                             </p:column>
 
                                             <p:column>
                                                 <p:message for="CostFromOz"/>
                                             </p:column>
 
-
                                         </p:row>
                                     </p:panelGrid>
 
-                                    <ui:remove>
 
-                                        <!--
-                                        <p:panelGrid id="CostFrom0z" rendered="#{finalCBean.fromoz eq '1'}" >
-                                        -->
 
-                                    </ui:remove>
-
-                                    <p:panelGrid id="CostFrom0z"  >
+                                    <p:panelGrid id="CostFrom0zGrid"  >
                                         <p:row>
 
                                             <p:column styleClass="columnLabel">
-                                                <h:outputText value="Contact Name: " />
+                                                <h:outputText value="Contact Name: " rendered="#{finalCBean.fromoz eq '1'}"/>
                                             </p:column>
-                                            <p:column>
 
-                                                <p:inputText id="ozname" value="#{finalCBean.ozname}" required="false" requiredMessage="Contact Name: is a required Field" styleClass="inputWidthDepartment">
+                                            <p:column>
+                                                <p:inputText id="ozname" value="#{finalCBean.ozname}"  rendered="#{finalCBean.fromoz eq '1'}" required="false" requiredMessage="Contact Name: is a required Field" styleClass="inputWidthDepartment">
                                                     <p:ajax update="ozname" event="blur" />
                                                 </p:inputText>
                                             </p:column>
+
                                             <p:column>
-                                                <p:message for="ozname"/>
+                                                <p:message for="ozname" rendered="#{finalCBean.fromoz eq '1'}"/>
                                             </p:column>
 
                                         </p:row>
                                         <p:row>
 
                                             <p:column styleClass="columnLabel">
-                                                <h:outputText value="Contact Telephone: " />
+                                                <h:outputText value="Contact Telephone: " rendered="#{finalCBean.fromoz eq '1'}" />
                                             </p:column>
                                             <p:column>
 
-                                                <p:inputText id="oztel" value="#{finalCBean.oztel}" required="false" requiredMessage="Contact Telephone should be a phone number" styleClass="inputWidthDepartment">
+                                                <p:inputText id="oztel" value="#{finalCBean.oztel}" rendered="#{finalCBean.fromoz eq '1'}" required="false" requiredMessage="Contact Telephone should be a phone number" styleClass="inputWidthDepartment">
                                                     <p:ajax update="oztel" event="blur" />
                                                 </p:inputText>
                                             </p:column>
                                             <p:column>
-                                                <p:message for="oztel"/>
+                                                <p:message for="oztel" rendered="#{finalCBean.fromoz eq '1'}" />
                                             </p:column>
 
                                         </p:row>
                                         <p:row>
 
                                             <p:column styleClass="columnLabel">
-                                                <h:outputText value="Contact email: " />
+                                                <h:outputText value="Contact email: " rendered="#{finalCBean.fromoz eq '1'}"/>
                                             </p:column>
                                             <p:column>
 
-                                                <p:inputText id="ozemail" value="#{finalCBean.ozemail}" required="false" requiredMessage="Contact email should be an email address" styleClass="inputWidthDepartment">
+                                                <p:inputText id="ozemail" value="#{finalCBean.ozemail}" rendered="#{finalCBean.fromoz eq '1'}" required="false" requiredMessage="Contact email should be an email address" styleClass="inputWidthDepartment">
                                                     <p:ajax update="ozemail" event="blur" />
                                                 </p:inputText>
                                             </p:column>
                                             <p:column>
-                                                <p:message for="ozemail"/>
+                                                <p:message for="ozemail" rendered="#{finalCBean.fromoz eq '1'}"/>
                                             </p:column>
 
                                         </p:row>
-                                        <ui:remove>
 
-                                            <!--
-                                            -->
-                                        </ui:remove>
+
                                     </p:panelGrid>
 
-
-
                                 </p:panel>
-
-
-
                             </p:tab>
 
 
