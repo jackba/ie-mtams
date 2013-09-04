@@ -125,7 +125,7 @@ public class SessionBean implements Serializable {
                     setSessionVariables();
                     session.setAttribute("isFirst", true);
                     //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", true);
-                    addDate();
+                    //addDate();
                     return "./travelProfileCreate.xhtml";
                 } else {
                     //addDate();
@@ -142,7 +142,7 @@ public class SessionBean implements Serializable {
                 if (user.getDatelogin() == null) {
                     setSessionVariables();
                     session.setAttribute("isFirst", true);
-                    addDate();
+                    //addDate();
                     return "./travelProfileCreate.xhtml";
                 } else {
                     //addDate();
