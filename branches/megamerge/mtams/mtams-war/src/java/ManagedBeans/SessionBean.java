@@ -213,16 +213,20 @@ public class SessionBean implements Serializable {
             } else if (roleNum == 21) {
 
                 addDate();
+                
                 // session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 setSessionVariables();
+                session.setAttribute("isFirst", false);
                 //logError = false;
                 return "accountAll?faces-redirect=true";
 
             } else if (roleNum == 22) {
 
                 addDate();
+                
                 // session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 setSessionVariables();
+                session.setAttribute("isFirst", false);
                 //logError = false;
                 return "superHome?faces-redirect=true";
             } else {

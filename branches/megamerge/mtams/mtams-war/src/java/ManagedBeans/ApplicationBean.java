@@ -278,7 +278,8 @@ public class ApplicationBean implements Serializable {
         tempItin.setLeavetype(getTempLeaveType());
         tempItin.setTravelday(getTempTravelDay());
 
-        appHandler.persistApplication(newApplication, newQuote, accQuotes, carQuotes, flightQuotes, tempItin, newTravel, profileRef);
+        appRef = appHandler.persistApplication(newApplication, newQuote, accQuotes, carQuotes, flightQuotes, tempItin, newTravel, profileRef);
+
         FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Application Created"));
         return "applicationHome";
     }
@@ -740,8 +741,6 @@ public class ApplicationBean implements Serializable {
         Integer appnum = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
         if(appnum != null){
         appRef = appHandler.getApplication(appnum);
-        }else{
-            appRef = newApplication;
         }
         return appRef;
     }

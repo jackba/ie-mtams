@@ -39,12 +39,9 @@
                             <p:message id="passMessage2" for="adminPasswordConf"/>
 
                             <h:outputText value="Assigned Department:" />
-                            <p:selectOneMenu value="#{superAdminBean.department}" id="dept">  
-                                <f:selectItem itemLabel="Financial" itemValue="Financial" />  
-                                <f:selectItem itemLabel="Information Technology" itemValue="Information Technology" />  
-                                <f:selectItem itemLabel="Health Sciences" itemValue="Health Sciences" />  
-                                <f:selectItem itemLabel="Business" itemValue="Business" />
-                                <f:selectItem itemLabel="Arts" itemValue="Arts" />
+                            <p:selectOneMenu value="#{superAdminBean.department}" id="dept">
+                                <f:selectItem  itemLabel="Select a Department" itemValue=""/>
+                                <f:selectItems value="#{dataLookUpBean.departmentStrings}" />
                             </p:selectOneMenu>
                             <p:message for="dept"/>
                         </h:panelGrid>

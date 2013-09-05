@@ -44,12 +44,13 @@ import org.primefaces.event.FlowEvent;
 public class UserBean implements Serializable {
     //======change===change=========change============change=========change====
 
-    private Integer accountID = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
+    private Integer accountID = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
     //======change========change=========change=============change=============
     private static final Logger logger = Logger.getLogger(ManagedBeans.UserBean.class.getName());
     @EJB
     private ApplicationHandlerLocal appHandler;
     private List<Application> allApps;
+    private List<Application> approvalApps;
     @EJB
     private ApprovalHandlerLocal apprHandler;
     @EJB
@@ -158,13 +159,18 @@ public class UserBean implements Serializable {
     public UserBean() {
     }
 
+    public List<Application> getApprovalApps() {
+        approvalApps = appHandler.getAllAppList(accountID);
+        return approvalApps;
+    }
+
+    public void setApprovalApps(List<Application> approvalApps) {
+        this.approvalApps = approvalApps;
+    }
+
     public List<Application> getAllApps() {
-        
-        if ((Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userRole") == 11) {
-            allApps = appHandler.getAppList(accountID);
-        } else {
-            allApps = appHandler.getAllAppList(accountID);
-        }
+        allApps = appHandler.getAppList(accountID);
+
         return allApps;
     }
 
@@ -286,7 +292,7 @@ public class UserBean implements Serializable {
          handler.persistReward(reward3);
          }*/
         Account user = accHandler.getAccount(accountID);
-        ((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).setAttribute("isFirst", false);
+        ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).setAttribute("isFirst", false);
         //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
         user.setDatelogin(new Date());
         logHandler.modifyAccount(user);
@@ -921,7 +927,7 @@ public class UserBean implements Serializable {
 
     public void view() {
         try {
-            ((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).setAttribute("appID", selectedApp.getIdapplication());
+            ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).setAttribute("appID", selectedApp.getIdapplication());
             //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("appID", selectedApp.getIdapplication());
             //return "./applicationApproval.xhtml";
 
@@ -932,14 +938,14 @@ public class UserBean implements Serializable {
             Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public String viewHome(){
+
+    public String viewHome() {
         return "/applicationHome.xhtml";
     }
 
     public void display() {
         try {
-            ((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).setAttribute("appID", selectedApp.getIdapplication());
+            ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).setAttribute("appID", selectedApp.getIdapplication());
             //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("appID", selectedApp.getIdapplication());
             //return "./applicationApproval.xhtml";
 

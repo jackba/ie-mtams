@@ -72,6 +72,7 @@ public class AccountHandler implements AccountHandlerLocal {
         }
         List<Department> allDepartments = deptsDao.findAll();
         for (Department each : allDepartments) {
+            
             if (each.getDepartment().equalsIgnoreCase(department)) {
                 dept = each;
             }

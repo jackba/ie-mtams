@@ -38,7 +38,7 @@ public class SecurityFilter implements Filter {
         HttpSession session = req.getSession(true);
 
         String pageRequested = req.getRequestURI().toString();
-        if (session.getAttribute("userID") == null && !pageRequested.contains("login.xhtml")) {
+        if (session.getAttribute("userID") == null && !pageRequested.contains("login.xhtml") && !pageRequested.contains(".css") && !pageRequested.contains(".png")) {
             if(pageRequested.contains("faces"))
             resp.sendRedirect("login.xhtml");
             else

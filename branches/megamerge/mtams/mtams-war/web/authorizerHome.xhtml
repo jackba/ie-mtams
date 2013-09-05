@@ -16,7 +16,7 @@
 
                     <p:panel id="appPanel" header="Current Applications">
 
-                        <p:dataTable id="applications" var="app" binding="#{userBean.dataTable}" value="#{userBean.allApps}" rowKey="#{app.idapplication}" selectionMode="single" selection="#{userBean.selectedApp}" emptyMessage="No Applications have been Submitted for Approval">  
+                        <p:dataTable id="applications" var="app" binding="#{userBean.dataTable}" value="#{userBean.approvalApps}" rowKey="#{app.idapplication}" selectionMode="single" selection="#{userBean.selectedApp}" emptyMessage="No Applications have been Submitted for Approval">  
                             <p:ajax event="rowSelect" listener="#{userBean.display()}" 
                                     update=":authorizerHomeForm" />
                             <p:column headerText="Description" style="width:35%">  
