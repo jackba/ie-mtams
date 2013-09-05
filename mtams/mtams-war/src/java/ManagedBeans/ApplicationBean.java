@@ -29,6 +29,7 @@ import javax.faces.application.FacesMessage;
 
 import javax.faces.component.*;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Pattern;
@@ -52,7 +53,8 @@ public class ApplicationBean implements Serializable {
     private List<Application> allApps;
     private Application selectedApp;
     
-    private Integer accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+    /////////////////////NEW SESSION RETRIEVAL CODE///////////////////////
+    private Integer accountID = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");//.getSessionMap().get("userID");
     private Travelerprofile profileRef;// = travelProfileHandler.findTravelProf(accountID);
     
     private Date modifiedDate;
@@ -67,9 +69,9 @@ public class ApplicationBean implements Serializable {
     private Date tempDate;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String tempDest;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String tempLeaveType;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String tempTravelDay;
     
     private String costCentre;
@@ -140,6 +142,8 @@ public class ApplicationBean implements Serializable {
     private Itinerary itinRef;
     private Quotes quoteRef;
     
+    private Date currentDate = new Date();
+    
     private String reasonForTravel;
     private Application newApplication;
 
@@ -151,7 +155,7 @@ public class ApplicationBean implements Serializable {
 
     //@PostConstruct
     public void initialize() {
-        accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+        //accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 //        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 
 //        Application tempApp = new Application();
@@ -163,7 +167,8 @@ public class ApplicationBean implements Serializable {
         
         profileRef = travelProfileHandler.findTravelProf(accountID);
         //loadValues();
-        int appnum = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("appID");
+        
+        int appnum = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
         appRef = appHandler.getApplication(appnum);//selectedApp;
         
         quoteRef = appRef.getQuotesIdquotes();
@@ -180,7 +185,7 @@ public class ApplicationBean implements Serializable {
         setReasonForTravel(travelRef.getDescription());
         
         setTempDate(itinRef.getDate());
-        setTempDest(itinRef.getDestination());
+        setTempDest(itinRef.getDestinationCity());
         setTempLeaveType(itinRef.getLeavetype());
         setTempTravelDay(itinRef.getTravelday());
         
@@ -210,7 +215,7 @@ public class ApplicationBean implements Serializable {
         newAcc = new Accomodationquotes();
 
         newAcc.setAccomodationprovider(hQHotel1);
-        newAcc.setQuotecost(hQCost1);
+        newAcc.setQuotecost(Double.parseDouble(hQCost1));
         newAcc.setCity(hQLocation);
         newAcc.setDatecheckin(hQDateIn);
         newAcc.setDatecheckout(hQDateOut);
@@ -220,7 +225,7 @@ public class ApplicationBean implements Serializable {
         newAcc = new Accomodationquotes();
 
         newAcc.setAccomodationprovider(hQHotel2);
-        newAcc.setQuotecost(hQCost2);
+        newAcc.setQuotecost(Double.parseDouble(hQCost2));
         newAcc.setCity(hQLocation);
         newAcc.setDatecheckin(hQDateIn);
         newAcc.setDatecheckout(hQDateOut);
@@ -233,7 +238,7 @@ public class ApplicationBean implements Serializable {
         newCar.setDatecollect(cQDateCollected);
         newCar.setDatereturn(cQDateReturned);
         newCar.setProvider(cQHire1);
-        newCar.setQuotecost(cQCost1);
+        newCar.setQuotecost(Double.parseDouble(cQCost1));
 
         carQuotes.add(newCar);
 
@@ -242,40 +247,41 @@ public class ApplicationBean implements Serializable {
         newCar.setDatecollect(cQDateCollected);
         newCar.setDatereturn(cQDateReturned);
         newCar.setProvider(cQHire2);
-        newCar.setQuotecost(cQCost2);
+        newCar.setQuotecost(Double.parseDouble(cQCost2));
 
         carQuotes.add(newCar);
 
         flightQuotes = new ArrayList<Flightquotes>();
         newFlight = new Flightquotes();
 
-        newFlight.setFlightfrom(fQFrom);
-        newFlight.setFlightto(fQTo);
+        newFlight.setFlightfromCity(fQFrom);
+        newFlight.setFlighttoCity(fQTo);
         newFlight.setDatedeparture(fQDate);
         newFlight.setQuotesource(fQFlight1);
-        newFlight.setQuotecost(fQCost1);
+        newFlight.setQuotecost(Double.parseDouble(fQCost1));
 
         flightQuotes.add(newFlight);
 
         newFlight = new Flightquotes();
 
-        newFlight.setFlightfrom(fQFrom);
-        newFlight.setFlightto(fQTo);
+        newFlight.setFlightfromCity(fQFrom);
+        newFlight.setFlighttoCity(fQTo);
         newFlight.setDatedeparture(fQDate);
         newFlight.setQuotesource(fQFlight2);
-        newFlight.setQuotecost(fQCost2);
+        newFlight.setQuotecost(Double.parseDouble(fQCost2));
 
         flightQuotes.add(newFlight);
 
         tempItin = new Itinerary();
         tempItin.setDate(getTempDate());
-        tempItin.setDestination(getTempDest());
+        tempItin.setDestinationCity(getTempDest());
         tempItin.setLeavetype(getTempLeaveType());
         tempItin.setTravelday(getTempTravelDay());
 
-        appHandler.persistApplication(newApplication, newQuote, accQuotes, carQuotes, flightQuotes, tempItin, newTravel, profileRef);
+        appRef = appHandler.persistApplication(newApplication, newQuote, accQuotes, carQuotes, flightQuotes, tempItin, newTravel, profileRef);
+
         FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Application Created"));
-        return "userHome";
+        return "applicationHome";
     }
 
     public String onFlowProcess(FlowEvent event) {
@@ -288,7 +294,7 @@ public class ApplicationBean implements Serializable {
 
     public String reinit() {
         tempItin.setDate(getTempDate());
-        tempItin.setDestination(getTempDest());
+        tempItin.setDestinationCity(getTempDest());
         tempItin.setLeavetype(getTempLeaveType());
         tempItin.setTravelday(getTempTravelDay());
         hops.add(tempItin);
@@ -316,6 +322,10 @@ public class ApplicationBean implements Serializable {
         return "/applicationView.xhtml";
     }
     
+    public String goApplicationHome(){
+        return "/applicationHome.xhtml";
+    }
+    
     public String goEdit(){
         //loadValues();
         initialize();
@@ -337,7 +347,7 @@ public class ApplicationBean implements Serializable {
         travelRef.setDescription(reasonForTravel);
         
         itinRef.setDate(tempDate);
-        itinRef.setDestination(tempDest);
+        itinRef.setDestinationCity(tempDest);
         itinRef.setLeavetype(tempLeaveType);
         itinRef.setTravelday(tempTravelDay);
         
@@ -368,7 +378,7 @@ public class ApplicationBean implements Serializable {
         setReasonForTravel(travelRef.getDescription());
         
         setTempDate(itinRef.getDate());
-        setTempDest(itinRef.getDestination());
+        setTempDest(itinRef.getDestinationCity());
         setTempLeaveType(itinRef.getLeavetype());
         setTempTravelDay(itinRef.getTravelday());
         
@@ -728,6 +738,10 @@ public class ApplicationBean implements Serializable {
     public Application getAppRef() {
         //appRef = appHandler.getApplication(5);
         //description = appRef.getDescription();
+        Integer appnum = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
+        if(appnum != null){
+        appRef = appHandler.getApplication(appnum);
+        }
         return appRef;
     }
 
@@ -761,6 +775,22 @@ public class ApplicationBean implements Serializable {
     public void setQuoteRef(Quotes quoteRef) {
         this.quoteRef = quoteRef;
     }
+
+    public Date getCurrentDate() {
+        return currentDate;
+    }
+
+    public void setCurrentDate(Date currentDate) {
+        this.currentDate = currentDate;
+    }
     
     
+    
+    public String goCreateForex(){
+        return "forexCreate";
+    }
+    
+    public String goViewForex(){
+        return "forexView";
+    }
 }

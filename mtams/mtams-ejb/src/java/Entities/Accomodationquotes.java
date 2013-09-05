@@ -6,7 +6,6 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,13 +16,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -42,7 +40,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Accomodationquotes.findByDescription", query = "SELECT a FROM Accomodationquotes a WHERE a.description = :description"),
     @NamedQuery(name = "Accomodationquotes.findByAccomodationprovider", query = "SELECT a FROM Accomodationquotes a WHERE a.accomodationprovider = :accomodationprovider"),
     @NamedQuery(name = "Accomodationquotes.findByQuotesource", query = "SELECT a FROM Accomodationquotes a WHERE a.quotesource = :quotesource"),
-    @NamedQuery(name = "Accomodationquotes.findByQuotecost", query = "SELECT a FROM Accomodationquotes a WHERE a.quotecost = :quotecost")})
+    @NamedQuery(name = "Accomodationquotes.findByCurrency", query = "SELECT a FROM Accomodationquotes a WHERE a.currency = :currency"),
+    @NamedQuery(name = "Accomodationquotes.findByQuotecost", query = "SELECT a FROM Accomodationquotes a WHERE a.quotecost = :quotecost"),
+    @NamedQuery(name = "Accomodationquotes.findBySelected", query = "SELECT a FROM Accomodationquotes a WHERE a.selected = :selected")})
 public class Accomodationquotes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -72,10 +72,15 @@ public class Accomodationquotes implements Serializable {
     @Column(name = "QUOTESOURCE")
     private String quotesource;
     @Size(max = 45)
+    @Column(name = "CURRENCY")
+    private String currency;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "QUOTECOST")
-    private String quotecost;
-    @OneToMany(mappedBy = "accomodationquotesIdaccomodationquotes")
-    private List<Attachement> attachementList;
+    private Double quotecost;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "SELECTED")
+    private short selected;
     @JoinColumn(name = "QUOTES_IDQUOTES", referencedColumnName = "IDQUOTES")
     @ManyToOne(optional = false)
     private Quotes quotesIdquotes;
@@ -85,6 +90,11 @@ public class Accomodationquotes implements Serializable {
 
     public Accomodationquotes(Integer idaccomodationquotes) {
         this.idaccomodationquotes = idaccomodationquotes;
+    }
+
+    public Accomodationquotes(Integer idaccomodationquotes, short selected) {
+        this.idaccomodationquotes = idaccomodationquotes;
+        this.selected = selected;
     }
 
     public Integer getIdaccomodationquotes() {
@@ -151,21 +161,28 @@ public class Accomodationquotes implements Serializable {
         this.quotesource = quotesource;
     }
 
-    public String getQuotecost() {
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public Double getQuotecost() {
         return quotecost;
     }
 
-    public void setQuotecost(String quotecost) {
+    public void setQuotecost(Double quotecost) {
         this.quotecost = quotecost;
     }
 
-    @XmlTransient
-    public List<Attachement> getAttachementList() {
-        return attachementList;
+    public short getSelected() {
+        return selected;
     }
 
-    public void setAttachementList(List<Attachement> attachementList) {
-        this.attachementList = attachementList;
+    public void setSelected(short selected) {
+        this.selected = selected;
     }
 
     public Quotes getQuotesIdquotes() {

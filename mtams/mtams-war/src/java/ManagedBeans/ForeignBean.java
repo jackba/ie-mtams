@@ -4,14 +4,17 @@
  */
 package ManagedBeans;
 
+import Entities.Application;
 import Entities.Forexorder;
 import Entities.Itinerary;
+import Entities.Travel;
 import Entities.Traveldocument;
 import Entities.Travelerprofile;
 import ServiceLayer.TravelProfileHandlerLocal;
-import ServiceLayer.clientServer;
+import ServiceLayer.ForexHandlerLocal;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 
 import javax.faces.bean.SessionScoped;
@@ -21,6 +24,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Future;
 import org.primefaces.event.FlowEvent;
@@ -29,27 +33,27 @@ import org.primefaces.event.FlowEvent;
  *
  * @author Riaan
  */
-
 @ManagedBean(name = "foreignBean")
 @SessionScoped
-public class ForeignBean implements Serializable
-{
+public class ForeignBean implements Serializable {
+
     @EJB
-    private clientServer csi;
+    private ForexHandlerLocal csi;
     private TravelProfileHandlerLocal tph;
-    
     //======change===change=========change============change=========change====
     //-------------------------------------------------------------------------
-    int accountID =1;
+    private Integer accountID = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
+    //private Integer accountID = 3;
     //-------------------------------------------------------------------------
     //======change========change=========change=============change=============
-    
     private Travelerprofile travelerP;
     private Traveldocument travelD;
     private Forexorder forX;
     private Forexorder viewForX;
     private Forexorder editForX;
     private Itinerary itinerary;
+    private Application appref;
+    private Travel travel;
     private String CompanyNameRegNum;
     private String passengerName;
     private String physicalAddress;
@@ -60,55 +64,48 @@ public class ForeignBean implements Serializable
     private int passportNum;
     private String companyName;
     private String Distination;
-    
     private String ccCur;
     private String fcCur;
     private String cheqCur;
-    
     private int isPresenting;
-    private int isUsingFC =2;
-    private int isUsingCC =2;
-    private int isUsingCheq =2;
-   
-	@Future
+    private int isUsingFC = 2;
+    private int isUsingCC = 2;
+    private int isUsingCheq = 2;
+    @Future
     private Date departure;
-	@Future
-    private Date returnDate;    
-    @Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
+    @Future
+    private Date returnDate;
+    @Pattern(message = "Incorrect number entered", regexp = "[0-9]{0,}")
     private String ticketNumber;
-    @Pattern(message="Incorrect number entered" , regexp="[0-9]{0,20}")
+    @Pattern(message = "Incorrect number entered", regexp = "[0-9]{0,}")
     private String voyagerNum;
-    private String travellerCheque;
-    @Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
-    private String foreignCash;
-    @Pattern(message="Incorrect type entered", regexp="[a-zA-Z -]{0,}")
-    private String CashPassportCard;
-    @Pattern(message="Incorrect type entered", regexp="[a-zA-Z -]{0,}")
+    //@Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
+    private double travellerCheque;
+    //@Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
+    private double foreignCash;
+    //@Pattern(message="Incorrect type entered", regexp="[0-9]{0,}")
+    private double CashPassportCard;
+    @Pattern(message = "Incorrect type entered", regexp = "[a-zA-Z -]{0,}")
     private String type;
-    @Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
+    @Pattern(message = "Incorrect number entered", regexp = "[0-9]{0,}")
     private String number;
-    @Pattern(message="Incorrect number entered", regexp="[0-9]{3}")
+    @Pattern(message = "Incorrect number entered", regexp = "[0-9]{3}")
     private String last3;
     private Date expire;
-    @Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
-    private String amount;
-	@Future
+    //@Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
+    private double amount;
     private Date dateRequired;
-	@Future
     private Date dateForex;
-    private String reasonForTravel;       
-    private static final Logger logger = Logger.getLogger(ForeignBean.class.getName());      
-   
+    private String reasonForTravel;
+    private static final Logger logger = Logger.getLogger(ForeignBean.class.getName());
     private int coverOptions;
-	
-	private Date currentDate = new Date();
-
+    private Date currentDate = new Date();
+    
     public Date getCurrentDate() {
         return currentDate;
     }
-    
-    public ForeignBean()
-    {
+
+    public ForeignBean() {
     }
 
     public int getIsPresenting() {
@@ -142,7 +139,7 @@ public class ForeignBean implements Serializable
     public void setIsUsingCC(int isUsingCC) {
         this.isUsingCC = isUsingCC;
     }
-    
+
     public Forexorder getViewForX() {
         viewForX = csi.findForX(accountID);
         return viewForX;
@@ -152,6 +149,22 @@ public class ForeignBean implements Serializable
         this.viewForX = viewForX;
     }
 
+    public Application getAppref() {
+        return appref;
+    }
+
+    public void setAppref(Application appref) {
+        this.appref = appref;
+    }
+
+    public Travel getTravel() {
+        return travel;
+    }
+
+    public void setTravel(Travel travel) {
+        this.travel = travel;
+    }
+
     public Itinerary getItinerary() {
         itinerary = csi.findItinerary(accountID);
         return itinerary;
@@ -159,7 +172,7 @@ public class ForeignBean implements Serializable
 
     public void setItinerary(Itinerary itinerary) {
         this.itinerary = itinerary;
-    }   
+    }
 
     public Travelerprofile getTravelerP() {
         travelerP = csi.find(accountID);
@@ -179,84 +192,83 @@ public class ForeignBean implements Serializable
     public void setTravelD(Traveldocument travelD) {
         this.travelD = travelD;
     }
-         
-      
-    public String onFlowProcess(FlowEvent event) {  
-        logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());  
-        logger.log(Level.INFO, "Next step:{0}", event.getNewStep());  
-         
-        return event.getNewStep();  
+
+    public String onFlowProcess(FlowEvent event) {
+        logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());
+        logger.log(Level.INFO, "Next step:{0}", event.getNewStep());
+
+        return event.getNewStep();
     }
 
-    
-    public String createForm()
-	{
-            forX = new Forexorder();            
-            
-            forX.setDateofdepart(departure);
-            forX.setDateofreturn(returnDate);
-            forX.setTicketnum(ticketNumber);
-            forX.setVoyagernum(voyagerNum);
-            forX.setTravelerscheques(travellerCheque);
-            forX.setCash(foreignCash);
-            forX.setCashpassport(CashPassportCard);
-            forX.setCctype(type);
-            forX.setCcnumber(number);
-            forX.setCclast3(last3);
-            forX.setCcexpirydate(expire);
-            forX.setCcpaymentamount(amount);
-            forX.setDateofrequired(dateRequired);
-            forX.setDatewillbeconfirmed(dateForex);
-            forX.setReasonfortravel(reasonForTravel);
-            
-            csi.updateForex(forX, accountID);
-            FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success","Changes have been saved"));
-            return "foreignExhange";
-	} 
-    
-    @PostConstruct
-    public void getForm()
-    {   
-         viewForX = csi.findForX(accountID);
-         setDeparture(viewForX.getDateofdepart());
-         setReturnDate(viewForX.getDateofreturn());
-         setTicketNumber(viewForX.getTicketnum());
-         setVoyagerNum(viewForX.getVoyagernum());
-         setTravellerCheque(viewForX.getTravelerscheques());
-         setForeignCash(viewForX.getCash());
-         setCashPassportCard(viewForX.getCashpassport());
-         setType(viewForX.getCctype());
-         setLast3(viewForX.getCclast3());
-         setNumber(viewForX.getCcnumber());
-         setExpire(viewForX.getCcexpirydate());
-         setAmount(viewForX.getCash());
-         setDateRequired(viewForX.getDateofrequired());
-         setDateForex(viewForX.getDatewillbeconfirmed());
-         setReasonForTravel(viewForX.getReasonfortravel()); 
+    public String createForm() {
+        forX = new Forexorder();
+
+        //forX.setDateofdepart(departure);
+        //forX.setDateofreturn(returnDate);
+        forX.setTicketnum(ticketNumber);
+        forX.setVoyagernum(voyagerNum);
+        forX.setTravelerscheques(travellerCheque);
+        forX.setCash(foreignCash);
+        //forX.setCashpassport(CashPassportCard);
+        forX.setCctype(type);
+        //forX.setCcnumber(number);
+        //forX.setCclast3(last3);
+        forX.setCcexpirydate(expire);
+        forX.setCcpaymentamount(amount);
+        forX.setDateofrequired(dateRequired);
+        forX.setDatewillbeconfirmed(dateForex);
+        forX.setReasonfortravel(reasonForTravel);
+
+        csi.updateForex(forX, accountID);
+        FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Changes have been saved"));
+        return "forexView";
     }
-    
-    public String updateForm()
-    { 
-        editForX = new Forexorder();   
-        
-        editForX.setDateofdepart(departure);
-        editForX.setDateofreturn(returnDate);
+
+    @PostConstruct
+    public void getForm() {
+        viewForX = csi.findForX(accountID);
+        //setDeparture(viewForX.getDateofdepart());
+        //setReturnDate(viewForX.getDateofreturn());
+        //setTicketNumber(viewForX.getTicketnum());
+        //setVoyagerNum(viewForX.getVoyagernum());
+//        setTravellerCheque(viewForX.getTravelerscheques());
+//        setForeignCash(viewForX.getCash());
+        //setCashPassportCard(viewForX.getCashpassport());
+        setType(viewForX.getCctype());
+        setLast3(viewForX.getCclast3());
+        setNumber(viewForX.getCcnumber());
+        setExpire(viewForX.getCcexpirydate());
+//        setAmount(viewForX.getCash());
+        setDateRequired(viewForX.getDateofrequired());
+        setDateForex(viewForX.getDatewillbeconfirmed());
+        setReasonForTravel(viewForX.getReasonfortravel());
+    }
+
+    public String cancel() {
+        return "forexView";
+    }
+
+    public String updateForm() {
+        editForX = new Forexorder();
+
+        //editForX.setDateofdepart(departure);
+        //editForX.setDateofreturn(returnDate);
         editForX.setTicketnum(ticketNumber);
         editForX.setVoyagernum(voyagerNum);
         editForX.setTravelerscheques(travellerCheque);
         editForX.setCash(foreignCash);
         editForX.setCashpassport(CashPassportCard);
         editForX.setCctype(type);
-        editForX.setCcnumber(number);
-        editForX.setCclast3(last3);
+        //editForX.setCcnumber(number);
+        //editForX.setCclast3(last3);
         editForX.setCcexpirydate(expire);
         editForX.setCcpaymentamount(amount);
         editForX.setDateofrequired(dateRequired);
         editForX.setDatewillbeconfirmed(dateForex);
         editForX.setReasonfortravel(reasonForTravel);
-        
+
         csi.updateForex(editForX, accountID);
-        return "foreignExhangeView";
+        return "forexView";
     }
 
     public Forexorder getEditForX() {
@@ -387,30 +399,30 @@ public class ForeignBean implements Serializable
         this.voyagerNum = voyagerNum;
     }
 
-    public String getTravellerCheque() {
+    public double getTravellerCheque() {
         return travellerCheque;
     }
 
-    public void setTravellerCheque(String travellerCheque) {
+    public void setTravellerCheque(double travellerCheque) {
         this.travellerCheque = travellerCheque;
     }
 
-    public String getForeignCash() {
+    public double getForeignCash() {
         return foreignCash;
     }
 
-    public void setForeignCash(String foreignCash) {
+    public void setForeignCash(double foreignCash) {
         this.foreignCash = foreignCash;
     }
 
-    public String getCashPassportCard() {
+    public double getCashPassportCard() {
         return CashPassportCard;
     }
 
-    public void setCashPassportCard(String CashPassportCard) {
+    public void setCashPassportCard(double CashPassportCard) {
         this.CashPassportCard = CashPassportCard;
     }
-    
+
     public String getType() {
         return type;
     }
@@ -443,11 +455,11 @@ public class ForeignBean implements Serializable
         this.expire = expire;
     }
 
-    public String getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -498,6 +510,4 @@ public class ForeignBean implements Serializable
     public void setCheqCur(String cheqCur) {
         this.cheqCur = cheqCur;
     }
-    
-    
 }

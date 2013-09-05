@@ -29,6 +29,29 @@
 
     <h:body>
         <div id="wrap">
+            <div id="header">
+                <div id="logo">
+                    <h:form>
+                        <h:commandLink action="#{sessionBean.homePage()}">
+                            <h:graphicImage value="resources/img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
+                        </h:commandLink>
+                    </h:form>
+                </div>
+
+                <h:form>
+                    <ul>
+                        <li><p:outputLabel value="#{sessionBean.getRole()}" rendered="#{sessionBean.checkActive()}"/></li>
+                        <li><h:link value="">Help</h:link></li>
+                        <li><p:commandLink value="Logout (#{sessionBean.getName()})" action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}"/></li>
+                    </ul>
+                </h:form>
+            </div>
+
+            <div id="nav">
+                <h:form>
+                    <p:menubar autoDisplay="false" model="#{menuBean.model}" rendered="#{sessionBean.checkMenuActive()}"/>  
+                </h:form>
+            </div>
 
             <div id="content">
                 <ui:insert name="content"/>

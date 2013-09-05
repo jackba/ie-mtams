@@ -79,14 +79,14 @@ INSERT INTO "TITLE" (TITLE) VALUES ('Sir' /*not nullable*/);
 
 
 -- Department inserts
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('School of Information Technology' /*not nullable*/,1);
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('School of Social Science' /*not nullable*/,2);
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('Finance' /*not nullable*/,3);
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('Administration' /*not nullable*/,4);
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('School of Business and Economics' /*not nullable*/,5);
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('Student Services' /*not nullable*/,6);
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('School of Health Sciences' /*not nullable*/,7);
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('Information Technology Services' /*not nullable*/,8);
+INSERT INTO "DEPARTMENT" (DEPARTMENT) VALUES ('School of Information Technology' /*not nullable*/);
+INSERT INTO "DEPARTMENT" (DEPARTMENT) VALUES ('School of Social Science' /*not nullable*/);
+INSERT INTO "DEPARTMENT" (DEPARTMENT) VALUES ('Finance' /*not nullable*/);
+INSERT INTO "DEPARTMENT" (DEPARTMENT) VALUES ('Administration' /*not nullable*/);
+INSERT INTO "DEPARTMENT" (DEPARTMENT) VALUES ('School of Business and Economics' /*not nullable*/);
+INSERT INTO "DEPARTMENT" (DEPARTMENT) VALUES ('Student Services' /*not nullable*/);
+INSERT INTO "DEPARTMENT" (DEPARTMENT) VALUES ('School of Health Sciences' /*not nullable*/);
+INSERT INTO "DEPARTMENT" (DEPARTMENT) VALUES ('Information Technology Services' /*not nullable*/);
 
 -- Leave type inserts
 INSERT INTO "LEAVELOOKUP" (LEAVETYPE) VALUES ('Annual Leave' /*not nullable*/);
@@ -120,11 +120,11 @@ INSERT INTO "LEAVELOOKUP" (LEAVETYPE) VALUES ('Other' /*not nullable*/);
 -- select idaccount from mtams.account where username = 'admin';
 
 -- first no role user. Similar to creating a user through admin.
-INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
-	VALUES ('s' /*not nullable*/,'s' /*not nullable*/,'s',current_timestamp,null);
+--INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 	VALUES ('s' /*not nullable*/,'s' /*not nullable*/,'s',current_timestamp,null);
 
 INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
 	VALUES ('MrT' /*not nullable*/,'mrt' /*not nullable*/,'s',current_timestamp,null);
+INSERT INTO "ACCOUNTROLE" (ACCOUNTID,ROLEID) VALUES (2,21);
 
 
 

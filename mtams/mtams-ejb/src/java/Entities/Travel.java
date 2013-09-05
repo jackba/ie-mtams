@@ -5,8 +5,8 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Badger
+ * @author aaron
  */
 @Entity
 @Table(name = "TRAVEL")
@@ -55,15 +55,15 @@ public class Travel implements Serializable {
     @Size(max = 100)
     @Column(name = "DESCRIPTION")
     private String description;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelIdtravel")
+    private Collection<Itinerary> itineraryCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelIdtravel")
+    private Collection<Application> applicationCollection;
     @OneToMany(mappedBy = "travelIdtravel")
-    private List<Attachement> attachementList;
+    private Collection<Attachement> attachementCollection;
     @JoinColumn(name = "CONFERENCE_IDCONFERENCE", referencedColumnName = "IDCONFERENCE")
     @ManyToOne(optional = false)
     private Conference conferenceIdconference;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelIdtravel")
-    private List<Itinerary> itineraryList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelIdtravel")
-    private List<Application> applicationList;
 
     public Travel() {
     }
@@ -105,12 +105,30 @@ public class Travel implements Serializable {
     }
 
     @XmlTransient
-    public List<Attachement> getAttachementList() {
-        return attachementList;
+    public Collection<Itinerary> getItineraryCollection() {
+        return itineraryCollection;
     }
 
-    public void setAttachementList(List<Attachement> attachementList) {
-        this.attachementList = attachementList;
+    public void setItineraryCollection(Collection<Itinerary> itineraryCollection) {
+        this.itineraryCollection = itineraryCollection;
+    }
+
+    @XmlTransient
+    public Collection<Application> getApplicationCollection() {
+        return applicationCollection;
+    }
+
+    public void setApplicationCollection(Collection<Application> applicationCollection) {
+        this.applicationCollection = applicationCollection;
+    }
+
+    @XmlTransient
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
+    }
+
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
     }
 
     public Conference getConferenceIdconference() {
@@ -119,24 +137,6 @@ public class Travel implements Serializable {
 
     public void setConferenceIdconference(Conference conferenceIdconference) {
         this.conferenceIdconference = conferenceIdconference;
-    }
-
-    @XmlTransient
-    public List<Itinerary> getItineraryList() {
-        return itineraryList;
-    }
-
-    public void setItineraryList(List<Itinerary> itineraryList) {
-        this.itineraryList = itineraryList;
-    }
-
-    @XmlTransient
-    public List<Application> getApplicationList() {
-        return applicationList;
-    }
-
-    public void setApplicationList(List<Application> applicationList) {
-        this.applicationList = applicationList;
     }
 
     @Override

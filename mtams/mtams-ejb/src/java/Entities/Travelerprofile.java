@@ -5,8 +5,8 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Badger
+ * @author aaron
  */
 @Entity
 @Table(name = "TRAVELERPROFILE")
@@ -212,16 +212,16 @@ public class Travelerprofile implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date datemodified;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelerprofileIdtravelerprofile")
-    private List<Rewardsprogram> rewardsprogramList;
-    @OneToMany(mappedBy = "travelerprofileIdtravelerprofile")
-    private List<Attachement> attachementList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travlerprofileIdtravlerprofile")
-    private List<Traveldocument> traveldocumentList;
+    private Collection<Rewardsprogram> rewardsprogramCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelerprofileIdtravelerprofile")
-    private List<Application> applicationList;
+    private Collection<Application> applicationCollection;
     @JoinColumn(name = "ACCOUNTID", referencedColumnName = "IDACCOUNT")
     @ManyToOne(optional = false)
     private Account accountid;
+    @OneToMany(mappedBy = "travelerprofileIdtravelerprofile")
+    private Collection<Attachement> attachementCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travlerprofileIdtravlerprofile")
+    private Collection<Traveldocument> traveldocumentCollection;
 
     public Travelerprofile() {
     }
@@ -575,39 +575,21 @@ public class Travelerprofile implements Serializable {
     }
 
     @XmlTransient
-    public List<Rewardsprogram> getRewardsprogramList() {
-        return rewardsprogramList;
+    public Collection<Rewardsprogram> getRewardsprogramCollection() {
+        return rewardsprogramCollection;
     }
 
-    public void setRewardsprogramList(List<Rewardsprogram> rewardsprogramList) {
-        this.rewardsprogramList = rewardsprogramList;
-    }
-
-    @XmlTransient
-    public List<Attachement> getAttachementList() {
-        return attachementList;
-    }
-
-    public void setAttachementList(List<Attachement> attachementList) {
-        this.attachementList = attachementList;
+    public void setRewardsprogramCollection(Collection<Rewardsprogram> rewardsprogramCollection) {
+        this.rewardsprogramCollection = rewardsprogramCollection;
     }
 
     @XmlTransient
-    public List<Traveldocument> getTraveldocumentList() {
-        return traveldocumentList;
+    public Collection<Application> getApplicationCollection() {
+        return applicationCollection;
     }
 
-    public void setTraveldocumentList(List<Traveldocument> traveldocumentList) {
-        this.traveldocumentList = traveldocumentList;
-    }
-
-    @XmlTransient
-    public List<Application> getApplicationList() {
-        return applicationList;
-    }
-
-    public void setApplicationList(List<Application> applicationList) {
-        this.applicationList = applicationList;
+    public void setApplicationCollection(Collection<Application> applicationCollection) {
+        this.applicationCollection = applicationCollection;
     }
 
     public Account getAccountid() {
@@ -616,6 +598,24 @@ public class Travelerprofile implements Serializable {
 
     public void setAccountid(Account accountid) {
         this.accountid = accountid;
+    }
+
+    @XmlTransient
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
+    }
+
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
+    }
+
+    @XmlTransient
+    public Collection<Traveldocument> getTraveldocumentCollection() {
+        return traveldocumentCollection;
+    }
+
+    public void setTraveldocumentCollection(Collection<Traveldocument> traveldocumentCollection) {
+        this.traveldocumentCollection = traveldocumentCollection;
     }
 
     @Override

@@ -5,8 +5,8 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -66,16 +66,8 @@ public class Account implements Serializable {
     @Column(name = "DATELOGIN")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datelogin;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountIdaccount")
-    private List<Application> applicationList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountIdaccount")
-    private List<Approval> approvalList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
-    private List<Travelerprofile> travelerprofileList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-    private List<Session> sessionList;
-    @OneToMany(mappedBy = "accountid")
-    private List<Accountrole> accountroleList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idaccount")
+    private Collection<Accountdepartment> accountdepartmentCollection;
 
     public Account() {
     }
@@ -139,48 +131,12 @@ public class Account implements Serializable {
     }
 
     @XmlTransient
-    public List<Application> getApplicationList() {
-        return applicationList;
+    public Collection<Accountdepartment> getAccountdepartmentCollection() {
+        return accountdepartmentCollection;
     }
 
-    public void setApplicationList(List<Application> applicationList) {
-        this.applicationList = applicationList;
-    }
-
-    @XmlTransient
-    public List<Approval> getApprovalList() {
-        return approvalList;
-    }
-
-    public void setApprovalList(List<Approval> approvalList) {
-        this.approvalList = approvalList;
-    }
-
-    @XmlTransient
-    public List<Travelerprofile> getTravelerprofileList() {
-        return travelerprofileList;
-    }
-
-    public void setTravelerprofileList(List<Travelerprofile> travelerprofileList) {
-        this.travelerprofileList = travelerprofileList;
-    }
-
-    @XmlTransient
-    public List<Session> getSessionList() {
-        return sessionList;
-    }
-
-    public void setSessionList(List<Session> sessionList) {
-        this.sessionList = sessionList;
-    }
-
-    @XmlTransient
-    public List<Accountrole> getAccountroleList() {
-        return accountroleList;
-    }
-
-    public void setAccountroleList(List<Accountrole> accountroleList) {
-        this.accountroleList = accountroleList;
+    public void setAccountdepartmentCollection(Collection<Accountdepartment> accountdepartmentCollection) {
+        this.accountdepartmentCollection = accountdepartmentCollection;
     }
 
     @Override

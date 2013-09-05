@@ -37,7 +37,7 @@ public class MotivationalBean implements Serializable{
 @Pattern(message="Input in Supplier Field is Incorrect", regexp="[a-zA-Z -]{0,}")    
 private String supplier;
 @Pattern(message="Input in Amount Field is Incorrect", regexp="[0-9]{0,}")
-private String amount;
+private Double amount;
 private String costCode;
 private String motivationLetter;
 private Integer budget;
@@ -156,11 +156,11 @@ public String save()
         this.supplier = supplier;
     }
 
-    public String getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
