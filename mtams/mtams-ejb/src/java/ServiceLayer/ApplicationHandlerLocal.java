@@ -23,7 +23,7 @@ import javax.ejb.Local;
 public interface ApplicationHandlerLocal {
     public List<Application> getAppList(Integer id);
     public List<Application> getAllAppList(Integer id);
-    public void persistApplication(Application app, Quotes quote, List<Accomodationquotes> acc, List<Carquotes> car, List<Flightquotes> flight, Itinerary itin, Travel trav, Travelerprofile prof);
+    public Application persistApplication(Application app, Quotes quote, List<Accomodationquotes> acc, List<Carquotes> car, List<Flightquotes> flight, Itinerary itin, Travel trav, Travelerprofile prof);
     public void selectQuotes(Accomodationquotes acc, Carquotes car, Flightquotes flg);
     public Application getApplication(Integer id);
     public List<Accomodationquotes> getAccomodationQuotes(Integer id);

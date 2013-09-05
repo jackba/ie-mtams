@@ -42,8 +42,8 @@ public class ForeignBean implements Serializable {
     private TravelProfileHandlerLocal tph;
     //======change===change=========change============change=========change====
     //-------------------------------------------------------------------------
-    //private Integer accountID = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
-    private Integer accountID = 3;
+    private Integer accountID = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
+    //private Integer accountID = 3;
     //-------------------------------------------------------------------------
     //======change========change=========change=============change=============
     private Travelerprofile travelerP;

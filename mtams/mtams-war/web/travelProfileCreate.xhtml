@@ -218,7 +218,7 @@
                         <p:tab id="airline" title="Airline Details">  
                             <p:panel header="Airline Details">
 
-                                <fieldset><legend>Airline Details</legend>
+                                <fieldset><legend><h4>Airline Details</h4></legend>
                                     <h:panelGrid columns="2" columnClasses="label, value">  
                                         <h:selectOneRadio value="#{userBean.seat}">
                                             <f:selectItem itemValue="Aisle" itemLabel="Aisle" />
@@ -257,7 +257,7 @@
 
                                     </h:panelGrid>
                                 </fieldset>
-                                <fieldset><legend>Reward Program</legend>
+                                <fieldset><legend><h4>Reward Program</h4></legend>
 
                                     <h:panelGrid columns="4" columnClasses="label, value">
                                         <h:outputText value="Name on Membership Card:"/><h:outputText value="Airline Type:"/><h:outputText value="Status:"/><h:outputText value="Number:"/>
@@ -271,7 +271,7 @@
 
                         <p:tab id="carHotel" title="Car and Hotel">  
                             <p:panel header="Car and Hotel Details">  
-                                <fieldset><legend>Car Hire Details</legend>
+                                <fieldset><legend><h4>Car Hire Details</h4></legend>
                                     <h:outputText value="Car Company Preference:"/>
                                     <h:panelGrid columns="2" columnClasses="label, value">
                                         <h:outputText value="1. "/> <p:inputText required ="false" value="#{userBean.carCompPref1}"/>
@@ -302,7 +302,7 @@
                                     </h:panelGrid>
                                 </fieldset>
 
-                                <fieldset><legend>Hotel Details</legend>
+                                <fieldset><legend><h4>Hotel Details</h4></legend>
                                     <h:panelGrid columns="2" columnClasses="label, value">
 
                                         <h:outputText value="Hotel Preference: "/> <p:inputText required ="false" value="#{userBean.hotelPreference}"/>
