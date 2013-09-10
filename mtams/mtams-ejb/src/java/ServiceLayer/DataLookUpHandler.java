@@ -4,17 +4,21 @@
  */
 package ServiceLayer;
 
+import DataAccess.CityFacadeLocal;
 import DataAccess.CountryFacadeLocal;
 import DataAccess.CurrencyFacadeLocal;
 import DataAccess.DepartmentFacadeLocal;
 import DataAccess.LeavelookupFacadeLocal;
 import DataAccess.PositionFacadeLocal;
+import DataAccess.RegionFacadeLocal;
 import DataAccess.TitleFacadeLocal;
+import Entities.City;
 import Entities.Country;
 import Entities.Currency;
 import Entities.Department;
 import Entities.Leavelookup;
 import Entities.Position;
+import Entities.Region;
 import Entities.Title;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +42,13 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
     @EJB
     private DepartmentFacadeLocal daoDepartment;
     @EJB
+    private CurrencyFacadeLocal daoCurrency;
+    @EJB
     private CountryFacadeLocal daoCountry;
     @EJB
-    private CurrencyFacadeLocal daoCurrency;
+    private RegionFacadeLocal daoRegion;
+    @EJB
+    private CityFacadeLocal daoCity;
 
     //private Title titleReg;
     @Override
@@ -265,4 +273,71 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
         return null;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public List<String> allCitiesStr() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getCitiesCount() {
+        return daoCity.count();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public City getCities(String aCity) {
+        for (City CityO : daoCity.findAll()) {
+            if (CityO.getUrl().equalsIgnoreCase(aCity)) {
+                return CityO;
+            }
+        }
+        return null;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+    @Override
+    public List<String> allRegionsStr() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getRegionsCount() {
+        return daoRegion.count();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Region getRegions(String aRegion) {
+        for (Region RegionO : daoRegion.findAll()) {
+            if (RegionO.getUrl().equalsIgnoreCase(aRegion)) {
+                return RegionO;
+            }
+        }
+        return null;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<City> allCities(String aRegion, Country aCountry) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public City getCities(String aRegion, Country aCountry) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Region> allRegions(Country aCountry) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Region getRegions(String aRegion, Country aCountry) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
 }
