@@ -24,7 +24,7 @@ import org.primefaces.component.api.UIData;
 @ConversationScoped
 public class AdminBean implements Serializable {
     
-	@Pattern(message="Incorrect username entered", regexp="[a-zA-Z -]{0,}")
+	@Pattern(message="Incorrect username entered", regexp="[a-zA-Z0-9]{0,}")
     private String username;
     private String password;
     private int role = 11;
