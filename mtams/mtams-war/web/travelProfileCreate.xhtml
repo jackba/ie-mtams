@@ -30,7 +30,7 @@
                                         <p:message for="dept" id="deptM"/>
 
                                         <h:outputText value="Staff ID: *" />  
-                                        <p:inputMask id="staffID" value="#{userBean.staffID}" required="true" requiredMessage="Required Field" mask="a99999999" title="Must be in the format A########">
+                                        <p:inputMask id="staffID" value="#{userBean.staffID}" required="true" requiredMessage="Required Field" mask="a9999999" title="Must be in the format A#######">
                                             <p:ajax update="staffMID" event="blur" />
                                         </p:inputMask>                                        
                                         <p:message for="staffID" id="staffMID"/>
@@ -47,7 +47,14 @@
                                             <p:ajax update="bookerSM" event="blur" />
                                         </p:inputText>
                                         <p:message for="bookerS" id="bookerSM"/>
-
+                                        
+                                        <h:outputText value="Title:" />  
+                                        <p:selectOneMenu id="ttl" value="#{userBean.title}">
+                                            <f:selectItem  itemLabel="Mr" itemValue=""/>
+                                            <f:selectItems value="#{dataLookUpBean.titleStrings}" />
+                                        </p:selectOneMenu>
+                                        <p:message for="ttl" id="ttlM"/>
+                                        
                                         <h:outputText value="First Name: *" />  
                                         <p:inputText id="fn" required="true" value="#{userBean.firstName}" requiredMessage="Required Field">
                                             <p:ajax update="fnErr" event="blur" />
@@ -65,14 +72,7 @@
                                             <p:ajax update="mnM" event="blur" />
                                         </p:inputText>
                                         <p:message for="mn" id="mnM"/>
-
-                                        <h:outputText value="Title:" />  
-                                        <p:selectOneMenu id="ttl" value="#{userBean.title}">
-                                            <f:selectItem  itemLabel="Mr" itemValue=""/>
-                                            <f:selectItems value="#{dataLookUpBean.titleStrings}" />
-                                        </p:selectOneMenu>
-                                        <p:message for="ttl" id="ttlM"/>
-
+                                        
                                         <h:outputText value="Identity Number: *" />  
                                         <p:inputText id="identity" required="true" value="#{userBean.idNo}" requiredMessage="Required Field" title="Must be between 13-15 numbers long">
                                             <p:ajax update="identityM" event="blur" />
