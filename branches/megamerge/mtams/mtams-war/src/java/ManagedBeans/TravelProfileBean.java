@@ -155,7 +155,8 @@ public class TravelProfileBean implements Serializable{
         profile.setBusinessaddress(busAddress);
         profile.setBusinessphone(busPhone);
         profile.setBusinessfax(busFax);
-        profile.setHomeaddress(homeAddress);
+        //profile.setHomeaddress(homeAddress);
+        profile.setHomeaddress1(homeAddress);
         profile.setMobilephone(mobilePhone);
         profile.setHomephone(homePhone);
         profile.setHomeemail(email);
