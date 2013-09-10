@@ -32,7 +32,7 @@
 
                                 <h:outputText value="Staff ID: *" />  
                                 <p:inplace id="staffID">
-                                    <p:inputMask id="staffIDIP" value="#{editTrav.staffID}" required="true" requiredMessage="Required Field" mask="a99999999">
+                                    <p:inputMask id="staffIDIP" value="#{editTrav.staffID}" required="true" requiredMessage="Required Field" mask="a9999999" title="Must be in the format A#######">
                                         <p:ajax update="staffIDIPM" event="blur" />
                                     </p:inputMask>
                                 </p:inplace>
@@ -54,6 +54,17 @@
                                 </p:inplace>
                                 <p:message for="secretaryIP" id="secretaryIPM"/>
 
+                                <h:outputText value="Title:"/>
+                                <p:inplace id="titleE">  
+                                    <p:selectOneMenu id="titleIP" value="#{editTrav.title}">  
+                                        <f:selectItem itemLabel="Mr." itemValue="Mr" />  
+                                        <f:selectItem itemLabel="Ms." itemValue="Ms" />  
+                                        <f:selectItem itemLabel="Dr." itemValue="Dr" />  
+                                        <f:selectItem itemLabel="Prof." itemValue="Prof" />
+                                    </p:selectOneMenu>                            
+                                </p:inplace>
+                                <p:message for="titleIP" id="titleIPM"/>
+                                
                                 <h:outputText value="First Name:* " />  
                                 <p:inplace id="firstN">  
                                     <p:inputText id="firstNIP" value="#{editTrav.firstName}" required="true" requiredMessage="Required Field">
@@ -77,17 +88,6 @@
                                     </p:inputText>
                                 </p:inplace>
                                 <p:message for="midNIP" id="midNIPM"/>
-
-                                <h:outputText value="Title:"/>
-                                <p:inplace id="titleE">  
-                                    <p:selectOneMenu id="titleIP" value="#{editTrav.title}">  
-                                        <f:selectItem itemLabel="Mr." itemValue="Mr" />  
-                                        <f:selectItem itemLabel="Ms." itemValue="Ms" />  
-                                        <f:selectItem itemLabel="Dr." itemValue="Dr" />  
-                                        <f:selectItem itemLabel="Prof." itemValue="Prof" />
-                                    </p:selectOneMenu>                            
-                                </p:inplace>
-                                <p:message for="titleIP" id="titleIPM"/>
 
                                 <h:outputText value="Identity Number:* " />
                                 <p:inplace id="idNo">  
