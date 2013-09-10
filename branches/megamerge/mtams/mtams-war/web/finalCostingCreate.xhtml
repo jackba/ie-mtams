@@ -11,10 +11,101 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-                <h:form>
+                <p:dialog header="Header Text" widgetVar="dlgcurrency">
+
+
+                    <div id="DTdivtest" class="divCurrency" >
+
+                        <h:form id="Dcurr" styleClass="test"> 
+                            <p:dataTable id="currencytest" styleClass="dlgCurrency" var="currency" 
+                                         value="#{dataLookUpBean.currencyList}" rowKey="#{currency.idcurrency}"  
+                                         filteredValue="#{dataLookUpBean.currencyFilteredList}"
+                                         widgetVar="currencies"
+                                         emptyMessage="No data matches your criteria"
+                                         selection="#{dataLookUpBean.aCurrencySelection}" selectionMode="single" scrollRows="20"  
+                                         scrollable="true" liveScroll="true" scrollHeight="150"
+
+                                         >  
+
+                                <p:ajax event="rowSelect" 
+                                        update=":fcostFrom:FinalCostingPanel:wiz:authotabCosting:FC:CurrencyFinalCostin:SelCurrency" 
+                                        listener="#{dataLookUpBean.CurSel}" />
+                                <ui:remove> 
+                                    <!--
+                                                                    <p:ajax event="rowSelect" 
+                                        update=":CurencyVal:CValS"
+                                        />
+                                    -->
+                                </ui:remove>
+                                <f:facet name="header">  
+                                    Click to select a row 
+                                    <h:outputText value="Search all fields:" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('currencies').filter()" />
+                                </f:facet>  
+
+
+                                <p:column headerText="countryname"
+                                          footerText="contains"
+                                          filterBy="#{currency.countryname}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{currency.countryname}  
+                                </p:column>  
+
+                                <p:column headerText="currencyname" 
+                                          footerText="contains"
+                                          filterBy="#{currency.currencyname}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{currency.currencyname}  
+                                </p:column>  
+
+                                <p:column headerText="currencycode3"
+                                          footerText="contains"
+                                          filterBy="#{currency.currencycode3}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{currency.currencycode3}  
+                                </p:column>  
+
+                                <ui:remove>
+                                    <!--
+                                    :fcostFrom:FinalCostingPanel:wiz:authotabCosting:FC:CurrencyFinalCostin:SelCurrency
+                                    
+                                    :fcostFrom:FinalCostingPanel:wiz:authotabCosting:FC:CurrencyFinalCostin
+                                    <p:component('SelCurrency'); />
+                                    <p:ajax update=":#{p:componet('SelCurrency')}" 
+                                    
+                                    <p:commandButton value="Hide" type="button" 
+                                                     onclick="dlgcurrency.hide()" 
+                                                     actionListener="#{dataLookUpBean.CurSel}" 
+                                                     update=":fcostFrom:wiz:authotabCosting:FC:CurrencyFinalCostin:SelCurrency">
+                                    -->
+                                </ui:remove>
+
+                                <f:facet name="footer">  
+                                    <p>There are this many : #{dataLookUpBean.currencyCount}</p>
+                                    <p:commandButton value="Hide" type="button" 
+                                                     onclick="dlgcurrency.hide()" 
+                                                     actionListener="#{dataLookUpBean.CurSel}" 
+                                                     update=":#{p:component('SelCurrency')}">
+                                        
+                                        <p:ajax update=":#{component.namingContainer.parent.namingContainer.clientId}:SelCurrency" 
+                                                listener="#{dataLookUpBean.CurSel}"/>
+                                    </p:commandButton>
+                                </f:facet>  
+
+                            </p:dataTable>  
+                        </h:form>
+                    </div>
+
+
+                </p:dialog>
+
+                <h:form id="fcostFrom">
                     <p:growl id="growl" sticky="true" showDetail="true"/>
                     <p:messages id="submitConfirm" showDetail="true" closable="true" autoUpdate="true" severity="info"/>
-                    <p:panel id="FinalCostingPanel" >
+                    <p:panel id="FinalCostingPanel"  >
                         <p:wizard widgetVar="wiz" flowListener="#{finalCBean.onFlowProcess}">
 
 
@@ -138,21 +229,37 @@
 
 
                             <p:tab id="authotabCosting" title="Final Costing">
-                                <p:panel header="Final Costing">
+                                <p:panel id="FC" header="Final Costing">
 
                                     <fieldset>
                                         <legend><h4>Select Currency</h4></legend>
                                         <p:panelGrid id="CurrencyFinalCostin" >
 
                                             <p:row>
-                                                <p:column >
-                                                    <p:selectOneMenu id="Currency" editable="true" value="#{finalCBean.currency}" filter="true" filterMatchMode="contains">
-                                                        <f:selectItem  itemLabel="Select a Currency" itemValue=""/>
-                                                        <f:selectItems value="#{dataLookUpBean.currencyStrings}" />
-                                                    </p:selectOneMenu>
+                                                <h:outputText id="SelCurrency" 
+                                                              value="Selected Currency: #{dataLookUpBean.selectedCurrencyString}" 
+                                                              parent=":fcostFrom:FinalCostingPanel:wiz:authotabCosting:FC:CurrencyFinalCostin"/>
+                                                <ui:remove>
+                                                    
+                                                    <!--
+                                                              :CurrencyFinalCostin:SelCurrency
+ 
+                                            <p:column >
+                                                
+                                                <p:selectOneMenu id="Currency" editable="true" value="#{finalCBean.currency}" filter="true" filterMatchMode="contains">
+                                                    <f:selectItem  itemLabel="Select a Currency" itemValue=""/>
+                                                    <f:selectItems value="#{dataLookUpBean.currencyStrings}" />
+                                                </p:selectOneMenu>
+                                            </p:column>
+                                                    -->
+
+                                                </ui:remove>
+                                                <p:column>
+
                                                 </p:column>
                                                 <p:column rowspan="1">
-                                                    <p:message for="policycheck"/>
+                                                    <p:commandButton value="Show" type="button" onclick="dlgcurrency.show()"/>
+
                                                 </p:column>
                                             </p:row>
                                         </p:panelGrid>

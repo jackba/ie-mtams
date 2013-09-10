@@ -13,19 +13,19 @@ import Entities.Position;
 import Entities.Region;
 import Entities.Title;
 import javax.inject.Named;
-//import javax.enterprise.context.SessionScoped;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-//import javax.enterprise.context.RequestScoped;
+
 import ServiceLayer.DataLookUpHandlerLocal;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-//import sun.util.resources.CurrencyNames_en_GB;
+
 
 /**
  *
@@ -33,6 +33,7 @@ import javax.faces.context.FacesContext;
  */
 @Named(value = "dataLookUpBean")
 @SessionScoped
+//@ViewScoped
 //@RequestScoped
 public class DataLookUpBean implements Serializable {
 
@@ -174,12 +175,20 @@ public class DataLookUpBean implements Serializable {
         currencyStrings.addAll(daoDataLookUp.allCurrencyStr());
 
         this.countryCount = daoDataLookUp.getCountriesCount();
+        logger.log(Level.INFO, "countryCount : {0}", countryCount);
         this.regionCount = daoDataLookUp.getRegionsCount();
-        this.cityCount= daoDataLookUp.getCitiesCount();
+        this.cityCount = daoDataLookUp.getCitiesCount();
 
         this.countryList = new ArrayList<Country>();
+        countryList.addAll(daoDataLookUp.allCountries());
+        logger.log(Level.INFO, "countryList : {0}", countryList);
+        logger.log(Level.INFO, "countryList.get(1) : {0}", countryList.get(1));
         this.regionList = new ArrayList<Region>();
         this.cityList = new ArrayList<City>();
+
+        aCountrySelection = countryList.get(1);
+//        aRegionySelection;
+//        aCitySelection;
 
         // need to stop headers being set till dialogs are built and ajax requests
         // can be handled
@@ -190,13 +199,14 @@ public class DataLookUpBean implements Serializable {
 
     public String CurSel() {
 //        logger.log(Level.INFO, "CurSel");
-//        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
+        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
         selectedCurrencyString = aCurrencySelection.getCurrencycode3() + ", " + aCurrencySelection.getCountryname() + ", " + aCurrencySelection.getCurrencyname();
 //        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
         return selectedCurrencyString;
     }
 
     public String CRCSel() {
+
         return "CRC test";
     }
 
@@ -435,6 +445,102 @@ public class DataLookUpBean implements Serializable {
 
     public void setSelectedCurrencyString(String SelcurrencyString) {
         this.selectedCurrencyString = SelcurrencyString;
+    }
+
+    public int getCountryCount() {
+        return countryCount;
+    }
+
+    public void setCountryCount(int countryCount) {
+        this.countryCount = countryCount;
+    }
+
+    public int getRegionCount() {
+        return regionCount;
+    }
+
+    public void setRegionCount(int regionCount) {
+        this.regionCount = regionCount;
+    }
+
+    public int getCityCount() {
+        return cityCount;
+    }
+
+    public void setCityCount(int cityCount) {
+        this.cityCount = cityCount;
+    }
+
+    public List<Country> getCountryList() {
+        return countryList;
+    }
+
+    public void setCountryList(List<Country> countryList) {
+        this.countryList = countryList;
+    }
+
+    public List<Region> getRegionList() {
+        return regionList;
+    }
+
+    public void setRegionList(List<Region> regionList) {
+        this.regionList = regionList;
+    }
+
+    public List<City> getCityList() {
+        return cityList;
+    }
+
+    public void setCityList(List<City> cityList) {
+        this.cityList = cityList;
+    }
+
+    public List<Country> getCountryFilteredList() {
+        return countryFilteredList;
+    }
+
+    public void setCountryFilteredList(List<Country> countryFilteredList) {
+        this.countryFilteredList = countryFilteredList;
+    }
+
+    public List<Region> getRegionFilteredList() {
+        return regionFilteredList;
+    }
+
+    public void setRegionFilteredList(List<Region> regionFilteredList) {
+        this.regionFilteredList = regionFilteredList;
+    }
+
+    public List<City> getCityFilteredList() {
+        return cityFilteredList;
+    }
+
+    public void setCityFilteredList(List<City> cityFilteredList) {
+        this.cityFilteredList = cityFilteredList;
+    }
+
+    public Country getaCountrySelection() {
+        return aCountrySelection;
+    }
+
+    public void setaCountrySelection(Country aCountrySelection) {
+        this.aCountrySelection = aCountrySelection;
+    }
+
+    public Region getaRegionySelection() {
+        return aRegionySelection;
+    }
+
+    public void setaRegionySelection(Region aRegionySelection) {
+        this.aRegionySelection = aRegionySelection;
+    }
+
+    public City getaCitySelection() {
+        return aCitySelection;
+    }
+
+    public void setaCitySelection(City aCitySelection) {
+        this.aCitySelection = aCitySelection;
     }
 
     /**
