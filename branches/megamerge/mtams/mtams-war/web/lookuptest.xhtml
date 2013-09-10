@@ -19,16 +19,31 @@ and open the template in the editor.
                 </h:head>
 
                 <div><h1>Data Lookup Dialog Demo</h1>
-                    <div>TODO write content
+                    <div><p>Currency</p>
 
-                        <h:form id="DTCVal" styleClass="test"> 
+                        <h:form id="CurencyVal" styleClass="test"> 
                             <p>Currency List count : #{dataLookUpBean.currencyCount}</p>
-                            <p:commandButton value="Show" type="button" onclick="dlgtest.show()" />
-                            <p:commandButton value="Hide" type="button" onclick="dlgtest.hide()" />
+                            <p:commandButton value="Show" type="button" onclick="dlgcurrency.show()" />
+                            <p:commandButton value="Hide" type="button" onclick="dlgcurrency.hide()" />
                             <br />
                             <p:outputLabel id="CVal" value="string currency object : #{dataLookUpBean.selectedCurrencyString}" />
                             <br />
                             <p:outputLabel id="CValS" value="string currency object : #{dataLookUpBean.aCurrencySelection}" />
+                        </h:form>
+
+                    </div>
+                    <div><p>Country Region City</p>
+
+                        <h:form id="CRCVal" styleClass="test"> 
+                            <p>Currency List count : #{dataLookUpBean.currencyCount}</p>
+                            <p:commandButton value="Show" type="button" onclick="dlgtest.show()" />
+                            <p:commandButton value="Hide" type="button" onclick="dlgtest.hide()" />
+                            <br />
+                            <p:outputLabel id="Country" value="string Country object : #{dataLookUpBean.selectedCurrencyString}" />
+                            <br />
+                            <p:outputLabel id="City" value="string City object : #{dataLookUpBean.selectedCurrencyString}" />
+                            <br />
+                            <p:outputLabel id="CCRS" value="string CRCS object : #{dataLookUpBean.aCurrencySelection}" />
                         </h:form>
 
                     </div>
@@ -46,20 +61,21 @@ and open the template in the editor.
                                          emptyMessage="No data matches your criteria"
                                          selection="#{dataLookUpBean.aCurrencySelection}" selectionMode="single" scrollRows="20"  
                                          scrollable="true" liveScroll="true" scrollHeight="150"
-                                         
+
                                          >  
-                                
-                               
-                               
+
+
+
                                 <p:ajax event="rowSelect" 
-                                        update=":DTCVal:CValS"
+                                        update=":CRCVal:City"
                                         />
-                                <ui:remove> 
-                               <!--
+
                                 <p:ajax event="rowSelect" 
-                                        update=":DTCVal:CValS" 
-                                        listener="#{dataLookUpBean.curSel}" />
-                                -->
+                                        update=":CRCVal:City" 
+                                        listener="#{dataLookUpBean.CurSel}" />
+                                <ui:remove> 
+                                    <!--
+                                    -->
                                 </ui:remove>
                                 <f:facet name="header">  
                                     Click to select a row 
@@ -67,7 +83,7 @@ and open the template in the editor.
                                     <p:inputText id="globalFilter" onkeyup="PF('currencies').filter()" />
                                 </f:facet>  
 
-            
+
                                 <p:column headerText="countryname"
                                           footerText="contains"
                                           filterBy="#{currency.countryname}"
@@ -100,10 +116,12 @@ and open the template in the editor.
 
                                 <f:facet name="footer">  
                                     <p>There are this many : #{dataLookUpBean.currencyCount}</p>
-                                    <p:commandButton value="Hide" type="button" onclick="dlgtest.hide()" actionListener="#{dataLookUpBean.curSel}">
+                                    <p:commandButton value="Hide" type="button" 
+                                                     onclick="dlgtest.hide()" 
+                                                     actionListener="#{dataLookUpBean.CurSel}" update=":CRCVal:City">
 
-                                        <p:ajax update=":DTCVal:CVal" 
-                                                listener="#{dataLookUpBean.curSel}"/>
+                                        <p:ajax update=":CRCVal:City" 
+                                                listener="#{dataLookUpBean.CurSel}"/>
                                     </p:commandButton>
                                 </f:facet>  
 
@@ -113,6 +131,92 @@ and open the template in the editor.
 
 
                 </p:dialog>
+                
+                <p:dialog header="Header Text" widgetVar="dlgcurrency">
+
+
+                    <div id="DTdivtest" class="divCurrency" >
+
+                        <h:form id="Dcurr" styleClass="test"> 
+                            <p:dataTable id="currencytest" styleClass="dlgCurrency" var="currency" 
+                                         value="#{dataLookUpBean.currencyList}" rowKey="#{currency.idcurrency}"  
+                                         filteredValue="#{dataLookUpBean.currencyFilteredList}"
+                                         widgetVar="currencies"
+                                         emptyMessage="No data matches your criteria"
+                                         selection="#{dataLookUpBean.aCurrencySelection}" selectionMode="single" scrollRows="20"  
+                                         scrollable="true" liveScroll="true" scrollHeight="150"
+
+                                         >  
+
+
+
+                                <p:ajax event="rowSelect" 
+                                        update=":CurencyVal:CValS"
+                                        />
+
+                                <p:ajax event="rowSelect" 
+                                        update=":CurencyVal:CVal" 
+                                        listener="#{dataLookUpBean.CurSel}" />
+                                <ui:remove> 
+                                    <!--
+                                    -->
+                                </ui:remove>
+                                <f:facet name="header">  
+                                    Click to select a row 
+                                    <h:outputText value="Search all fields:" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('currencies').filter()" />
+                                </f:facet>  
+
+
+                                <p:column headerText="countryname"
+                                          footerText="contains"
+                                          filterBy="#{currency.countryname}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{currency.countryname}  
+                                </p:column>  
+
+                                <p:column headerText="currencyname" 
+                                          footerText="contains"
+                                          filterBy="#{currency.currencyname}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{currency.currencyname}  
+                                </p:column>  
+
+                                <p:column headerText="currencycode3"
+                                          footerText="contains"
+                                          filterBy="#{currency.currencycode3}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{currency.currencycode3}  
+                                </p:column>  
+
+                                <ui:remove>
+                                    <!--
+                                    
+                                    -->
+                                </ui:remove>
+
+                                <f:facet name="footer">  
+                                    <p>There are this many : #{dataLookUpBean.currencyCount}</p>
+                                    <p:commandButton value="Hide" type="button" 
+                                                     onclick="dlgcurrency.hide()" 
+                                                     actionListener="#{dataLookUpBean.CurSel}" update=":CurencyVal:CVal">
+
+                                        <p:ajax update=":CurencyVal:CVal" 
+                                                listener="#{dataLookUpBean.CurSel}"/>
+                                    </p:commandButton>
+                                </f:facet>  
+
+                            </p:dataTable>  
+                        </h:form>
+                    </div>
+
+
+                </p:dialog>
+                
+                
 
                 <div><h1>Data Lookup Demo</h1></div>
                 <h:form>

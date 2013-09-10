@@ -4,11 +4,13 @@
  */
 package ServiceLayer;
 
+import Entities.City;
 import Entities.Country;
 import Entities.Currency;
 import Entities.Department;
 import Entities.Leavelookup;
 import Entities.Position;
+import Entities.Region;
 import Entities.Title;
 import java.util.Collection;
 import java.util.List;
@@ -74,4 +76,26 @@ public interface DataLookUpHandlerLocal {
     public int getCountriesCount();
 
     public Country getCountries(String aCountry);  
+    
+        // City methods
+    public List<City> allCities(String aRegion, Country aCountry);
+
+    public List<String> allCitiesStr();
+
+    public int getCitiesCount();
+
+    public City getCities(String aCity);
+    
+    public City getCities(String aRegion, Country aCountry);
+    
+        // Region methods
+    public List<Region> allRegions(Country aCountry);
+
+    public List<String> allRegionsStr();
+
+    public int getRegionsCount();
+
+    public Region getRegions(String aRegion);
+    
+    public Region getRegions(String aRegion, Country aCountry); 
 }

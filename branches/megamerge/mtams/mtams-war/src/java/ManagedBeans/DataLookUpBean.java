@@ -4,20 +4,26 @@
  */
 package ManagedBeans;
 
+import Entities.City;
+import Entities.Country;
 import Entities.Currency;
 import Entities.Department;
 import Entities.Leavelookup;
 import Entities.Position;
+import Entities.Region;
 import Entities.Title;
 import javax.inject.Named;
 //import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+//import javax.enterprise.context.RequestScoped;
 import ServiceLayer.DataLookUpHandlerLocal;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 //import sun.util.resources.CurrencyNames_en_GB;
 
@@ -26,14 +32,15 @@ import javax.faces.context.FacesContext;
  * @author aaron
  */
 @Named(value = "dataLookUpBean")
-//@SessionScoped
-@RequestScoped
+@SessionScoped
+//@RequestScoped
 public class DataLookUpBean implements Serializable {
 
     //testing
     //private CurrencyNames_en_GB javaCurrency;
     @EJB
     private DataLookUpHandlerLocal daoDataLookUp;
+    private static final Logger logger = Logger.getLogger(ApplicationBean.class.getName());
     //private TitleFacadeLocal doaTitle;
     // Title lookup vars
     private int titleCount;
@@ -61,13 +68,26 @@ public class DataLookUpBean implements Serializable {
     private List<String> departmentStrings;
     // Currency lookup vars
     private int currencyCount;
-    private Currency aCurrencyRef;
+    //private Currency aCurrencyRef;
     private Currency aCurrencySelection;
     private String currencyString;
     private String selectedCurrencyString;
     private List<Currency> currencyList;
     private List<Currency> currencyFilteredList;
     private List<String> currencyStrings;
+    //Country Region City
+    private int countryCount;
+    private int regionCount;
+    private int cityCount;
+    private List<Country> countryList;
+    private List<Region> regionList;
+    private List<City> cityList;
+    private List<Country> countryFilteredList;
+    private List<Region> regionFilteredList;
+    private List<City> cityFilteredList;
+    private Country aCountrySelection;
+    private Region aRegionySelection;
+    private City aCitySelection;
 
     //private String test = "hello world";
     //private String test;
@@ -76,6 +96,7 @@ public class DataLookUpBean implements Serializable {
      */
     @PostConstruct
     public void init() {
+        logger.log(Level.INFO, "initialize");
 
         //this.titleCount = 10;
         //this.test = "hello world in init";
@@ -131,23 +152,52 @@ public class DataLookUpBean implements Serializable {
         // Currency References
         this.currencyCount = daoDataLookUp.getCurrencyCount();
         // non case sensitive search for 
-        this.aCurrencyRef = daoDataLookUp.getCurrency("eur");
-        this.currencyString = aCurrencyRef.getCurrencycode3();
-        this.selectedCurrencyString = "test";
+//        this.aCurrencyRef = daoDataLookUp.getCurrency("eur");
+//        this.currencyString = aCurrencyRef.getCurrencycode3();
+
+        logger.log(Level.INFO, "aCurrencySelection : {0}", aCurrencySelection);
+        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
+        if (aCurrencySelection != null) {
+            this.setSelectedCurrencyString(("".equals(this.getSelectedCurrencyString())) ? this.CurSel() : this.getSelectedCurrencyString());
+        } else {
+            this.selectedCurrencyString = "set";
+        }
+        //this.setSelectedCurrencyString((this.selectedCurrencyString == null) ? "test" : this.CurSel());
+        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
+        //logger.log(Level.INFO, "aCurrencySelection.toString : {0}", aCurrencySelection.toString());
+
 
         this.currencyList = new ArrayList<Currency>();
         currencyList.addAll(daoDataLookUp.allCurrency());
 
         this.currencyStrings = new ArrayList<String>();
         currencyStrings.addAll(daoDataLookUp.allCurrencyStr());
-        
+
+        this.countryCount = daoDataLookUp.getCountriesCount();
+        this.regionCount = daoDataLookUp.getRegionsCount();
+        this.cityCount= daoDataLookUp.getCitiesCount();
+
+        this.countryList = new ArrayList<Country>();
+        this.regionList = new ArrayList<Region>();
+        this.cityList = new ArrayList<City>();
+
         // need to stop headers being set till dialogs are built and ajax requests
         // can be handled
-        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        FacesContext
+                .getCurrentInstance().getExternalContext().getSession(true);
+        logger.log(Level.INFO, "initialize end");
     }
-    
-    public void CurSel() {
-        selectedCurrencyString =  aCurrencySelection.getCurrencycode3() + ", "  + aCurrencySelection.getCountryname() + ", " + aCurrencySelection.getCurrencyname();
+
+    public String CurSel() {
+//        logger.log(Level.INFO, "CurSel");
+//        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
+        selectedCurrencyString = aCurrencySelection.getCurrencycode3() + ", " + aCurrencySelection.getCountryname() + ", " + aCurrencySelection.getCurrencyname();
+//        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
+        return selectedCurrencyString;
+    }
+
+    public String CRCSel() {
+        return "CRC test";
     }
 
     public List<String> getTitleStrings() {
@@ -339,14 +389,6 @@ public class DataLookUpBean implements Serializable {
         this.currencyCount = currencyCount;
     }
 
-    public Currency getaCurrencyRef() {
-        return aCurrencyRef;
-    }
-
-    public void setaCurrencyRef(Currency aCurrencyRef) {
-        this.aCurrencyRef = aCurrencyRef;
-    }
-
     public String getCurrencyString() {
         return currencyString;
     }
@@ -394,9 +436,6 @@ public class DataLookUpBean implements Serializable {
     public void setSelectedCurrencyString(String SelcurrencyString) {
         this.selectedCurrencyString = SelcurrencyString;
     }
-     
-    
-    
 
     /**
      * Creates a new instance of DataLookUpBean
