@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author aaron
+ * @author Alexandre Damasio
  */
 @Stateless
 public class TravelerprofileFacade extends AbstractFacade<Travelerprofile> implements TravelerprofileFacadeLocal {
