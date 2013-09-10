@@ -7,6 +7,7 @@ package ManagedBeans;
 import Entities.Accomodationquotes;
 import Entities.Application;
 import Entities.Carquotes;
+import Entities.Currency;
 import Entities.Flightquotes;
 import Entities.Itinerary;
 import Entities.Quotes;
@@ -22,7 +23,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -33,6 +33,7 @@ import javax.servlet.http.HttpSession;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Pattern;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FlowEvent;
 
 /**
@@ -67,61 +68,64 @@ public class ApplicationBean implements Serializable {
     private Itinerary tempItin;
     @Future(message="Date must be in Future")
     private Date tempDate;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String tempDest;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String tempLeaveType;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String tempTravelDay;
     
+    ///////////QUOTES//////////////
     private String costCentre;
+    private String currency;
+    private Currency aCurrencySelection;
     private Quotes newQuote;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String fQFrom;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String fQTo;
     @Future
     private Date fQDate;
     private String fQTime;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[0-9a-zA-Z' ]{0,}")
     private String fQFlight1;
     @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String fQCost1;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[0-9a-zA-Z' ]{0,}")
     private String fQFlight2;
     @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String fQCost2;
     private List<Flightquotes> flightQuotes;
     private Flightquotes newFlight;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String cQFrom;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String cQTo;
     @Future
     private Date cQDateCollected;
     @Future
     private Date cQDateReturned;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[0-9a-zA-Z' ]{0,}")
     private String cQHire1;
     @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String cQCost1;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[0-9a-zA-Z' ]{0,}")
     private String cQHire2;
     @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String cQCost2;
     private List<Carquotes> carQuotes;
     private Carquotes newCar;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String hQLocation;
     @Future(message="Date must be in Future")
     private Date hQDateIn;
     @Future(message="Date must be in Future")
     private Date hQDateOut;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String hQHotel1;
     @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String hQCost1;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String hQHotel2;
     @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String hQCost2;
@@ -213,7 +217,7 @@ public class ApplicationBean implements Serializable {
 
         accQuotes = new ArrayList<Accomodationquotes>();
         newAcc = new Accomodationquotes();
-
+        newAcc.setCurrency(currency);
         newAcc.setAccomodationprovider(hQHotel1);
         newAcc.setQuotecost(Double.parseDouble(hQCost1));
         newAcc.setCity(hQLocation);
@@ -223,6 +227,7 @@ public class ApplicationBean implements Serializable {
         accQuotes.add(newAcc);
 
         newAcc = new Accomodationquotes();
+        newAcc.setCurrency(currency);
 
         newAcc.setAccomodationprovider(hQHotel2);
         newAcc.setQuotecost(Double.parseDouble(hQCost2));
@@ -234,7 +239,7 @@ public class ApplicationBean implements Serializable {
 
         carQuotes = new ArrayList<Carquotes>();
         newCar = new Carquotes();
-
+        newCar.setCurrency(currency);
         newCar.setDatecollect(cQDateCollected);
         newCar.setDatereturn(cQDateReturned);
         newCar.setProvider(cQHire1);
@@ -243,6 +248,7 @@ public class ApplicationBean implements Serializable {
         carQuotes.add(newCar);
 
         newCar = new Carquotes();
+        newCar.setCurrency(currency);
 
         newCar.setDatecollect(cQDateCollected);
         newCar.setDatereturn(cQDateReturned);
@@ -253,7 +259,7 @@ public class ApplicationBean implements Serializable {
 
         flightQuotes = new ArrayList<Flightquotes>();
         newFlight = new Flightquotes();
-
+        newFlight.setCurrency(currency);
         newFlight.setFlightfromCity(fQFrom);
         newFlight.setFlighttoCity(fQTo);
         newFlight.setDatedeparture(fQDate);
@@ -263,6 +269,7 @@ public class ApplicationBean implements Serializable {
         flightQuotes.add(newFlight);
 
         newFlight = new Flightquotes();
+        newFlight.setCurrency(currency);
 
         newFlight.setFlightfromCity(fQFrom);
         newFlight.setFlighttoCity(fQTo);
@@ -783,8 +790,31 @@ public class ApplicationBean implements Serializable {
     public void setCurrentDate(Date currentDate) {
         this.currentDate = currentDate;
     }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public Currency getaCurrencySelection() {
+        return aCurrencySelection;
+    }
+
+    public void setaCurrencySelection(Currency aCurrencySelection) {
+        this.aCurrencySelection = aCurrencySelection;
+    }
     
-    
+        public String CurSel() {
+//        logger.log(Level.INFO, "CurSel");
+        logger.log(Level.INFO, "selectedCurrencyString : {0}", currency);
+        currency = aCurrencySelection.getCurrencycode3();
+        RequestContext.getCurrentInstance().execute("dlgcurrency.hide()");
+//        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
+        return "currency";
+    }
     
     public String goCreateForex(){
         return "forexCreate";
