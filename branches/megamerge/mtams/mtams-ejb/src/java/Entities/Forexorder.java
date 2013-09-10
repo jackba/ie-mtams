@@ -5,10 +5,8 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,17 +14,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author aaron
+ * @author Riaan
  */
 @Entity
 @Table(name = "FOREXORDER")
@@ -38,28 +34,19 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Forexorder.findByDatewillbeconfirmed", query = "SELECT f FROM Forexorder f WHERE f.datewillbeconfirmed = :datewillbeconfirmed"),
     @NamedQuery(name = "Forexorder.findByTicketnum", query = "SELECT f FROM Forexorder f WHERE f.ticketnum = :ticketnum"),
     @NamedQuery(name = "Forexorder.findByVoyagernum", query = "SELECT f FROM Forexorder f WHERE f.voyagernum = :voyagernum"),
-    @NamedQuery(name = "Forexorder.findByDateofdepart", query = "SELECT f FROM Forexorder f WHERE f.dateofdepart = :dateofdepart"),
-    @NamedQuery(name = "Forexorder.findByDateofreturn", query = "SELECT f FROM Forexorder f WHERE f.dateofreturn = :dateofreturn"),
+    @NamedQuery(name = "Forexorder.findByCurrencycheque", query = "SELECT f FROM Forexorder f WHERE f.currencycheque = :currencycheque"),
     @NamedQuery(name = "Forexorder.findByTravelerscheques", query = "SELECT f FROM Forexorder f WHERE f.travelerscheques = :travelerscheques"),
-    @NamedQuery(name = "Forexorder.findByCurrency", query = "SELECT f FROM Forexorder f WHERE f.currency = :currency"),
+    @NamedQuery(name = "Forexorder.findByCurrencycash", query = "SELECT f FROM Forexorder f WHERE f.currencycash = :currencycash"),
     @NamedQuery(name = "Forexorder.findByCash", query = "SELECT f FROM Forexorder f WHERE f.cash = :cash"),
     @NamedQuery(name = "Forexorder.findByCashpassport", query = "SELECT f FROM Forexorder f WHERE f.cashpassport = :cashpassport"),
     @NamedQuery(name = "Forexorder.findByCctype", query = "SELECT f FROM Forexorder f WHERE f.cctype = :cctype"),
     @NamedQuery(name = "Forexorder.findByCcnumber", query = "SELECT f FROM Forexorder f WHERE f.ccnumber = :ccnumber"),
     @NamedQuery(name = "Forexorder.findByCclast3", query = "SELECT f FROM Forexorder f WHERE f.cclast3 = :cclast3"),
     @NamedQuery(name = "Forexorder.findByCcexpirydate", query = "SELECT f FROM Forexorder f WHERE f.ccexpirydate = :ccexpirydate"),
+    @NamedQuery(name = "Forexorder.findByCurrencycc", query = "SELECT f FROM Forexorder f WHERE f.currencycc = :currencycc"),
     @NamedQuery(name = "Forexorder.findByCcpaymentamount", query = "SELECT f FROM Forexorder f WHERE f.ccpaymentamount = :ccpaymentamount"),
     @NamedQuery(name = "Forexorder.findByReasonfortravel", query = "SELECT f FROM Forexorder f WHERE f.reasonfortravel = :reasonfortravel")})
 public class Forexorder implements Serializable {
-    @Size(max = 45)
-    @Column(name = "CURRENCYCHEQUE")
-    private String currencycheque;
-    @Size(max = 45)
-    @Column(name = "CURRENCYCASH")
-    private String currencycash;
-    @Size(max = 45)
-    @Column(name = "CURRENCYCC")
-    private String currencycc;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -78,18 +65,15 @@ public class Forexorder implements Serializable {
     @Size(max = 45)
     @Column(name = "VOYAGERNUM")
     private String voyagernum;
-    @Column(name = "DATEOFDEPART")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateofdepart;
-    @Column(name = "DATEOFRETURN")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateofreturn;
+    @Size(max = 45)
+    @Column(name = "CURRENCYCHEQUE")
+    private String currencycheque;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "TRAVELERSCHEQUES")
     private Double travelerscheques;
     @Size(max = 45)
-    @Column(name = "CURRENCY")
-    private String currency;
+    @Column(name = "CURRENCYCASH")
+    private String currencycash;
     @Column(name = "CASH")
     private Double cash;
     @Column(name = "CASHPASSPORT")
@@ -106,15 +90,14 @@ public class Forexorder implements Serializable {
     @Column(name = "CCEXPIRYDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ccexpirydate;
+    @Size(max = 45)
+    @Column(name = "CURRENCYCC")
+    private String currencycc;
     @Column(name = "CCPAYMENTAMOUNT")
     private Double ccpaymentamount;
     @Size(max = 500)
     @Column(name = "REASONFORTRAVEL")
     private String reasonfortravel;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "forexorderIdforexorder")
-    private Collection<Application> applicationCollection;
-    @OneToMany(mappedBy = "forexorderIdforexorder")
-    private Collection<Attachement> attachementCollection;
 
     public Forexorder() {
     }
@@ -163,20 +146,12 @@ public class Forexorder implements Serializable {
         this.voyagernum = voyagernum;
     }
 
-    public Date getDateofdepart() {
-        return dateofdepart;
+    public String getCurrencycheque() {
+        return currencycheque;
     }
 
-    public void setDateofdepart(Date dateofdepart) {
-        this.dateofdepart = dateofdepart;
-    }
-
-    public Date getDateofreturn() {
-        return dateofreturn;
-    }
-
-    public void setDateofreturn(Date dateofreturn) {
-        this.dateofreturn = dateofreturn;
+    public void setCurrencycheque(String currencycheque) {
+        this.currencycheque = currencycheque;
     }
 
     public Double getTravelerscheques() {
@@ -187,12 +162,12 @@ public class Forexorder implements Serializable {
         this.travelerscheques = travelerscheques;
     }
 
-    public String getCurrency() {
-        return currency;
+    public String getCurrencycash() {
+        return currencycash;
     }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
+    public void setCurrencycash(String currencycash) {
+        this.currencycash = currencycash;
     }
 
     public Double getCash() {
@@ -243,6 +218,14 @@ public class Forexorder implements Serializable {
         this.ccexpirydate = ccexpirydate;
     }
 
+    public String getCurrencycc() {
+        return currencycc;
+    }
+
+    public void setCurrencycc(String currencycc) {
+        this.currencycc = currencycc;
+    }
+
     public Double getCcpaymentamount() {
         return ccpaymentamount;
     }
@@ -257,24 +240,6 @@ public class Forexorder implements Serializable {
 
     public void setReasonfortravel(String reasonfortravel) {
         this.reasonfortravel = reasonfortravel;
-    }
-
-    @XmlTransient
-    public Collection<Application> getApplicationCollection() {
-        return applicationCollection;
-    }
-
-    public void setApplicationCollection(Collection<Application> applicationCollection) {
-        this.applicationCollection = applicationCollection;
-    }
-
-    @XmlTransient
-    public Collection<Attachement> getAttachementCollection() {
-        return attachementCollection;
-    }
-
-    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
-        this.attachementCollection = attachementCollection;
     }
 
     @Override
@@ -300,30 +265,6 @@ public class Forexorder implements Serializable {
     @Override
     public String toString() {
         return "Entities.Forexorder[ idforexorder=" + idforexorder + " ]";
-    }
-
-    public String getCurrencycheque() {
-        return currencycheque;
-    }
-
-    public void setCurrencycheque(String currencycheque) {
-        this.currencycheque = currencycheque;
-    }
-
-    public String getCurrencycash() {
-        return currencycash;
-    }
-
-    public void setCurrencycash(String currencycash) {
-        this.currencycash = currencycash;
-    }
-
-    public String getCurrencycc() {
-        return currencycc;
-    }
-
-    public void setCurrencycc(String currencycc) {
-        this.currencycc = currencycc;
     }
     
 }
