@@ -64,7 +64,9 @@ public class DataLookUpBean implements Serializable {
     private Currency aCurrencyRef;
     private Currency aCurrencySelection;
     private String currencyString;
+    private String selectedCurrencyString;
     private List<Currency> currencyList;
+    private List<Currency> currencyFilteredList;
     private List<String> currencyStrings;
 
     //private String test = "hello world";
@@ -131,6 +133,7 @@ public class DataLookUpBean implements Serializable {
         // non case sensitive search for 
         this.aCurrencyRef = daoDataLookUp.getCurrency("eur");
         this.currencyString = aCurrencyRef.getCurrencycode3();
+        this.selectedCurrencyString = "test";
 
         this.currencyList = new ArrayList<Currency>();
         currencyList.addAll(daoDataLookUp.allCurrency());
@@ -141,6 +144,10 @@ public class DataLookUpBean implements Serializable {
         // need to stop headers being set till dialogs are built and ajax requests
         // can be handled
         FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+    }
+    
+    public void CurSel() {
+        selectedCurrencyString =  aCurrencySelection.getCurrencycode3() + ", "  + aCurrencySelection.getCountryname() + ", " + aCurrencySelection.getCurrencyname();
     }
 
     public List<String> getTitleStrings() {
@@ -370,6 +377,22 @@ public class DataLookUpBean implements Serializable {
 
     public void setaCurrencySelection(Currency aCurrencySelection) {
         this.aCurrencySelection = aCurrencySelection;
+    }
+
+    public List<Currency> getCurrencyFilteredList() {
+        return currencyFilteredList;
+    }
+
+    public void setCurrencyFilteredList(List<Currency> currencyFilteredList) {
+        this.currencyFilteredList = currencyFilteredList;
+    }
+
+    public String getSelectedCurrencyString() {
+        return selectedCurrencyString;
+    }
+
+    public void setSelectedCurrencyString(String SelcurrencyString) {
+        this.selectedCurrencyString = SelcurrencyString;
     }
      
     

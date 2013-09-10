@@ -9,103 +9,209 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-    <ui:composition>
-        <h:head>
-            <title>Data Lookup Demo</title>
-        </h:head>
-        <body>
-            <div>Data Lookup Demo</div>
-            <h:form>
+    <body>
+        <ui:composition template="./template/template.xhtml">
 
-                <p>Number of elements in Title table : #{dataLookUpBean.titleCount}</p>
+            <ui:define name="content"> 
 
-                <h:outputText value="test title string : #{dataLookUpBean.titleString}" />
-                <br />
-                <h:outputText value="title object element output : #{dataLookUpBean.getaTitleRef()}" />
-                <br />
-                <p:selectOneMenu id="TitleList" editable="true" value="#{dataLookUpBean.titleList}">
-                    <f:selectItem  itemLabel="Select a Title" itemValue=""/>
-                    <f:selectItems value="#{dataLookUpBean.titleList}" />
-                </p:selectOneMenu>
+                <h:head>
+                    <title>Data Lookup Demo</title>
+                </h:head>
 
-                <p:dataList value="#{dataLookUpBean.titleList}" var="Title" type="ordered" >  
-                    #{Title}, #{Title.title}  
-                </p:dataList> 
+                <div><h1>Data Lookup Dialog Demo</h1>
+                    <div>TODO write content
 
-                <h:outputText value="string title object : #{dataLookUpBean.titleString}" />
-                <br />
-                <p:selectOneMenu id="TitleString" editable="true" value="#{dataLookUpBean.titleString}">
-                    <f:selectItem  itemLabel="Select a Title" itemValue=""/>
-                    <f:selectItems value="#{dataLookUpBean.titleStrings}" />
-                </p:selectOneMenu>
+                        <h:form id="DTCVal" styleClass="test"> 
+                            <p>Currency List count : #{dataLookUpBean.currencyCount}</p>
+                            <p:commandButton value="Show" type="button" onclick="dlgtest.show()" />
+                            <p:commandButton value="Hide" type="button" onclick="dlgtest.hide()" />
+                            <br />
+                            <p:outputLabel id="CVal" value="string currency object : #{dataLookUpBean.selectedCurrencyString}" />
+                            <br />
+                            <p:outputLabel id="CValS" value="string currency object : #{dataLookUpBean.aCurrencySelection}" />
+                        </h:form>
 
-                <p:dataList value="#{dataLookUpBean.titleStrings}" var="Title" type="ordered" itemType="A">  
-                    #{Title}  
-                </p:dataList> 
+                    </div>
+                </div>
+                <p:dialog header="Header Text" widgetVar="dlgtest">
 
-                <p>Number of elements in Position table : #{dataLookUpBean.positionCount}</p>
-                <h:outputText value="string position object : #{dataLookUpBean.positionString}" />
-                <br />
-                <p:selectOneMenu id="PositionString" editable="true" value="#{dataLookUpBean.positionString}">
-                    <f:selectItem  itemLabel="Select a Title" itemValue=""/>
-                    <f:selectItems value="#{dataLookUpBean.positionStrings}" />
-                </p:selectOneMenu>
 
-                <p:dataList value="#{dataLookUpBean.positionStrings}" var="Position" type="ordered" itemType="A">  
-                    #{Position}  
-                </p:dataList>
+                    <div id="DTdivtest" class="divCurrency" >
 
-                <p>Number of elements in LeaveLookup table : #{dataLookUpBean.leaveCount}</p>
-                <h:outputText value="string leave object : #{dataLookUpBean.leaveString}" />
-                <br />
-                <p:selectOneMenu id="leaveString" editable="true" value="#{dataLookUpBean.leaveString}">
-                    <f:selectItem  itemLabel="Select a Title" itemValue=""/>
-                    <f:selectItems value="#{dataLookUpBean.leaveStrings}" />
-                </p:selectOneMenu>
+                        <h:form id="DTformtest" styleClass="test"> 
+                            <p:dataTable id="currencytest" styleClass="dlgCurrency" var="currency" 
+                                         value="#{dataLookUpBean.currencyList}" rowKey="#{currency.idcurrency}"  
+                                         filteredValue="#{dataLookUpBean.currencyFilteredList}"
+                                         widgetVar="currencies"
+                                         emptyMessage="No data matches your criteria"
+                                         selection="#{dataLookUpBean.aCurrencySelection}" selectionMode="single" scrollRows="20"  
+                                         scrollable="true" liveScroll="true" scrollHeight="150"
+                                         
+                                         >  
+                                
+                               
+                               
+                                <p:ajax event="rowSelect" 
+                                        update=":DTCVal:CValS"
+                                        />
+                                <ui:remove> 
+                               <!--
+                                <p:ajax event="rowSelect" 
+                                        update=":DTCVal:CValS" 
+                                        listener="#{dataLookUpBean.curSel}" />
+                                -->
+                                </ui:remove>
+                                <f:facet name="header">  
+                                    Click to select a row 
+                                    <h:outputText value="Search all fields:" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('currencies').filter()" />
+                                </f:facet>  
 
-                <p>Searchable / Filter list with filter="ture" attribute</p>
-                <p:selectOneMenu id="leaveStringfilter" editable="true" value="#{dataLookUpBean.leaveString}" filter="true" filterMatchMode="contains">
-                    <f:selectItem  itemLabel="Select a Title" itemValue=""/>
-                    <f:selectItems value="#{dataLookUpBean.leaveStrings}" />
-                </p:selectOneMenu>
+            
+                                <p:column headerText="countryname"
+                                          footerText="contains"
+                                          filterBy="#{currency.countryname}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{currency.countryname}  
+                                </p:column>  
 
-                <p:dataList value="#{dataLookUpBean.leaveStrings}" var="Leave" type="ordered" itemType="A">  
-                    #{Leave}  
-                </p:dataList> 
+                                <p:column headerText="currencyname" 
+                                          footerText="contains"
+                                          filterBy="#{currency.currencyname}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{currency.currencyname}  
+                                </p:column>  
 
-                <p>Number of elements in Department table : #{dataLookUpBean.departmentCount}</p>
-                <h:outputText value="string leave object : #{dataLookUpBean.departmentString}" />
-                <br />
-                <p:selectOneMenu id="Departments" editable="true" value="#{dataLookUpBean.departmentString}">
-                    <f:selectItem  itemLabel="Select a Title" itemValue=""/>
-                    <f:selectItems value="#{dataLookUpBean.departmentStrings}" />
-                </p:selectOneMenu>
+                                <p:column headerText="currencycode3"
+                                          footerText="contains"
+                                          filterBy="#{currency.currencycode3}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{currency.currencycode3}  
+                                </p:column>  
 
-                <p:dataList value="#{dataLookUpBean.departmentStrings}" var="department" type="ordered" itemType="A">  
-                    #{department}  
-                </p:dataList> 
+                                <ui:remove>
+                                    <!--
+                                    
+                                    -->
+                                </ui:remove>
 
-                <p>Number of elements in currency table : #{dataLookUpBean.currencyCount}</p>
-                <h:outputText value="string leave object : #{dataLookUpBean.currencyString}" />
-                <br />
-                <p:selectOneMenu id="Currency" editable="true" value="#{dataLookUpBean.currencyString}" filter="true" filterMatchMode="contains">
-                    <f:selectItem  itemLabel="Select a Title" itemValue=""/>
-                    <f:selectItems value="#{dataLookUpBean.currencyStrings}" />
-                </p:selectOneMenu>
+                                <f:facet name="footer">  
+                                    <p>There are this many : #{dataLookUpBean.currencyCount}</p>
+                                    <p:commandButton value="Hide" type="button" onclick="dlgtest.hide()" actionListener="#{dataLookUpBean.curSel}">
 
-                <p:dataList value="#{dataLookUpBean.currencyStrings}" var="currency" type="ordered" >  
-                    #{currency}  
-                </p:dataList> 
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                
-            </h:form>
-        </body>
-    </ui:composition>
+                                        <p:ajax update=":DTCVal:CVal" 
+                                                listener="#{dataLookUpBean.curSel}"/>
+                                    </p:commandButton>
+                                </f:facet>  
+
+                            </p:dataTable>  
+                        </h:form>
+                    </div>
+
+
+                </p:dialog>
+
+                <div><h1>Data Lookup Demo</h1></div>
+                <h:form>
+
+                    <p>Number of elements in Title table : #{dataLookUpBean.titleCount}</p>
+
+                    <h:outputText value="test title string : #{dataLookUpBean.titleString}" />
+                    <br />
+                    <h:outputText value="title object element output : #{dataLookUpBean.getaTitleRef()}" />
+                    <br />
+                    <p:selectOneMenu id="TitleList" editable="true" value="#{dataLookUpBean.titleList}">
+                        <f:selectItem  itemLabel="Select a Title" itemValue=""/>
+                        <f:selectItems value="#{dataLookUpBean.titleList}" />
+                    </p:selectOneMenu>
+
+                    <p:dataList value="#{dataLookUpBean.titleList}" var="Title" type="ordered" >  
+                        #{Title}, #{Title.title}  
+                    </p:dataList> 
+
+                    <h:outputText value="string title object : #{dataLookUpBean.titleString}" />
+                    <br />
+                    <p:selectOneMenu id="TitleString" editable="true" value="#{dataLookUpBean.titleString}">
+                        <f:selectItem  itemLabel="Select a Title" itemValue=""/>
+                        <f:selectItems value="#{dataLookUpBean.titleStrings}" />
+                    </p:selectOneMenu>
+
+                    <p:dataList value="#{dataLookUpBean.titleStrings}" var="Title" type="ordered" itemType="A">  
+                        #{Title}  
+                    </p:dataList> 
+
+                    <p>Number of elements in Position table : #{dataLookUpBean.positionCount}</p>
+                    <h:outputText value="string position object : #{dataLookUpBean.positionString}" />
+                    <br />
+                    <p:selectOneMenu id="PositionString" editable="true" value="#{dataLookUpBean.positionString}">
+                        <f:selectItem  itemLabel="Select a Title" itemValue=""/>
+                        <f:selectItems value="#{dataLookUpBean.positionStrings}" />
+                    </p:selectOneMenu>
+
+                    <p:dataList value="#{dataLookUpBean.positionStrings}" var="Position" type="ordered" itemType="A">  
+                        #{Position}  
+                    </p:dataList>
+
+                    <p>Number of elements in LeaveLookup table : #{dataLookUpBean.leaveCount}</p>
+                    <h:outputText value="string leave object : #{dataLookUpBean.leaveString}" />
+                    <br />
+                    <p:selectOneMenu id="leaveString" editable="true" value="#{dataLookUpBean.leaveString}">
+                        <f:selectItem  itemLabel="Select a Title" itemValue=""/>
+                        <f:selectItems value="#{dataLookUpBean.leaveStrings}" />
+                    </p:selectOneMenu>
+
+                    <p>Searchable / Filter list with filter="ture" attribute</p>
+                    <p:selectOneMenu id="leaveStringfilter" editable="true" value="#{dataLookUpBean.leaveString}" filter="true" filterMatchMode="contains">
+                        <f:selectItem  itemLabel="Select a Title" itemValue=""/>
+                        <f:selectItems value="#{dataLookUpBean.leaveStrings}" />
+                    </p:selectOneMenu>
+
+                    <p:dataList value="#{dataLookUpBean.leaveStrings}" var="Leave" type="ordered" itemType="A">  
+                        #{Leave}  
+                    </p:dataList> 
+
+                    <p>Number of elements in Department table : #{dataLookUpBean.departmentCount}</p>
+                    <h:outputText value="string leave object : #{dataLookUpBean.departmentString}" />
+                    <br />
+                    <p:selectOneMenu id="Departments" editable="true" value="#{dataLookUpBean.departmentString}">
+                        <f:selectItem  itemLabel="Select a Title" itemValue=""/>
+                        <f:selectItems value="#{dataLookUpBean.departmentStrings}" />
+                    </p:selectOneMenu>
+
+                    <p:dataList value="#{dataLookUpBean.departmentStrings}" var="department" type="ordered" itemType="A">  
+                        #{department}  
+                    </p:dataList> 
+
+                    <p>Number of elements in currency table : #{dataLookUpBean.currencyCount}</p>
+                    <h:outputText value="string currency object : #{dataLookUpBean.currencyString}" />
+                    <br />
+                    <p:selectOneMenu id="Currency" editable="true" value="#{dataLookUpBean.currencyString}" filter="true" filterMatchMode="contains">
+                        <f:selectItem  itemLabel="Select a Title" itemValue=""/>
+                        <f:selectItems value="#{dataLookUpBean.currencyStrings}" />
+                    </p:selectOneMenu>
+                    <ui:remove>
+                        <!--
+                    
+                    <p:dataList value="#{dataLookUpBean.currencyStrings}" var="currency" type="ordered" >  
+                        #{currency}  
+                    </p:dataList> 
+                        -->
+                    </ui:remove>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+    </body>
 </html>
