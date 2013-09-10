@@ -88,6 +88,8 @@ public interface DataLookUpHandlerLocal {
     
     public City getCities(String aRegion, Country aCountry);
     
+    public List<City> getCities(Region aRegion, Country aCountry);
+    
         // Region methods
     public List<Region> allRegions(Country aCountry);
 

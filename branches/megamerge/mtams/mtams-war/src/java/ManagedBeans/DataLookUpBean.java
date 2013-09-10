@@ -26,12 +26,12 @@ import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 
-
 /**
  *
  * @author aaron
  */
 @Named(value = "dataLookUpBean")
+//@ConversationScoped
 @SessionScoped
 //@ViewScoped
 //@RequestScoped
@@ -41,7 +41,7 @@ public class DataLookUpBean implements Serializable {
     //private CurrencyNames_en_GB javaCurrency;
     @EJB
     private DataLookUpHandlerLocal daoDataLookUp;
-    private static final Logger logger = Logger.getLogger(ApplicationBean.class.getName());
+    private static final Logger logger = Logger.getLogger(DataLookUpBean.class.getName());
     //private TitleFacadeLocal doaTitle;
     // Title lookup vars
     private int titleCount;
@@ -86,9 +86,13 @@ public class DataLookUpBean implements Serializable {
     private List<Country> countryFilteredList;
     private List<Region> regionFilteredList;
     private List<City> cityFilteredList;
-    private Country aCountrySelection;
-    private Region aRegionySelection;
-    private City aCitySelection;
+    private Country CountrySelectionRef;
+    private Country countryRef;
+    private Region RegionySelectionRef;
+    private City CitySelectionRef;
+    private String countryString;
+    private String regionyString;
+    private String cityString;
 
     //private String test = "hello world";
     //private String test;
@@ -161,7 +165,7 @@ public class DataLookUpBean implements Serializable {
         if (aCurrencySelection != null) {
             this.setSelectedCurrencyString(("".equals(this.getSelectedCurrencyString())) ? this.CurSel() : this.getSelectedCurrencyString());
         } else {
-            this.selectedCurrencyString = "set";
+            this.setSelectedCurrencyString("".equals(this.getSelectedCurrencyString()) ? "" : this.getSelectedCurrencyString());
         }
         //this.setSelectedCurrencyString((this.selectedCurrencyString == null) ? "test" : this.CurSel());
         logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
@@ -186,14 +190,14 @@ public class DataLookUpBean implements Serializable {
         this.regionList = new ArrayList<Region>();
         this.cityList = new ArrayList<City>();
 
-        aCountrySelection = countryList.get(1);
+        //this.setCountryString(CountrySelectionRef.getName());
+        //logger.log(Level.INFO, "CountrySelectionRef.getName() : {0}", CountrySelectionRef.getName());
 //        aRegionySelection;
 //        aCitySelection;
 
         // need to stop headers being set till dialogs are built and ajax requests
         // can be handled
-        FacesContext
-                .getCurrentInstance().getExternalContext().getSession(true);
+        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         logger.log(Level.INFO, "initialize end");
     }
 
@@ -206,16 +210,104 @@ public class DataLookUpBean implements Serializable {
     }
 
     public String CRCSel() {
+        logger.log(Level.INFO, "CountrySelectionRef : {0}", this.getCountrySelectionRef());
+        //this.setCountryString(CountrySelectionRef.getName());
+        logger.log(Level.INFO, "CountryString : {0}", this.getCountryString());
+        logger.log(Level.INFO, "1 getRegionySelectionRef : {0}", getRegionySelectionRef());
+        if (this.getCountrySelectionRef() != null) {
+            if (getRegionList().isEmpty()) {
+                setRegionList(daoDataLookUp.allRegions(this.getCountrySelectionRef()));
+                logger.log(Level.INFO, "getRegionList : {0}", this.getRegionList());
+                // that it is not the same country
+                // don't need to rebuild the regions list if we allready have it
+            } else if (!(getRegionList().get(0).getCode2().getCode2().equalsIgnoreCase(this.getCountrySelectionRef().getCode2()))) {
+                setRegionList(daoDataLookUp.allRegions(this.getCountrySelectionRef()));
+                logger.log(Level.INFO, "getRegionList : {0}", this.getRegionList());
+            }
+            logger.log(Level.INFO, "2 getRegionySelectionRef : {0}", getRegionySelectionRef());
+            if (this.getRegionySelectionRef() != null) {
+                logger.log(Level.INFO, "3 getRegionySelectionRef : {0}", getRegionySelectionRef());
+                this.setRegionyString(this.getRegionySelectionRef().getName());
+            }
+
+        }
 
         return "CRC test";
     }
 
-    public List<String> getTitleStrings() {
-        return titleStrings;
+    public String CoutrySel() {
+        logger.log(Level.INFO, "CountrySelectionRef : {0}", this.getCountrySelectionRef());
+        this.setCountryString(CountrySelectionRef.getName());
+        this.setRegionySelectionRef(null);
+        this.setRegionyString("");
+        logger.log(Level.INFO, "CountryString : {0}", this.getCountryString());
+        setRegionList(daoDataLookUp.allRegions(this.getCountrySelectionRef()));
+        logger.log(Level.INFO, "getRegionList : {0}", this.getRegionList());
+
+
+        logger.log(Level.INFO, "this.setRegionyString(); : {0}", this.getRegionyString());
+
+        return "RegSel test";
+
     }
 
-    public void setTitleStrings(List<String> titleStrings) {
-        this.titleStrings = titleStrings;
+    public String RegSel() {
+
+        if (this.getCountrySelectionRef() != null) {
+
+//            this.setRegionyString(this.getRegionySelectionRef().getName());
+            if (this.getRegionySelectionRef() != null) {
+                logger.log(Level.INFO, "3 getRegionySelectionRef : {0}", getRegionySelectionRef());
+                this.setRegionyString(this.getRegionySelectionRef().getName());
+                logger.log(Level.INFO, " getRegionyString : {0}", getRegionyString());
+                setCityList(daoDataLookUp.getCities(RegionySelectionRef, CountrySelectionRef));
+            }
+        }
+
+        return "RegSel test";
+
+    }
+
+    public String CitySel() {
+        this.setCityString(this.getCitySelectionRef().getName());
+        return "CitySel test";
+
+    }
+
+    /**
+     * Creates a new instance of DataLookUpBean
+     */
+    public DataLookUpBean() {
+    }
+
+    /**
+     * *
+     *
+     * AUTO GENERATED Methods | VVV
+     *
+     */
+    public DataLookUpHandlerLocal getDaoDataLookUp() {
+        return daoDataLookUp;
+    }
+
+    public void setDaoDataLookUp(DataLookUpHandlerLocal daoDataLookUp) {
+        this.daoDataLookUp = daoDataLookUp;
+    }
+
+    public int getTitleCount() {
+        return titleCount;
+    }
+
+    public void setTitleCount(int titleCount) {
+        this.titleCount = titleCount;
+    }
+
+    public Title getaTitleRef() {
+        return aTitleRef;
+    }
+
+    public void setaTitleRef(Title aTitleRef) {
+        this.aTitleRef = aTitleRef;
     }
 
     public String getTitleString() {
@@ -234,33 +326,12 @@ public class DataLookUpBean implements Serializable {
         this.titleList = titleList;
     }
 
-    public DataLookUpHandlerLocal getDaoDataLookUp() {
-        return daoDataLookUp;
+    public List<String> getTitleStrings() {
+        return titleStrings;
     }
 
-    public void setDaoDataLookUp(DataLookUpHandlerLocal daoDataLookUp) {
-        this.daoDataLookUp = daoDataLookUp;
-    }
-
-    public int getTitleCount() {
-        //return titleCount;
-        return titleCount;
-    }
-
-    public void setTitleCount(int titleCount) {
-        this.titleCount = titleCount;
-    }
-
-    public Title getaTitleRef() {
-        return aTitleRef;
-    }
-
-    public void setaTitleRef(Title aTitleRef) {
-        this.aTitleRef = aTitleRef;
-    }
-
-    public String getHello() {
-        return "Hello World";
+    public void setTitleStrings(List<String> titleStrings) {
+        this.titleStrings = titleStrings;
     }
 
     public int getPositionCount() {
@@ -351,12 +422,12 @@ public class DataLookUpBean implements Serializable {
         this.departmentCount = departmentCount;
     }
 
-    public Department getAdepartmentRef() {
+    public Department getaDepartmentRef() {
         return aDepartmentRef;
     }
 
-    public void setAdepartmentRef(Department adepartmentRef) {
-        this.aDepartmentRef = adepartmentRef;
+    public void setaDepartmentRef(Department aDepartmentRef) {
+        this.aDepartmentRef = aDepartmentRef;
     }
 
     public String getDepartmentString() {
@@ -383,44 +454,12 @@ public class DataLookUpBean implements Serializable {
         this.departmentStrings = departmentStrings;
     }
 
-    public Department getaDepartmentRef() {
-        return aDepartmentRef;
-    }
-
-    public void setaDepartmentRef(Department aDepartmentRef) {
-        this.aDepartmentRef = aDepartmentRef;
-    }
-
     public int getCurrencyCount() {
         return currencyCount;
     }
 
     public void setCurrencyCount(int currencyCount) {
         this.currencyCount = currencyCount;
-    }
-
-    public String getCurrencyString() {
-        return currencyString;
-    }
-
-    public void setCurrencyString(String currencyString) {
-        this.currencyString = currencyString;
-    }
-
-    public List<Currency> getCurrencyList() {
-        return currencyList;
-    }
-
-    public void setCurrencyList(List<Currency> currencyList) {
-        this.currencyList = currencyList;
-    }
-
-    public List<String> getCurrencyStrings() {
-        return currencyStrings;
-    }
-
-    public void setCurrencyStrings(List<String> currencyStrings) {
-        this.currencyStrings = currencyStrings;
     }
 
     public Currency getaCurrencySelection() {
@@ -431,6 +470,30 @@ public class DataLookUpBean implements Serializable {
         this.aCurrencySelection = aCurrencySelection;
     }
 
+    public String getCurrencyString() {
+        return currencyString;
+    }
+
+    public void setCurrencyString(String currencyString) {
+        this.currencyString = currencyString;
+    }
+
+    public String getSelectedCurrencyString() {
+        return selectedCurrencyString;
+    }
+
+    public void setSelectedCurrencyString(String selectedCurrencyString) {
+        this.selectedCurrencyString = selectedCurrencyString;
+    }
+
+    public List<Currency> getCurrencyList() {
+        return currencyList;
+    }
+
+    public void setCurrencyList(List<Currency> currencyList) {
+        this.currencyList = currencyList;
+    }
+
     public List<Currency> getCurrencyFilteredList() {
         return currencyFilteredList;
     }
@@ -439,12 +502,12 @@ public class DataLookUpBean implements Serializable {
         this.currencyFilteredList = currencyFilteredList;
     }
 
-    public String getSelectedCurrencyString() {
-        return selectedCurrencyString;
+    public List<String> getCurrencyStrings() {
+        return currencyStrings;
     }
 
-    public void setSelectedCurrencyString(String SelcurrencyString) {
-        this.selectedCurrencyString = SelcurrencyString;
+    public void setCurrencyStrings(List<String> currencyStrings) {
+        this.currencyStrings = currencyStrings;
     }
 
     public int getCountryCount() {
@@ -519,33 +582,59 @@ public class DataLookUpBean implements Serializable {
         this.cityFilteredList = cityFilteredList;
     }
 
-    public Country getaCountrySelection() {
-        return aCountrySelection;
+    public Country getCountryRef() {
+        return countryRef;
     }
 
-    public void setaCountrySelection(Country aCountrySelection) {
-        this.aCountrySelection = aCountrySelection;
+    public void setCountryRef(Country countryRef) {
+        this.countryRef = countryRef;
     }
 
-    public Region getaRegionySelection() {
-        return aRegionySelection;
+    public Country getCountrySelectionRef() {
+        return CountrySelectionRef;
     }
 
-    public void setaRegionySelection(Region aRegionySelection) {
-        this.aRegionySelection = aRegionySelection;
+    public void setCountrySelectionRef(Country CountrySelectionRef) {
+        this.CountrySelectionRef = CountrySelectionRef;
     }
 
-    public City getaCitySelection() {
-        return aCitySelection;
+    public Region getRegionySelectionRef() {
+        return RegionySelectionRef;
     }
 
-    public void setaCitySelection(City aCitySelection) {
-        this.aCitySelection = aCitySelection;
+    public void setRegionySelectionRef(Region RegionySelectionRef) {
+        this.RegionySelectionRef = RegionySelectionRef;
     }
 
-    /**
-     * Creates a new instance of DataLookUpBean
-     */
-    public DataLookUpBean() {
+    public City getCitySelectionRef() {
+        return CitySelectionRef;
+    }
+
+    public void setCitySelectionRef(City CitySelectionRef) {
+        this.CitySelectionRef = CitySelectionRef;
+    }
+
+    public String getCountryString() {
+        return countryString;
+    }
+
+    public void setCountryString(String countryString) {
+        this.countryString = countryString;
+    }
+
+    public String getRegionyString() {
+        return regionyString;
+    }
+
+    public void setRegionyString(String regionyString) {
+        this.regionyString = regionyString;
+    }
+
+    public String getCityString() {
+        return cityString;
+    }
+
+    public void setCityString(String cityString) {
+        this.cityString = cityString;
     }
 }

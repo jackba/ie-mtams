@@ -22,6 +22,8 @@ import Entities.Region;
 import Entities.Title;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 //import sun.util.resources.CurrencyNames_en_GB;
@@ -49,6 +51,8 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
     private RegionFacadeLocal daoRegion;
     @EJB
     private CityFacadeLocal daoCity;
+    //logger
+    private static final Logger logger = Logger.getLogger(DataLookUpHandler.class.getName());
 
     //private Title titleReg;
     @Override
@@ -274,6 +278,7 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    
     @Override
     public List<String> allCitiesStr() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -295,7 +300,6 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
         return null;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 
     @Override
     public List<String> allRegionsStr() {
@@ -320,8 +324,31 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
     }
 
     @Override
+    public List<City> getCities(Region aRegion, Country aCountry) {
+        List<City> RegionsCity = new ArrayList<City>();
+        
+        for (City CityO : daoCity.findAll()) {
+            //logger.log(Level.INFO, "1 CityO : {0}", CityO);
+            if (CityO.getCode2().getCode2().equalsIgnoreCase(aCountry.getCode2())) {
+                logger.log(Level.INFO, "2 CityO : {0}", CityO);
+                if (CityO.getRegion().equalsIgnoreCase(aRegion.getCode())) {
+                    logger.log(Level.INFO, "3 CityO : {0}", CityO);
+                    RegionsCity.add(CityO);
+                }
+                
+            }
+        }
+        return RegionsCity;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+
+    @Override
     public List<City> allCities(String aRegion, Country aCountry) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -331,13 +358,22 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
 
     @Override
     public List<Region> allRegions(Country aCountry) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        List<Region> CountryRegions = new ArrayList<Region>();
+
+        for (Region RegionO : daoRegion.findAll()) {
+            
+            if (RegionO.getCode2().getCode2().equalsIgnoreCase(aCountry.getCode2())) {
+                CountryRegions.add(RegionO);
+                logger.log(Level.INFO, "allREgions RegionO : {0}", RegionO);
+            }
+        }
+        return CountryRegions;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Region getRegions(String aRegion, Country aCountry) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-
 }
