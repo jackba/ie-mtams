@@ -51,6 +51,15 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Forexorder.findByCcpaymentamount", query = "SELECT f FROM Forexorder f WHERE f.ccpaymentamount = :ccpaymentamount"),
     @NamedQuery(name = "Forexorder.findByReasonfortravel", query = "SELECT f FROM Forexorder f WHERE f.reasonfortravel = :reasonfortravel")})
 public class Forexorder implements Serializable {
+    @Size(max = 45)
+    @Column(name = "CURRENCYCHEQUE")
+    private String currencycheque;
+    @Size(max = 45)
+    @Column(name = "CURRENCYCASH")
+    private String currencycash;
+    @Size(max = 45)
+    @Column(name = "CURRENCYCC")
+    private String currencycc;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -291,6 +300,30 @@ public class Forexorder implements Serializable {
     @Override
     public String toString() {
         return "Entities.Forexorder[ idforexorder=" + idforexorder + " ]";
+    }
+
+    public String getCurrencycheque() {
+        return currencycheque;
+    }
+
+    public void setCurrencycheque(String currencycheque) {
+        this.currencycheque = currencycheque;
+    }
+
+    public String getCurrencycash() {
+        return currencycash;
+    }
+
+    public void setCurrencycash(String currencycash) {
+        this.currencycash = currencycash;
+    }
+
+    public String getCurrencycc() {
+        return currencycc;
+    }
+
+    public void setCurrencycc(String currencycc) {
+        this.currencycc = currencycc;
     }
     
 }
