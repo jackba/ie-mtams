@@ -46,7 +46,7 @@ public class EditTravelProfileBean implements Serializable {
     private ApplicationHandlerLocal appHandler;
     private List<Application> allApps;
     private String department;
-    @Pattern(message = "Incorrect ID", regexp = "[0-9a-zA-Z]{9}")
+    @Pattern(message = "Incorrect ID", regexp = "[0-9a-zA-Z]{8}")
     private String staffID;
     private String position;
     @Pattern(message = "Incorrect Name", regexp = "[a-zA-Z ]+${0,}")
@@ -164,15 +164,13 @@ public class EditTravelProfileBean implements Serializable {
     public String goNewApp() {
         return "createApplication";
     }
-    // -----------------!!!!!!!!!!!!!!!!!!!!!!_---------------!!!!!!!!!!!!!!!!!_-------------------------
+    
     public String editProfile() {
         getProfile();
         return "editTravelProfile";
     }
 
     public String save() {
-
-
         //Pesonal Details
         profile = new Travelerprofile();
 
@@ -190,7 +188,7 @@ public class EditTravelProfileBean implements Serializable {
         profile.setBusinessaddress(busAddress);
         profile.setBusinessphone(busPhone);
         profile.setBusinessfax(busFax);
-        profile.setHomeaddress(homeAddress);
+        profile.setHomeaddress1(homeAddress);
         profile.setMobilephone(mobilePhone);
         profile.setHomephone(homePhone);
         profile.setHomeemail(email);
@@ -279,7 +277,7 @@ public class EditTravelProfileBean implements Serializable {
         profileEditRef.setBusinessphone(busPhone);
         profileEditRef.setBusinessfax(busFax);
 
-        profileEditRef.setHomeaddress(homeAddress);
+        profileEditRef.setHomeaddress1(homeAddress);
         profileEditRef.setHomephone(homePhone);
         profileEditRef.setHomeemail(email);
         profileEditRef.setMobilephone(mobilePhone);
@@ -350,7 +348,7 @@ public class EditTravelProfileBean implements Serializable {
         setBusPhone(ref.getBusinessphone());
         setBusFax(ref.getBusinessfax());
 
-        setHomeAddress(ref.getHomeaddress());
+        setHomeAddress(ref.getHomeaddress1());
         setHomePhone(ref.getHomephone());
         setMobilePhone(ref.getMobilephone());
         setEmail(ref.getHomeemail());
