@@ -41,6 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Account.findByDatecreated", query = "SELECT a FROM Account a WHERE a.datecreated = :datecreated"),
     @NamedQuery(name = "Account.findByDatelogin", query = "SELECT a FROM Account a WHERE a.datelogin = :datelogin")})
 public class Account implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
+    private Collection<Travelerprofile> travelerprofileCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -162,6 +164,15 @@ public class Account implements Serializable {
     @Override
     public String toString() {
         return "Entities.Account[ idaccount=" + idaccount + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Travelerprofile> getTravelerprofileCollection() {
+        return travelerprofileCollection;
+    }
+
+    public void setTravelerprofileCollection(Collection<Travelerprofile> travelerprofileCollection) {
+        this.travelerprofileCollection = travelerprofileCollection;
     }
     
 }
