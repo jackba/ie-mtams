@@ -36,8 +36,8 @@ and open the template in the editor.
 
                         <h:form id="CRCVal" styleClass="test"> 
                             <p>Currency List count : #{dataLookUpBean.currencyCount}</p>
-                            <p:commandButton value="Show" type="button" onclick="dlgtest.show()" />
-                            <p:commandButton value="Hide" type="button" onclick="dlgtest.hide()" />
+                            <p:commandButton value="Show" type="button" onclick="dlgCountry.show()" />
+                            <p:commandButton value="Hide" type="button" onclick="dlgCountry.hide()" />
                             <br />
                             <p:outputLabel id="Country" value="string Country object : #{dataLookUpBean.selectedCurrencyString}" />
                             <br />
@@ -48,18 +48,18 @@ and open the template in the editor.
 
                     </div>
                 </div>
-                <p:dialog header="Header Text" widgetVar="dlgtest">
+                <p:dialog header="Header Text" widgetVar="dlgCountry">
 
 
                     <div id="DTdivtest" class="divCurrency" >
 
                         <h:form id="DTformtest" styleClass="test"> 
-                            <p:dataTable id="currencytest" styleClass="dlgCurrency" var="currency" 
-                                         value="#{dataLookUpBean.currencyList}" rowKey="#{currency.idcurrency}"  
-                                         filteredValue="#{dataLookUpBean.currencyFilteredList}"
-                                         widgetVar="currencies"
+                            <p:dataTable id="CountrySel" styleClass="dlgCurrency" var="country" 
+                                         value="#{dataLookUpBean.countryFilteredList}" rowKey="#{country.code3}"  
+                                         filteredValue="#{dataLookUpBean.countryFilteredList}"
+                                         widgetVar="coutries"
                                          emptyMessage="No data matches your criteria"
-                                         selection="#{dataLookUpBean.aCurrencySelection}" selectionMode="single" scrollRows="20"  
+                                         selection="#{dataLookUpBean.aCountrySelection}" selectionMode="single" scrollRows="20"  
                                          scrollable="true" liveScroll="true" scrollHeight="150"
 
                                          >  
@@ -72,7 +72,7 @@ and open the template in the editor.
 
                                 <p:ajax event="rowSelect" 
                                         update=":CRCVal:City" 
-                                        listener="#{dataLookUpBean.CurSel}" />
+                                        listener="#{dataLookUpBean.CRCSel()}" />
                                 <ui:remove> 
                                     <!--
                                     -->
@@ -80,29 +80,29 @@ and open the template in the editor.
                                 <f:facet name="header">  
                                     Click to select a row 
                                     <h:outputText value="Search all fields:" />  
-                                    <p:inputText id="globalFilter" onkeyup="PF('currencies').filter()" />
+                                    <p:inputText id="globalFilter" onkeyup="PF('coutries').filter()" />
                                 </f:facet>  
 
 
-                                <p:column headerText="countryname"
+                                <p:column headerText="Country Name"
                                           footerText="contains"
-                                          filterBy="#{currency.countryname}"
+                                          filterBy="#{country.name}"
                                           filterMatchMode="contains"
                                           >  
                                     #{currency.countryname}  
                                 </p:column>  
 
-                                <p:column headerText="currencyname" 
+                                <p:column headerText="Country Regions" 
                                           footerText="contains"
-                                          filterBy="#{currency.currencyname}"
+                                          filterBy="#{country.regions}"
                                           filterMatchMode="contains"
                                           >  
                                     #{currency.currencyname}  
                                 </p:column>  
 
-                                <p:column headerText="currencycode3"
+                                <p:column headerText="Country code3"
                                           footerText="contains"
-                                          filterBy="#{currency.currencycode3}"
+                                          filterBy="#{country.code3}"
                                           filterMatchMode="contains"
                                           >  
                                     #{currency.currencycode3}  
@@ -115,9 +115,9 @@ and open the template in the editor.
                                 </ui:remove>
 
                                 <f:facet name="footer">  
-                                    <p>There are this many : #{dataLookUpBean.currencyCount}</p>
+                                    <p>There are this many : #{dataLookUpBean.countryCount}</p>
                                     <p:commandButton value="Hide" type="button" 
-                                                     onclick="dlgtest.hide()" 
+                                                     onclick="dlgCountry.hide()" 
                                                      actionListener="#{dataLookUpBean.CurSel}" update=":CRCVal:City">
 
                                         <p:ajax update=":CRCVal:City" 
