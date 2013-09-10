@@ -11,9 +11,9 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-                <h:form>
-                    <p:panel id="applicationPanel" >
-                        <p:wizard widgetVar="wiz" flowListener="#{appBean.onFlowProcess}">
+                <h:form id="applicationForm">
+                    
+                        <p:wizard id="appWizard" widgetVar="wiz" flowListener="#{appBean.onFlowProcess}">
 
                             <p:tab id="details" title="Details">
 
@@ -105,14 +105,14 @@
                                             <f:selectItem itemLabel="Travel Day" itemValue="Travel Day" />
                                             <f:selectItem itemLabel="Work Day" itemValue="Work Day" />
                                         </p:selectOneMenu>
-                                        
+
                                         <p:button icon="ui-icon-plus" disabled="true" />
                                     </h:panelGrid>
 
 
                                 </p:panel>
                             </p:tab>
-                            <p:tab id="Quotes" title="Quotes">
+                            <p:tab id="quotes" title="Quotes">
 
                                 <p:panel id="quotePanel" header="Quotes">
                                     <h5>All fields are required on this page</h5>
@@ -124,6 +124,99 @@
                                         </p:inputMask>
                                         <p:message for="costCentre" id="ccMsg"/>
                                     </h:panelGrid>
+
+                                    <h:panelGrid columns="3" columnClasses="label, value, error">
+                                        <p:outputLabel id="CVal" value="string currency object : #{dataLookUpBean.selectedCurrencyString}" />
+                                        <p:inputText id="currency" onclick="dlgcurrency.show()" value="#{dataLookUpBean.selectedCurrencyString}" required="true" requiredMessage="Currency is required" >
+                                            <p:ajax event="blur" update="currencyMsg" />
+                                        </p:inputText>
+                                        <p:message id="currencyMsg" for="currency" />
+                                    </h:panelGrid>
+                                    
+                                    
+                                    
+                                    
+
+                                    <p:dialog header="Header Text" widgetVar="dlgcurrency">
+
+
+                                        <div id="DTdivtest" class="divCurrency" >
+
+                                            
+                                                <p:dataTable id="currencytest" styleClass="dlgCurrency" var="currency" 
+                                                             value="#{dataLookUpBean.currencyList}" rowKey="#{currency.idcurrency}"  
+                                                             filteredValue="#{dataLookUpBean.currencyFilteredList}"
+                                                             widgetVar="currencies"
+                                                             emptyMessage="No data matches your criteria"
+                                                             selection="#{dataLookUpBean.aCurrencySelection}" selectionMode="single" scrollRows="20"  
+                                                             scrollable="true" liveScroll="true" scrollHeight="150"
+
+                                                             >  
+
+
+
+                                                    <p:ajax event="rowSelect" 
+                                                            
+                                                            update=":applicationForm:CVal, :applicationForm:currency"
+                                                            listener="#{dataLookUpBean.CurSel}" />
+                                                    <ui:remove> 
+                                                        <!--
+                                                        -->
+                                                    </ui:remove>
+                                                    <f:facet name="header">  
+                                                        Click to select a row 
+                                                        <h:outputText value="Search all fields:" />  
+                                                        <p:inputText id="globalFilter" onkeyup="PF('currencies').filter()" />
+                                                    </f:facet>  
+
+
+                                                    <p:column headerText="Country Name"
+                                                              
+                                                              filterBy="#{currency.countryname}"
+                                                              filterMatchMode="contains"
+                                                              >  
+                                                        #{currency.countryname}  
+                                                    </p:column>  
+
+                                                    <p:column headerText="Currency Name" 
+                                                              
+                                                              filterBy="#{currency.currencyname}"
+                                                              filterMatchMode="contains"
+                                                              >  
+                                                        #{currency.currencyname}  
+                                                    </p:column>  
+
+                                                    <p:column headerText="Currency Code"
+                                                              
+                                                              filterBy="#{currency.currencycode3}"
+                                                              filterMatchMode="contains"
+                                                              >  
+                                                        #{currency.currencycode3}  
+                                                    </p:column>  
+
+                                                    <ui:remove>
+                                                        <!--
+                                                        
+                                                        -->
+                                                    </ui:remove>
+
+                                                    <f:facet name="footer">  
+                                                        
+                                                        <p:commandButton value="Hide" type="button" 
+                                                                         onclick="dlgcurrency.hide()" 
+                                                                         actionListener="#{dataLookUpBean.CurSel}" update=":applicationForm:CVal">
+
+                                                            <p:ajax update=":applicationForm:CVal" 
+                                                                    listener="#{dataLookUpBean.CurSel}"/>
+                                                        </p:commandButton>
+                                                    </f:facet>  
+
+                                                </p:dataTable>  
+                                            
+                                        </div>
+
+
+                                    </p:dialog>
 
                                     <p:messages for="flightQuotes" id="flightQuoteError" severity="error" autoUpdate="true"/>
 
@@ -137,7 +230,7 @@
                                         <p:inputText id="flFrom" value="#{appBean.fQFrom}" required="true" maxlength="10" requiredMessage="Entry required"><p:ajax update="flFrom" event="blur"  /></p:inputText>
                                         <p:inputText id="flTo" value="#{appBean.fQTo}" required="true" maxlength="10" requiredMessage="Entry required"><p:ajax update="flTo" event="blur"  /></p:inputText>
                                         <p:calendar id="flDate" value="#{appBean.fQDate}" required="true" requiredMessage="Entry required" mindate="#{userBean.currentDate}"></p:calendar>
-                                        
+
                                         <p:calendar id="flTime"  value="#{appBean.fQTime}" timeOnly="true" pattern="HH:mm" required="true" maxlength="10" requiredMessage="Entry required"></p:calendar>
                                         <h:outputText value="Flight Option #1" />
                                         <h:outputText value="Cost of Option #1" />
@@ -205,7 +298,7 @@
 
                         </p:wizard>
 
-                    </p:panel>
+                    
                 </h:form>
             </ui:define>
 
