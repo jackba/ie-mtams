@@ -215,7 +215,7 @@ public class ApprovalBean implements Serializable {
             appr.setNotes(approvalComment);
             approvalHandler.persistApproval(appr);
             
-            short s = 1;
+            int s = 1;
             selectedAccQte.setSelected(s);
             selectedCarQte.setSelected(s);
             selectedFlgQte.setSelected(s);
