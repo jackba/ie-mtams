@@ -75,9 +75,9 @@ public class ForeignBean implements Serializable {
     private Date departure;
     @Future
     private Date returnDate;
-    @Pattern(message = "Incorrect number entered", regexp = "[0-9]{0,}")
+    @Pattern(message = "Incorrect number entered", regexp = "[A-z0-9]{0,}")
     private String ticketNumber;
-    @Pattern(message = "Incorrect number entered", regexp = "[0-9]{0,}")
+    @Pattern(message = "Incorrect number entered", regexp = "[A-z0-9]{0,}")
     private String voyagerNum;
     //@Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
     private double travellerCheque;
@@ -207,21 +207,24 @@ public class ForeignBean implements Serializable {
         //forX.setDateofreturn(returnDate);
         forX.setTicketnum(ticketNumber);
         forX.setVoyagernum(voyagerNum);
+        forX.setCurrencycheque(cheqCur);
         forX.setTravelerscheques(travellerCheque);
+        forX.setCurrencycash(fcCur);
         forX.setCash(foreignCash);
         //forX.setCashpassport(CashPassportCard);
         forX.setCctype(type);
         //forX.setCcnumber(number);
         //forX.setCclast3(last3);
         forX.setCcexpirydate(expire);
+        forX.setCurrencycc(ccCur);
         forX.setCcpaymentamount(amount);
         forX.setDateofrequired(dateRequired);
         forX.setDatewillbeconfirmed(dateForex);
         forX.setReasonfortravel(reasonForTravel);
 
         csi.updateForex(forX, accountID);
-        FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Changes have been saved"));
-        return "forexView";
+        //FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Changes have been saved"));
+        return "applicationHome";
     }
 
     @PostConstruct
@@ -229,23 +232,30 @@ public class ForeignBean implements Serializable {
         viewForX = csi.findForX(accountID);
         //setDeparture(viewForX.getDateofdepart());
         //setReturnDate(viewForX.getDateofreturn());
-        //setTicketNumber(viewForX.getTicketnum());
-        //setVoyagerNum(viewForX.getVoyagernum());
-//        setTravellerCheque(viewForX.getTravelerscheques());
-//        setForeignCash(viewForX.getCash());
+        setTicketNumber(viewForX.getTicketnum());
+        setVoyagerNum(viewForX.getVoyagernum());
+        setTravellerCheque(viewForX.getTravelerscheques());
+        setForeignCash(viewForX.getCash());
         //setCashPassportCard(viewForX.getCashpassport());
         setType(viewForX.getCctype());
         setLast3(viewForX.getCclast3());
         setNumber(viewForX.getCcnumber());
         setExpire(viewForX.getCcexpirydate());
-//        setAmount(viewForX.getCash());
+        setAmount(viewForX.getCash());
         setDateRequired(viewForX.getDateofrequired());
         setDateForex(viewForX.getDatewillbeconfirmed());
         setReasonForTravel(viewForX.getReasonfortravel());
+        setFcCur(viewForX.getCurrencycash());
+        setCcCur(viewForX.getCurrencycc());
+        setCheqCur(viewForX.getCurrencycheque());
+        
     }
 
     public String cancel() {
-        return "forexView";
+        return "/forexView.xhtml";
+    }
+    public String toAppHome(){
+        return "/applicationHome.xhtml";
     }
 
     public String updateForm() {
@@ -255,20 +265,30 @@ public class ForeignBean implements Serializable {
         //editForX.setDateofreturn(returnDate);
         editForX.setTicketnum(ticketNumber);
         editForX.setVoyagernum(voyagerNum);
+        editForX.setCurrencycheque(cheqCur);
         editForX.setTravelerscheques(travellerCheque);
+        editForX.setCurrencycash(fcCur);
         editForX.setCash(foreignCash);
-        editForX.setCashpassport(CashPassportCard);
+        //editForX.setCashpassport(CashPassportCard);
         editForX.setCctype(type);
         //editForX.setCcnumber(number);
         //editForX.setCclast3(last3);
         editForX.setCcexpirydate(expire);
+        editForX.setCurrencycc(ccCur);
         editForX.setCcpaymentamount(amount);
         editForX.setDateofrequired(dateRequired);
         editForX.setDatewillbeconfirmed(dateForex);
         editForX.setReasonfortravel(reasonForTravel);
 
         csi.updateForex(editForX, accountID);
-        return "forexView";
+        FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Changes have been saved"));
+        return "/applicationHome.xhtml";
+    }
+    
+        public String goEdit(){
+        //loadValues();
+        //initialize();
+        return "/forexEdit";
     }
 
     public Forexorder getEditForX() {
