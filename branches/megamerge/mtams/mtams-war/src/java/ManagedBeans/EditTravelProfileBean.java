@@ -66,6 +66,11 @@ public class EditTravelProfileBean implements Serializable {
     @Pattern(message = "Incorrect Number", regexp = "([+0-9]{10,16})?")
     private String busFax;
     private String homeAddress;
+    private String homeAddress2;
+    private String city;
+    private String countryH;
+    private String province;
+    private String postalCode;
     @Pattern(message = "Incorrect Number", regexp = "[+0-9]{10,16}")
     private String mobilePhone;
     @Pattern(message = "Incorrect Number", regexp = "([+0-9]{10,16})?")
@@ -278,6 +283,10 @@ public class EditTravelProfileBean implements Serializable {
         profileEditRef.setBusinessfax(busFax);
 
         profileEditRef.setHomeaddress1(homeAddress);
+        profileEditRef.setHomeaddress2(homeAddress2);
+        profileEditRef.setCity(city);
+        profileEditRef.setProvince(province);
+        profileEditRef.setPostalcode(postalCode);
         profileEditRef.setHomephone(homePhone);
         profileEditRef.setHomeemail(email);
         profileEditRef.setMobilephone(mobilePhone);
@@ -349,6 +358,11 @@ public class EditTravelProfileBean implements Serializable {
         setBusFax(ref.getBusinessfax());
 
         setHomeAddress(ref.getHomeaddress1());
+        setHomeAddress2(ref.getHomeaddress2());
+        setCity(ref.getCity());
+        setCountry(ref.getCountry());
+        setProvince(ref.getProvince());
+        setPostalCode(ref.getPostalcode());
         setHomePhone(ref.getHomephone());
         setMobilePhone(ref.getMobilephone());
         setEmail(ref.getHomeemail());
@@ -535,6 +549,46 @@ public class EditTravelProfileBean implements Serializable {
 
     public void setHomeAddress(String homeAddress) {
         this.homeAddress = homeAddress;
+    }
+
+    public String getHomeAddress2() {
+        return homeAddress2;
+    }
+
+    public void setHomeAddress2(String homeAddress2) {
+        this.homeAddress2 = homeAddress2;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountryH() {
+        return countryH;
+    }
+
+    public void setCountryH(String countryH) {
+        this.countryH = countryH;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     public String getMobilePhone() {
