@@ -37,6 +37,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
 
+
 /**
  *
  * @author aaron
@@ -46,7 +47,7 @@ import org.primefaces.event.FlowEvent;
 public class FinalCostingBean implements Serializable {
     ////////////////
 
-    //private Integer accountID = 3;
+    //private Integer accountID = 4;
     private Integer accountID = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
     //private Integer appnum = 1;
     private Integer appnum;
@@ -63,6 +64,9 @@ public class FinalCostingBean implements Serializable {
     private AccountHandlerLocal accHandler;
     @EJB
     private DataLookUpHandlerLocal daoDataLookUp;
+    //@EJB
+    //private ManagedBeans.DataLookUpBean LookupBean;
+    
 //    @EJB
 //    private FlightquotesFacadeLocal flightquotesFLHandler;
     // logger object for use in this class
@@ -150,7 +154,6 @@ public class FinalCostingBean implements Serializable {
     private List<Flightquotes> flights;
     private List<Accomodationquotes> hotels;
     private List<Carquotes> cars;
-    
 
     /**
      * Creates a new instance of FinalCostingBean
@@ -165,28 +168,37 @@ public class FinalCostingBean implements Serializable {
     @PostConstruct
     public void initialize() {
         logger.log(Level.INFO, "initialize");
-        appnum = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
+        //appnum = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
         logger.log(Level.INFO, "accountID : {0}, appnum: {1}", new Object[]{accountID, appnum});
-        //logger.log(Level.INFO, "test : {0}", appnum);        
+        //logger.log(Level.INFO, "null == 1 : {0}", (null == 1));
 
         accountRef = accHandler.getAccount(accountID);
         profileRef = travelProfileHandler.findTravelProf(accountID);
-
+        logger.log(Level.INFO, "profileRef : {0}", profileRef);
 
         appRef = appHandler.getApplication(appnum);//selectedApp;
+        logger.log(Level.INFO, "appRef : {0}", appRef);
 
         quoteRef = appRef.getQuotesIdquotes();
+        logger.log(Level.INFO, "quoteRef) : {0}", quoteRef);
         hotels = appHandler.getAccomodationQuotes(quoteRef.getIdquotes());
+        logger.log(Level.INFO, "hotels : {0}", hotels);
         cars = appHandler.getCarQuotes(quoteRef.getIdquotes());
+        logger.log(Level.INFO, "cars : {0}", cars);
         flights = appHandler.getFlightQuotes(quoteRef.getIdquotes());
+        logger.log(Level.INFO, "flights : {0}", flights);
 
         travelRef = appRef.getTravelIdtravel();
+        logger.log(Level.INFO, "travelRef : {0}", travelRef);
         itinRef = appHandler.getItinerary(travelRef.getIdtravel());
+        logger.log(Level.INFO, "itinRef : {0}", itinRef);
 
         //fCostRef = finalHandler.findFinalcosting(1);
         fCostRef = finalHandler.findFinalcosting(appRef.getFinalcostingIdfinalcosting().getIdfinalcosting());
+        logger.log(Level.INFO, "fCostRef : {0}", fCostRef);
         //aprrovalRef = approvalHandler.findApproval(appRef. appnum)findApprovalbyApplication(appnum);
 
+        //logger.log(Level.INFO, "fCostRef : {0}", fCostRef);
 
         if (fCostRef.getAdministrativeunit() == null) {
             setAdministrativeunit(profileRef.getDepartment());
@@ -194,23 +206,35 @@ public class FinalCostingBean implements Serializable {
             setAdministrativeunit(fCostRef.getAdministrativeunit());
         }
 
-        if (fCostRef.getCountries() == null) {
-            setCountries(itinRef.getDestinationCountry());
-        } else {
-            setCountries(fCostRef.getCountries());
-        }
-
-        if (fCostRef.getCitys() == null) {
-            setCities(itinRef.getDestinationCity());
-        } else {
-            setCities(fCostRef.getCitys());
-        }
+//        if (fCostRef.getCountries() == null) {
+//            setCountries(itinRef.getDestinationCountry());
+//        } else {
+//            setCountries(fCostRef.getCountries());
+//        }
+//
+//        if (fCostRef.getCitys() == null) {
+//            setCities(itinRef.getDestinationCity());
+//        } else {
+//            setCities(fCostRef.getCitys());
+//        }
 
         if (fCostRef.getName() == null) {
             setName(profileRef.getFirstname() + " " + profileRef.getFamilyname());
         } else {
             setName(fCostRef.getName());
         }
+
+        // demo dialogue
+//        logger.log(Level.INFO, "LookupBean : {0}", LookupBean);
+//        logger.log(Level.INFO, "LookupBean.getCityCount() : {0}", LookupBean.getCityCount());
+//        if (LookupBean.getCityString() != null) {
+//            setCities(LookupBean.getCityString());
+//        }
+//
+//        if (LookupBean.getCityString() != null) {
+//            setCountries(LookupBean.getCityString());
+//        }
+
 
         // 
         // authorisation table
@@ -267,7 +291,7 @@ public class FinalCostingBean implements Serializable {
             setCurrency(fCostRef.getCurrency());
         }
         logger.log(Level.INFO, "Currency : {0}", Currency);
-        
+
         //setCurrency(((fCostRef.getCurrency() == null) ? "" : fCostRef.getCurrency()));
 
         //boolean test = (fCostRef.getAccommodatedays() == null);
@@ -331,7 +355,8 @@ public class FinalCostingBean implements Serializable {
     private Flightquotes findflightSelected() {
         logger.log(Level.INFO, "findflightSelected : {0}", flights.toString());
         for (Flightquotes FQ : flights) {
-            if (FQ.getSelected() == 1) {
+            FQ.getSelected();
+            if (((int) FQ.getSelected()) == 1) {
                 return FQ;
             }
         }
@@ -380,7 +405,7 @@ public class FinalCostingBean implements Serializable {
         // items in alphabetic listing
         logger.log(Level.INFO, "newFinalCosting : {0}", "start");
         logger.log(Level.INFO, "newFinalCosting : {0}", newFinalCosting.toString());
-        
+
         newFinalCosting.setAbsencebussiness(absencebussiness);
         newFinalCosting.setAbsenceprivate(absenceprivate);
         newFinalCosting.setAccommodatedays(accommodatedays);
@@ -503,8 +528,8 @@ public class FinalCostingBean implements Serializable {
     public String onFlowProcess(FlowEvent event) {
         logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());
         logger.log(Level.INFO, "Next step:{0}", event.getNewStep());
-        
- //       logger.log(Level.INFO, "checks : {0}", checks);
+
+        //       logger.log(Level.INFO, "checks : {0}", checks);
 
 //        logger.log(Level.INFO, "getDepartment : {0}", profileRef.getDepartment());
 //        logger.log(Level.INFO, "currency : {0}", Currency);
