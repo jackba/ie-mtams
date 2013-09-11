@@ -22,8 +22,16 @@
                                 <h:outputText value="Passenger (Full name) : " />  
                                 <h:outputText value="#{foreignBean.travelerP.firstname}" />
 
-                                <h:outputText value="Physical address: " />  
-                                <h:outputText value="#{foreignBean.travelerP.homeaddress}" />
+                                <h:outputText value="Home Address Line 1: " />  
+                                <h:outputText value="#{foreignBean.travelerP.homeaddress1}" />
+                                <h:outputText value="Home Address Line 2: " />  
+                                <h:outputText value="#{foreignBean.travelerP.homeaddress2}" />
+                                <h:outputText value="City: " />  
+                                <h:outputText value="#{foreignBean.travelerP.city}" />
+                                <h:outputText value="Country: " />  
+                                <h:outputText value="#{foreignBean.travelerP.country}" />
+                                <h:outputText value="Postal Code: " />  
+                                <h:outputText value="#{foreignBean.travelerP.postalcode}" />
 
                                 <h:outputText value="Telephone number: " />  
                                 <h:outputText value="#{foreignBean.travelerP.mobilephone}"/> 
@@ -78,10 +86,10 @@
                                 <h:outputText id="type" value="#{foreignBean.viewForX.cctype}"/>                           
 
                                 <h:outputText value="Number: " />  
-                                <h:outputText id="num" value="#{foreignBean.viewForX.ccnumber}"/>  
+                                <p:outputLabel value="Details to be filled in on printed document."/>  
 
                                 <h:outputText value="Last 3 digits on reverse of card : " /> 
-                                <h:outputText id="digit" value="#{foreignBean.viewForX.cclast3}" /> 
+                                <p:outputLabel value="Details to be filled in on printed document."/>  
 
                                 <h:outputText value="Expiry date: " />  
                                 <h:outputText id="Expire" value="#{foreignBean.viewForX.ccexpirydate}" />     
