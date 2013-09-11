@@ -25,7 +25,10 @@
                                 <h:outputText value="#{userBean.profileRef.position}"  />                           
 
                                 <h:outputText value="Secretary/Travel Booker: " />  
-                                <h:outputText value="#{userBean.profileRef.travelbooker}" />                            
+                                <h:outputText value="#{userBean.profileRef.travelbooker}" />
+                                
+                                <h:outputText value="Title:"/>  
+                                <h:outputText value="#{userBean.profileRef.title}"/>
 
                                 <h:outputText value="First Name: " />  
                                 <h:outputText value="#{userBean.profileRef.firstname}" />                           
@@ -34,10 +37,7 @@
                                 <h:outputText value="#{userBean.profileRef.familyname}" />                              
 
                                 <h:outputText value="Middle Name" />  
-                                <h:outputText value="#{userBean.profileRef.middlename}" />                            
-
-                                <h:outputText value="Title:"/>  
-                                <h:outputText value="#{userBean.profileRef.title}"/>
+                                <h:outputText value="#{userBean.profileRef.middlename}" />                                
 
                                 <h:outputText value="Identity Number: " />  
                                 <h:outputText value="#{userBean.profileRef.idnumber}" />
@@ -51,8 +51,23 @@
                                 <h:outputText value="Business Fax:" />  
                                 <h:outputText value="#{userBean.profileRef.businessfax}"/>  
 
-                                <h:outputText value="Home Address: " />  
-                                <h:outputText value="#{userBean.profileRef.homeaddress}" />
+                                <h:outputText value="Home Address Line 1: " />  
+                                <h:outputText value="#{userBean.profileRef.homeaddress1}" />
+                                
+                                <h:outputText value="Home Address Line 2: " />  
+                                <h:outputText value="#{userBean.profileRef.homeaddress2}" />
+                                
+                                <h:outputText value="City: " />  
+                                <h:outputText value="#{userBean.profileRef.city}" />
+                                
+                                <h:outputText value="Country: " />  
+                                <h:outputText value="#{userBean.profileRef.country}" />
+                                
+                                <h:outputText value="Province: " />  
+                                <h:outputText value="#{userBean.profileRef.province}" />
+                                
+                                <h:outputText value="Postal Code: " />  
+                                <h:outputText value="#{userBean.profileRef.postalcode}" />
 
                                 <h:outputText value="Mobile Phone: " />  
                                 <h:outputText value="#{userBean.profileRef.mobilephone}" />
