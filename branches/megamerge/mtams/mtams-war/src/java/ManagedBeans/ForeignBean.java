@@ -5,6 +5,7 @@
 package ManagedBeans;
 
 import Entities.Application;
+import Entities.Currency;
 import Entities.Forexorder;
 import Entities.Itinerary;
 import Entities.Travel;
@@ -27,6 +28,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Future;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FlowEvent;
 
 /**
@@ -75,9 +77,9 @@ public class ForeignBean implements Serializable {
     private Date departure;
     @Future
     private Date returnDate;
-    @Pattern(message = "Incorrect number entered", regexp = "[A-z0-9]{0,}")
+    //@Pattern(message = "Incorrect number entered", regexp = "[A-z0-9 -.]{0,}")
     private String ticketNumber;
-    @Pattern(message = "Incorrect number entered", regexp = "[A-z0-9]{0,}")
+    //@Pattern(message = "Incorrect number entered", regexp = "[A-z0-9 -.]{0,}")
     private String voyagerNum;
     //@Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
     private double travellerCheque;
@@ -100,6 +102,8 @@ public class ForeignBean implements Serializable {
     private static final Logger logger = Logger.getLogger(ForeignBean.class.getName());
     private int coverOptions;
     private Date currentDate = new Date();
+    
+    private Currency aCurrencySelection;
     
     public Date getCurrentDate() {
         return currentDate;
@@ -223,7 +227,7 @@ public class ForeignBean implements Serializable {
         forX.setReasonfortravel(reasonForTravel);
 
         csi.updateForex(forX, accountID);
-        //FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Changes have been saved"));
+        FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Changes have been saved"));
         return "applicationHome";
     }
 
@@ -234,14 +238,14 @@ public class ForeignBean implements Serializable {
         //setReturnDate(viewForX.getDateofreturn());
         setTicketNumber(viewForX.getTicketnum());
         setVoyagerNum(viewForX.getVoyagernum());
-        setTravellerCheque(viewForX.getTravelerscheques());
-        setForeignCash(viewForX.getCash());
+//        setTravellerCheque(viewForX.getTravelerscheques());
+//        setForeignCash(viewForX.getCash());
         //setCashPassportCard(viewForX.getCashpassport());
         setType(viewForX.getCctype());
         setLast3(viewForX.getCclast3());
         setNumber(viewForX.getCcnumber());
         setExpire(viewForX.getCcexpirydate());
-        setAmount(viewForX.getCash());
+//        setAmount(viewForX.getCash());
         setDateRequired(viewForX.getDateofrequired());
         setDateForex(viewForX.getDatewillbeconfirmed());
         setReasonForTravel(viewForX.getReasonfortravel());
@@ -529,5 +533,22 @@ public class ForeignBean implements Serializable {
 
     public void setCheqCur(String cheqCur) {
         this.cheqCur = cheqCur;
+    }
+
+    public Currency getaCurrencySelection() {
+        return aCurrencySelection;
+    }
+
+    public void setaCurrencySelection(Currency aCurrencySelection) {
+        this.aCurrencySelection = aCurrencySelection;
+    }
+    
+            public String CurSel() {
+//        logger.log(Level.INFO, "CurSel");
+        logger.log(Level.INFO, "selectedCurrencyString : {0}", cheqCur);
+        cheqCur = aCurrencySelection.getCurrencycode3();
+        RequestContext.getCurrentInstance().execute("dlgcurrency.hide()");
+//        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
+        return "currency";
     }
 }
