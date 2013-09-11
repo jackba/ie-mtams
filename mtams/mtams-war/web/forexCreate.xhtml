@@ -99,7 +99,7 @@
 
                             <p:panel header="Breakdown of forex required">  
 
-                                <!--                                foreign Cash                                  -->                             
+                                <!--                                Travellers Cheque                                 -->                             
 
                                 <fieldset><legend><h4>Foreign Cheque</h4></legend> 
 
@@ -117,8 +117,8 @@
                                     <h:panelGrid columns="3" id="isUsingCheqGrid" columnClasses="label, value">
                                         <p:outputLabel rendered="#{foreignBean.isUsingCheq eq '1'}" for="cheqCur" value="Currency: "/>
 
-                                        <p:selectOneMenu id="cheqCur" value="#{foreignBean.cheqCur}" rendered="#{foreignBean.isUsingCheq eq '1'}" filter="true" filterMatchMode="contains">
-                                            <f:selectItem  itemLabel="Select a Currency" itemValue=""/>
+                                        <p:selectOneMenu id="cheqCur" value="#{foreignBean.cheqCur}" required="true" rendered="#{foreignBean.isUsingCheq eq '1'}" filter="true" filterMatchMode="contains">
+                                            <f:selectItem  itemLabel="Select a Currency" itemValue="TestCheq"/>
                                             <f:selectItems value="#{dataLookUpBean.currencyStrings}" />
                                         </p:selectOneMenu>
 
@@ -149,7 +149,7 @@
                                     <h:panelGrid columns="3" id="isUsingFCGrid" columnClasses="label, value">
                                         <p:outputLabel rendered="#{foreignBean.isUsingFC eq '1'}" for="fcCur" value="Currency: "/>                                   
 
-                                        <p:selectOneMenu id="fcCur" value="#{foreignBean.fcCur}" rendered="#{foreignBean.isUsingFC eq '1'}" filter="true" filterMatchMode="contains">
+                                        <p:selectOneMenu id="fcCur" value="#{foreignBean.fcCur}" required="true" rendered="#{foreignBean.isUsingFC eq '1'}" filter="true" filterMatchMode="contains">
                                             <f:selectItem  itemLabel="Select a Currency" itemValue=""/>
                                             <f:selectItems value="#{dataLookUpBean.currencyStrings}" />
                                         </p:selectOneMenu>
@@ -198,7 +198,7 @@
                                         <p:message for="ExpireDate"/>
 
                                         <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="ccCur" value="Select Currency: "/>
-                                        <p:selectOneMenu id="ccCur" value="#{foreignBean.ccCur}" rendered="#{foreignBean.isUsingCC eq '1'}" filter="true" filterMatchMode="contains">
+                                        <p:selectOneMenu id="ccCur" value="#{foreignBean.ccCur}" required="true" rendered="#{foreignBean.isUsingCC eq '1'}" filter="true" filterMatchMode="contains">
                                             <f:selectItem  itemLabel="Select a Currency" itemValue=""/>
                                             <f:selectItems value="#{dataLookUpBean.currencyStrings}" />
                                         </p:selectOneMenu>
@@ -246,8 +246,9 @@
 
 
                                 </h:panelGrid>                         
-
-                                <p:commandButton value="Submit" ajax="false" actionListener="#{foreignBean.createForm()}" disabled="true" />
+                                <p:commandButton value="Cancel" ajax="false" actionListener="#{foreignBean.toAppHome()}" />
+                                <p:commandButton value="Submit" ajax="false" actionListener="#{foreignBean.createForm()}" />
+                                
                             </p:panel>  
                         </p:tab>  
 
