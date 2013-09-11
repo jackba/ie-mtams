@@ -1,0 +1,1209 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+
+            <ui:define name="content">
+
+                <p:dialog header="Coutnry Region City" widgetVar="dlgCountry">
+
+                    <div id="DTdivtest" class="divCurrency" >
+                        <!--
+**************************
+country
+**************************
+                        -->
+
+                        <h:form id="DTformCountry" styleClass="test" > 
+                            <p:dataTable id="CountrySel" styleClass="dlgCurrency" var="country" 
+                                         value="#{dataLookUpBean.countryList}" rowKey="#{country.code3}"  
+                                         filteredValue="#{dataLookUpBean.countryFilteredList}"
+                                         widgetVar="coutrieswidget"
+                                         emptyMessage="No data matches your criteria"
+                                         selection="#{dataLookUpBean.countrySelectionRef}" 
+                                         selectionMode="single" scrollRows="6"  
+                                         scrollable="true" liveScroll="true" scrollHeight="150"
+
+                                         >  
+
+                                <p:ajax event="rowSelect" 
+                                        update=":fcostFrom:countries" 
+                                        listener="#{dataLookUpBean.CoutrySel()}" />
+                                <p:ajax event="rowSelect" 
+                                        update=":DTformRegion:RegionSel" 
+                                        />
+                                <ui:remove>
+                                    <!--
+  
+
+                                <f:facet name="header">  
+                                    Click to select a row 
+                                    listener="#{dataLookUpBean.RegSel()}"
+                                    <h:outputText value="Search all fields:" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('coutries').filter()" />
+                                </f:facet>  
+                                    -->
+                                </ui:remove>
+                                <p:column headerText="Country Name"
+                                          footerText="contains"
+                                          filterBy="#{country.name}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{country.name}
+                                </p:column>  
+
+
+
+                                <p:column headerText="Country code3"
+                                          footerText="contains"
+                                          filterBy="#{country.code3}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{country.code3} 
+                                </p:column>  
+
+                                <ui:remove>
+                                    <!--
+                                  <p:column headerText="Country Regions" 
+                                          footerText="contains"
+                                          filterBy="#{country.regions}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{country.regions}  
+                                </p:column>  
+                                    
+                                <f:facet name="footer">  
+                                    <p>There are this many : #{dataLookUpBean.countryCount}</p>
+                                    <p:commandButton value="Hide" type="button" 
+                                                     onclick="dlgCountry.hide()" 
+                                                     actionListener="#{dataLookUpBean.CRCSel()}" update=":CRCVal:City">
+
+                                        <p:ajax update=":CRCVal:Country" 
+                                                listener="#{dataLookUpBean.CRCSel()}"/>
+                                    </p:commandButton>
+                                </f:facet>  
+                                    -->
+                                </ui:remove>
+                            </p:dataTable>  
+                        </h:form>
+                        <!--
+                        **************************
+                        REGION
+                        **************************
+                        -->
+                        <h:form id="DTformRegion" styleClass="test">
+                            <p:dataTable id="RegionSel" styleClass="dlgCurrency" var="region" 
+                                         value="#{dataLookUpBean.regionList}" rowKey="#{region.idregion}"  
+                                         filteredValue="#{dataLookUpBean.regionFilteredList}"
+                                         widgetVar="regionswidget"
+                                         emptyMessage="No data matches your criteria"
+                                         selection="#{dataLookUpBean.regionySelectionRef}" 
+                                         selectionMode="single" scrollRows="6"  
+                                         scrollable="true" liveScroll="true" scrollHeight="150"
+                                         lazy="true"
+                                         >                 
+
+                                <p:ajax event="rowSelect"                                          
+                                        listener="#{dataLookUpBean.RegSel()}"
+                                        />
+                                <p:ajax event="rowSelect" 
+                                        update=":DTformCity:CitySel" 
+                                        />
+
+
+                                <p:column headerText="Region Name"
+                                          footerText="contains"
+                                          filterBy="#{region.name}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{region.name}
+                                </p:column>  
+
+                                <ui:remove> 
+                                    <!--
+                               
+                                <p:column headerText="Region Code" 
+                                          footerText="contains"
+                                          filterBy="#{region.code}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{region.code}
+                                </p:column>  
+
+                                <p:column headerText="Cities "
+                                          footerText="contains"
+                                          filterBy="#{region.cities}}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{region.cities} 
+                                </p:column>  
+
+                                <f:facet name="footer">  
+                                    <p>There are this many : #{dataLookUpBean.regionList.size()}</p>
+                                    <p:commandButton value="Hide" type="button" 
+                                                     onclick="dlgCountry.hide()" 
+                                                     actionListener="#{dataLookUpBean.RegSel()}" update=":CRCVal:Region">
+
+                                        <p:ajax update=":CRCVal:Region" 
+                                                listener="#{dataLookUpBean.RegSel()}"/>
+                                        <p:ajax update=":CRCVal:Country" 
+                                                listener="#{dataLookUpBean.CoutrySel()}"/>
+                                    </p:commandButton>
+                                </f:facet>  
+                                    -->
+                                </ui:remove>
+                            </p:dataTable>  
+
+                        </h:form>
+
+                        <!--
+                      **************************
+                      CITY
+                      **************************
+                        -->
+                        <h:form id="DTformCity" styleClass="test">
+                            <p:dataTable id="CitySel" styleClass="dlgCurrency" var="city" 
+                                         value="#{dataLookUpBean.cityList}" rowKey="#{city.idcity}"  
+                                         filteredValue="#{dataLookUpBean.cityFilteredList}"
+                                         widgetVar="citywidget"
+                                         emptyMessage="No data matches your criteria"
+                                         selection="#{dataLookUpBean.citySelectionRef}" 
+                                         selectionMode="single" scrollRows="20"  
+                                         scrollable="true" liveScroll="true" scrollHeight="150"
+                                         rowIndexVar="#{city.idcity}"
+                                         lazy="true"
+                                         >  
+                                <p:ajax event="rowSelect" 
+                                        update=":fcostFrom:cities" 
+                                        listener="#{dataLookUpBean.CitySel()}" />
+
+
+                                <p:column headerText="Region Name"
+                                          footerText="contains"
+                                          filterBy="#{city.name}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{city.name}
+                                </p:column>  
+
+                                <p:column headerText="Region Code" 
+                                          footerText="contains"
+                                          filterBy="#{city.region}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{city.region}
+                                </p:column>  
+
+
+
+
+                                <f:facet name="footer">                               
+                                    <p:commandButton value="Done" type="button" 
+                                                     onclick="dlgCountry.hide()" 
+                                                     actionListener="#{dataLookUpBean.CoutrySel()}" update=":fcostFrom">
+
+
+                                        <p:ajax update=":fcostFrom:countries" 
+                                                listener="#{dataLookUpBean.CoutrySel()}"/>
+                                        <p:ajax update=":fcostFrom:cities" 
+                                                listener="#{dataLookUpBean.CitySel()}"/>
+                                    </p:commandButton>
+                                </f:facet>  
+
+                            </p:dataTable>  
+
+                        </h:form>
+                    </div>
+                </p:dialog>
+
+                <ui:remove> 
+                    <!--
+<p:ajax update=":CRCVal:Region" 
+                                listener="#{dataLookUpBean.RegSel()}"/>
+                    -->
+                    -->
+                </ui:remove>
+                <!--
+              **************************
+              CuRREncy
+              **************************
+                -->
+                <p:dialog header="Header Text" widgetVar="dlgcurrency">
+                    <div id="DTdivtest" class="divCurrency" >
+
+                        <h:form id="Dcurr" styleClass="test"> 
+                            <p:dataTable id="currencytest" styleClass="dlgCurrency" var="currency" 
+                                         value="#{dataLookUpBean.currencyList}" rowKey="#{currency.idcurrency}"  
+                                         filteredValue="#{dataLookUpBean.currencyFilteredList}"
+                                         widgetVar="currencies"
+                                         emptyMessage="No data matches your criteria"
+                                         selection="#{dataLookUpBean.aCurrencySelection}" selectionMode="single" scrollRows="20"  
+                                         scrollable="true" liveScroll="true" scrollHeight="150"
+
+                                         >  
+
+                                <p:ajax event="rowSelect" 
+                                        update=":fcostFrom:SelCurrencyT" 
+                                        listener="#{dataLookUpBean.CurSel}" />
+                                <ui:remove> 
+                                    <!--
+                                                                    <p:ajax event="rowSelect" 
+                                        update=":CurencyVal:CValS"
+                                        />
+                                    -->
+                                </ui:remove>
+                                <f:facet name="header">  
+                                    Click to select a row 
+                                    <h:outputText value="Search all fields:" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('currencies').filter()" />
+                                </f:facet>  
+
+
+                                <p:column headerText="countryname"
+                                          footerText="contains"
+                                          filterBy="#{currency.countryname}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{currency.countryname}  
+                                </p:column>  
+
+                                <p:column headerText="currencyname" 
+                                          footerText="contains"
+                                          filterBy="#{currency.currencyname}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{currency.currencyname}  
+                                </p:column>  
+
+                                <p:column headerText="currencycode3"
+                                          footerText="contains"
+                                          filterBy="#{currency.currencycode3}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{currency.currencycode3}  
+                                </p:column>  
+
+                                <ui:remove>
+                                    <!--
+                                    :fcostFrom:FinalCostingPanel:wiz:authotabCosting:FC:CurrencyFinalCostin:SelCurrency
+                                    
+                                    :fcostFrom:FinalCostingPanel:wiz:authotabCosting:FC:CurrencyFinalCostin
+                                    <p:component('SelCurrency'); />
+                                    <p:ajax update=":#{p:componet('SelCurrency')}" 
+                                    
+                                    <p:commandButton value="Hide" type="button" 
+                                                     onclick="dlgcurrency.hide()" 
+                                                     actionListener="#{dataLookUpBean.CurSel}" 
+                                                     update=":fcostFrom:wiz:authotabCosting:FC:CurrencyFinalCostin:SelCurrency">
+                                      <p:ajax update=":#{component.namingContainer.parent.namingContainer.clientId}:SelCurrency" 
+                                     update=":#{p:component('SelCurrency')}
+                                    -->
+                                </ui:remove>
+
+                                <f:facet name="footer">  
+                                    <p>There are this many : #{dataLookUpBean.currencyCount}</p>
+                                    <p:commandButton value="Hide" type="button" 
+                                                     onclick="dlgcurrency.hide()" 
+                                                     actionListener="#{dataLookUpBean.CurSel}" 
+                                                     update=":fcostFrom:SelCurrencyT">
+
+                                        <p:ajax update=":fcostFrom:SelCurrencyT" 
+                                                listener="#{dataLookUpBean.CurSel}"/>
+                                    </p:commandButton>
+                                </f:facet>  
+
+                            </p:dataTable>  
+                        </h:form>
+                    </div>
+
+
+                </p:dialog>
+
+                <h:form id="fcostFrom">
+                    <p:growl id="growl" sticky="true" showDetail="true"/>
+                    <p:messages id="submitConfirm" showDetail="true" closable="true" autoUpdate="true" severity="info"/>
+
+
+
+                    <p:panel id="FinalCostingPanel"  > 
+
+                        <ui:remove>
+                            <!--
+                    
+                            -->
+                        </ui:remove>
+
+                        <p:wizard widgetVar="wiz" flowListener="#{finalCBean.onFlowProcess}">
+
+
+                            <p:tab id="authtabdetails" title="Details">
+
+
+                                <p:panel header="Authorisation Details">
+
+
+                                    <p:panelGrid id="authoriseTopGrid" styleClass="noborders" >
+
+
+                                        <p:row>
+                                            <p:column styleClass="columnLabel">
+                                                <h:outputText value="Given name: "  />
+                                            </p:column>
+                                            <p:column colspan="1">
+                                                <p:inputText id="givenName" value="#{finalCBean.profileRef.firstname}" required="true" requiredMessage="Name is a required Field" styleClass="inputWidthDepartment" >
+                                                    <p:ajax update="givenName" event="blur" />
+                                                </p:inputText>
+                                            </p:column>
+                                            <p:column>
+                                                <p:message for="givenName"/>
+                                            </p:column>
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:column styleClass="columnLabel">
+                                                <h:outputText value="Family name: "  />
+                                            </p:column>
+                                            <p:column colspan="1">
+                                                <p:inputText id="famName" value="#{finalCBean.profileRef.familyname}" required="true" requiredMessage="Name is a required Field" styleClass="inputWidthDepartment">
+                                                    <p:ajax update="famName" event="blur" />
+                                                </p:inputText>
+                                            </p:column>
+                                            <p:column>
+                                                <p:message for="famName"/>
+                                            </p:column>
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:column styleClass="columnLabel">
+                                                <h:outputText value="School / administrative unit: " />
+                                            </p:column>
+                                            <p:column colspan="1">
+                                                <p:selectOneMenu id="administrativeunit" editable="true" value="#{finalCBean.administrativeunit}"  >
+                                                    <f:selectItem  itemLabel="Select a Department" itemValue=""/>
+                                                    <f:selectItems value="#{dataLookUpBean.departmentStrings}" />
+                                                </p:selectOneMenu>
+                                                <ui:remove>
+                                                    <!--
+                                                <p:inputText id="administrativeunit" value="#{finalCBean.profileRef.department}" required="false" requiredMessage="School / Administrative Unit is a required Field" />
+                                                    -->
+                                                </ui:remove>
+                                            </p:column>
+                                            <p:column>
+                                                <p:message for="administrativeunit"/>
+                                            </p:column>
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:column styleClass="columnLabel">
+                                                <h:outputText value="Period of absence business: " />
+                                            </p:column>
+                                            <p:column colspan="1">
+                                                <p:inputText id="absencebussiness" value="#{finalCBean.absencebussiness}" required="true" requiredMessage="Period of absence business is a required Field" styleClass="inputWidthDepartment" >                                        
+                                                    <p:ajax update="absencebussinessMsg" event="blur" />
+                                                </p:inputText>
+                                            </p:column>
+                                            <p:column>
+                                                <p:message id="absencebussinessMsg" for="absencebussiness"/>
+                                            </p:column>
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:column styleClass="columnLabel">
+                                                <h:outputText value="Period of absence private: " />
+                                            </p:column>
+                                            <p:column colspan="1">
+                                                <p:inputText id="absenceprivate" value="#{finalCBean.absenceprivate}" required="true" requiredMessage="Period of absence private is a required Field" styleClass="inputWidthDepartment" >
+                                                    <p:ajax update="absenceprivate" event="blur" />
+                                                </p:inputText>
+                                            </p:column>
+                                            <p:column>
+                                                <p:message id="absenceprivateMsg" for="absenceprivate"/>
+                                            </p:column>
+                                        </p:row>
+
+
+                                        <p:row>
+                                            <p:column styleClass="columnLabel">
+                                                <h:outputText value="Destination countries: " />
+                                            </p:column>
+                                            <p:column colspan="1">
+                                                <p:inputText id="countries" value="#{dataLookUpBean.countryString}" 
+                                                             disabled="true"
+                                                             required="true" 
+                                                             requiredMessage="Destination countries is a required Field"  styleClass="inputWidthDepartment">
+                                                    <p:ajax update="countries" event="blur" />
+                                                </p:inputText>
+                                            </p:column>
+                                            <p:column>
+                                                <p:commandButton value="Select Country" type="button" onclick="dlgCountry.show()"/>
+                                                <p:message for="countries"/>
+                                            </p:column>
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:column styleClass="columnLabel">
+                                                <h:outputText value="Destination cities: " />
+                                            </p:column>
+                                            <p:column colspan="1">
+                                                <p:inputText id="cities" value="#{dataLookUpBean.cityString}" 
+                                                             disabled="true"
+                                                             required="true" requiredMessage="Destination cities is a required Field" styleClass="inputWidthDepartment">
+                                                    <p:ajax update="cities" event="blur" />
+                                                </p:inputText>
+                                            </p:column>
+                                            <p:column>
+                                                <p:message for="cities"/>
+
+                                            </p:column>
+                                        </p:row>
+                                    </p:panelGrid>
+
+
+
+
+                                </p:panel>
+                            </p:tab>
+
+
+
+                            <p:tab id="authotabCosting" title="Final Costing">
+                                <p:panel id="FC" header="Final Costing">
+
+                                    <fieldset>
+                                        <legend><h4>Select Currency</h4></legend>
+                                        <p:panelGrid id="CurrencyFinalCostin" >
+
+                                            <p:row>
+                                                <p:column >
+                                                    <p:inputText id="SelCurrencyT" 
+                                                                 value="#{dataLookUpBean.selectedCurrencyString}" 
+                                                                 disabled="true"
+                                                                 styleClass="inputWidthDepartment"
+                                                                 />                                                              
+
+                                                </p:column>
+                                                <ui:remove>
+                                                    <!--
+                                                                                                <h:outputText id="SelCurrencyT" 
+                                                          value="Selected Currency: #{dataLookUpBean.selectedCurrencyString}" 
+                                                          />
+                                            <p:commandButton value="Select Currency" type="button" onclick="dlgcurrency.show()"/>
+
+                                                          :CurrencyFinalCostin:SelCurrency
+
+                                        <p:column >
+
+                                            <p:selectOneMenu id="Currency" editable="true" value="#{finalCBean.currency}" filter="true" filterMatchMode="contains">
+                                                <f:selectItem  itemLabel="Select a Currency" itemValue=""/>
+                                                <f:selectItems value="#{dataLookUpBean.currencyStrings}" />
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                                    -->
+
+                                                </ui:remove>
+
+
+
+                                                <p:column rowspan="1">
+                                                    <p:commandButton value="Select Currency" type="button" onclick="dlgcurrency.show()"/>
+
+                                                </p:column>
+                                            </p:row>
+                                        </p:panelGrid>
+                                    </fieldset>
+
+
+                                    <fieldset>
+                                        <legend><h4>Travel Costs</h4></legend>
+                                        <p:panelGrid id="authoriseFinalCostin" >
+
+                                            <p:row>
+                                                <p:column colspan="1" styleClass="columnLabel columnHeading" >Final Costing</p:column>
+
+                                                <p:column colspan="1" styleClass="columnHeading">Budgeted Costs </p:column>
+
+                                                <p:column colspan="1" styleClass="columnHeading">Actual Costs</p:column>
+
+                                                <p:column colspan="1" styleClass="columnHeading" ></p:column>
+
+                                            </p:row>
+
+                                            <p:row>
+
+                                                <p:column styleClass="columnLabel">
+                                                    <h:outputText value="Airfare:" />
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:inputText id="airfareBudget" value="#{finalCBean.airfareBudget}" required="true" requiredMessage="Airfare budgeted Cost is a required Field" validatorMessage="Must be a number" styleClass="inputWidth">
+                                                        <p:ajax update="airfareBudget" event="blur" />
+                                                        <p:ajax update="TotalBudget" event="blur" listener="#{finalCBean.budgetCalc}"/>
+
+                                                    </p:inputText>
+                                                    <ui:remove>
+
+                                                        <!--
+                                                                                
+                                                         <p:ajax update="#{finalCBean.budgetCalc}" event="blur" />
+                                                        <p:ajax update="#{finalCBean.budgetCalc}" event="blur" />
+                        
+                                                        -->
+
+                                                    </ui:remove>
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:inputText id="airfareCost" value="#{finalCBean.airfareCost}" required="true" requiredMessage="Airfare actual Cost is a required Field" styleClass="inputWidth" >
+                                                        <p:ajax update="airfareCost" event="blur" />
+                                                        <p:ajax update="TotalCost" event="blur" listener="#{finalCBean.costCalc}"/>
+                                                    </p:inputText>
+                                                </p:column>
+
+                                                <p:column styleClass="columnMessage" >
+                                                    <p:message for="airfareBudget"/>
+
+                                                    <p:message for="airfareCost"/>
+                                                </p:column>
+
+                                                <ui:remove>
+                                                    <!--
+                                                    Using Row span to create large area for messages
+
+
+                                                <p:column styleClass="columnMessage" rowspan="5">
+                                                    <p:outputLabel>test</p:outputLabel>
+                                                    <p:message for="airfareBudget"/>
+                                                    <p:message for="airfareCost"/>
+
+                                                    <p:message for="carRentalBudget"/>
+                                                    <p:message for="carRentalCost"/>
+
+                                                    <p:message for="accomodationBudget"/>
+                                                    <p:message for="accomodationCost"/>
+
+                                                    <p:message for="accomodationDays"/>
+
+                                                    <p:message for="ConferenceBudget"/>
+                                                    <p:message for="ConferenceCost"/>
+                                                </p:column>
+                                                    -->
+                                                </ui:remove>
+                                            </p:row>
+
+                                            <p:row>
+
+                                                <p:column styleClass="columnLabel">
+                                                    <h:outputText value="Car rental: " />
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:inputText id="carRentalBudget" value="#{finalCBean.carRentalBudget}" required="true" requiredMessage="Car rental budgeted Cost is a required Field" styleClass="inputWidth">
+                                                        <p:ajax update="carRentalBudget" event="blur" />
+                                                        <p:ajax update="TotalBudget" event="blur" listener="#{finalCBean.budgetCalc}"/>
+                                                    </p:inputText>
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:inputText id="carRentalCost" value="#{finalCBean.carRentalCost}" required="true" requiredMessage="Car rental actual Cost is a required Field" styleClass="inputWidth">
+                                                        <p:ajax update="carRentalCost" event="blur" />
+                                                        <p:ajax update="TotalCost" event="blur" listener="#{finalCBean.costCalc}"/>
+                                                    </p:inputText>
+                                                </p:column>
+
+                                                <p:column styleClass="columnMessage">
+                                                    <p:message for="carRentalBudget"/>
+
+                                                    <p:message for="carRentalCost"/>
+                                                </p:column>
+                                                <ui:remove>
+                                                    <!--
+                                                    -->
+                                                </ui:remove>
+
+                                            </p:row>
+
+                                            <p:row>
+
+                                                <p:column styleClass="columnLabel">
+                                                    <h:outputText value="Accommodation: " />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText id="accomodationBudget" value="#{finalCBean.accommodationBudget}" required="true" requiredMessage="Accommodation budgeted Cost is a required Field" styleClass="inputWidth">
+                                                        <p:ajax update="accomodationBudget" event="blur" />
+                                                        <p:ajax update="TotalBudget" event="blur" listener="#{finalCBean.budgetCalc}"/>
+                                                    </p:inputText>
+
+                                                </p:column>
+
+                                                <p:column>
+
+                                                    <p:inputText id="accomodationCost" value="#{finalCBean.accommodationCost}" required="true" requiredMessage="Accommodation actual Cost is a required Field" styleClass="inputWidth">
+                                                        <p:ajax update="accomodationCost" event="blur" />
+                                                        <p:ajax update="TotalCost" event="blur" listener="#{finalCBean.costCalc}"/>
+                                                    </p:inputText>
+                                                </p:column>
+
+
+                                                <p:column>
+                                                    <p:message for="accomodationBudget"/>
+                                                    <p:message for="accomodationCost"/>
+                                                </p:column>
+                                                <ui:remove>
+                                                    <!--
+                                                    -->
+                                                </ui:remove>
+
+                                            </p:row>
+                                            <p:row>
+
+
+                                                <p:column styleClass="columnLabel">
+                                                    <h:outputText value="Accommodation number of days: " />
+                                                </p:column>
+
+                                                <p:column >
+                                                    <p:inputText id="accomodationDays" value="#{finalCBean.accommodatedays}" required="true" requiredMessage="Accommodation number of days is a required Field" styleClass="inputWidth">
+                                                        <p:ajax update="accomodationDays" event="blur" />
+
+                                                    </p:inputText>
+                                                </p:column>
+
+                                                <p:column>
+
+                                                </p:column>
+
+
+                                                <p:column>
+                                                    <p:message for="accomodationDays"/>
+                                                </p:column>
+                                                <ui:remove>
+                                                    <!--
+                                                    -->
+                                                </ui:remove>
+
+                                            </p:row>
+
+                                            <p:row>
+                                                <p:column styleClass="columnLabel">
+                                                    <h:outputText value="Conference: " />
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:inputText id="ConferenceBudget" value="#{finalCBean.conferencebudget}" required="true" requiredMessage="Conference budgeted Cost is a required Field" styleClass="inputWidth">
+                                                        <p:ajax update="ConferenceBudget" event="blur" />
+                                                        <p:ajax update="TotalBudget" event="blur" listener="#{finalCBean.budgetCalc}"/>
+                                                    </p:inputText>
+
+                                                </p:column>
+
+
+
+                                                <p:column>
+                                                    <p:inputText id="ConferenceCost" value="#{finalCBean.conferencecost}" required="true" requiredMessage="Conference actual Cost is a required Field" styleClass="inputWidth">
+                                                        <p:ajax update="ConferenceCost" event="blur" />
+                                                        <p:ajax update="TotalCost" event="blur" listener="#{finalCBean.costCalc}"/>
+                                                    </p:inputText>
+                                                </p:column>
+
+
+                                                <p:column>
+                                                    <p:message for="ConferenceBudget"/>
+                                                    <p:message for="ConferenceCost"/>
+                                                </p:column>
+                                                <ui:remove>
+                                                    <!--
+                                                    -->
+                                                </ui:remove>
+                                            </p:row>
+                                        </p:panelGrid>
+
+                                    </fieldset>
+
+
+                                    <fieldset>
+                                        <legend><h4>Allowance</h4></legend>
+                                        <p:panelGrid id="allowance" >
+                                            <p:row>
+                                                <p:column styleClass="columnLabel">
+                                                    <h:outputText value="Per diem:" />
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:inputText id="PerdiemBudget" value="#{finalCBean.perdiembudget}" required="true" requiredMessage="Per diem budgeted Cost is a required Field" styleClass="inputWidth">
+                                                        <p:ajax update="PerdiemBudget" event="blur" />
+                                                        <p:ajax update="TotalBudget" event="blur" listener="#{finalCBean.budgetCalc}"/>
+                                                    </p:inputText>
+
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:inputText id="PerdiemCost" value="#{finalCBean.perdiemcost}" required="true" requiredMessage="Per diem actual Cost is a required Field" styleClass="inputWidth">
+                                                        <p:ajax update="PerdiemCost" event="blur" />
+                                                        <p:ajax update="TotalCost" event="blur" listener="#{finalCBean.costCalc}"/>
+                                                    </p:inputText>
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:message for="PerdiemBudget"/>
+                                                    <p:message for="PerdiemCost"/>
+                                                </p:column>
+
+
+                                            </p:row>
+                                            <p:row>
+
+
+                                                <p:column styleClass="columnLabel">
+                                                    <h:outputText value="Per diem number of days: " />
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:inputText id="PerdiemDays" value="#{finalCBean.perdiemdays}" required="true" requiredMessage="Per diem number of days is a required Field" styleClass="inputWidth">
+                                                        <p:ajax update="PerdiemDays" event="blur" />
+
+                                                    </p:inputText>
+                                                </p:column>
+
+
+                                                <p:column>
+                                                </p:column>
+
+                                                <p:column styleClass="columnLabel">
+                                                    <p:message for="PerdiemDays"/>
+                                                </p:column>
+
+                                            </p:row>
+
+
+
+
+                                            <p:row>
+                                                <p:column styleClass="columnLabel">
+                                                    <h:outputText value="Visa Cost: " />
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:inputText id="VisaBudget" value="#{finalCBean.visabudget}" required="true" requiredMessage="Visa budgeted Cost is a required Field" styleClass="inputWidth">
+                                                        <p:ajax update="VisaBudget" event="blur" />
+                                                        <p:ajax update="TotalBudget" event="blur" listener="#{finalCBean.budgetCalc}"/>
+                                                    </p:inputText>
+
+                                                </p:column>
+
+                                                <p:column>
+
+
+                                                    <p:inputText id="VisaCost" value="#{finalCBean.visacost}" required="true" requiredMessage="Visa actual Cost is a required Field" styleClass="inputWidth">
+                                                        <p:ajax update="VisaCost" event="blur" />
+                                                        <p:ajax update="TotalCost" event="blur" listener="#{finalCBean.costCalc}"/>
+                                                    </p:inputText>
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:message for="VisaBudget"/>
+                                                    <p:message for="VisaCost"/>
+                                                </p:column>
+                                            </p:row>
+
+
+                                            <p:row>
+                                                <p:column styleClass="columnLabel">
+                                                    <h:outputText value="Other Costs: " />
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:inputText id="otherBudget" value="#{finalCBean.otherbudget}" required="false" requiredMessage="Other budgeted Cost is a required Field" styleClass="inputWidth">
+                                                        <p:ajax update="otherBudget" event="blur" />
+                                                        <p:ajax update="TotalBudget" event="blur" listener="#{finalCBean.budgetCalc}"/>
+                                                    </p:inputText>
+
+                                                </p:column>
+
+                                                <p:column>
+
+
+                                                    <p:inputText id="otherCost" value="#{finalCBean.othercost}" required="false" requiredMessage="Other actual Cost is a required Field" styleClass="inputWidth">
+                                                        <p:ajax update="otherCost" event="blur" />
+                                                        <p:ajax update="TotalCost" event="blur" listener="#{finalCBean.costCalc}"/>
+                                                    </p:inputText>
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:message for="otherBudget"/>
+                                                    <p:message for="otherCost"/>
+                                                </p:column>
+                                            </p:row>
+
+                                            <p:row>
+                                                <p:column styleClass="columnLabel">
+                                                    <h:outputText value="Other cost Description: " />
+                                                </p:column>
+
+                                                <p:column colspan="2">
+                                                    <p:inputTextarea id="otherDescription" value="#{finalCBean.otherdiscription}" required="false" styleClass="inputWidth" >
+                                                        <p:ajax update="otherDescription" event="blur" />                                                        
+                                                    </p:inputTextarea>
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:message for="otherDescription"/>
+                                                </p:column>
+
+                                            </p:row>
+                                        </p:panelGrid>
+                                    </fieldset>
+                                    <fieldset><legend><h4>Total</h4></legend>
+                                        <p:panelGrid id="budgetTotal" >
+
+                                            <p:row>
+                                                <p:column styleClass="columnLabel">
+                                                    <h:outputText value="Total:" />
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:inputText id="TotalBudget" value="#{finalCBean.approvedbudget}" disabled="true" required="true" requiredMessage="Total budgeted Cost is a required Field" styleClass="inputWidth">
+                                                        <p:ajax update="TotalBudget" event="blur" />
+
+
+                                                    </p:inputText>
+
+                                                </p:column>
+
+                                                <p:column>
+
+                                                    <p:inputText id="TotalCost" value="#{finalCBean.approvedcost}" disabled="true" required="true" requiredMessage="Total actual Cost is a required Field" styleClass="inputWidth ">
+                                                        <p:ajax update="TotalCost" event="blur" />
+
+                                                    </p:inputText>
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:message for="TotalBudget"/>
+                                                    <p:message for="TotalCost"/>
+                                                </p:column>
+                                            </p:row>
+
+                                            <p:row>
+                                                <p:column styleClass="columnLabel">
+                                                    <h:outputText value="Calculate total: " />
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:commandButton value="Calculate Budget"  actionListener="#{finalCBean.budgetCalc}" update="TotalBudget" styleClass="inputWidth butCalc"/>
+
+                                                </p:column>
+
+                                                <p:column>
+
+                                                    <p:commandButton value="Calculate Cost"  actionListener="#{finalCBean.costCalc}" update="TotalCost" styleClass="inputWidth butCalc"/>
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:message for="TotalBudget"/>
+                                                    <p:message for="TotalCost"/>
+                                                </p:column>
+
+
+                                            </p:row>
+
+                                        </p:panelGrid>
+                                    </fieldset>
+                                </p:panel>
+                            </p:tab>
+
+
+
+
+                            <ui:remove>
+                                <!--
+                        <p:panel header="Authorisation Cost From Australia">
+
+                            <p:panelGrid id="authoriseFromOz"  columns="3" columnClasses="label, value, error">
+                                <h:outputText value="Recovered cost from Australia: " />
+                                <p:selectOneRadio id="CostFromOz" value="#{finalCBean.fromoz}" required="true" requiredMessage="Recovered cost from Australia" >
+                                    <f:selectItem itemValue="1" itemLabel="Yes" />
+                                    <f:selectItem itemValue="0" itemLabel="No" />
+                                    <p:ajax event="change" update="CostFrom0zGrid"/>
+           
+                                </p:selectOneRadio>
+                                <p:message for="CostFromOz"/>
+
+
+                            </p:panelGrid>
+
+
+
+
+                            <p:panelGrid id="CostFrom0zGrid"   columns="3" columnClasses="label, value, error">
+
+
+                            <h:outputText value="Contact Name: " rendered="#{finalCBean.fromoz eq '1'}"/>
+
+                            <p:inputText id="ozname" value="#{finalCBean.ozname}" rendered="#{finalCBean.fromoz eq '1'}" required="false" requiredMessage="Contact Name: is a required Field" styleClass="inputWidthDepartment">
+                                <p:ajax update="ozname" event="blur" />
+                            </p:inputText>
+                            <p:message for="ozname" rendered="#{finalCBean.fromoz eq '1'}"/>
+
+
+                            <h:outputText value="Contact Telephone: " rendered="#{finalCBean.fromoz eq '1'}"/>
+
+                            <p:inputText id="oztel" value="#{finalCBean.oztel}" rendered="#{finalCBean.fromoz eq '1'}" required="false" requiredMessage="Contact Telephone should be a phone number" styleClass="inputWidthDepartment">
+                                <p:ajax update="oztel" event="blur" />
+                            </p:inputText>
+                            <p:message for="oztel" rendered="#{finalCBean.fromoz eq '1'}"/>
+
+                            <h:outputText value="Contact email: " rendered="#{finalCBean.fromoz eq '1'}"/>
+
+                            <p:inputText id="ozemail" value="#{finalCBean.ozemail}" rendered="#{finalCBean.fromoz eq '1'}" required="false" requiredMessage="Contact email should be an email address" styleClass="inputWidthDepartment">
+                                <p:ajax update="ozemail" event="blur" />
+                            </p:inputText>
+                            <p:message for="ozemail" rendered="#{finalCBean.fromoz eq '1'}"/>
+
+
+
+                            </p:panelGrid>
+                            <p:panelGrid id="authoriseFromOz"  columns="3" columnClasses="label, value, error">
+                            </p:panelGrid>
+                                -->
+                            </ui:remove>
+                            <p:tab id="authofromOz" title="Recovered from Australia">
+
+                                <p:panel header="Authorisation Cost From Australia">
+
+                                    <p:panelGrid id="authoriseFromOz"  >
+                                        <p:row> 
+
+                                            <p:column styleClass="columnLabel">
+                                                <h:outputText value="Recovered cost from Australia: " />
+                                            </p:column>
+                                            <p:column>
+                                                <p:selectOneRadio id="CostFromOz" value="#{finalCBean.fromoz}" required="true" requiredMessage="Recovered cost from Australia" >
+                                                    <f:selectItem itemValue="1" itemLabel="Yes" />
+                                                    <f:selectItem itemValue="0" itemLabel="No" />
+                                                    <p:ajax event="change" update="CostFrom0zGrid"/>
+
+                                                </p:selectOneRadio>
+                                            </p:column>
+
+                                            <p:column>
+                                                <p:message for="CostFromOz"/>
+                                            </p:column>
+
+                                        </p:row>
+                                    </p:panelGrid>
+
+
+
+                                    <p:panelGrid id="CostFrom0zGrid"  >
+                                        <p:row>
+
+                                            <p:column styleClass="columnLabel">
+                                                <h:outputText value="Contact Name: " rendered="#{finalCBean.fromoz eq '1'}"/>
+                                            </p:column>
+
+                                            <p:column>
+                                                <p:inputText id="ozname" value="#{finalCBean.ozname}"  rendered="#{finalCBean.fromoz eq '1'}" required="false" requiredMessage="Contact Name: is a required Field" styleClass="inputWidthDepartment">
+                                                    <p:ajax update="ozname" event="blur" />
+                                                </p:inputText>
+                                            </p:column>
+
+                                            <p:column>
+                                                <p:message for="ozname" rendered="#{finalCBean.fromoz eq '1'}"/>
+                                            </p:column>
+
+                                        </p:row>
+                                        <p:row>
+
+                                            <p:column styleClass="columnLabel">
+                                                <h:outputText value="Contact Telephone: " rendered="#{finalCBean.fromoz eq '1'}" />
+                                            </p:column>
+                                            <p:column>
+
+                                                <p:inputText id="oztel" value="#{finalCBean.oztel}" rendered="#{finalCBean.fromoz eq '1'}" required="false" requiredMessage="Contact Telephone should be a phone number" styleClass="inputWidthDepartment">
+                                                    <p:ajax update="oztel" event="blur" />
+                                                </p:inputText>
+                                            </p:column>
+                                            <p:column>
+                                                <p:message for="oztel" rendered="#{finalCBean.fromoz eq '1'}" />
+                                            </p:column>
+
+                                        </p:row>
+                                        <p:row>
+
+                                            <p:column styleClass="columnLabel">
+                                                <h:outputText value="Contact email: " rendered="#{finalCBean.fromoz eq '1'}"/>
+                                            </p:column>
+                                            <p:column>
+
+                                                <p:inputText id="ozemail" value="#{finalCBean.ozemail}" rendered="#{finalCBean.fromoz eq '1'}" required="false" requiredMessage="Contact email should be an email address" styleClass="inputWidthDepartment">
+                                                    <p:ajax update="ozemail" event="blur" />
+                                                </p:inputText>
+                                            </p:column>
+                                            <p:column>
+                                                <p:message for="ozemail" rendered="#{finalCBean.fromoz eq '1'}"/>
+                                            </p:column>
+
+                                        </p:row>
+
+
+                                    </p:panelGrid>
+
+                                </p:panel>
+                            </p:tab>
+
+
+                            <p:tab id="authotabfinal" title="Authorisation">
+                                <p:panel header="Authorisation">
+                                    <fieldset><legend><h4>Authorise Details</h4></legend>
+                                        <p:panelGrid id="authoriseFrom" >
+                                            <ui:remove>
+
+                                                <!--
+                                                -->
+
+                                            </ui:remove>
+                                            <p:row>
+                                                <p:column styleClass="columnLabel">
+                                                    <h:outputText value="Is this form approved:" />
+                                                </p:column>
+                                                <p:column colspan="1">
+                                                    <p:selectOneRadio id="approvedCheck" required="true" requiredMessage="Is this form approved " value="#{finalCBean.sectionapproved}">
+                                                        <f:selectItem itemValue="1" itemLabel="Yes" />
+                                                        <f:selectItem itemValue="0" itemLabel="No" />
+                                                    </p:selectOneRadio>
+
+                                                </p:column>
+
+
+                                                <p:column>
+                                                    <p:message for="approvedCheck"/>
+                                                </p:column>
+
+                                            </p:row>
+
+
+                                            <p:row>
+                                                <p:column styleClass="columnLabel">
+                                                    <h:outputText value="Given name: "  />
+                                                </p:column>
+                                                <p:column colspan="1">
+                                                    <p:inputText id="AuthgivenName" value="#{finalCBean.profileRef.firstname}" required="true" requiredMessage="Name is a required Field"  styleClass="inputWidthDepartment">
+                                                        <p:ajax update="AuthgivenName" event="blur" />
+                                                    </p:inputText>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:message for="AuthgivenName"/>
+                                                </p:column>
+                                            </p:row>
+
+                                            <p:row >
+                                                <p:column styleClass="columnLabel">
+                                                    <h:outputText value="Family name: "  />
+                                                </p:column>
+                                                <p:column colspan="1">
+                                                    <p:inputText id="AuthfamName" value="#{finalCBean.profileRef.familyname}" required="true" requiredMessage="Name is a required Field" styleClass="inputWidthDepartment">
+                                                        <p:ajax update="AuthfamName" event="blur" />
+                                                    </p:inputText>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:message for="AuthfamName"/>
+                                                </p:column>
+                                            </p:row>
+
+                                            <p:row >
+                                                <p:column styleClass="columnLabel">
+                                                    <h:outputText value="Date: " />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:calendar id="authdate" value="#{finalCBean.dateStamp}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field"  styleClass="inputWidthDepartment" />                                                       
+                                                </p:column>
+                                                <p:column>
+                                                    <p:message for="authdate"/>
+                                                </p:column>
+                                            </p:row>
+
+                                            <p:row >
+                                                <p:column styleClass="columnLabel">
+                                                    <h:outputText value="Notes: " />
+                                                </p:column>
+                                                <p:column>
+
+                                                    <p:inputTextarea id="authNotes" value="#{finalCBean.notes}" required="false"  styleClass="inputWidthDepartment">
+                                                        <p:ajax update="authNotes" event="blur" />
+                                                    </p:inputTextarea>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:message for="authNotes"/>
+                                                </p:column>
+                                            </p:row>
+
+                                        </p:panelGrid>
+                                    </fieldset>
+                                    <fieldset><legend><h4>Policy Check</h4></legend>
+                                        <p:panelGrid id="finalCostingPolicy" styleClass="noborders">
+                                            <p:row >
+
+
+                                                <p:column colspan="1">
+                                                    <h:outputText value="I hereby certify that the attached application meets requirements of the MSA travel policy and procedures. " />
+                                                </p:column>
+                                                <p:column rowspan="4">
+                                                    <p:message for="policycheck"/>
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column colspan="1" >
+                                                    <h:outputText value="I hereby certify that the travel costs can be met within the specified budget. "  />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column colspan="1" >
+                                                    <h:outputText value="I hereby authorize the attached travel application." />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column  colspan="1">
+                                                    <p:selectOneRadio id="policycheck" required="true" requiredMessage="authorisation check list must be completed" value="#{finalCBean.checks}">
+                                                        <f:selectItem itemValue="1" itemLabel="Yes" />
+                                                        <f:selectItem itemValue="0" itemLabel="No" />
+                                                    </p:selectOneRadio>
+                                                </p:column>
+
+                                            </p:row>
+
+
+                                        </p:panelGrid>
+                                    </fieldset>
+
+
+                                    <p:commandButton value="Submit" actionListener="#{finalCBean.createFinalCosting()}" />
+
+
+
+                                </p:panel>
+                            </p:tab>
+
+
+                        </p:wizard>
+
+                    </p:panel>
+                    <ui:remove>
+                        <!--
+               
+                        --> 
+                    </ui:remove>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

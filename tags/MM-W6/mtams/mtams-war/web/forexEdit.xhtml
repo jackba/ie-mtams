@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <p:panel header="Foreign Exchange Form">  
+                        <fieldset><legend>Business Travel</legend>
+                            <h:panelGrid columns="3" columnClasses="label, value, error">     
+                                <h:outputText value="Company name/Reg. number: "/>  
+                                <h:outputText value="Monash South Africa" /> 
+                                <h:message for=""/>
+
+                                <h:outputText value="Passenger (Full name) : " />  
+                                <h:outputText value="#{foreignBean.travelerP.firstname}" />
+                                <h:message for=""/>
+
+                                <h:outputText value="Physical address: " />  
+                                <h:outputText value="#{foreignBean.travelerP.homeaddress}" />
+                                <h:message for=""/>
+
+                                <h:outputText value="Telephone number: " />  
+                                <h:outputText value="#{foreignBean.travelerP.mobilephone}"/> 
+                                <h:message for=""/>
+
+                                <h:outputText value="Fax number: " />  
+                                <h:outputText value="#{foreignBean.travelerP.businessfax}" />
+                                <h:message for=""/>
+
+                                <h:outputText value="I.D. number: " />  
+                                <h:outputText value="#{foreignBean.travelerP.idnumber}" />
+                                <h:message for=""/>
+
+                                <h:outputText value="Nationality Of Passport: " />  
+                                <h:outputText value="#{foreignBean.travelD.country}" /> 
+                                <h:message for=""/>
+
+                                <h:outputText value="Passport Number: " />  
+                                <h:outputText value="#{foreignBean.travelD.passportnumber}" />
+                                <h:message for=""/>
+
+                                <h:outputText value="Company contact name: " />  
+                                <h:outputText value="#{foreignBean.travelerP.businessphone}" />  
+                                <h:message for=""/>
+
+                                <h:outputText value="Destination: " />  
+                                <h:outputText value="#{foreignBean.itinerary.destinationCity}" /> 
+                                <h:message for=""/>
+
+                                <h:outputText value="Date of departure: " />  
+                                <h:outputText id="dateDep" value="#{foreignBean.itinerary.datefrom}" />
+                                <h:message for=""/>
+
+                                <h:outputText value="Date of return: " />  
+                                <h:outputText id="DateReturn" value="#{foreignBean.itinerary.dateto}"/>
+                                <h:message for=""/>
+
+                                <h:outputText value="Ticket number/ reference number: "  />                                  
+                                <p:inplace id="ticketIP" emptyLabel="Click to Edit">  
+                                    <p:inputText id="ticket" value="#{foreignBean.ticketNumber}" >
+                                        <f:validateLength maximum="45"/> 
+                                        <p:ajax update="TikError" event="keyup" async="true"/>
+                                    </p:inputText>
+                                </p:inplace>
+                                <p:message for="ticket" id="TikError" display="Incorrect Value"/>
+
+                                <h:outputText value="Voyager number: "  />                                                              
+                                <p:inplace id="VoyagerIP" emptyLabel="Click to Edit">  
+                                    <p:inputText id="voyager" value="#{foreignBean.ticketNumber}" >
+                                        <f:validateLength maximum="45"/> 
+                                        <p:ajax update="VoyError" event="keyup" async="true"/>
+                                    </p:inputText>
+                                </p:inplace>
+                                <p:message for="voyager" id="VoyError" display="Incorrect Value"/>
+
+                            </h:panelGrid>  
+                        </fieldset>
+
+                        <fieldset><legend>Breakdown of Forex required</legend>
+                            <h:panelGrid columns="3" columnClasses="label, value, error">  
+
+                                <h:outputText value="Travellers cheques: "  />  
+                                <p:inplace id="travelCheqIP" emptyLabel="Click to Edit">  
+                                    <p:inputText id="travelCheq" value="#{foreignBean.travellerCheque}" >
+                                        <f:validateLength maximum="15"/> 
+                                        <p:ajax update="tcError" event="keyup" async="true"/>
+                                    </p:inputText>
+                                </p:inplace>
+                                <p:message for="travelCheq" id="tcError" display="Incorrect Value"/>
+
+                                <h:outputText value="Foreign cash: "  />  
+                                <p:inplace id="forCashIP" emptyLabel="Click to Edit">  
+                                    <p:inputText id="forCash" value="#{foreignBean.foreignCash}" >
+                                        <p:ajax update="fcError" event="keyup" async="true"/>
+                                    </p:inputText>
+                                </p:inplace>
+                                <p:message for="forCash" id="fcError"/>
+
+                                <h:outputText value="Cash passport Card:(GBP, USD, AUD, EURO): "  />  
+                                <p:inplace id="cashCardIP" emptyLabel="Click to Edit">  
+                                    <p:inputText id="cashCard" value="#{foreignBean.cashPassportCard}" >
+                                        <f:validateLength minimum="1" maximum="15"/>
+                                        <p:ajax update="cpcError" event="keyup" />
+                                    </p:inputText>
+                                </p:inplace>
+                                <p:message for="cashCard" id="cpcError"/>
+
+                                <h:outputText value="Type: (Visa, diners etc): " />  
+                                <p:inplace id="typeIP" emptyLabel="Click to Edit">
+                                    <p:inputText id="type" value="#{foreignBean.type}">
+                                        <f:validateLength minimum="1" maximum="30"/>
+                                        <p:ajax update="TyError" event="keyup" />
+                                    </p:inputText>
+                                </p:inplace>  
+                                <p:message for="type" id="TyError"/>                            
+
+                                <h:outputText value="Number: " />  
+                                <p:inplace id="numIP" emptyLabel="Click to Edit">
+                                    <p:inputText id="num" value="#{foreignBean.number}">
+                                        <f:validateLength minimum="1" maximum="30"/>
+                                        <p:ajax update="numError" event="keyup" />
+                                    </p:inputText>
+                                </p:inplace>  
+                                <p:message for="num" id="numError"/>
+
+                                <h:outputText value="Last 3 digits on reverse of card : " /> 
+                                <p:inplace id="digitIP" emptyLabel="Click to Edit">
+                                    <p:inputText id="digit" value="#{foreignBean.last3}" >
+                                        <f:validateLength minimum="3" maximum="3"/>
+                                        <p:ajax update="last3Error" event="keyup" />
+                                    </p:inputText>
+                                </p:inplace>
+                                <p:message for="digit" id="last3Error"/>
+
+                                <h:outputText value="Expiry date: " />  
+                                <p:inplace id="ExpireIP" emptyLabel="Click to Edit">
+                                    <p:calendar id="Expire" value="#{foreignBean.expire}"/>     
+                                </p:inplace>
+                                <p:message for="Expire"/>
+
+                                <h:outputText value="Amount: " />  
+                                <p:inplace id="amountIP" emptyLabel="Click to Edit">
+                                    <p:inputText id="amount" value="#{foreignBean.amount}" >
+                                        <f:validateLength minimum="1" maximum="15"/>
+                                        <p:ajax update="amountError" event="keyup" />
+                                    </p:inputText>
+                                </p:inplace>
+                                <p:message for="amount" id="amountError"/>
+
+                            </h:panelGrid>  
+                        </fieldset> 
+
+                        <fieldset><legend>Delivery Information</legend> 
+                            <h:panelGrid columns="3" columnClasses="label, value, error">  
+
+                                <h:outputText value="Date and time: Required: " />   
+                                <p:inplace id="dateRequiredIP" emptyLabel="Click to Edit">
+                                    <p:calendar id="dateRequired" value="#{foreignBean.dateRequired}" />
+                                </p:inplace>
+                                <p:message for="dateRequired"/>
+
+                                <h:outputText value="Date and Time: Will be confirmed by Forex Consultant: " />  
+                                <p:inplace id="dateForexIP" emptyLabel="Click to Edit">
+                                    <p:calendar id="dateForex" value="#{foreignBean.dateForex}" />
+                                </p:inplace>
+                                <p:message for="dateForex"/>
+
+                            </h:panelGrid>                
+                        </fieldset>  
+
+                        <fieldset><legend>Additional Information</legend> 
+
+                            <h:panelGrid columns="3" columnClasses="label, value, error">  
+
+                                <h:outputText value="Reason for travel: " />  
+                                <p:inplace id="reasonIP" emptyLabel="Click to Edit">
+                                    <p:inputTextarea id="reason" value="#{foreignBean.reasonForTravel}" /> 
+                                </p:inplace>
+                                <p:message for="reason"/>
+
+                            </h:panelGrid>   
+
+                        </fieldset> 
+                        <p:commandButton value="Submit" ajax="false"
+                                         action="#{foreignBean.updateForm()}" />
+                        <p:commandButton value="Cancel" ajax="false" action="#{foreignBean.cancel()}" />
+                    </p:panel> 
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
