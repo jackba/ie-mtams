@@ -63,13 +63,23 @@
                                 <h:outputText id="DateReturn" value="#{foreignBean.itinerary.dateto}"/>
                                 <h:message for=""/>
 
-                                <h:outputText value="Ticket number/ reference number: "  />  
-                                <h:outputText id="ticket" value="#{foreignBean.viewForX.ticketnum}" />
-                                <h:message for=""/>
+                                <h:outputText value="Ticket number/ reference number: "  />                                  
+                                <p:inplace id="ticketIP" emptyLabel="Click to Edit">  
+                                    <p:inputText id="ticket" value="#{foreignBean.ticketNumber}" >
+                                        <f:validateLength maximum="45"/> 
+                                        <p:ajax update="TikError" event="keyup" async="true"/>
+                                    </p:inputText>
+                                </p:inplace>
+                                <p:message for="ticket" id="TikError" display="Incorrect Value"/>
 
-                                <h:outputText value="Voyager number: "  />  
-                                <h:outputText id="Voyager" value="#{foreignBean.viewForX.voyagernum}" />
-                                <h:message for=""/>
+                                <h:outputText value="Voyager number: "  />                                                              
+                                <p:inplace id="VoyagerIP" emptyLabel="Click to Edit">  
+                                    <p:inputText id="voyager" value="#{foreignBean.ticketNumber}" >
+                                        <f:validateLength maximum="45"/> 
+                                        <p:ajax update="VoyError" event="keyup" async="true"/>
+                                    </p:inputText>
+                                </p:inplace>
+                                <p:message for="voyager" id="VoyError" display="Incorrect Value"/>
 
                             </h:panelGrid>  
                         </fieldset>
