@@ -16,4 +16,5 @@ public interface LoginHandlerLocal {
     public Account authenticate(String username, String password);
     public Integer getAccountRole(Account acc);
     public void modifyAccount(Account acc);
+    public String getSalt(String username);
 }

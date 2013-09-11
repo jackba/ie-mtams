@@ -53,4 +53,18 @@ public class LoginHandler implements LoginHandlerLocal {
         accDao.edit(acc);
     }
 
+    @Override
+    public String getSalt(String username) {
+        
+        List<Account> all = accDao.findAll();
+        
+        for(Account each: all){
+            if(each.getUsername().equalsIgnoreCase(username)){
+                return each.getSalt();
+            }
+        }
+        
+        return null;
+    }
+
 }
