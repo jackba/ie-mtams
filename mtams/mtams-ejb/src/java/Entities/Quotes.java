@@ -5,7 +5,7 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Badger
+ * @author aaron
  */
 @Entity
 @Table(name = "QUOTES")
@@ -50,17 +50,17 @@ public class Quotes implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "quotesIdquotes")
-    private List<Carquotes> carquotesList;
+    private Collection<Carquotes> carquotesCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "quotesIdquotes")
+    private Collection<Application> applicationCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "quotesIdquotes")
+    private Collection<Finalcosting> finalcostingCollection;
     @OneToMany(mappedBy = "quotesIdquotes")
-    private List<Attachement> attachementList;
+    private Collection<Attachement> attachementCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "quotesIdquotes")
-    private List<Flightquotes> flightquotesList;
+    private Collection<Flightquotes> flightquotesCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "quotesIdquotes")
-    private List<Application> applicationList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "quotesIdquotes")
-    private List<Finalcosting> finalcostingList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "quotesIdquotes")
-    private List<Accomodationquotes> accomodationquotesList;
+    private Collection<Accomodationquotes> accomodationquotesCollection;
 
     public Quotes() {
     }
@@ -102,57 +102,57 @@ public class Quotes implements Serializable {
     }
 
     @XmlTransient
-    public List<Carquotes> getCarquotesList() {
-        return carquotesList;
+    public Collection<Carquotes> getCarquotesCollection() {
+        return carquotesCollection;
     }
 
-    public void setCarquotesList(List<Carquotes> carquotesList) {
-        this.carquotesList = carquotesList;
-    }
-
-    @XmlTransient
-    public List<Attachement> getAttachementList() {
-        return attachementList;
-    }
-
-    public void setAttachementList(List<Attachement> attachementList) {
-        this.attachementList = attachementList;
+    public void setCarquotesCollection(Collection<Carquotes> carquotesCollection) {
+        this.carquotesCollection = carquotesCollection;
     }
 
     @XmlTransient
-    public List<Flightquotes> getFlightquotesList() {
-        return flightquotesList;
+    public Collection<Application> getApplicationCollection() {
+        return applicationCollection;
     }
 
-    public void setFlightquotesList(List<Flightquotes> flightquotesList) {
-        this.flightquotesList = flightquotesList;
-    }
-
-    @XmlTransient
-    public List<Application> getApplicationList() {
-        return applicationList;
-    }
-
-    public void setApplicationList(List<Application> applicationList) {
-        this.applicationList = applicationList;
+    public void setApplicationCollection(Collection<Application> applicationCollection) {
+        this.applicationCollection = applicationCollection;
     }
 
     @XmlTransient
-    public List<Finalcosting> getFinalcostingList() {
-        return finalcostingList;
+    public Collection<Finalcosting> getFinalcostingCollection() {
+        return finalcostingCollection;
     }
 
-    public void setFinalcostingList(List<Finalcosting> finalcostingList) {
-        this.finalcostingList = finalcostingList;
+    public void setFinalcostingCollection(Collection<Finalcosting> finalcostingCollection) {
+        this.finalcostingCollection = finalcostingCollection;
     }
 
     @XmlTransient
-    public List<Accomodationquotes> getAccomodationquotesList() {
-        return accomodationquotesList;
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
     }
 
-    public void setAccomodationquotesList(List<Accomodationquotes> accomodationquotesList) {
-        this.accomodationquotesList = accomodationquotesList;
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
+    }
+
+    @XmlTransient
+    public Collection<Flightquotes> getFlightquotesCollection() {
+        return flightquotesCollection;
+    }
+
+    public void setFlightquotesCollection(Collection<Flightquotes> flightquotesCollection) {
+        this.flightquotesCollection = flightquotesCollection;
+    }
+
+    @XmlTransient
+    public Collection<Accomodationquotes> getAccomodationquotesCollection() {
+        return accomodationquotesCollection;
+    }
+
+    public void setAccomodationquotesCollection(Collection<Accomodationquotes> accomodationquotesCollection) {
+        this.accomodationquotesCollection = accomodationquotesCollection;
     }
 
     @Override

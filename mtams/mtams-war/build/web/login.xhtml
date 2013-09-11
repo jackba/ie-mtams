@@ -1,72 +1,38 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      >
-    <h:head>
-        <title>MSA Travel Application</title>
-	<link href="css/styles.css" rel="Stylesheet" type="text/css" />
-    </h:head>
-    <h:body>
-       <div id ="header">
-			<div id="logo">
-				<img src="img/logo.png" alt="Monash South Africa - A campus of Monash University Australia" />
-			</div>
-			
-			<ul>				
-				<li><a href="">Help</a></li>				
-			</ul>
-		</div>
+      xmlns:p="http://primefaces.org/ui">
 
-		<div id = "content">
-                    <h3>Monash Travel Application System</h3>
-                        <fieldset>
-                            <legend><h4>Login</h4></legend>
-                            <h:form id="loginForm" >       
-                                <p:messages id="loginMessage" showDetail="true" closable="true" autoUpdate="true" globalOnly="true" />
-                                <p:focus context="loginPanel"/> 
-                                
-                                <h:panelGrid id="loginPanel" columns="3">
-                                
-                                
-                                <h:outputLabel for="username"> 
-                                    Username:
-                                </h:outputLabel>
-                                <p:inputText id="username" value="#{sessionBean.username}" required="true" requiredMessage="Username missing" />
-                                <p:message for="username" />
+    <body>
 
-                                <h:outputLabel for="password">
-                                    Password:
-                                </h:outputLabel>
-                                <p:password id="password" value="#{sessionBean.password}" required="true" requiredMessage="Password missing" >
-                                </p:password>
-                                <p:message for="password" />
-                                
-                                <p:commandButton id="loginButton" value="Login" update="loginForm" action="#{sessionBean.validate()}" />
-                                </h:panelGrid>
+        <ui:composition template="./template/template.xhtml">
 
-                            </h:form>
-			</fieldset>
-			<div id = "nav">
-			</div>
-		</div>
-		
-		<div id= "footer">
-			<div class="row group">
-				<div class="col">
-					<h3>Quick links</h3>
-					<ul>
-						<li><a href="">Site Map</a></li>
-						<li><a href="">FAQ</a></li>
-						<li><a href="">Contact us</a></li>
-					</ul>
-				</div>
-				<h3>Legal</h3>
-					<p class="legal">Created by School of IT, Monash South Africa</p>		
-			</div>
-		</div>
-    </h:body>
+            <ui:define name="content">
+                <h:form class="form-2" id="loginForm" style="margin-top: 1%; left: 35%; top:35%; position: absolute; ">
+                    <h1><span class="log-in">Log in</span></h1>
+                    <p:messages id="loginMessage" showDetail="true" closable="true" autoUpdate="true" globalOnly="true"/>
+                    <p:focus context="loginPanel">
+                        <h:panelGrid id="loginPanel" columns="3">
+
+                            <p:inputText id="username" label="username" required="true" size="40" requiredMessage="Please enter your username" value="#{sessionBean.username}"/>
+                            <p:watermark for="username" value="Username *"/>
+                            <p:message for="username" display="icon"/>
+
+                            <p:password id="password" label="password" required="true" size="40" requiredMessage="Please enter your password" value="#{sessionBean.password}"/>
+                            <p:watermark for="password" value="Type password *"/>
+                            <p:message for="password" display="icon" />
+
+                            <p:commandButton id="loginButton" value="Login" update="loginForm" action="#{sessionBean.validate()}" ajax="false"/>
+
+                        </h:panelGrid>
+                    </p:focus>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
 </html>
-

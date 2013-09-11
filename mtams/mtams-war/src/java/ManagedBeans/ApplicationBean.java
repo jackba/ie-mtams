@@ -7,6 +7,7 @@ package ManagedBeans;
 import Entities.Accomodationquotes;
 import Entities.Application;
 import Entities.Carquotes;
+import Entities.Currency;
 import Entities.Flightquotes;
 import Entities.Itinerary;
 import Entities.Quotes;
@@ -22,16 +23,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 
 import javax.faces.component.*;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Pattern;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FlowEvent;
 
 /**
@@ -52,7 +54,8 @@ public class ApplicationBean implements Serializable {
     private List<Application> allApps;
     private Application selectedApp;
     
-    private Integer accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+    /////////////////////NEW SESSION RETRIEVAL CODE///////////////////////
+    private Integer accountID = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");//.getSessionMap().get("userID");
     private Travelerprofile profileRef;// = travelProfileHandler.findTravelProf(accountID);
     
     private Date modifiedDate;
@@ -65,61 +68,64 @@ public class ApplicationBean implements Serializable {
     private Itinerary tempItin;
     @Future(message="Date must be in Future")
     private Date tempDate;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String tempDest;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String tempLeaveType;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String tempTravelDay;
     
+    ///////////QUOTES//////////////
     private String costCentre;
+    private String currency;
+    private Currency aCurrencySelection;
     private Quotes newQuote;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String fQFrom;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String fQTo;
     @Future
     private Date fQDate;
     private String fQTime;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[0-9a-zA-Z' ]{0,}")
     private String fQFlight1;
     @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String fQCost1;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[0-9a-zA-Z' ]{0,}")
     private String fQFlight2;
     @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String fQCost2;
     private List<Flightquotes> flightQuotes;
     private Flightquotes newFlight;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String cQFrom;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String cQTo;
     @Future
     private Date cQDateCollected;
     @Future
     private Date cQDateReturned;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[0-9a-zA-Z' ]{0,}")
     private String cQHire1;
     @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String cQCost1;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[0-9a-zA-Z' ]{0,}")
     private String cQHire2;
     @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String cQCost2;
     private List<Carquotes> carQuotes;
     private Carquotes newCar;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String hQLocation;
     @Future(message="Date must be in Future")
     private Date hQDateIn;
     @Future(message="Date must be in Future")
     private Date hQDateOut;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String hQHotel1;
     @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String hQCost1;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String hQHotel2;
     @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String hQCost2;
@@ -140,6 +146,8 @@ public class ApplicationBean implements Serializable {
     private Itinerary itinRef;
     private Quotes quoteRef;
     
+    private Date currentDate = new Date();
+    
     private String reasonForTravel;
     private Application newApplication;
 
@@ -151,7 +159,7 @@ public class ApplicationBean implements Serializable {
 
     //@PostConstruct
     public void initialize() {
-        accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+        //accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 //        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 
 //        Application tempApp = new Application();
@@ -163,7 +171,8 @@ public class ApplicationBean implements Serializable {
         
         profileRef = travelProfileHandler.findTravelProf(accountID);
         //loadValues();
-        int appnum = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("appID");
+        
+        int appnum = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
         appRef = appHandler.getApplication(appnum);//selectedApp;
         
         quoteRef = appRef.getQuotesIdquotes();
@@ -180,7 +189,7 @@ public class ApplicationBean implements Serializable {
         setReasonForTravel(travelRef.getDescription());
         
         setTempDate(itinRef.getDate());
-        setTempDest(itinRef.getDestination());
+        setTempDest(itinRef.getDestinationCity());
         setTempLeaveType(itinRef.getLeavetype());
         setTempTravelDay(itinRef.getTravelday());
         
@@ -208,9 +217,9 @@ public class ApplicationBean implements Serializable {
 
         accQuotes = new ArrayList<Accomodationquotes>();
         newAcc = new Accomodationquotes();
-
+        newAcc.setCurrency(currency);
         newAcc.setAccomodationprovider(hQHotel1);
-        newAcc.setQuotecost(hQCost1);
+        newAcc.setQuotecost(Double.parseDouble(hQCost1));
         newAcc.setCity(hQLocation);
         newAcc.setDatecheckin(hQDateIn);
         newAcc.setDatecheckout(hQDateOut);
@@ -218,9 +227,10 @@ public class ApplicationBean implements Serializable {
         accQuotes.add(newAcc);
 
         newAcc = new Accomodationquotes();
+        newAcc.setCurrency(currency);
 
         newAcc.setAccomodationprovider(hQHotel2);
-        newAcc.setQuotecost(hQCost2);
+        newAcc.setQuotecost(Double.parseDouble(hQCost2));
         newAcc.setCity(hQLocation);
         newAcc.setDatecheckin(hQDateIn);
         newAcc.setDatecheckout(hQDateOut);
@@ -229,53 +239,56 @@ public class ApplicationBean implements Serializable {
 
         carQuotes = new ArrayList<Carquotes>();
         newCar = new Carquotes();
-
+        newCar.setCurrency(currency);
         newCar.setDatecollect(cQDateCollected);
         newCar.setDatereturn(cQDateReturned);
         newCar.setProvider(cQHire1);
-        newCar.setQuotecost(cQCost1);
+        newCar.setQuotecost(Double.parseDouble(cQCost1));
 
         carQuotes.add(newCar);
 
         newCar = new Carquotes();
+        newCar.setCurrency(currency);
 
         newCar.setDatecollect(cQDateCollected);
         newCar.setDatereturn(cQDateReturned);
         newCar.setProvider(cQHire2);
-        newCar.setQuotecost(cQCost2);
+        newCar.setQuotecost(Double.parseDouble(cQCost2));
 
         carQuotes.add(newCar);
 
         flightQuotes = new ArrayList<Flightquotes>();
         newFlight = new Flightquotes();
-
-        newFlight.setFlightfrom(fQFrom);
-        newFlight.setFlightto(fQTo);
+        newFlight.setCurrency(currency);
+        newFlight.setFlightfromCity(fQFrom);
+        newFlight.setFlighttoCity(fQTo);
         newFlight.setDatedeparture(fQDate);
         newFlight.setQuotesource(fQFlight1);
-        newFlight.setQuotecost(fQCost1);
+        newFlight.setQuotecost(Double.parseDouble(fQCost1));
 
         flightQuotes.add(newFlight);
 
         newFlight = new Flightquotes();
+        newFlight.setCurrency(currency);
 
-        newFlight.setFlightfrom(fQFrom);
-        newFlight.setFlightto(fQTo);
+        newFlight.setFlightfromCity(fQFrom);
+        newFlight.setFlighttoCity(fQTo);
         newFlight.setDatedeparture(fQDate);
         newFlight.setQuotesource(fQFlight2);
-        newFlight.setQuotecost(fQCost2);
+        newFlight.setQuotecost(Double.parseDouble(fQCost2));
 
         flightQuotes.add(newFlight);
 
         tempItin = new Itinerary();
         tempItin.setDate(getTempDate());
-        tempItin.setDestination(getTempDest());
+        tempItin.setDestinationCity(getTempDest());
         tempItin.setLeavetype(getTempLeaveType());
         tempItin.setTravelday(getTempTravelDay());
 
-        appHandler.persistApplication(newApplication, newQuote, accQuotes, carQuotes, flightQuotes, tempItin, newTravel, profileRef);
+        appRef = appHandler.persistApplication(newApplication, newQuote, accQuotes, carQuotes, flightQuotes, tempItin, newTravel, profileRef);
+
         FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Application Created"));
-        return "userHome";
+        return "applicationHome";
     }
 
     public String onFlowProcess(FlowEvent event) {
@@ -288,7 +301,7 @@ public class ApplicationBean implements Serializable {
 
     public String reinit() {
         tempItin.setDate(getTempDate());
-        tempItin.setDestination(getTempDest());
+        tempItin.setDestinationCity(getTempDest());
         tempItin.setLeavetype(getTempLeaveType());
         tempItin.setTravelday(getTempTravelDay());
         hops.add(tempItin);
@@ -316,6 +329,10 @@ public class ApplicationBean implements Serializable {
         return "/applicationView.xhtml";
     }
     
+    public String goApplicationHome(){
+        return "/applicationHome.xhtml";
+    }
+    
     public String goEdit(){
         //loadValues();
         initialize();
@@ -337,7 +354,7 @@ public class ApplicationBean implements Serializable {
         travelRef.setDescription(reasonForTravel);
         
         itinRef.setDate(tempDate);
-        itinRef.setDestination(tempDest);
+        itinRef.setDestinationCity(tempDest);
         itinRef.setLeavetype(tempLeaveType);
         itinRef.setTravelday(tempTravelDay);
         
@@ -368,7 +385,7 @@ public class ApplicationBean implements Serializable {
         setReasonForTravel(travelRef.getDescription());
         
         setTempDate(itinRef.getDate());
-        setTempDest(itinRef.getDestination());
+        setTempDest(itinRef.getDestinationCity());
         setTempLeaveType(itinRef.getLeavetype());
         setTempTravelDay(itinRef.getTravelday());
         
@@ -728,6 +745,10 @@ public class ApplicationBean implements Serializable {
     public Application getAppRef() {
         //appRef = appHandler.getApplication(5);
         //description = appRef.getDescription();
+        Integer appnum = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
+        if(appnum != null){
+        appRef = appHandler.getApplication(appnum);
+        }
         return appRef;
     }
 
@@ -761,6 +782,45 @@ public class ApplicationBean implements Serializable {
     public void setQuoteRef(Quotes quoteRef) {
         this.quoteRef = quoteRef;
     }
+
+    public Date getCurrentDate() {
+        return currentDate;
+    }
+
+    public void setCurrentDate(Date currentDate) {
+        this.currentDate = currentDate;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public Currency getaCurrencySelection() {
+        return aCurrencySelection;
+    }
+
+    public void setaCurrencySelection(Currency aCurrencySelection) {
+        this.aCurrencySelection = aCurrencySelection;
+    }
     
+        public String CurSel() {
+//        logger.log(Level.INFO, "CurSel");
+        logger.log(Level.INFO, "selectedCurrencyString : {0}", currency);
+        currency = aCurrencySelection.getCurrencycode3();
+        RequestContext.getCurrentInstance().execute("dlgcurrency.hide()");
+//        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
+        return "currency";
+    }
     
+    public String goCreateForex(){
+        return "forexCreate";
+    }
+    
+    public String goViewForex(){
+        return "forexView";
+    }
 }

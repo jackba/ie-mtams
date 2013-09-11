@@ -15,7 +15,7 @@
 
             <ul>
                     <li><a href="">Help</a></li>
-                    <li><h:link value="Logout"  outcome="#{sessionBean.invalidate()}" /></li>
+                    <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout</p:commandLink></li>
             </ul>
         </div>
         

@@ -75,6 +75,13 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
         
         return apps;
     }
+
+    @Override
+    public List<Application> getAllAppList(Integer id) {
+        return appDao.findAll();
+    }
+    
+    
     
     @Override
     public Application getApplication(Integer id){
@@ -133,7 +140,7 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
     }
     
     @Override
-    public void persistApplication(Application app, Quotes quote, List<Accomodationquotes> acc, List<Carquotes> car, List<Flightquotes> flight, Itinerary itin, Travel trav, Travelerprofile prof){
+    public Application persistApplication(Application app, Quotes quote, List<Accomodationquotes> acc, List<Carquotes> car, List<Flightquotes> flight, Itinerary itin, Travel trav, Travelerprofile prof){
         Conference con = new Conference();
         confDao.create(con);
         
@@ -222,6 +229,16 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
         app.setAccountIdaccount(prof.getAccountid());
         appDao.create(app);
         
+        List<Application> allApps = appDao.findAll();
+        Application returned = null;
+        int max = 0;
+        for(Application each: allApps){
+            if(each.getIdapplication().intValue() >= max){
+                returned = each;
+            }
+        }
+        return returned;
+        
     }
 
     @Override
@@ -230,6 +247,13 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
         travDao.edit(trav);
         itinDao.edit(itin);
         appDao.edit(app);
+    }
+
+    @Override
+    public void selectQuotes(Accomodationquotes acc, Carquotes car, Flightquotes flg) {
+        accDao.edit(acc);
+        carDao.edit(car);
+        flightDao.edit(flg);
     }
     
     

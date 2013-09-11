@@ -5,7 +5,7 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Badger
+ * @author aaron
  */
 @Entity
 @Table(name = "MOTIVATION")
@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Motivation.findAll", query = "SELECT m FROM Motivation m"),
     @NamedQuery(name = "Motivation.findByIdmotivation", query = "SELECT m FROM Motivation m WHERE m.idmotivation = :idmotivation"),
     @NamedQuery(name = "Motivation.findBySupplier", query = "SELECT m FROM Motivation m WHERE m.supplier = :supplier"),
+    @NamedQuery(name = "Motivation.findByCurrency", query = "SELECT m FROM Motivation m WHERE m.currency = :currency"),
     @NamedQuery(name = "Motivation.findByAmount", query = "SELECT m FROM Motivation m WHERE m.amount = :amount"),
     @NamedQuery(name = "Motivation.findByCostcenter", query = "SELECT m FROM Motivation m WHERE m.costcenter = :costcenter"),
     @NamedQuery(name = "Motivation.findByMotivation", query = "SELECT m FROM Motivation m WHERE m.motivation = :motivation"),
@@ -49,8 +50,11 @@ public class Motivation implements Serializable {
     @Column(name = "SUPPLIER")
     private String supplier;
     @Size(max = 45)
+    @Column(name = "CURRENCY")
+    private String currency;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "AMOUNT")
-    private String amount;
+    private Double amount;
     @Size(max = 45)
     @Column(name = "COSTCENTER")
     private String costcenter;
@@ -65,10 +69,10 @@ public class Motivation implements Serializable {
     @Size(max = 45)
     @Column(name = "REQUESTEDBY")
     private String requestedby;
-    @OneToMany(mappedBy = "motivationIdmotivation")
-    private List<Attachement> attachementList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "motivationIdmotivation")
-    private List<Application> applicationList;
+    private Collection<Application> applicationCollection;
+    @OneToMany(mappedBy = "motivationIdmotivation")
+    private Collection<Attachement> attachementCollection;
 
     public Motivation() {
     }
@@ -93,11 +97,19 @@ public class Motivation implements Serializable {
         this.supplier = supplier;
     }
 
-    public String getAmount() {
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
@@ -142,21 +154,21 @@ public class Motivation implements Serializable {
     }
 
     @XmlTransient
-    public List<Attachement> getAttachementList() {
-        return attachementList;
+    public Collection<Application> getApplicationCollection() {
+        return applicationCollection;
     }
 
-    public void setAttachementList(List<Attachement> attachementList) {
-        this.attachementList = attachementList;
+    public void setApplicationCollection(Collection<Application> applicationCollection) {
+        this.applicationCollection = applicationCollection;
     }
 
     @XmlTransient
-    public List<Application> getApplicationList() {
-        return applicationList;
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
     }
 
-    public void setApplicationList(List<Application> applicationList) {
-        this.applicationList = applicationList;
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
     }
 
     @Override

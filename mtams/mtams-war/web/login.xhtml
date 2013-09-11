@@ -10,34 +10,26 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-
-
-                <div id="header">
-                    <div id="logo">
-                        <h:form>
-                            <h:commandLink action="login.xhtml">
-                                <h:graphicImage value="resources/img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
-                            </h:commandLink>
-                        </h:form>
-                    </div>
-
-                    <ul>
-                        <li>Help</li>
-                    </ul>
-                </div>
+                <h3>Monash Travel Application System</h3>
+                <p><h6>Welcome to Monash South Africa Travel Application System. This system is designed to be used by all Monash South 
+                        Africa staff wishing to apply for travel abroad. Several forms are required for completion before your application 
+                        can be sent for approval.<br />Please Login with your registered credentials, and begin form completion.</h6></p>
+                    
+                    <h6></h6>
+                    
                 <h:form class="form-2" id="loginForm" style="margin-top: 1%; left: 35%; top:35%; position: absolute; ">
                     <h1><span class="log-in">Log in</span></h1>
-                    <p:messages id="loginMessage" showDetail="true" closable="true" autoUpdate="true"/>
+                    <p:messages id="loginMessage" showDetail="true" closable="true" autoUpdate="true" globalOnly="true"/>
                     <p:focus context="loginPanel">
                         <h:panelGrid id="loginPanel" columns="3">
 
                             <p:inputText id="username" label="username" required="true" size="40" requiredMessage="Please enter your username" value="#{sessionBean.username}"/>
                             <p:watermark for="username" value="Username *"/>
-                            <p:message for="username"/>
+                            <p:message for="username" display="icon"/>
 
                             <p:password id="password" label="password" required="true" size="40" requiredMessage="Please enter your password" value="#{sessionBean.password}"/>
                             <p:watermark for="password" value="Type password *"/>
-                            <p:message for="password"/>
+                            <p:message for="password" display="icon" />
 
                             <p:commandButton id="loginButton" value="Login" update="loginForm" action="#{sessionBean.validate()}" ajax="false"/>
 
