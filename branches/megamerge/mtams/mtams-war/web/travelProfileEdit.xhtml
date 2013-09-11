@@ -97,13 +97,45 @@
                                 </p:inplace>
                                 <p:message for="idNoIP" id="idNoIPM"/>
 
-                                <h:outputText value="Home Address: *" />
+                                <h:outputText value="Home Address Line 1:" />
                                 <p:inplace id="hAdd">  
                                     <p:inputText id="hAddIP" value="#{editTrav.homeAddress}" required="true" requiredMessage="Required Field">
                                         <p:ajax update="hAddIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
                                 <p:message for="hAddIP" id="hAddIPM"/>
+                                
+                                <h:outputText value="Home Address Line 2:" />
+                                <p:inplace id="hAdd2">  
+                                    <p:inputText id="hAdd2IP" value="#{editTrav.homeAddress2}">
+                                        <p:ajax update="hAdd2IPM" event="blur" />
+                                    </p:inputText>
+                                </p:inplace>
+                                <p:message for="hAdd2IP" id="hAdd2IPM"/>
+                                
+                                <h:outputText value="City:" />
+                                <p:inplace id="city">  
+                                    <p:inputText id="cityIP" value="#{editTrav.city}" required="true" requiredMessage="Required Field">
+                                        <p:ajax update="cityIPM" event="blur" />
+                                    </p:inputText>
+                                </p:inplace>
+                                <p:message for="cityIP" id="cityIPM"/>
+                                
+                                <h:outputText value="Province:" />
+                                <p:inplace id="province">  
+                                    <p:inputText id="provinceIP" value="#{editTrav.province}" required="true" requiredMessage="Required Field">
+                                        <p:ajax update="provinceIPM" event="blur" />
+                                    </p:inputText>
+                                </p:inplace>
+                                <p:message for="provinceIP" id="provinceIPM"/>
+                                
+                                <h:outputText value="PostalCode:" />
+                                <p:inplace id="pCode">  
+                                    <p:inputText id="postalCodeIP" value="#{editTrav.postalCode}" required="true" requiredMessage="Required Field">
+                                        <p:ajax update="postalCodeIPM" event="blur" />
+                                    </p:inputText>
+                                </p:inplace>
+                                <p:message for="postalCodeIP" id="postalCodeIPM"/>
 
                                 <h:outputText value="Mobile Phone: *" />
                                 <p:inplace id="mobileP">  
@@ -133,14 +165,6 @@
                         <br/>
                         <fieldset><legend><h4>Business Details</h4></legend>
                             <h:panelGrid columns="3" columnClasses="label, value, error"> 
-                                <h:outputText value="Business Address:* " />
-                                <p:inplace id="bAdd">  
-                                    <p:inputText id="bAddIP" value="#{editTrav.busAddress}" required="true" requiredMessage="Required Field">
-                                        <p:ajax update="bAddIPM" event="blur" />
-                                    </p:inputText>
-                                </p:inplace>
-                                <p:message for="bAddIP" id="bAddIPM"/>
-
                                 <h:outputText value="Business Phone:* " />
                                 <p:inplace id="bPhone">  
                                     <p:inputText id="bPhoneIP" value="#{editTrav.busPhone}" required="true" requiredMessage="Required Field">
