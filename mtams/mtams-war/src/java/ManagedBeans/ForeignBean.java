@@ -44,7 +44,7 @@ public class ForeignBean implements Serializable {
     private TravelProfileHandlerLocal tph;
     //======change===change=========change============change=========change====
     //-------------------------------------------------------------------------
-    private Integer accountID = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
+    private Integer accountID = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
     //private Integer accountID = 3;
     //-------------------------------------------------------------------------
     //======change========change=========change=============change=============
@@ -102,9 +102,9 @@ public class ForeignBean implements Serializable {
     private static final Logger logger = Logger.getLogger(ForeignBean.class.getName());
     private int coverOptions;
     private Date currentDate = new Date();
-    
     private Currency aCurrencySelection;
-    
+    private Currency aCurrencySelection2;
+
     public Date getCurrentDate() {
         return currentDate;
     }
@@ -153,15 +153,9 @@ public class ForeignBean implements Serializable {
         this.viewForX = viewForX;
     }
 
-    public Application getAppref() {
-        return appref;
-    }
-
-    public void setAppref(Application appref) {
-        this.appref = appref;
-    }
 
     public Travel getTravel() {
+        travel = csi.findTravel(accountID);
         return travel;
     }
 
@@ -252,13 +246,14 @@ public class ForeignBean implements Serializable {
         setFcCur(viewForX.getCurrencycash());
         setCcCur(viewForX.getCurrencycc());
         setCheqCur(viewForX.getCurrencycheque());
-        
+
     }
 
     public String cancel() {
         return "/forexView.xhtml";
     }
-    public String toAppHome(){
+
+    public String toAppHome() {
         return "/applicationHome.xhtml";
     }
 
@@ -288,8 +283,8 @@ public class ForeignBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Changes have been saved"));
         return "/applicationHome.xhtml";
     }
-    
-        public String goEdit(){
+
+    public String goEdit() {
         //loadValues();
         //initialize();
         return "/forexEdit";
@@ -542,13 +537,30 @@ public class ForeignBean implements Serializable {
     public void setaCurrencySelection(Currency aCurrencySelection) {
         this.aCurrencySelection = aCurrencySelection;
     }
-    
-            public String CurSel() {
+
+    public String CurSel() {
 //        logger.log(Level.INFO, "CurSel");
         logger.log(Level.INFO, "selectedCurrencyString : {0}", cheqCur);
         cheqCur = aCurrencySelection.getCurrencycode3();
         RequestContext.getCurrentInstance().execute("dlgcurrency.hide()");
 //        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
         return "currency";
+    }
+
+    public Currency getaCurrencySelection2() {
+        return aCurrencySelection2;
+    }
+
+    public void setaCurrencySelection2(Currency aCurrencySelection2) {
+        this.aCurrencySelection2 = aCurrencySelection2;
+    }
+
+    public String CurSel2() {
+//        logger.log(Level.INFO, "CurSel");
+        logger.log(Level.INFO, "selectedCurrencyString2 : {0}", fcCur);
+        fcCur = aCurrencySelection2.getCurrencycode3();
+        RequestContext.getCurrentInstance().execute("dlgcurrency2.hide()");
+//        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
+        return "currency2";
     }
 }
