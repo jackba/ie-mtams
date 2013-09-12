@@ -15,6 +15,7 @@ import Entities.Account;
 import Entities.Application;
 import Entities.Forexorder;
 import Entities.Itinerary;
+import Entities.Travel;
 import Entities.Traveldocument;
 import Entities.Travelerprofile;
 import java.util.List;
@@ -61,8 +62,8 @@ public class ForexHandler implements ForexHandlerLocal {
             if (foundForexForm.getIdforexorder().equals(forexID)) {
 
                 forexformOld = foundForexForm;
-                    forexformNew.setIdforexorder(forexformOld.getIdforexorder());
-                    forex.edit(forexformNew);
+                forexformNew.setIdforexorder(forexformOld.getIdforexorder());
+                forex.edit(forexformNew);
             }
         }
     }
@@ -86,6 +87,28 @@ public class ForexHandler implements ForexHandlerLocal {
             }
         }
         return itinerary;
+    }
+
+    @Override
+    public Travel findTravel(Integer id) // passing in the Account ID
+    {
+        Integer travelId = null;
+        Travel travel = null;
+
+        List<Application> allApp = appf.findAll();
+        for (Application eachApp : allApp) {
+            if (eachApp.getAccountIdaccount().getIdaccount().equals(id)) {
+                travelId = eachApp.getTravelIdtravel().getIdtravel();
+            }
+        }
+
+        List<Travel> allTra = tfl.findAll();
+        for (Travel each : allTra) {
+            if (each.getIdtravel().equals(travelId)) {
+                travel = each;
+            }
+        }
+        return travel;
     }
 
     @Override
