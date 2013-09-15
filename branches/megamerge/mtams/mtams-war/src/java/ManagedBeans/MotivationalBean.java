@@ -10,8 +10,6 @@ import Entities.Motivation;
 import Entities.Quotes;
 import ServiceLayer.MotivationFormHandlerLocal;
 import java.io.Serializable;
-import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
