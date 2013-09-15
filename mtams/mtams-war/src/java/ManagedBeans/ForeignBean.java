@@ -15,7 +15,6 @@ import ServiceLayer.TravelProfileHandlerLocal;
 import ServiceLayer.ForexHandlerLocal;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.ejb.EJB;
 
 import javax.faces.bean.SessionScoped;

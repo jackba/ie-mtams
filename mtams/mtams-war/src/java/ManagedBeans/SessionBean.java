@@ -7,15 +7,12 @@ package ManagedBeans;
 import Entities.Account;
 import ServiceLayer.LoginHandlerLocal;
 import java.io.Serializable;
-import java.lang.annotation.Target;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.persistence.PostLoad;
-import javax.persistence.PostUpdate;
 import javax.servlet.http.HttpSession;
 
 ;
