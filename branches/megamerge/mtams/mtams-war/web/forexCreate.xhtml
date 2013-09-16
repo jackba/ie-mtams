@@ -91,14 +91,14 @@
                                 <fieldset><legend><h4>Travel Details</h4></legend>
                                     <h:panelGrid columns="3" columnClasses="label, value, error">         
                                         <h:outputText value="Ticket number/ reference number: "  />  
-                                        <p:inputText id="ticketref" value="#{foreignBean.ticketNumber}">
-                                            <f:validateLength minimum="1" maximum="30"/>
+                                        <p:inputText id="ticketref" value="#{foreignBean.ticketNumber}" validatorMessage="Ticket number required">
+                                            <f:validateLength minimum="1" maximum="30" />
                                             <p:ajax update="msgTicketref" event="keyup" />
                                         </p:inputText>
                                         <p:message for="ticketref" id="msgTicketref"/>
 
                                         <h:outputText value="Voyager number: "  />  
-                                        <p:inputText id="voynum" value="#{foreignBean.voyagerNum}">
+                                        <p:inputText id="voynum" value="#{foreignBean.voyagerNum}" validatorMessage="Voyager number required">
                                             <f:validateLength minimum="1" maximum="30"/>
                                             <p:ajax update="msgVoynum" event="keyup" />
                                         </p:inputText>
@@ -137,9 +137,13 @@
 
 
                                         <p:outputLabel rendered="#{foreignBean.isUsingCheq eq '1'}" for="travelC" value="Cheque Amount: " style="margin-left:10%"/>
-                                        <p:inputText rendered="#{foreignBean.isUsingCheq eq '1'}" id="travelC" value="#{foreignBean.travellerCheque}">
-                                            <f:validateLength minimum="1" maximum="15"/>
+                                        <p:inputText rendered="#{foreignBean.isUsingCheq eq '1'}" id="travelC" value="#{foreignBean.travellerCheque}" 
+                                                     validatorMessage="Amount lengh less then 15" converterMessage="Amount must be a number" 
+                                                     required="true" requiredMessage="Amount is required" >
+                                            
+                                            <f:validateLength minimum="1" maximum="15" />
                                             <p:ajax update="msgCheque" event="keyup" />
+                                            
                                         </p:inputText>
                                         <p:message for="travelC" id="msgCheque" rendered="#{foreignBean.isUsingCheq eq '1'}"/>
 
@@ -173,7 +177,9 @@
                                         <p:message id="currencyMsg2" for="currency2" />
 
                                         <p:outputLabel rendered="#{foreignBean.isUsingFC eq '1'}" for="fcCur" value="Foreign Cash Amount: " style="margin-left:10%"/>
-                                        <p:inputText rendered="#{foreignBean.isUsingFC eq '1'}" id="fcash" value="#{foreignBean.foreignCash}" >
+                                        <p:inputText rendered="#{foreignBean.isUsingFC eq '1'}" id="fcash" value="#{foreignBean.foreignCash}" 
+                                                     validatorMessage="Amount lengh less then 15" converterMessage="Amount must be a number" 
+                                                     required="true" requiredMessage="Amount is required">
                                             <f:validateLength minimum="1" maximum="15"/>
                                             <p:ajax update="fcError" event="keyup" />
                                         </p:inputText>
