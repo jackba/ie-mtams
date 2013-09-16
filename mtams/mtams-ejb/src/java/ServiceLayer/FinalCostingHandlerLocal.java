@@ -5,7 +5,6 @@
 package ServiceLayer;
 
 import Entities.Finalcosting;
-import Entities.Quotes;
 import javax.ejb.Local;
 
 /**
@@ -14,12 +13,10 @@ import javax.ejb.Local;
  */
 @Local
 public interface FinalCostingHandlerLocal {
+
     public void persistFinalcosting(Finalcosting finalcosting);
-    
-    //public void persistQuoteFinalcosting(Finalcosting finalcosting, Quotes quote);
-    
+
     public void updateFinalcosting(Finalcosting finalcosting, Integer finalcostingID);
-        
+
     public Finalcosting findFinalcosting(Integer id);
-    
 }

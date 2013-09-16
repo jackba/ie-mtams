@@ -14,8 +14,12 @@ import javax.ejb.Local;
  */
 @Local
 public interface DepartmentHandlerLocal {
+
     public List<Department> getAllDepartments();
+
     public void createDepartment(Department department);
+
     public void editDepartment(Department department);
+
     public void deleteDepartment(Department department);
 }

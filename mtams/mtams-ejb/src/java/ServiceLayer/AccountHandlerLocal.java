@@ -15,14 +15,22 @@ import javax.ejb.Local;
  */
 @Local
 public interface AccountHandlerLocal {
-    public void registerNewAccount(Account newAccount,int role);
-	public void registerNewAccountDiv(Account newAccount,int role, String department);
-    public Accountrole assignId(Account newAccount, int role);
-    public boolean checkUsername(String username);
-	public void deactivateAccount(Account selAcc);
-    public List<Account> getAllAccounts();
-	public List<Account> getAllAdmins();
-    public void editAdminPersist(Account admin);
-	public Account getAccount(Integer id);
 
+    public void registerNewAccount(Account newAccount, int role);
+
+    public void registerNewAccountDiv(Account newAccount, int role, String department);
+
+    public Accountrole assignId(Account newAccount, int role);
+
+    public boolean checkUsername(String username);
+
+    public void deactivateAccount(Account selAcc);
+
+    public List<Account> getAllAccounts();
+
+    public List<Account> getAllAdmins();
+
+    public void editAdminPersist(Account admin);
+
+    public Account getAccount(Integer id);
 }

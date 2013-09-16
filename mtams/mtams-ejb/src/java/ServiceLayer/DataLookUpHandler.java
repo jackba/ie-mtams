@@ -278,7 +278,6 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
     @Override
     public List<String> allCitiesStr() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -326,7 +325,7 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
     @Override
     public List<City> getCities(Region aRegion, Country aCountry) {
         List<City> RegionsCity = new ArrayList<City>();
-        
+
         for (City CityO : daoCity.findAll()) {
             //logger.log(Level.INFO, "1 CityO : {0}", CityO);
             if (CityO.getCode2().getCode2().equalsIgnoreCase(aCountry.getCode2())) {
@@ -335,19 +334,17 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
                     logger.log(Level.INFO, "3 CityO : {0}", CityO);
                     RegionsCity.add(CityO);
                 }
-                
+
             }
         }
         return RegionsCity;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 
     @Override
     public List<City> allCities(String aRegion, Country aCountry) {
-        
-         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -362,7 +359,7 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
         List<Region> CountryRegions = new ArrayList<Region>();
 
         for (Region RegionO : daoRegion.findAll()) {
-            
+
             if (RegionO.getCode2().getCode2().equalsIgnoreCase(aCountry.getCode2())) {
                 CountryRegions.add(RegionO);
                 logger.log(Level.INFO, "allREgions RegionO : {0}", RegionO);
