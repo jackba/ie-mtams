@@ -4,6 +4,7 @@ SET SCHEMA  "MTAMS";
 -- Sepcial notes where grep does not work
 -- table X comess >> after table Y
 
+DROP TABLE  "APPROVALCHAIN";
 DROP TABLE  "ATTACHEMENT";
 DROP TABLE  "APPROVAL";
 DROP TABLE  "APPLICATION";
