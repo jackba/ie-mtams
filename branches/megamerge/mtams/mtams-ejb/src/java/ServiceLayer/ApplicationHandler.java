@@ -61,18 +61,18 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
     private ForexorderFacadeLocal forDao;
     @EJB
     private MotivationFacadeLocal motDao;
-    
-    
+
     @Override
-    public List<Application> getAppList(Integer id){
+    public List<Application> getAppList(Integer id) {
         List<Application> apps = new ArrayList<Application>();
         List<Application> allApps = appDao.findAll();
-        
-        for(Application each:allApps){
-            if(each.getAccountIdaccount().getIdaccount().equals(id))
+
+        for (Application each : allApps) {
+            if (each.getAccountIdaccount().getIdaccount().equals(id)) {
                 apps.add(each);
+            }
         }
-        
+
         return apps;
     }
 
@@ -80,147 +80,154 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
     public List<Application> getAllAppList(Integer id) {
         return appDao.findAll();
     }
-    
-    
-    
+
     @Override
-    public Application getApplication(Integer id){
+    public Application getApplication(Integer id) {
         return appDao.find(id);
     }
-    
+
     @Override
-    public List<Accomodationquotes> getAccomodationQuotes(Integer id){
+    public List<Accomodationquotes> getAccomodationQuotes(Integer id) {
         List<Accomodationquotes> all = accDao.findAll();
         List<Accomodationquotes> q = new ArrayList<Accomodationquotes>();
-        
-        for(Accomodationquotes each: all){
-            if(each.getQuotesIdquotes().getIdquotes().equals(id))
+
+        for (Accomodationquotes each : all) {
+            if (each.getQuotesIdquotes().getIdquotes().equals(id)) {
                 q.add(each);
+            }
         }
-        
+
         return q;
     }
-    
+
     @Override
-    public List<Carquotes> getCarQuotes(Integer id){
+    public List<Carquotes> getCarQuotes(Integer id) {
         List<Carquotes> all = carDao.findAll();
         List<Carquotes> q = new ArrayList<Carquotes>();
-        
-        for(Carquotes each: all){
-            if(each.getQuotesIdquotes().getIdquotes().equals(id))
+
+        for (Carquotes each : all) {
+            if (each.getQuotesIdquotes().getIdquotes().equals(id)) {
                 q.add(each);
+            }
         }
-        
+
         return q;
-        
+
     }
-    
+
     @Override
-    public List<Flightquotes> getFlightQuotes(Integer id){
+    public List<Flightquotes> getFlightQuotes(Integer id) {
         List<Flightquotes> all = flightDao.findAll();
         List<Flightquotes> q = new ArrayList<Flightquotes>();
-        
-        for(Flightquotes each: all){
-            if(each.getQuotesIdquotes().getIdquotes().equals(id))
+
+        for (Flightquotes each : all) {
+            if (each.getQuotesIdquotes().getIdquotes().equals(id)) {
                 q.add(each);
+            }
         }
-        
+
         return q;
         //return flightDao.findAll();
     }
-    
+
     @Override
-    public Itinerary getItinerary(Integer id){
+    public Itinerary getItinerary(Integer id) {
         List<Itinerary> list = itinDao.findAll();
-        for(Itinerary each: list){
-            if(each.getTravelIdtravel().getIdtravel().equals(id))
+        for (Itinerary each : list) {
+            if (each.getTravelIdtravel().getIdtravel().equals(id)) {
                 return each;
+            }
         }
         return null;
     }
-    
+
     @Override
-    public Application persistApplication(Application app, Quotes quote, List<Accomodationquotes> acc, List<Carquotes> car, List<Flightquotes> flight, Itinerary itin, Travel trav, Travelerprofile prof){
+    public Application persistApplication(Application app, Quotes quote, List<Accomodationquotes> acc, List<Carquotes> car, List<Flightquotes> flight, Itinerary itin, Travel trav, Travelerprofile prof) {
         Conference con = new Conference();
         confDao.create(con);
-        
+
         quoteDao.create(quote);
-        
+
         List<Quotes> q = quoteDao.findAll();
-        for(Quotes each:q){
-            if(each.equals(quote))
+        for (Quotes each : q) {
+            if (each.equals(quote)) {
                 quote = each;
+            }
         }
-        
+
         Finalcosting fin = new Finalcosting();
         fin.setQuotesIdquotes(quote);
-        
+
         Forexorder fx = new Forexorder();
         forDao.create(fx);
-        
+
         Motivation mot = new Motivation();
         motDao.create(mot);
-        
+
         List<Motivation> m = motDao.findAll();
-        for(Motivation each:m){
-            if(each.equals(mot))
+        for (Motivation each : m) {
+            if (each.equals(mot)) {
                 mot = each;
+            }
         }
-        
+
         List<Forexorder> x = forDao.findAll();
-        for(Forexorder each: x){
-            if(each.equals(fx))
+        for (Forexorder each : x) {
+            if (each.equals(fx)) {
                 fx = each;
+            }
         }
-        
+
         finDao.create(fin);
         List<Finalcosting> f = finDao.findAll();
-        
-        for(Finalcosting each: f){
-            if(each.equals(fin))
+
+        for (Finalcosting each : f) {
+            if (each.equals(fin)) {
                 fin = each;
+            }
         }
-        
+
         List<Conference> c = confDao.findAll();
-        for(Conference each:c){
-            if(each.equals(con)){
+        for (Conference each : c) {
+            if (each.equals(con)) {
                 con = each;
             }
         }
         //con = confDao.find(con.getIdconference());
-        
+
         trav.setConferenceIdconference(con);
-        
+
         travDao.create(trav);
-        
+
         List<Travel> l = travDao.findAll();
-        for(Travel each:l){
-            if(each.equals(trav))
+        for (Travel each : l) {
+            if (each.equals(trav)) {
                 trav = each;
+            }
         }
-        
-        
+
+
         itin.setTravelIdtravel(trav);
-        
+
         itinDao.create(itin);
         //quote = quoteDao.find(quote.getIdquotes());
-        
-        for(Accomodationquotes each:acc){
+
+        for (Accomodationquotes each : acc) {
             each.setQuotesIdquotes(quote);
             accDao.create(each);
         }
-        
-        for(Carquotes each:car){
+
+        for (Carquotes each : car) {
             each.setQuotesIdquotes(quote);
             carDao.create(each);
         }
-        
-        for(Flightquotes each: flight){
+
+        for (Flightquotes each : flight) {
             each.setQuotesIdquotes(quote);
             flightDao.create(each);
         }
-        
-        
+
+
         app.setQuotesIdquotes(quote);
         app.setTravelIdtravel(trav);
         app.setFinalcostingIdfinalcosting(fin);
@@ -228,17 +235,17 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
         app.setMotivationIdmotivation(mot);
         app.setAccountIdaccount(prof.getAccountid());
         appDao.create(app);
-        
+
         List<Application> allApps = appDao.findAll();
         Application returned = null;
         int max = 0;
-        for(Application each: allApps){
-            if(each.getIdapplication().intValue() >= max){
+        for (Application each : allApps) {
+            if (each.getIdapplication().intValue() >= max) {
                 returned = each;
             }
         }
         return returned;
-        
+
     }
 
     @Override
@@ -255,6 +262,4 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
         carDao.edit(car);
         flightDao.edit(flg);
     }
-    
-    
 }

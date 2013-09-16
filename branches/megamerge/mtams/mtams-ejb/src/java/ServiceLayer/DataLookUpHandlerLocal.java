@@ -12,7 +12,6 @@ import Entities.Leavelookup;
 import Entities.Position;
 import Entities.Region;
 import Entities.Title;
-import java.util.Collection;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -31,7 +30,7 @@ public interface DataLookUpHandlerLocal {
     public int getTitleCount();
 
     public Title getTitle(String aTitle);
-    
+
     // Position methods
     public List<Position> allPositions();
 
@@ -40,7 +39,7 @@ public interface DataLookUpHandlerLocal {
     public int getPositionCount();
 
     public Position getPosition(String aPosition);
-    
+
     // LeaveLookup methods
     public List<Leavelookup> allLeaves();
 
@@ -49,7 +48,7 @@ public interface DataLookUpHandlerLocal {
     public int getLeaveCount();
 
     public Leavelookup getLeave(String aLeave);
-    
+
     // Department methods
     public List<Department> allDepartments();
 
@@ -58,7 +57,7 @@ public interface DataLookUpHandlerLocal {
     public int getDepartmentCount();
 
     public Department getDepartment(String aDepartment);
-    
+
     // Currency methods
     public List<Currency> allCurrency();
 
@@ -75,9 +74,9 @@ public interface DataLookUpHandlerLocal {
 
     public int getCountriesCount();
 
-    public Country getCountries(String aCountry);  
-    
-        // City methods
+    public Country getCountries(String aCountry);
+
+    // City methods
     public List<City> allCities(String aRegion, Country aCountry);
 
     public List<String> allCitiesStr();
@@ -85,12 +84,12 @@ public interface DataLookUpHandlerLocal {
     public int getCitiesCount();
 
     public City getCities(String aCity);
-    
+
     public City getCities(String aRegion, Country aCountry);
-    
+
     public List<City> getCities(Region aRegion, Country aCountry);
-    
-        // Region methods
+
+    // Region methods
     public List<Region> allRegions(Country aCountry);
 
     public List<String> allRegionsStr();
@@ -98,6 +97,6 @@ public interface DataLookUpHandlerLocal {
     public int getRegionsCount();
 
     public Region getRegions(String aRegion);
-    
-    public Region getRegions(String aRegion, Country aCountry); 
+
+    public Region getRegions(String aRegion, Country aCountry);
 }

@@ -16,8 +16,10 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class DepartmentHandler implements DepartmentHandlerLocal {
+
     @EJB
     private DepartmentFacadeLocal departmentDAO;
+
     @Override
     public void createDepartment(Department department) {
         departmentDAO.create(department);
@@ -29,7 +31,7 @@ public class DepartmentHandler implements DepartmentHandlerLocal {
     }
 
     @Override
-    public void deleteDepartment(Department department) {        
+    public void deleteDepartment(Department department) {
         departmentDAO.remove(department);
     }
 

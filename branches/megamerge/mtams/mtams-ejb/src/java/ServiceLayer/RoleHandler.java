@@ -15,11 +15,11 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class RoleHandler implements RoleHandlerLocal {
+
     @EJB
     private RoleFacadeLocal roledao;
-            
+
     @Override
     public void createNewRole(Role newRole) {
-        
     }
 }
