@@ -8,6 +8,7 @@ import DataAccess.AccountFacadeLocal;
 import DataAccess.AccountdepartmentFacadeLocal;
 import DataAccess.ApplicationFacadeLocal;
 import DataAccess.ApprovalFacadeLocal;
+import DataAccess.ApprovalchainFacadeLocal;
 import DataAccess.DepartmentFacadeLocal;
 import DataAccess.FinalcostingFacadeLocal;
 import DataAccess.QuotesFacadeLocal;
@@ -16,6 +17,7 @@ import Entities.Account;
 import Entities.Accountdepartment;
 import Entities.Application;
 import Entities.Approval;
+import Entities.Approvalchain;
 import Entities.Conference;
 import Entities.Department;
 import Entities.Finalcosting;
@@ -52,8 +54,12 @@ public class ApprovalHandler implements ApprovalHandlerLocal{
     private Finalcosting fcostingRef;
     
     private Accountdepartment ad;
+    @EJB
     private AccountdepartmentFacadeLocal adfl;
+    @EJB
     private DepartmentFacadeLocal dfl;
+    @EJB
+    private ApprovalchainFacadeLocal appcfl;
     
 
 //    @Override
@@ -66,6 +72,29 @@ public class ApprovalHandler implements ApprovalHandlerLocal{
 //        
 //        
 //    }
+    @Override
+    public String returnDepartment(Integer id)
+    {
+        Integer departmentID = null; //remove null if null pointer is given in code
+        String departmentName = null;
+        List<Application> returnApps = new ArrayList<Application>();
+        List<Account> accounts = new ArrayList<Account>();
+        
+        List<Accountdepartment> listAD = adfl.findAll();        
+        for (Accountdepartment eachAD : listAD)
+        {
+            if(eachAD.getIdaccount().getIdaccount().equals(id))
+                departmentID = eachAD.getIddepartment().getIddepartment();
+        }
+        
+        List<Department> listDepart = dfl.findAll();
+        for (Department eachDep : listDepart)
+        {
+            if(eachDep.getIddepartment().equals(departmentID))
+                departmentName = eachDep.getDepartment();
+        }
+        return departmentName;
+    }
     
     @Override
     public List<Application> allApp(Integer id) //schoolAdmin id passed in //Code just for schooladmin
@@ -75,28 +104,29 @@ public class ApprovalHandler implements ApprovalHandlerLocal{
         List<Application> returnApps = new ArrayList<Application>();
         List<Account> accounts = new ArrayList<Account>();
         
-        List<Accountdepartment> ListAD = adfl.findAll();        
-        for (Accountdepartment eachAD : ListAD)
+        List<Accountdepartment> listAD = adfl.findAll();        
+        for (Accountdepartment eachAD : listAD)
         {
             if(eachAD.getIdaccount().getIdaccount().equals(id))
                 departmentID = eachAD.getIddepartment().getIddepartment();
         }
         
-        List<Department> ListDepart = dfl.findAll();
-        for (Department eachDep : ListDepart)
+        List<Department> listDepart = dfl.findAll();
+        for (Department eachDep : listDepart)
         {
             if(eachDep.getIddepartment().equals(departmentID))
                 departmentName = eachDep.getDepartment();
         }
+        
         String Finance = "Finance";
         String Administration = "Administration";
         String PVC = "PVC";
         String ITS = "ITS";
         
-        //if code (if departmentName.equeal("ITS")) Do
+        //Step 3.0 codde
+        List<Approvalchain> listAppChain = appcfl.findAll();
         if(departmentName.equalsIgnoreCase(Finance))
-        {
-            
+        {            
             
         }else if(departmentName.equalsIgnoreCase(Administration))
         {
@@ -109,16 +139,30 @@ public class ApprovalHandler implements ApprovalHandlerLocal{
             
         }else
         {
-            
+            for(Approvalchain eachAppc : listAppChain)
+            {
+                //This checks schoolAdmin 
+                if(eachAppc.getApplicationcomplete() == 1 && eachAppc.getSchooladmincomplete() == 0 && eachAppc.getSchooladmin().getIdaccount().equals(id))
+                {
+                    accounts.add(eachAppc.getAccountid());
+                }
+                else //This check HOD
+                if(eachAppc.getApplicationcomplete() == 1 && eachAppc.getSchooladmincomplete() == 1 && eachAppc.getHodcomplete() == 0 
+                        && eachAppc.getHod().getIdaccount().equals(id))
+                {
+                    accounts.add(eachAppc.getAccountid());
+                }
+            }     
         }
-        
-        for(Accountdepartment eachAd :ListAD)
+        //step 2.0 code
+        /*
+        for(Accountdepartment eachAd :listAD)
         {
             if(eachAd.getIddepartment().getIddepartment().equals(departmentID))
             {
                 accounts.add(eachAd.getIdaccount());
             }            
-        }        
+        }     */   
         
         
         List<Application> listApp = daoApplication.findAll();
