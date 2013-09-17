@@ -114,6 +114,20 @@ INSERT INTO "LEAVELOOKUP" (LEAVETYPE) VALUES ('Other' /*not nullable*/);
 -- ******************************************************
 --
 
+-- for email notification messages. 
+-- INSERT INTO "MTAMS"."MESSAGES" (IDMESSAGE,NAME,DESCRITION,SUBJECT,MESSAGE)   
+--        VALUES (0 /*not nullable*/,'s' /*not nullable*/,'s' /*not nullable*/,'s' /*not nullable*/,'s' /*not nullable*/);
+INSERT INTO "MTAMS"."MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE)   
+    VALUES ('Created' /*not nullable*/,'Account created' /*not nullable*/,'Account created succefully' /*not nullable*/,'s' /*not nullable*/);
+INSERT INTO "MTAMS"."MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE)   
+    VALUES ('Application' /*not nullable*/,'Application created' /*not nullable*/,'Account created succefully' /*not nullable*/,'s' /*not nullable*/);
+INSERT INTO "MTAMS"."MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE)   
+    VALUES ('Authorisation' /*not nullable*/,'Submitted for authorisation' /*not nullable*/,'Application submitted for authorisation' /*not nullable*/,'s' /*not nullable*/);
+INSERT INTO "MTAMS"."MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE)   
+    VALUES ('Authorised' /*not nullable*/,'Application authorised' /*not nullable*/,'Application has been authorised' /*not nullable*/,'s' /*not nullable*/);
+INSERT INTO "MTAMS"."MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE)   
+    VALUES ('Approved' /*not nullable*/,'Application approved' /*not nullable*/,'Application has been approved' /*not nullable*/,'s' /*not nullable*/);
+
 -- 
  INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
         VALUES ('admin' /*not nullable*/,'admin' /*not nullable*/,'s',current_timestamp,null);
