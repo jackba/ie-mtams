@@ -53,4 +53,14 @@ public class MessagesHandler implements MessagesHandlerLocal {
     public ArrayList<Messages> getMessages() {
         return new ArrayList<Messages>(daoMessages.findAll());
     }
+
+    @Override
+    public Messages findMessages(String name) {
+        for (Messages msg : daoMessages.findAll()) {
+            if (msg.getName().equalsIgnoreCase(name))
+                return msg;            
+        }
+        return null;
+        
+    }
 }
