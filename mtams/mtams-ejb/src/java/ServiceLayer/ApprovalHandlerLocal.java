@@ -7,8 +7,8 @@ package ServiceLayer;
 //import Entities.Account;
 //import Entities.Application;
 import Entities.Application;
-import Entities.Finalcosting;
 import Entities.Approval;
+import Entities.Approvalchain;
 import java.util.List;
 //import Entities.Quotes;
 //import java.util.List;
@@ -40,4 +40,6 @@ public interface ApprovalHandlerLocal {
     
     public List<Application> allApp(Integer id);
     public String returnDepartment(Integer id);
+    
+    public void persistApprovalChain(Approvalchain apprChain);
 }

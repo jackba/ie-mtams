@@ -33,4 +33,10 @@ public interface AccountHandlerLocal {
     public void editAdminPersist(Account admin);
 
     public Account getAccount(Integer id);
+    
+    public int findFinanceAccountID();
+    
+    public int findPVCAccountID();
+    
+    public int findFinalFinanceAccountID();
 }

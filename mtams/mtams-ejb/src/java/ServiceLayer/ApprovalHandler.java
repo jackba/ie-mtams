@@ -18,7 +18,6 @@ import Entities.Accountdepartment;
 import Entities.Application;
 import Entities.Approval;
 import Entities.Approvalchain;
-import Entities.Conference;
 import Entities.Department;
 import Entities.Finalcosting;
 import Entities.Quotes;
@@ -45,6 +44,8 @@ public class ApprovalHandler implements ApprovalHandlerLocal{
     private FinalcostingFacadeLocal daoFinal;
     @EJB
     private QuotesFacadeLocal daoQuotesFacadeLocal;
+    @EJB
+    private ApprovalchainFacadeLocal apprChainDao;
     
     private Account account = new Account();
     private Application app = new Application();
@@ -342,5 +343,8 @@ public class ApprovalHandler implements ApprovalHandlerLocal{
         
     }
 
-    
+    @Override
+    public void persistApprovalChain(Approvalchain apprChain) {
+        apprChainDao.create(apprChain);
+    }
 }

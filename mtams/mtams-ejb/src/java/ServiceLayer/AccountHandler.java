@@ -43,6 +43,9 @@ public class AccountHandler implements AccountHandlerLocal {
     private int accDeptID;
     private List<Account> adminList = new ArrayList<Account>();
     private int callCount = 0;
+    private int financeID;
+    private int PVCID;
+    private int finalFinanceID;
 
     @Override
     public void registerNewAccount(Account newAccount, int role) {
@@ -155,5 +158,38 @@ public class AccountHandler implements AccountHandlerLocal {
     @Override
     public Account getAccount(Integer id) {
         return accDao.find(id);
+    }
+    
+    @Override
+    public int findFinanceAccountID(){
+        List<Account> accList = accDao.findAll();
+        for(Account each : accList){
+            if(each.getUsername().equalsIgnoreCase("Finance")){
+                financeID = each.getIdaccount();
+            }
+        }
+        return financeID;
+    }
+    
+    @Override
+    public int findPVCAccountID(){
+        List<Account> accList = accDao.findAll();
+        for(Account each : accList){
+            if(each.getUsername().equalsIgnoreCase("PVC")){
+                PVCID = each.getIdaccount();
+            }
+        }
+        return PVCID;
+    }
+    
+    @Override
+    public int findFinalFinanceAccountID(){
+        List<Account> accList = accDao.findAll();
+        for(Account each : accList){
+            if(each.getUsername().equalsIgnoreCase("FinalFinance")){
+                finalFinanceID = each.getIdaccount();
+            }
+        }
+        return finalFinanceID;
     }
 }
