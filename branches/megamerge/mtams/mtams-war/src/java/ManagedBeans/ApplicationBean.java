@@ -5,7 +5,10 @@
 package ManagedBeans;
 
 import Entities.Accomodationquotes;
+import Entities.Account;
 import Entities.Application;
+import Entities.Approval;
+import Entities.Approvalchain;
 import Entities.Carquotes;
 import Entities.Currency;
 import Entities.Flightquotes;
@@ -13,7 +16,9 @@ import Entities.Itinerary;
 import Entities.Quotes;
 import Entities.Travel;
 import Entities.Travelerprofile;
+import ServiceLayer.AccountHandlerLocal;
 import ServiceLayer.ApplicationHandlerLocal;
+import ServiceLayer.ApprovalHandlerLocal;
 import ServiceLayer.TravelProfileHandlerLocal;
 //import java.awt.event.ActionEvent;
 import javax.inject.Named;
@@ -48,25 +53,25 @@ public class ApplicationBean implements Serializable {
     private TravelProfileHandlerLocal travelProfileHandler;
     @EJB
     private ApplicationHandlerLocal appHandler;
-    
+    @EJB
+    private ApprovalHandlerLocal apprHandler;
+    @EJB
+    private AccountHandlerLocal accHandler;
     private static final Logger logger = Logger.getLogger(ApplicationBean.class.getName());
-    
     private List<Application> allApps;
     private Application selectedApp;
-    
     /////////////////////NEW SESSION RETRIEVAL CODE///////////////////////
-    private Integer accountID = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");//.getSessionMap().get("userID");
+    private Integer accountID = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");//.getSessionMap().get("userID");
     private Travelerprofile profileRef;// = travelProfileHandler.findTravelProf(accountID);
-    
     private Date modifiedDate;
-    @Future(message="Date must be in Future")
+    @Future(message = "Date must be in Future")
     private Date departureDate;
-    @Future(message="Date must be in Future")
+    @Future(message = "Date must be in Future")
     private Date returnDate;
     private String description;
     private Travel newTravel;
     private Itinerary tempItin;
-    @Future(message="Date must be in Future")
+    @Future(message = "Date must be in Future")
     private Date tempDate;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String tempDest;
@@ -74,7 +79,6 @@ public class ApplicationBean implements Serializable {
     private String tempLeaveType;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String tempTravelDay;
-    
     ///////////QUOTES//////////////
     private String costCentre;
     private String currency;
@@ -117,15 +121,15 @@ public class ApplicationBean implements Serializable {
     private Carquotes newCar;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String hQLocation;
-    @Future(message="Date must be in Future")
+    @Future(message = "Date must be in Future")
     private Date hQDateIn;
-    @Future(message="Date must be in Future")
+    @Future(message = "Date must be in Future")
     private Date hQDateOut;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[0-9a-zA-Z' ]{0,}")
     private String hQHotel1;
     @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String hQCost1;
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[0-9a-zA-Z' ]{0,}")
     private String hQHotel2;
     @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
     private String hQCost2;
@@ -136,7 +140,6 @@ public class ApplicationBean implements Serializable {
     private UIForm form;
     private UIPanel panel;
     private UIInput input = new UIInput();
-    
     private int idNum = 0;
     private List<Flightquotes> flights;
     private List<Accomodationquotes> hotels;
@@ -145,11 +148,34 @@ public class ApplicationBean implements Serializable {
     private Travel travelRef;
     private Itinerary itinRef;
     private Quotes quoteRef;
-    
     private Date currentDate = new Date();
-    
     private String reasonForTravel;
     private Application newApplication;
+    // ALEX VARIABLES FOR ADVANCED APPROVAL PROCESS
+    
+    private int appComplete = 1;
+    //School Admin
+    private Account schoolAdmin;
+    private int schoolAdminComplete;
+    private Approval schoolAdminApprFK;
+    //HOD
+    private Account HOD;
+    private int HODComplete;
+    private Approval HODApprFK;
+    //Finance
+    private Account finance;
+    private int financeComplete;
+    private Approval financeApprFK;
+    //PVC
+    private Account PVC;
+    private int PVCComplete;
+    private Approval PVCApprFK;
+    //Final Finance
+    private Account finalFinance;
+    private int finalComplete;
+    private Approval finalApprFK;
+    
+    private Approvalchain apprChainRef;
 
     /**
      * Creates a new instance of ApplicationBean
@@ -167,32 +193,32 @@ public class ApplicationBean implements Serializable {
 //        tempApp.setDatemodified(new Date());
 //        
 //        allApps.add(tempApp);
-        
-        
+
+
         profileRef = travelProfileHandler.findTravelProf(accountID);
         //loadValues();
-        
-        int appnum = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
+
+        int appnum = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
         appRef = appHandler.getApplication(appnum);//selectedApp;
-        
+
         quoteRef = appRef.getQuotesIdquotes();
         hotels = appHandler.getAccomodationQuotes(quoteRef.getIdquotes());
         cars = appHandler.getCarQuotes(quoteRef.getIdquotes());
         flights = appHandler.getFlightQuotes(quoteRef.getIdquotes());
         travelRef = appRef.getTravelIdtravel();
         itinRef = appHandler.getItinerary(travelRef.getIdtravel());
-        
+
         description = appRef.getDescription();
-        
+
         setDepartureDate(travelRef.getDatedeparture());
         setReturnDate(travelRef.getDatereturn());
         setReasonForTravel(travelRef.getDescription());
-        
+
         setTempDate(itinRef.getDate());
         setTempDest(itinRef.getDestinationCity());
         setTempLeaveType(itinRef.getLeavetype());
         setTempTravelDay(itinRef.getTravelday());
-        
+
         setCostCentre(quoteRef.getCostcenter());
     }
 
@@ -287,6 +313,103 @@ public class ApplicationBean implements Serializable {
 
         appRef = appHandler.persistApplication(newApplication, newQuote, accQuotes, carQuotes, flightQuotes, tempItin, newTravel, profileRef);
 
+        //ALEX CODE FOR ADVANCED APPROVAL SYSTEM
+        Approval appr1 = new Approval();
+        Approval appr2 = new Approval();
+        Approval appr3 = new Approval();
+        Approval appr4 = new Approval();
+        Approval appr5 = new Approval();
+
+
+        appr1.setAccountIdaccount(accHandler.getAccount(accountID));
+        appr1.setApplicationIdapplication(appRef);
+        appr2.setAccountIdaccount(accHandler.getAccount(accountID));
+        appr2.setApplicationIdapplication(appRef);
+        appr3.setAccountIdaccount(accHandler.getAccount(accountID));
+        appr3.setApplicationIdapplication(appRef);
+        appr4.setAccountIdaccount(accHandler.getAccount(accountID));
+        appr4.setApplicationIdapplication(appRef);
+        appr5.setAccountIdaccount(accHandler.getAccount(accountID));
+        appr5.setApplicationIdapplication(appRef);
+        
+        apprHandler.persistApproval(appr1);
+        apprHandler.persistApproval(appr2);
+        apprHandler.persistApproval(appr3);
+        apprHandler.persistApproval(appr4);
+        apprHandler.persistApproval(appr5);
+
+        List<Approval> approvals = new ArrayList<Approval>();
+        approvals = apprHandler.findApprovalbyApplication(appRef.getIdapplication());
+        
+        for(int i=0;i<approvals.size();i++){
+            if(i==0){
+                appr1 = approvals.get(i);
+            }
+            else if(i==1){
+                appr2 = approvals.get(i);
+            }
+            else if(i==2){
+                appr3 = approvals.get(i);
+            }
+            else if(i==3){
+                appr4 = approvals.get(i);
+            }
+            else if(i==4){
+                appr5 = approvals.get(i);
+            }
+        }                
+        
+         
+         appComplete = 1;
+         //School Admin
+         schoolAdmin = accHandler.getAccount(5);
+         schoolAdminComplete = 0;
+         schoolAdminApprFK = appr1;
+         //HOD
+         HOD = accHandler.getAccount(6);
+         HODComplete = 0;
+         HODApprFK = appr2;
+         //Finance
+         finance = accHandler.getAccount(4);
+         financeComplete = 0;
+         financeApprFK = appr3;
+         //PVC
+         PVC = accHandler.getAccount(3);
+         PVCComplete = 0;
+         PVCApprFK = appr4;
+         //FinalFinance
+         finalFinance = accHandler.getAccount(7);
+         finalComplete = 0;
+         finalApprFK = appr5;
+         
+         apprChainRef = new Approvalchain();
+         
+         apprChainRef.setAccountid(accHandler.getAccount(accountID));
+         apprChainRef.setApplicationcomplete(appComplete);
+         apprChainRef.setApplicationid(appRef);
+         //School Admin
+         apprChainRef.setSchooladmin(schoolAdmin);
+         apprChainRef.setSchooladmincomplete(schoolAdminComplete);
+         apprChainRef.setSchooladminapproved(schoolAdminApprFK);
+         //HOD
+         apprChainRef.setHod(HOD);
+         apprChainRef.setHodcomplete(HODComplete);
+         apprChainRef.setHodapproved(HODApprFK);
+         //Finance
+         apprChainRef.setFinance(finance);
+         apprChainRef.setFinancecomplete(financeComplete);
+         apprChainRef.setFinanceapproved(finalApprFK);
+         //PVC
+         apprChainRef.setPvc(PVC);
+         apprChainRef.setPvccomplete(PVCComplete);
+         apprChainRef.setPvcapproved(PVCApprFK);
+         //FinalFinance
+         apprChainRef.setFinalfinance(finalFinance);
+         apprChainRef.setFinalcomplete(finalComplete);
+         apprChainRef.setFinalapproved(finalApprFK);
+         
+         apprHandler.persistApprovalChain(apprChainRef);
+                 
         FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Application Created"));
         return "applicationHome";
     }
@@ -324,71 +447,72 @@ public class ApplicationBean implements Serializable {
 
     }
 
-    public String viewThis(){
+    public String viewThis() {
         //loadValues();
         return "/applicationView.xhtml";
     }
-    
-    public String goApplicationHome(){
+
+    public String goApplicationHome() {
         return "/applicationHome.xhtml";
     }
-    
-    public String goEdit(){
+
+    public String goEdit() {
         //loadValues();
         initialize();
         return "applicationEdit";
     }
-    
-    public String update(){
+
+    public String update() {
         quoteRef = appRef.getQuotesIdquotes();
         hotels = appHandler.getAccomodationQuotes(quoteRef.getIdquotes());
         cars = appHandler.getCarQuotes(quoteRef.getIdquotes());
         flights = appHandler.getFlightQuotes(quoteRef.getIdquotes());
         travelRef = appRef.getTravelIdtravel();
         itinRef = appHandler.getItinerary(travelRef.getIdtravel());
-        
+
         appRef.setDescription(description);
-        
+
         travelRef.setDatedeparture(departureDate);
         travelRef.setDatereturn(returnDate);
         travelRef.setDescription(reasonForTravel);
-        
+
         itinRef.setDate(tempDate);
         itinRef.setDestinationCity(tempDest);
         itinRef.setLeavetype(tempLeaveType);
         itinRef.setTravelday(tempTravelDay);
-        
+
         quoteRef.setCostcenter(costCentre);
-        
+
         appHandler.persistApplicationEdit(appRef, quoteRef, itinRef, travelRef);
-        FacesContext.getCurrentInstance().addMessage("submitAppConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success","Changes have been saved"));
+        FacesContext.getCurrentInstance().addMessage("submitAppConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Changes have been saved"));
         return "/applicationView.xhtml";
     }
     //dada
     //@PostConstruct
-    public void loadValues(){
-        
+
+    public void loadValues() {
+
         profileRef = travelProfileHandler.findTravelProf(accountID);
         //loadValues();
         Integer id = 12;
         appRef = appHandler.getApplication(id);//selectedApp;
-        
+
         quoteRef = appRef.getQuotesIdquotes();
-        
+
         travelRef = appRef.getTravelIdtravel();
         itinRef = appHandler.getItinerary(travelRef.getIdtravel());
-        
+
         description = appRef.getDescription();
-        
+
         setDepartureDate(travelRef.getDatedeparture());
         setReturnDate(travelRef.getDatereturn());
         setReasonForTravel(travelRef.getDescription());
-        
+
         setTempDate(itinRef.getDate());
         setTempDest(itinRef.getDestinationCity());
         setTempLeaveType(itinRef.getLeavetype());
         setTempTravelDay(itinRef.getTravelday());
-        
+
         setCostCentre(quoteRef.getCostcenter());
 
     }
@@ -745,9 +869,9 @@ public class ApplicationBean implements Serializable {
     public Application getAppRef() {
         //appRef = appHandler.getApplication(5);
         //description = appRef.getDescription();
-        Integer appnum = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
-        if(appnum != null){
-        appRef = appHandler.getApplication(appnum);
+        Integer appnum = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
+        if (appnum != null) {
+            appRef = appHandler.getApplication(appnum);
         }
         return appRef;
     }
@@ -756,6 +880,7 @@ public class ApplicationBean implements Serializable {
         this.appRef = appRef;
     }
 //dada
+
     public Travel getTravelRef() {
         //travelRef = appRef.getTravelIdtravel();
         return travelRef;
@@ -806,8 +931,8 @@ public class ApplicationBean implements Serializable {
     public void setaCurrencySelection(Currency aCurrencySelection) {
         this.aCurrencySelection = aCurrencySelection;
     }
-    
-        public String CurSel() {
+
+    public String CurSel() {
 //        logger.log(Level.INFO, "CurSel");
         logger.log(Level.INFO, "selectedCurrencyString : {0}", currency);
         currency = aCurrencySelection.getCurrencycode3();
@@ -815,12 +940,12 @@ public class ApplicationBean implements Serializable {
 //        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
         return "currency";
     }
-    
-    public String goCreateForex(){
+
+    public String goCreateForex() {
         return "forexCreate";
     }
-    
-    public String goViewForex(){
+
+    public String goViewForex() {
         return "forexView";
     }
 }
