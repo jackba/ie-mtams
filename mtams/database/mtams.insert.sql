@@ -115,18 +115,19 @@ INSERT INTO "LEAVELOOKUP" (LEAVETYPE) VALUES ('Other' /*not nullable*/);
 --
 
 -- for email notification messages. 
--- INSERT INTO "MTAMS"."MESSAGES" (IDMESSAGE,NAME,DESCRITION,SUBJECT,MESSAGE)   
+-- INSERT INTO "MESSAGES" (IDMESSAGE,NAME,DESCRITION,SUBJECT,MESSAGE)   
 --        VALUES (0 /*not nullable*/,'s' /*not nullable*/,'s' /*not nullable*/,'s' /*not nullable*/,'s' /*not nullable*/);
-INSERT INTO "MTAMS"."MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE)   
-    VALUES ('Created' /*not nullable*/,'Account created' /*not nullable*/,'Account created succefully' /*not nullable*/,'s' /*not nullable*/);
-INSERT INTO "MTAMS"."MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE)   
-    VALUES ('Application' /*not nullable*/,'Application created' /*not nullable*/,'Account created succefully' /*not nullable*/,'s' /*not nullable*/);
-INSERT INTO "MTAMS"."MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE)   
-    VALUES ('Authorisation' /*not nullable*/,'Submitted for authorisation' /*not nullable*/,'Application submitted for authorisation' /*not nullable*/,'s' /*not nullable*/);
-INSERT INTO "MTAMS"."MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE)   
-    VALUES ('Authorised' /*not nullable*/,'Application authorised' /*not nullable*/,'Application has been authorised' /*not nullable*/,'s' /*not nullable*/);
-INSERT INTO "MTAMS"."MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE)   
-    VALUES ('Approved' /*not nullable*/,'Application approved' /*not nullable*/,'Application has been approved' /*not nullable*/,'s' /*not nullable*/);
+INSERT INTO "MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE) 
+    VALUES ('Created','Account created','Account created successfully','Your account has been created successfully<div><br/></div><div>You are now ready to begin creating travel applications.</div>');
+INSERT INTO "MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE) 
+    VALUES ('Application','Application created','Application created successfully','Your application has been created successfully<div><br/></div><div>Once you are sure all the forms have been completed correctly you can submit the form for authorisation.&nbsp;</div>');
+INSERT INTO "MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE) 
+    VALUES ('Authorisation','Submitted for authorisation','Application submitted for authorisation','An application is in need of review.<div><br/></div><div>Please log in and check that the application meets all necessary requirements for approval so you can authorise it and submit it up to the next step for final approval.&nbsp;</div>');
+INSERT INTO "MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE) 
+    VALUES ('Authorised','Application authorised','Application has been authorised','Your application has been authorised.<div><br/></div><div>Your application has been authorised and is still being processed. You will be notified once your application has final approval.&nbsp;</div>');
+INSERT INTO "MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE) 
+    VALUES ('Approved','Application approved','Application has been approved','Your application has been approved<div><br/></div><div>Your application is approved and you can now claim your finances from the relevant parties to pay for your travels.&nbsp;</div>');
+
 
 -- 
  INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
