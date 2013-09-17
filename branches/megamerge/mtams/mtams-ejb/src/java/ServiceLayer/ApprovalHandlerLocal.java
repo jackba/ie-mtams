@@ -39,4 +39,5 @@ public interface ApprovalHandlerLocal {
     //public Quotes findByQuotes(Integer id);
     
     public List<Application> allApp(Integer id);
+    public String returnDepartment(Integer id);
 }
