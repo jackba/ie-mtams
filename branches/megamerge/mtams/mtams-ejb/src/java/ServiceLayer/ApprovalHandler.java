@@ -5,14 +5,19 @@
 package ServiceLayer;
 
 import DataAccess.AccountFacadeLocal;
+import DataAccess.AccountdepartmentFacadeLocal;
 import DataAccess.ApplicationFacadeLocal;
 import DataAccess.ApprovalFacadeLocal;
+import DataAccess.DepartmentFacadeLocal;
 import DataAccess.FinalcostingFacadeLocal;
 import DataAccess.QuotesFacadeLocal;
 //import DataAccess.QuotesFacadeLocal;
 import Entities.Account;
+import Entities.Accountdepartment;
 import Entities.Application;
 import Entities.Approval;
+import Entities.Conference;
+import Entities.Department;
 import Entities.Finalcosting;
 import Entities.Quotes;
 import java.util.ArrayList;
@@ -25,8 +30,9 @@ import javax.ejb.Stateless;
  * @author aaron
  */
 @Stateless
-public class ApprovalHandler implements ApprovalHandlerLocal {
-
+public class ApprovalHandler implements ApprovalHandlerLocal{
+    
+        
     @EJB
     private AccountFacadeLocal daoAccount;
     @EJB
@@ -37,11 +43,18 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
     private FinalcostingFacadeLocal daoFinal;
     @EJB
     private QuotesFacadeLocal daoQuotesFacadeLocal;
+    
     private Account account = new Account();
     private Application app = new Application();
     private Quotes quotes = new Quotes();
-    private Approval approvalRef;
+    
+    private Approval approvalRef;    
     private Finalcosting fcostingRef;
+    
+    private Accountdepartment ad;
+    private AccountdepartmentFacadeLocal adfl;
+    private DepartmentFacadeLocal dfl;
+    
 
 //    @Override
 //    public void persist(Approval approval, Finalcosting finalcosting) {
@@ -53,17 +66,110 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
 //        
 //        
 //    }
+    
+    @Override
+    public List<Application> allApp(Integer id) //schoolAdmin id passed in //Code just for schooladmin
+    {
+        Integer departmentID = null; //remove null if null pointer is given in code
+        String departmentName = null;
+        List<Application> returnApps = new ArrayList<Application>();
+        List<Account> accounts = new ArrayList<Account>();
+        
+        List<Accountdepartment> ListAD = adfl.findAll();        
+        for (Accountdepartment eachAD : ListAD)
+        {
+            if(eachAD.getIdaccount().getIdaccount().equals(id))
+                departmentID = eachAD.getIddepartment().getIddepartment();
+        }
+        
+        List<Department> ListDepart = dfl.findAll();
+        for (Department eachDep : ListDepart)
+        {
+            if(eachDep.getIddepartment().equals(departmentID))
+                departmentName = eachDep.getDepartment();
+        }
+        String Finance = "Finance";
+        String Administration = "Administration";
+        String PVC = "PVC";
+        String ITS = "ITS";
+        
+        //if code (if departmentName.equeal("ITS")) Do
+        if(departmentName.equalsIgnoreCase(Finance))
+        {
+            
+            
+        }else if(departmentName.equalsIgnoreCase(Administration))
+        {
+            
+        }else if(departmentName.equalsIgnoreCase(PVC))
+        {
+            
+        }else if(departmentName.equalsIgnoreCase(ITS))
+        {
+            
+        }else
+        {
+            
+        }
+        
+        for(Accountdepartment eachAd :ListAD)
+        {
+            if(eachAd.getIddepartment().getIddepartment().equals(departmentID))
+            {
+                accounts.add(eachAd.getIdaccount());
+            }            
+        }        
+        
+        
+        List<Application> listApp = daoApplication.findAll();
+        {
+            for(Application eachApp : listApp)
+            {
+                Integer accountId = eachApp.getAccountIdaccount().getIdaccount();
+                for(Account eachAcc : accounts)
+                {
+                    if(eachAcc.getIdaccount().equals(accountId))
+                    {
+                        returnApps.add(eachApp);
+                    }
+                }
+            }
+        }
+        return returnApps;
+    }
+        //get id and check the department do step 2.0 or 3.0
+        
+        //Step 2.0
+        //$$ check accountDepartment pass id and return department id (IT) 
+        //go throw accountDepartment and return all the add to List<account> where department = department id        
+        //go to applicationChain for each schoolAdmin table with id in it check => applicationcomplete == 1 && schooladmincomplete ==0 
+        //          add that account to a list<account> accounts
+                    // List<Approval> approvals = new ArrayList<Approval>();
+        //return accounts 
+        
+        //Step3.0
+        //get the department 
+        //go to approvalchain go the the right department role (Finance || PVC || FinalFinance) and check 
+        //eg PVC -> check financeComplete == 1 && PVCComplete == 0 
+        
+        
+        //long run 
+        //check the id against accountDepartment
+        //if id is HOD do step 2.0
+        //if id is finance step 3.0
+    
+
     @Override
     public void persistApproval(Approval approval) {
         // set global references for approval for persistant use 
         approvalRef = approval;
         // set the approval account / application to the curretly logged in account
         daoApproval.create(approval);
-
+        
         // set the final costing to quotes selected
-
+        
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
+        
     }
 
 //    @Override
@@ -78,6 +184,7 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
 //        daoFinal.create(finalcosting);       
 //        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
+    
     @Override
     public void updateApproval(Approval approval, Integer ApprovalID) {
         //Integer approvalID = null;
@@ -91,7 +198,7 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
 //                approvalID = eachApproval.getFinalcostingIdfinalcosting().getIdfinalcosting();
 //            }
 //        }
-
+        
         //Try and match conferenceID to passed id
         List<Approval> allapprovals = daoApproval.findAll();
         for (Approval eachapproval : allapprovals) {
@@ -102,8 +209,8 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
                 daoApproval.edit(newForm);
             }
         }
-
-
+               
+        
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -134,16 +241,17 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
 //        
 //        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
+
+
     @Override
     public List<Approval> findApprovalbyApplication(Integer id) {
-
+        
         List<Approval> approvals = new ArrayList<Approval>();
         List<Approval> allapprovals = daoApproval.findAll();
-
-        for (Approval approval : allapprovals) {
-            if (approval.getApplicationIdapplication().getIdapplication().equals(id)) {
+        
+        for(Approval approval : allapprovals){
+            if(approval.getApplicationIdapplication().getIdapplication().equals(id))
                 approvals.add(approval);
-            }
         }
         return approvals;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -160,34 +268,35 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
 //        return null;
 //        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
+
     @Override
     public List<Approval> findApprovalbyAccount(Integer id) {
-
+        
         List<Approval> approvals = new ArrayList<Approval>();
         List<Approval> allapprovals = daoApproval.findAll();
-
-        for (Approval approval : allapprovals) {
-            if (approval.getAccountIdaccount().getIdaccount().equals(id)) {
+        
+        for(Approval approval : allapprovals){
+            if(approval.getAccountIdaccount().getIdaccount().equals(id))
                 approvals.add(approval);
-            }
         }
         return approvals;
-
+        
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Approval findApproval(Integer id) {
-
+        
         List<Approval> approvals = new ArrayList<Approval>();
         List<Approval> allapprovals = daoApproval.findAll();
-        for (Approval approval : allapprovals) {
-            if (approval.getIdapproval().equals(id)) {
-                return approval;
+            for (Approval approval : allapprovals) {
+                if (approval.getIdapproval().equals(id)) 
+                    return approval;
             }
-        }
         return null;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
+        
     }
+
+    
 }
