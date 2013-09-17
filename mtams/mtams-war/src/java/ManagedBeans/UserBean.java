@@ -165,7 +165,7 @@ public class UserBean implements Serializable {
     }
 
     public List<Application> getApprovalApps() {
-        approvalApps = appHandler.getAllAppList(accountID);
+        approvalApps = apprHandler.allApp(accountID);
         return approvalApps;
     }
 
@@ -227,7 +227,7 @@ public class UserBean implements Serializable {
         profile.setMiddlename(middleName);
         profile.setTitle(title);
         profile.setIdnumber(idNo);
-        profile.setBusinessaddress("144 Peter Rd, Johannesburg, Guateng, South Africa");
+        profile.setBusinessaddress("144 Peter Rd, Johannesburg, Gauteng, South Africa");
         profile.setBusinessphone(busPhone);
         profile.setBusinessfax(busFax);
         profile.setHomeaddress1(homeAddress);
