@@ -3,18 +3,18 @@ package Entities;
 import Entities.Accountrole;
 import Entities.Permission;
 import javax.annotation.Generated;
-import javax.persistence.metamodel.ListAttribute;
+import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2013-08-07T17:48:31")
+@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2013-08-20T21:04:48")
 @StaticMetamodel(Role.class)
 public class Role_ { 
 
     public static volatile SingularAttribute<Role, Integer> idroles;
-    public static volatile ListAttribute<Role, Accountrole> accountroleList;
+    public static volatile CollectionAttribute<Role, Permission> permissionCollection;
     public static volatile SingularAttribute<Role, String> description;
+    public static volatile CollectionAttribute<Role, Accountrole> accountroleCollection;
     public static volatile SingularAttribute<Role, String> role;
-    public static volatile ListAttribute<Role, Permission> permissionList;
 
 }

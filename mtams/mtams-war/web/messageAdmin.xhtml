@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+            <ui:define name="content">
+
+                <h:form>       
+                    <p:messages id="createMessages" closable="true" showDetail="true" autoUpdate="true" /> 
+
+                    <p:panel header="Messages for notifaction emails">
+                        <p:accordionPanel id="MeditP" 
+                                          value="#{mailGF.messagesList}"
+                                          var="ap" 
+                                          dynamic="true">
+                            <p:tab title="#{ap.descrition}" >
+                                <p:panelGrid columns="2" columnClasses="label, value">
+                                    <p:outputLabel value="Name : " />
+                                    <p:outputLabel value="#{ap.name}" />
+
+                                    <p:outputLabel value="Discription : " />
+                                    <p:outputLabel value="#{ap.descrition}" />
+
+                                    <p:outputLabel value="Subject  : " />
+                                    <p:inputText  value="#{ap.subject}" style="width: 300px"/>
+
+
+                                </p:panelGrid>
+                                <p:outputLabel value="HTML editor  : " />
+                                <p:editor id="editor" value="#{ap.message}" width="600"/>  
+                            </p:tab>
+
+                        </p:accordionPanel>
+
+                        <ui:remove>
+                            <!---
+                            <p:selectOneMenu id="SelectDescription"
+    
+                                             value="#{mailGF.messagesE}" 
+                                             var="msgE"
+                                             >
+                                <f:selectItem  itemLabel="Select a Message" itemValue=""/>
+                                <f:selectItems value="#{mailGF.messagesList}" 
+                                               var="msgEntity" 
+                                               itemLabel="#{msgEntity.name}"
+                                               itemValue="#{msgEntity}"/>
+                                <p:column>
+                                    <p:outputLabel value="#{msgE.name}" />    
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgE.descrition}" />
+    
+                                </p:column>
+    
+                                <p:ajax event="change" update="MsgEditGrid" ></p:ajax>
+                                
+                            
+
+</p:selectOneMenu>
+         
+
+
+                        <h4>Please Complete All of the Fields Below</h4>
+                        <fieldset><legend><h4>Messages:</h4></legend>
+                            <p:panelGrid id="MsgEditGrid" columns="1">
+                                <p:outputLabel id="MName" value="Name : #{mailGF.messagesE.name}" />
+                                <p:outputLabel id="MDescription" value="Description : #{mailGF.messagesE.descrition}" />
+                                <p:outputLabel id="MSubject" value="Subject : #{mailGF.messagesE.subject}" />
+                                <br />
+
+                                <p:editor id="editor" value="#{mailGF.messagesE.message}" width="600"/>  
+                            </p:panelGrid>
+                        </fieldset>
+                            --> 
+                        </ui:remove>
+                        <p:commandButton value="Cancel" ajax="false" actionListener="#{mailGF.cancel()}" />
+                        <p:commandButton value="Update" ajax="false" actionListener="#{mailGF.updateAll()}" />
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

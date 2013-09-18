@@ -23,6 +23,7 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class TravelProfileHandler implements TravelProfileHandlerLocal {
+
     @EJB
     private TravelerprofileFacadeLocal dao;
     @EJB
@@ -31,9 +32,9 @@ public class TravelProfileHandler implements TravelProfileHandlerLocal {
     private RewardsprogramFacadeLocal daoReward;
     @EJB
     private AccountFacadeLocal accountRef;
-    
     //private Account alex = new Account();
     private Travelerprofile profileRef;
+
     @Override
     public void persist(Integer id, Travelerprofile profile, Traveldocument passport) {
         //Create Refrence OBJ of Travelers Profile for use in persistReward()
@@ -46,63 +47,60 @@ public class TravelProfileHandler implements TravelProfileHandlerLocal {
         dao.create(profile);
         //Create TravelDocument
         passport.setTravlerprofileIdtravlerprofile(profile);//Establish Correct FK Reference to Travellers Profile
-        daoPassport.create(passport);        
-        
+        daoPassport.create(passport);
+
     }
-    
+
     @Override
-    public void persistProfileEdit(Travelerprofile profile, int accountID){
+    public void persistProfileEdit(Travelerprofile profile, int accountID) {
         profileRef = findTravelProf(accountID);
-        profile.setIdtravelerprofile(profileRef.getIdtravelerprofile());        
-        
+        profile.setIdtravelerprofile(profileRef.getIdtravelerprofile());
+
         dao.edit(profile);
     }
-    
+
     @Override
-    public void persistReward(Rewardsprogram reward){
+    public void persistReward(Rewardsprogram reward) {
         reward.setTravelerprofileIdtravelerprofile(profileRef);
         daoReward.create(reward);
     }
-    
+
     @Override
-     public Travelerprofile findTravelProf(Integer id)
-     {
-        
+    public Travelerprofile findTravelProf(Integer id) {
+
         List<Travelerprofile> all = dao.findAll();
-        for(Travelerprofile each : all){
-            if(each.getAccountid().getIdaccount().equals(id)){
+        for (Travelerprofile each : all) {
+            if (each.getAccountid().getIdaccount().equals(id)) {
                 return each;
-                
+
             }
         }
         return null;
-     }
+    }
+
     @Override
-    public Traveldocument findTravelDoc(Integer id)
-     {        
+    public Traveldocument findTravelDoc(Integer id) {
         List<Traveldocument> all = daoPassport.findAll();
-        for(Traveldocument each : all){
-            if(each.getTravlerprofileIdtravlerprofile().getIdtravelerprofile().equals(id)){
+        for (Traveldocument each : all) {
+            if (each.getTravlerprofileIdtravlerprofile().getIdtravelerprofile().equals(id)) {
                 return each;
-                
+
             }
         }
         return null;
-     }
-             
+    }
+
     @Override
-    public List<Rewardsprogram> findRewards(Integer id)
-     {        
+    public List<Rewardsprogram> findRewards(Integer id) {
         List<Rewardsprogram> rewards = new ArrayList<Rewardsprogram>();
         List<Rewardsprogram> all = daoReward.findAll();
-        
-        for(Rewardsprogram each : all){
-            if(each.getTravelerprofileIdtravelerprofile().getIdtravelerprofile().equals(id)){
+
+        for (Rewardsprogram each : all) {
+            if (each.getTravelerprofileIdtravelerprofile().getIdtravelerprofile().equals(id)) {
                 rewards.add(each);
-                
+
             }
         }
         return rewards;
-     }
-    
+    }
 }

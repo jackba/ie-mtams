@@ -27,11 +27,14 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.ConversationScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIData;
 import javax.faces.component.UIForm;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Pattern;
 
@@ -51,16 +54,12 @@ public class ApprovalBean implements Serializable {
     private ApprovalHandlerLocal approvalHandler;
     @EJB
     private AccountHandlerLocal accHandler;
-    
     private static final Logger logger = Logger.getLogger(ApplicationBean.class.getName());
-    
     private List<Application> allApps;
     private Application selectedApp;
-    
-    private Integer accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+    private Integer accountID = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
     private Travelerprofile profileRef;// = travelProfileHandler.findTravelProf(accountID);
     private Account accRef;
-    
     private Date modifiedDate;
     @Future
     private Date departureDate;
@@ -77,7 +76,6 @@ public class ApprovalBean implements Serializable {
     private String tempLeaveType;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String tempTravelDay;
-    
     private String costCentre;
     private Quotes newQuote;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
@@ -136,7 +134,6 @@ public class ApprovalBean implements Serializable {
     private UIForm form;
     private UIPanel panel;
     private UIInput input = new UIInput();
-    
     private int idNum = 0;
     private List<Flightquotes> flights;
     private List<Accomodationquotes> hotels;
@@ -145,15 +142,21 @@ public class ApprovalBean implements Serializable {
     private Travel travelRef;
     private Itinerary itinRef;
     private Quotes quoteRef;
-    
+    ///////////SELECTED/////////////
+    private Accomodationquotes selectedAccQte;
+    private Carquotes selectedCarQte;
+    private Flightquotes selectedFlgQte;
     private String reasonForTravel;
     private Application newApplication;
-    
     //--------APPROVAL-------------//
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
     private String approvalName;
     private String approvalComment;
     private int approved = 2;
+    ///////VARIABLES FOR NEW APPROVAL PROCESS/////////
+    @Inject
+    private MailGF mail;
+    private List<Approval> approvals;
 
     public ApprovalBean() {
         //initialize();
@@ -162,7 +165,7 @@ public class ApprovalBean implements Serializable {
     @PostConstruct
     public void initialize() {
         //accountID = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
-        
+
 //        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 
 //        Application tempApp = new Application();
@@ -170,85 +173,103 @@ public class ApprovalBean implements Serializable {
 //        tempApp.setDatemodified(new Date());
 //        
 //        allApps.add(tempApp);
-        
-        
+
+        accRef = accHandler.getAccount(accountID);
         profileRef = travelProfileHandler.findTravelProf(accountID);
         //loadValues();
-        int appnum = (Integer)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("appID");
+
+        int appnum = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
         appRef = appHandler.getApplication(appnum);//selectedApp;
-        
+
         quoteRef = appRef.getQuotesIdquotes();
         hotels = appHandler.getAccomodationQuotes(quoteRef.getIdquotes());
         cars = appHandler.getCarQuotes(quoteRef.getIdquotes());
         flights = appHandler.getFlightQuotes(quoteRef.getIdquotes());
         travelRef = appRef.getTravelIdtravel();
         itinRef = appHandler.getItinerary(travelRef.getIdtravel());
-        
+
         description = appRef.getDescription();
-        
+
         setDepartureDate(travelRef.getDatedeparture());
         setReturnDate(travelRef.getDatereturn());
         setReasonForTravel(travelRef.getDescription());
-        
+
         setTempDate(itinRef.getDate());
-        setTempDest(itinRef.getDestination());
+        setTempDest(itinRef.getDestinationCity());
         setTempLeaveType(itinRef.getLeavetype());
         setTempTravelDay(itinRef.getTravelday());
-        
+
         setCostCentre(quoteRef.getCostcenter());
     }
 
-    public String viewThis(){
+    public String viewThis() {
         //loadValues();
         return "/viewApplication.xhtml";
     }
 
-    public String approve(){
-        
-        accRef = accHandler.getAccount(accountID);
-        
-        Approval appr = new Approval();
-        appr.setAccountIdaccount(accRef);
-        appr.setApplicationIdapplication(appRef);
-        appr.setDate(new Date());
-        appr.setSectionid(approved);
-        appr.setFromsection(approvalName);
-        appr.setNotes(approvalComment);
-        approvalHandler.persistApproval(appr);
-        
-        return "userHome.xhtml";
+    public String approve() {
+
+        if (selectedAccQte != null && selectedCarQte != null && selectedFlgQte != null) {
+            String next = "";
+//            approvals = approvalHandler.findApprovalbyApplication(appRef.getIdapplication());
+
+            Approval appr = approvalHandler.findApprovalByAccountAndApplication(appRef.getIdapplication(), accountID);
+//            appr.setAccountIdaccount(accRef);
+//            appr.setApplicationIdapplication(appRef);
+            if (appr != null) {
+                appr.setDate(new Date());
+                appr.setSectionid(approved);
+                appr.setFromsection(approvalName);
+                appr.setNotes(approvalComment);
+                next = approvalHandler.updateApproval(appr);
+                mail.test();
+            }
+
+            short s = 1;
+            selectedAccQte.setSelected(s);
+            selectedCarQte.setSelected(s);
+            selectedFlgQte.setSelected(s);
+            appHandler.selectQuotes(selectedAccQte, selectedCarQte, selectedFlgQte);
+            return "authorizerHome.xhtml";
+        } else {
+            FacesContext.getCurrentInstance().addMessage("approvalTop", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Please ensure each type of quote has been selected"));
+            return "applicationApproval.xhtml";
+        }
+
+
     }
-    
-    
-    
-    
+
     //dada
     //@PostConstruct
-    public void loadValues(){
-        
+    public void loadValues() {
+
         profileRef = travelProfileHandler.findTravelProf(accountID);
         //loadValues();
         Integer id = 12;
         appRef = appHandler.getApplication(id);//selectedApp;
-        
+
         quoteRef = appRef.getQuotesIdquotes();
-        
+
         travelRef = appRef.getTravelIdtravel();
         itinRef = appHandler.getItinerary(travelRef.getIdtravel());
-        
+
         description = appRef.getDescription();
-        
+
         setDepartureDate(travelRef.getDatedeparture());
         setReturnDate(travelRef.getDatereturn());
         setReasonForTravel(travelRef.getDescription());
-        
+
         setTempDate(itinRef.getDate());
-        setTempDest(itinRef.getDestination());
+        setTempDest(itinRef.getDestinationCity());
         setTempLeaveType(itinRef.getLeavetype());
         setTempTravelDay(itinRef.getTravelday());
-        
+
         setCostCentre(quoteRef.getCostcenter());
 
+    }
+
+    public String goHome() {
+        return "authorizerHome.xhtml";
     }
 
     public Travelerprofile getProfileRef() {
@@ -610,6 +631,7 @@ public class ApprovalBean implements Serializable {
         this.appRef = appRef;
     }
 //dada
+
     public Travel getTravelRef() {
         //travelRef = appRef.getTravelIdtravel();
         return travelRef;
@@ -660,7 +682,28 @@ public class ApprovalBean implements Serializable {
     public void setApproved(int approved) {
         this.approved = approved;
     }
-    
-    
 
+    public Accomodationquotes getSelectedAccQte() {
+        return selectedAccQte;
+    }
+
+    public void setSelectedAccQte(Accomodationquotes selectedAccQte) {
+        this.selectedAccQte = selectedAccQte;
+    }
+
+    public Carquotes getSelectedCarQte() {
+        return selectedCarQte;
+    }
+
+    public void setSelectedCarQte(Carquotes selectedCarQte) {
+        this.selectedCarQte = selectedCarQte;
+    }
+
+    public Flightquotes getSelectedFlgQte() {
+        return selectedFlgQte;
+    }
+
+    public void setSelectedFlgQte(Flightquotes selectedFlgQte) {
+        this.selectedFlgQte = selectedFlgQte;
+    }
 }

@@ -6,9 +6,7 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,17 +16,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Badger
+ * @author Alexandre Damasio
  */
 @Entity
 @Table(name = "TRAVELERPROFILE")
@@ -48,7 +44,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Travelerprofile.findByBusinessaddress", query = "SELECT t FROM Travelerprofile t WHERE t.businessaddress = :businessaddress"),
     @NamedQuery(name = "Travelerprofile.findByBusinessphone", query = "SELECT t FROM Travelerprofile t WHERE t.businessphone = :businessphone"),
     @NamedQuery(name = "Travelerprofile.findByBusinessfax", query = "SELECT t FROM Travelerprofile t WHERE t.businessfax = :businessfax"),
-    @NamedQuery(name = "Travelerprofile.findByHomeaddress", query = "SELECT t FROM Travelerprofile t WHERE t.homeaddress = :homeaddress"),
+    @NamedQuery(name = "Travelerprofile.findByHomeaddress1", query = "SELECT t FROM Travelerprofile t WHERE t.homeaddress1 = :homeaddress1"),
+    @NamedQuery(name = "Travelerprofile.findByHomeaddress2", query = "SELECT t FROM Travelerprofile t WHERE t.homeaddress2 = :homeaddress2"),
+    @NamedQuery(name = "Travelerprofile.findByCity", query = "SELECT t FROM Travelerprofile t WHERE t.city = :city"),
+    @NamedQuery(name = "Travelerprofile.findByCountry", query = "SELECT t FROM Travelerprofile t WHERE t.country = :country"),
+    @NamedQuery(name = "Travelerprofile.findByProvince", query = "SELECT t FROM Travelerprofile t WHERE t.province = :province"),
+    @NamedQuery(name = "Travelerprofile.findByPostalcode", query = "SELECT t FROM Travelerprofile t WHERE t.postalcode = :postalcode"),
     @NamedQuery(name = "Travelerprofile.findByMobilephone", query = "SELECT t FROM Travelerprofile t WHERE t.mobilephone = :mobilephone"),
     @NamedQuery(name = "Travelerprofile.findByHomephone", query = "SELECT t FROM Travelerprofile t WHERE t.homephone = :homephone"),
     @NamedQuery(name = "Travelerprofile.findByHomeemail", query = "SELECT t FROM Travelerprofile t WHERE t.homeemail = :homeemail"),
@@ -122,8 +123,23 @@ public class Travelerprofile implements Serializable {
     @Column(name = "BUSINESSFAX")
     private String businessfax;
     @Size(max = 255)
-    @Column(name = "HOMEADDRESS")
-    private String homeaddress;
+    @Column(name = "HOMEADDRESS1")
+    private String homeaddress1;
+    @Size(max = 255)
+    @Column(name = "HOMEADDRESS2")
+    private String homeaddress2;
+    @Size(max = 100)
+    @Column(name = "CITY")
+    private String city;
+    @Size(max = 100)
+    @Column(name = "COUNTRY")
+    private String country;
+    @Size(max = 100)
+    @Column(name = "PROVINCE")
+    private String province;
+    @Size(max = 100)
+    @Column(name = "POSTALCODE")
+    private String postalcode;
     @Size(max = 15)
     @Column(name = "MOBILEPHONE")
     private String mobilephone;
@@ -211,14 +227,6 @@ public class Travelerprofile implements Serializable {
     @Column(name = "DATEMODIFIED")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datemodified;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelerprofileIdtravelerprofile")
-    private List<Rewardsprogram> rewardsprogramList;
-    @OneToMany(mappedBy = "travelerprofileIdtravelerprofile")
-    private List<Attachement> attachementList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travlerprofileIdtravlerprofile")
-    private List<Traveldocument> traveldocumentList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelerprofileIdtravelerprofile")
-    private List<Application> applicationList;
     @JoinColumn(name = "ACCOUNTID", referencedColumnName = "IDACCOUNT")
     @ManyToOne(optional = false)
     private Account accountid;
@@ -334,12 +342,52 @@ public class Travelerprofile implements Serializable {
         this.businessfax = businessfax;
     }
 
-    public String getHomeaddress() {
-        return homeaddress;
+    public String getHomeaddress1() {
+        return homeaddress1;
     }
 
-    public void setHomeaddress(String homeaddress) {
-        this.homeaddress = homeaddress;
+    public void setHomeaddress1(String homeaddress1) {
+        this.homeaddress1 = homeaddress1;
+    }
+
+    public String getHomeaddress2() {
+        return homeaddress2;
+    }
+
+    public void setHomeaddress2(String homeaddress2) {
+        this.homeaddress2 = homeaddress2;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getPostalcode() {
+        return postalcode;
+    }
+
+    public void setPostalcode(String postalcode) {
+        this.postalcode = postalcode;
     }
 
     public String getMobilephone() {
@@ -572,42 +620,6 @@ public class Travelerprofile implements Serializable {
 
     public void setDatemodified(Date datemodified) {
         this.datemodified = datemodified;
-    }
-
-    @XmlTransient
-    public List<Rewardsprogram> getRewardsprogramList() {
-        return rewardsprogramList;
-    }
-
-    public void setRewardsprogramList(List<Rewardsprogram> rewardsprogramList) {
-        this.rewardsprogramList = rewardsprogramList;
-    }
-
-    @XmlTransient
-    public List<Attachement> getAttachementList() {
-        return attachementList;
-    }
-
-    public void setAttachementList(List<Attachement> attachementList) {
-        this.attachementList = attachementList;
-    }
-
-    @XmlTransient
-    public List<Traveldocument> getTraveldocumentList() {
-        return traveldocumentList;
-    }
-
-    public void setTraveldocumentList(List<Traveldocument> traveldocumentList) {
-        this.traveldocumentList = traveldocumentList;
-    }
-
-    @XmlTransient
-    public List<Application> getApplicationList() {
-        return applicationList;
-    }
-
-    public void setApplicationList(List<Application> applicationList) {
-        this.applicationList = applicationList;
     }
 
     public Account getAccountid() {
