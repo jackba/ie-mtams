@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+            <ui:define name="content">
+                <ui:remove>
+                    <!---
+
+                    --> 
+                </ui:remove>
+
+
+
+                <h:form id="f1">
+                    <div>TODO write content</div>
+                    <fieldset>
+                        <legend><h4>Send Email Form</h4></legend>
+                        <p:commandButton action="#{mailGF.test()}" value="mailGF.test()" />
+                        <p>Send all messages</p>
+                        <p:outputLabel value="Email address " />
+                        <p:inputText id="toA1" value="#{mailGF.toAddress}" >
+                            <p:ajax event="change" update="f1" />
+                        </p:inputText>
+                        <br />
+                        <p:commandButton action="#{mailGF.test2()}" value="mailGF.test2()" />
+
+                        <br />
+                        <p> Here is a quick test you can do. Put in an email address and the name of the message you want to send </p>
+                        <p:outputLabel value="Email address " />
+                        <p:inputText id="toA2" value="#{mailGF.toAddress}" >
+                            <ui:remove> <!-- 
+                            <p:ajax event="change" update="f1" />
+                                         --></ui:remove>
+                        </p:inputText>
+                        <br />
+                        <p:outputLabel value="Email message name to send " />
+                        <p:inputText id="mName" value="#{mailGF.nameS}" >
+                            <ui:remove> <!--                                                                               
+                                
+                            <p:ajax event="change" update="f1" />
+                                        --></ui:remove>
+                        </p:inputText>
+                        <br />
+                        <p:commandButton action="#{mailGF.test3()}" value="mailGF.test3()" />
+                        <br />
+
+
+                        <p:dataList value="#{mailGF.messagesList}"
+                                    var="ap"
+                                    >  
+                            <p:panelGrid columns="2" columnClasses="label, value">
+                                <p:outputLabel value="Name : " />
+                                <p:outputLabel value="#{ap.name}" />
+                                <p:outputLabel value="Discription : " />
+                                <p:outputLabel value="#{ap.descrition}" />
+                                <p:outputLabel value="subject : " />
+                                <p:outputLabel value="#{ap.subject}" />
+                            </p:panelGrid>
+                        </p:dataList> 
+
+
+
+                    </fieldset>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

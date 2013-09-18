@@ -1,8 +1,25 @@
+.button-right {
+    float: right;
+    margin-left: 1%;
+}
+
+.login-desc {
+    width: 60%;
+    margin: 50px auto 100px;
+    float: left;
+}
+
 /* LOGIN_ B O X*/
 .form-2 {
-    /*background: #fffaf6;*/
+    width: 35%;
+    margin: 50px auto 100px;
+    float: right; 
+    padding: 10px;
+}
+
+
+.form-2 {
     border-radius: 4px;
-    /*color: #7e7975;*/
     box-shadow:
         0 2px 2px rgba(0,0,0,0.2),        
         0 1px 5px rgba(0,0,0,0.2),        
@@ -12,9 +29,6 @@
 .form-2 h1 .log-in {
     display: inline-block;
     text-transform: uppercase;
-}
-
-.form-2 h1 .log-in {
     color: #6c6763;
     padding-right: 2px;
 }
@@ -22,46 +36,22 @@
 .form-2 button {
     float:right;
     margin-left: 1%;
-    /*background: linear-gradient(rgb(251, 213, 104), rgb(255, 179, 71)) repeat scroll 0% 0% transparent;*/
-    /*border: 1px solid rgb(244, 171, 76);*/
-    /*color: rgb(153, 99, 25);*/
-    /*text-shadow: 0px 1px rgba(255, 255, 255, 0.3);*/
 }
 
 .form-2 h1 {
     font-size: 15px;
     font-weight: bold;
-    /*color: #bdb5aa;*/
     padding-bottom: 8px;
     border-bottom: 1px solid #EBE6E2;
     text-shadow: 0 2px 0 rgba(255,255,255,0.8);
     box-shadow: 0 1px 0 rgba(255,255,255,0.8);
 }
 
-.form-2 input[type=text]:hover,
-.form-2 input[type=password]:hover {
-    /*border-color: sandybrown;*/
-}
-
-.form-2 label:hover ~ input {
-    /*border-color: sandybrown;*/
-}
-
-.form-2 input[type=text]:focus,
-.form-2 input[type=password]:focus {
-    /*border-color: sandybrown;*/
-    outline: none; /* Remove Chrome's outline */
-}
 
 /* TINY_ T W E A K S */
 p.legal {
     font-size: .90em;
     color: #666;
-}
-
-form {
-    padding:10px;
-    overflow: hidden;
 }
 
 ul {
@@ -104,14 +94,7 @@ button {
 /* LAYOUT_ G E N E R A L */
 
 html {
-    /* help from http://www.css3.me/ */
-    -moz-border-radius: 15px;
-    -webkit-border-radius: 15px;
-    border-radius: 15px;
-
-    -moz-box-shadow: 0px 0px 2px #000000;
-    -webkit-box-shadow: 0px 0px 2px #000000;
-    box-shadow: 0px 0px 2px #000000;
+    min-height: 100%;
 }
 body {
     height: 100%;
@@ -126,12 +109,6 @@ body {
     margin-right: auto;	
     font: normal 87.5%/1.3 Arial, sans-serif;
     width:75%;
-
-
-}
-
-#wrap {
-    min-height: 100%;
 }
 
 
@@ -182,6 +159,7 @@ body {
 
 /* C O N T E N T */
 #content {
+    margin: 0 auto; 
     min-height: 100%;
     margin-bottom: 1%;
     /* background: red; */
@@ -213,7 +191,7 @@ body {
     left:0px;
 }
 
-.ui-menu .ui-menuitem {
+.ui-menu-list {
     margin: 1px 15px !important;
 }
 
@@ -221,20 +199,61 @@ body {
 #footer {
     border-top: 1px solid #a4a4a4;
     padding-top: 1.3em;
-    margin: 2em 0 2em 0;
+    margin: 5% 0 2em 0;
 
-
+    overflow: hidden;
     position: relative;
-    margin-top: 70%; /* negative value of footer height */
-    height: 23%;
+    /* margin-top: 40%;         ATENCAO */
     clear:both;
-    /* background: #BFF08E; */
 }
 
 #footer .col {
     float: left;
     width: 219px;
-    min-height: 150px;
     border-right: 1px solid #a4a4a4;
     margin: 0 20px 0 0;
+}
+
+/* Aarons */
+
+/* F I N A L C O S T I N G */
+
+/*
+.noborders tr {
+    border: navy;
+}
+*/
+
+.ui-panelgrid td {
+    border: none;
+    float: left;
+}
+
+.ui-widget-content tr {
+    /*
+    border: navy;
+    border-color: navy;
+    border-width: 5px;
+    */
+    border: none;
+}
+
+td.columnMessage  {
+    width: 30%;
+    border: none;
+}
+
+td.columnLabel  {
+    width: 250px;
+    border: none;
+}
+
+/*
+Over ride need to match department dropdown width
+*/
+.inputWidthDepartment {
+    width: 255px;
+}
+.inputWidth {
+    width: 163px;
 }

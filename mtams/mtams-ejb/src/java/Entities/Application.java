@@ -5,8 +5,8 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Badger
+ * @author aaron
  */
 @Entity
 @Table(name = "APPLICATION")
@@ -51,8 +51,6 @@ public class Application implements Serializable {
     @Column(name = "DATEMODIFIED")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datemodified;
-    @OneToMany(mappedBy = "applicationIdapplication")
-    private List<Attachement> attachementList;
     @JoinColumn(name = "TRAVELERPROFILE_IDTRAVELERPROFILE", referencedColumnName = "IDTRAVELERPROFILE")
     @ManyToOne(optional = false)
     private Travelerprofile travelerprofileIdtravelerprofile;
@@ -74,8 +72,10 @@ public class Application implements Serializable {
     @JoinColumn(name = "ACCOUNT_IDACCOUNT", referencedColumnName = "IDACCOUNT")
     @ManyToOne(optional = false)
     private Account accountIdaccount;
+    @OneToMany(mappedBy = "applicationIdapplication")
+    private Collection<Attachement> attachementCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "applicationIdapplication")
-    private List<Approval> approvalList;
+    private Collection<Approval> approvalCollection;
 
     public Application() {
     }
@@ -106,15 +106,6 @@ public class Application implements Serializable {
 
     public void setDatemodified(Date datemodified) {
         this.datemodified = datemodified;
-    }
-
-    @XmlTransient
-    public List<Attachement> getAttachementList() {
-        return attachementList;
-    }
-
-    public void setAttachementList(List<Attachement> attachementList) {
-        this.attachementList = attachementList;
     }
 
     public Travelerprofile getTravelerprofileIdtravelerprofile() {
@@ -174,12 +165,21 @@ public class Application implements Serializable {
     }
 
     @XmlTransient
-    public List<Approval> getApprovalList() {
-        return approvalList;
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
     }
 
-    public void setApprovalList(List<Approval> approvalList) {
-        this.approvalList = approvalList;
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
+    }
+
+    @XmlTransient
+    public Collection<Approval> getApprovalCollection() {
+        return approvalCollection;
+    }
+
+    public void setApprovalCollection(Collection<Approval> approvalCollection) {
+        this.approvalCollection = approvalCollection;
     }
 
     @Override

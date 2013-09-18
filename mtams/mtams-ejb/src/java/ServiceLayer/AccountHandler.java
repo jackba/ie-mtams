@@ -34,32 +34,35 @@ public class AccountHandler implements AccountHandlerLocal {
     private AccountroleFacadeLocal accRoleDao;
     @EJB
     private RoleFacadeLocal roleDao;
-	@EJB
+    @EJB
     private AccountdepartmentFacadeLocal accDepDao;
     @EJB
     private DepartmentFacadeLocal deptsDao;
-    
-	private int deptID;
+    private Department dept;
     private int accID;
     private int accDeptID;
     private List<Account> adminList = new ArrayList<Account>();
     private int callCount = 0;
-	
+    private int financeID;
+    private int PVCID;
+    private int finalFinanceID;
+
     @Override
-    public void registerNewAccount(Account newAccount, int role){
-        
+    public void registerNewAccount(Account newAccount, int role) {
+
         accDao.create(newAccount);
-        
+
         List<Account> allAccounts = accDao.findAll();
-        for(Account each: allAccounts){
-            if(each.equals(newAccount))
+        for (Account each : allAccounts) {
+            if (each.equals(newAccount)) {
                 newAccount = each;
+            }
         }
-        
+
         accRoleDao.create(assignId(newAccount, role));
     }
 
-	@Override
+    @Override
     public void registerNewAccountDiv(Account newAccount, int role, String department) {
 
         accDao.create(newAccount);
@@ -72,29 +75,28 @@ public class AccountHandler implements AccountHandlerLocal {
         }
         List<Department> allDepartments = deptsDao.findAll();
         for (Department each : allDepartments) {
+
             if (each.getDepartment().equalsIgnoreCase(department)) {
-                deptID = each.getIddepartment();
+                dept = each;
             }
         }
         accID = newAccount.getIdaccount();
         accRoleDao.create(assignId(newAccount, role));
 
-        List<Accountdepartment> allAccDepts = accDepDao.findAll();
 
-        accDeptID = allAccDepts.size() + 1;
-
-
-        Accountdepartment accDeptRef = new Accountdepartment(accDeptID, accID, deptID);
+        Accountdepartment accDeptRef = new Accountdepartment();
+        accDeptRef.setIdaccount(newAccount);
+        accDeptRef.setIddepartment(dept);
         accDepDao.create(accDeptRef);
     }
-	
+
     @Override
     public Accountrole assignId(Account newAccount, int role) {
         Role getRole = roleDao.find(role);
         Accountrole newAccRole = new Accountrole();
         newAccRole.setAccountid(newAccount);
         newAccRole.setRoleid(getRole);
-        
+
         return newAccRole;
     }
 
@@ -102,44 +104,44 @@ public class AccountHandler implements AccountHandlerLocal {
     public boolean checkUsername(String username) {
         boolean found = false;
         List<Account> accounts = accDao.findAll();
-        
-        for(Account each:accounts){
-            if(each.getUsername().equalsIgnoreCase(username)){
+
+        for (Account each : accounts) {
+            if (each.getUsername().equalsIgnoreCase(username)) {
                 found = true;
             }
         }
-        
-       return found;
+
+        return found;
     }
-    
+
     @Override
-    public List<Account> getAllAccounts(){
+    public List<Account> getAllAccounts() {
         return accDao.findAll();
     }
-    
-	    @Override
+
+    @Override
     public void deactivateAccount(Account selAcc) {
         List<Accountrole> accRoleList = accRoleDao.findAll();
-        
+
         for (Accountrole each : accRoleList) {
             if (each.getAccountid().equals(selAcc)) {
-                
-                each.setRoleid(roleDao.find((each.getRoleid().getIdroles()+900)));
+
+                each.setRoleid(roleDao.find((each.getRoleid().getIdroles() + 900)));
                 accRoleDao.edit(each);
             }
         }
     }
-	
-	@Override
+
+    @Override
     public List<Account> getAllAdmins() {
         List<Account> allAccList = accDao.findAll();
         List<Accountrole> allAccRoleList = accRoleDao.findAll();
         List<Integer> accIDList = new ArrayList<Integer>();
 
-        if(!adminList.isEmpty()){
+        if (!adminList.isEmpty()) {
             adminList.clear();
         }
-        
+
         for (Accountrole each : allAccRoleList) {
             if (each.getRoleid().getIdroles() == 21) {
                 adminList.add(each.getAccountid());
@@ -147,17 +149,47 @@ public class AccountHandler implements AccountHandlerLocal {
         }
         return adminList;
     }
-	
-	@Override
-    public void editAdminPersist(Account admin){
+
+    @Override
+    public void editAdminPersist(Account admin) {
         accDao.edit(admin);
     }
-	
-	@Override
+
+    @Override
     public Account getAccount(Integer id) {
         return accDao.find(id);
     }
-
-
     
+    @Override
+    public int findFinanceAccountID(){
+        List<Account> accList = accDao.findAll();
+        for(Account each : accList){
+            if(each.getUsername().equalsIgnoreCase("Finance")){
+                financeID = each.getIdaccount();
+            }
+        }
+        return financeID;
+    }
+    
+    @Override
+    public int findPVCAccountID(){
+        List<Account> accList = accDao.findAll();
+        for(Account each : accList){
+            if(each.getUsername().equalsIgnoreCase("PVC")){
+                PVCID = each.getIdaccount();
+            }
+        }
+        return PVCID;
+    }
+    
+    @Override
+    public int findFinalFinanceAccountID(){
+        List<Account> accList = accDao.findAll();
+        for(Account each : accList){
+            if(each.getUsername().equalsIgnoreCase("FinalFinance")){
+                finalFinanceID = each.getIdaccount();
+            }
+        }
+        return finalFinanceID;
+    }
 }

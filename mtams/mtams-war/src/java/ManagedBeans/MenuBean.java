@@ -4,10 +4,12 @@
  */
 package ManagedBeans;
 
-import javax.faces.application.FacesMessage;
+import java.io.Serializable;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 import org.primefaces.component.menuitem.MenuItem;
 import org.primefaces.component.submenu.Submenu;
 import org.primefaces.model.DefaultMenuModel;
@@ -18,10 +20,15 @@ import org.primefaces.model.MenuModel;
  * @author Marco Remane
  */
 @ManagedBean
-@RequestScoped
-public class MenuBean {
+@SessionScoped
+public class MenuBean implements Serializable {
 
+    @Inject
+    private SessionBean user;
+    @Inject
+    private SessionBean handler;
     private MenuModel model;
+    private SuperAdminBean superbean;
 
     /**
      * Creates a new instance of MenuBean
@@ -33,63 +40,105 @@ public class MenuBean {
         MenuItem item = new MenuItem();
         item.setValue("Home");
         item.setIcon("ui-icon-home");
-        item.setUrl("#");
+        if ((returnRole("11")) || (returnRole("12"))) {
+            item.setUrl(this.getURL("userHome"));
+        }
+        if (returnRole("21")) {
+            item.setUrl(this.getURL("accountAll"));
+        }
 
+        if (returnRole("22")) {
+            item.setUrl(this.getURL("superHome"));
+        }
         model.addMenuItem(item);
 
+        //set profile for applicant and authorizer only
+        if (returnRole("11") || returnRole("12")) {
+            item = new MenuItem();
+            item.setValue("Profile");
+            item.setIcon("ui-icon-person");
+            item.setUrl(this.getURL("travelProfileView"));
 
-        item = new MenuItem();
-        item.setValue("Profile");
-        item.setIcon("ui-icon-person");
-        item.setUrl(this.getURL());
+            model.addMenuItem(item);
+        }
 
-        model.addMenuItem(item);
+        //Applications 
+        if (returnRole("11")) {
+            Submenu appMenu = new Submenu();
+            appMenu.setLabel("Applications");
+            appMenu.setIcon("ui-icon-note");
 
-        
-        //Submenu  
-        Submenu submenu = new Submenu();
-        submenu.setLabel("Applications");
-        submenu.setIcon("ui-icon-note");
+            item = new MenuItem();
+            item.setValue("Start New Application");
+            item.setUrl(this.getURL("applicationCreate"));
+            appMenu.getChildren().add(item);
 
-        item = new MenuItem();
-        item.setValue("Start New Application");
-        item.setUrl("#");
-        submenu.getChildren().add(item);
+            model.addSubmenu(appMenu);
+        }
+        //Authorization
 
-        item = new MenuItem();
-        item.setValue("Manage Applications");
-        item.setUrl("#");
-        submenu.getChildren().add(item);
+        if (returnRole("12")) {                //AUTHORIZER
+            Submenu authMenu = new Submenu();
+            authMenu.setLabel("Authorizations");
+            authMenu.setIcon("ui-icon-circle-check");
 
-        model.addSubmenu(submenu);
+            item = new MenuItem();
+            item.setValue("Manage Authorizations");
+            item.setUrl(this.getURL("authorizerHome"));
+            authMenu.getChildren().add(item);
+            model.addSubmenu(authMenu);
+        }
+
+        if (returnRole("22")) {
+            Submenu superMenu = new Submenu();
+            superMenu.setLabel("Actions");
+            superMenu.setIcon("ui-icon-wrench");
+
+            item = new MenuItem();
+            item.setValue("Create Admin");
+            item.setUrl(this.getURL("createAdmin"));
+            superMenu.getChildren().add(item);
+            model.addSubmenu(superMenu);
+
+            item = new MenuItem();
+            item.setValue("Edit Admin");
+            item.setUrl(this.getURL("editAdminSelect"));
+            superMenu.getChildren().add(item);
+            model.addSubmenu(superMenu);
+
+            item = new MenuItem();
+            item.setValue("Create Role");
+            item.setUrl(this.getURL("createRole"));
+            superMenu.getChildren().add(item);
+            model.addSubmenu(superMenu);
+
+            item = new MenuItem();
+            item.setValue("Deactivate Account");
+            item.setUrl(this.getURL("deactivateAccount"));
+            superMenu.getChildren().add(item);
+            model.addSubmenu(superMenu);
+
+            item = new MenuItem();
+            item.setValue("Department Handler");
+            item.setUrl(this.getURL("departmentHandler"));
+            superMenu.getChildren().add(item);
+            model.addSubmenu(superMenu);
+        }
+
     }
 
-    public String getURL() {
+    public String getURL(String url) {
         FacesContext context = FacesContext.getCurrentInstance();
-        String request = context.getExternalContext().getRequestContextPath();
+        String request = context.getExternalContext().getRequestServletPath();
         System.out.println("PATH:" + request);
-        return request;
+        return request + "/" + url + ".xhtml";
     }
-    
+
+    private boolean returnRole(String role) {
+        return ((Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userRole")).toString().contains(role) ? true : false;
+    }
 
     public MenuModel getModel() {
         return model;
-    }
-
-    public void save() {
-        addMessage("Data saved");
-    }
-
-    public void update() {
-        addMessage("Data updated");
-    }
-
-    public void delete() {
-        addMessage("Data deleted");
-    }
-
-    public void addMessage(String summary) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 }

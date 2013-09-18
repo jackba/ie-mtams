@@ -1,5 +1,28 @@
 >>>>>>>>>>>>
 > Change log v.0.1
+> Wed Aug 21 15:54:23 SAST 2013
+<<<<<<<<<<<<
+#TODO
+Fix inserts to relate to new tables structures and field types
+Fix mtams.insert.sql
+Fix mtams.insert.app.sql
+ Add country entries for the following missing currency entries to satisfy constraints
+
+--INSERT INTO CURRENCY (COUNTRYNAME,CURRENCYNAME,CODE2,CODE3,CURRENCYCODE3) VALUES ('Curaçao','Netherlands Antillean Guilder','CW','CUW','ANG');
+--INSERT INTO CURRENCY (COUNTRYNAME,CURRENCYNAME,CODE2,CODE3,CURRENCYCODE3) VALUES ('South Sudan','South Sudanese Pound','SS','SSD','SSP');
+--INSERT INTO CURRENCY (COUNTRYNAME,CURRENCYNAME,CODE2,CODE3,CURRENCYCODE3) VALUES ('Sint Maarten (Dutch part)','Netherlands Antillean Guilder','SX','SXM','ANG');
+
+Added
+constraints to ACCOUNTDEPARTMENT 
+auto increment ID to ACCOUNTDEPARTMENT DEPARTMENT  
+
+Changed cashpassport to float from varchar. 
+
+Fixed inserts on DEPARTMENT to new format with auto increment on ID 
+
+
+>>>>>>>>>>>>
+> Change log v.0.1
 > Thu Aug 15 14:54:23 SAST 2013
 <<<<<<<<<<<<
 #TODO
