@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+
+            <ui:define name="content">
+                <div class="login-desc">
+                    <h2>Monash Travel Application System</h2>
+                    <p>Welcome to Monash South Africa Travel Application System. This system is designed to be used by all Monash South 
+                        Africa staff wishing to apply for travel abroad. Several forms are required for completion before your application 
+                        can be sent for approval.
+                        <p>Please login with your registered credentials, and begin form completion.</p>
+                    </p>
+                </div>
+                <h:form class="form-2" id="loginForm">
+                    <h1><span class="log-in">Log in</span></h1>
+                    <p:messages id="loginMessage" showDetail="true" closable="true" autoUpdate="true" globalOnly="true"/>
+                    <p:focus context="loginPanel">
+                        <h:panelGrid id="loginPanel" columns="3">
+
+                            <p:inputText id="username" label="username" required="true" size="40" requiredMessage="Please enter your username" value="#{sessionBean.username}"/>
+                            <p:watermark for="username" value="Username *"/>
+                            <p:message for="username" display="icon"/>
+
+                            <p:password id="password" label="password" required="true" size="40" requiredMessage="Please enter your password" value="#{sessionBean.password}"/>
+                            <p:watermark for="password" value="Type password *"/>
+                            <p:message for="password" display="icon" />
+
+                            <p:commandButton id="loginButton" value="Login" update="loginForm" action="#{sessionBean.validate()}" ajax="false"/>
+
+                        </h:panelGrid>
+                    </p:focus>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
