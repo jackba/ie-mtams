@@ -25,12 +25,13 @@ public interface ApprovalHandlerLocal {
     //public void persistApplication(Application application);
     public void persistApproval(Approval approval);
     //public void persistFinalcosting(Finalcosting finalcosting);
-    
+    public String updateApproval(Approval approval);
     public void updateApproval(Approval approval, Integer ApprovalID);
            
     //public void updateFinalcosting(Finalcosting finalcosting, Integer finalcostingID);
     
     public Approval findApproval(Integer id);
+    public Approval findApprovalByAccountAndApplication(Integer appID, Integer accID);
     public List<Approval> findApprovalbyApplication(Integer id);
     public List<Approval> findApprovalbyAccount(Integer id);  
     //public Finalcosting findFinalcosting(Integer id);

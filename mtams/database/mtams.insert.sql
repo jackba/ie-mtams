@@ -150,16 +150,19 @@ INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN)
 	VALUES ('Finance' /*not nullable*/,'finance' /*not nullable*/,'s',current_timestamp,null);
 INSERT INTO "ACCOUNTROLE" (ACCOUNTID,ROLEID) VALUES (4,12);
 
+
 INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
 	VALUES ('Claire' /*not nullable*/,'claire' /*not nullable*/,'s',current_timestamp,null);
 INSERT INTO "ACCOUNTROLE" (ACCOUNTID,ROLEID) VALUES (5,12);
+INSERT INTO "ACCOUNTDEPARTMENT" (IDACCOUNT,IDDEPARTMENT) VALUES (5,1);
 
 INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
 	VALUES ('HOD' /*not nullable*/,'hod' /*not nullable*/,'s',current_timestamp,null);
 INSERT INTO "ACCOUNTROLE" (ACCOUNTID,ROLEID) VALUES (6,12);
+INSERT INTO "ACCOUNTDEPARTMENT" (IDACCOUNT,IDDEPARTMENT) VALUES (6,1);
 
 INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
-	VALUES ('Finance' /*not nullable*/,'finance' /*not nullable*/,'s',current_timestamp,null);
+	VALUES ('FinalFinance' /*not nullable*/,'finance' /*not nullable*/,'s',current_timestamp,null);
 INSERT INTO "ACCOUNTROLE" (ACCOUNTID,ROLEID) VALUES (7,12);
 
 

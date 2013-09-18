@@ -123,10 +123,10 @@ public class MailGF implements Serializable {
     public void test() {
 
         Calendar cal = Calendar.getInstance();
-        String txt = String.format("<h1> test html </h1> <p> %tB %te, %tY%n %tl:%tM %tp%n\"</p>", cal, cal, cal, cal, cal, cal);
+        String txt = String.format("<h3> A new application has arrived pending your approval. Please log in to view the application details</h3> <p> %tB %te, %tY%n %tl:%tM %tp%n\"</p>", cal, cal, cal, cal, cal, cal);
 
-        this.send("nelaaro@gmail.com", txt);
-        this.send("nelaaro@gmail.com", "test subject", txt);
+        //this.send("nelaaro@gmail.com", txt);
+        this.send("bwanarm@gmail.com", "New Application pending aproval", txt);
 
 //        try {
 //            InternetAddress address = new InternetAddress("nelaaro@gmail.com");

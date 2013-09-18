@@ -33,6 +33,7 @@ import javax.faces.component.UIForm;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Pattern;
@@ -56,7 +57,7 @@ public class ApprovalBean implements Serializable {
     private static final Logger logger = Logger.getLogger(ApplicationBean.class.getName());
     private List<Application> allApps;
     private Application selectedApp;
-    private Integer accountID = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
+    private Integer accountID = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
     private Travelerprofile profileRef;// = travelProfileHandler.findTravelProf(accountID);
     private Account accRef;
     private Date modifiedDate;
@@ -152,6 +153,10 @@ public class ApprovalBean implements Serializable {
     private String approvalName;
     private String approvalComment;
     private int approved = 2;
+    ///////VARIABLES FOR NEW APPROVAL PROCESS/////////
+    @Inject
+    private MailGF mail;
+    private List<Approval> approvals;
 
     public ApprovalBean() {
         //initialize();
@@ -172,8 +177,8 @@ public class ApprovalBean implements Serializable {
         accRef = accHandler.getAccount(accountID);
         profileRef = travelProfileHandler.findTravelProf(accountID);
         //loadValues();
-        
-        int appnum = (Integer)((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
+
+        int appnum = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
         appRef = appHandler.getApplication(appnum);//selectedApp;
 
         quoteRef = appRef.getQuotesIdquotes();
@@ -205,27 +210,33 @@ public class ApprovalBean implements Serializable {
     public String approve() {
 
         if (selectedAccQte != null && selectedCarQte != null && selectedFlgQte != null) {
-            Approval appr = new Approval();
-            appr.setAccountIdaccount(accRef);
-            appr.setApplicationIdapplication(appRef);
-            appr.setDate(new Date());
-            appr.setSectionid(approved);
-            appr.setFromsection(approvalName);
-            appr.setNotes(approvalComment);
-            approvalHandler.persistApproval(appr);
-            
+            String next = "";
+//            approvals = approvalHandler.findApprovalbyApplication(appRef.getIdapplication());
+
+            Approval appr = approvalHandler.findApprovalByAccountAndApplication(appRef.getIdapplication(), accountID);
+//            appr.setAccountIdaccount(accRef);
+//            appr.setApplicationIdapplication(appRef);
+            if (appr != null) {
+                appr.setDate(new Date());
+                appr.setSectionid(approved);
+                appr.setFromsection(approvalName);
+                appr.setNotes(approvalComment);
+                next = approvalHandler.updateApproval(appr);
+                mail.test();
+            }
+
             short s = 1;
             selectedAccQte.setSelected(s);
             selectedCarQte.setSelected(s);
             selectedFlgQte.setSelected(s);
             appHandler.selectQuotes(selectedAccQte, selectedCarQte, selectedFlgQte);
             return "authorizerHome.xhtml";
-        }else{
+        } else {
             FacesContext.getCurrentInstance().addMessage("approvalTop", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Please ensure each type of quote has been selected"));
             return "applicationApproval.xhtml";
         }
 
-        
+
     }
 
     //dada
@@ -256,8 +267,8 @@ public class ApprovalBean implements Serializable {
         setCostCentre(quoteRef.getCostcenter());
 
     }
-    
-    public String goHome(){
+
+    public String goHome() {
         return "authorizerHome.xhtml";
     }
 
