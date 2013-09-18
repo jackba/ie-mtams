@@ -1,0 +1,451 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+
+            <ui:define name="content">
+                <h:form id="forexCreate">
+
+                    <p:wizard widgetVar="wiz" flowListener="#{foreignBean.onFlowProcess}">  
+
+                        <p:tab id="BusinessTravel" title="Business Travel">  
+
+                            <p:panel header="Business Travel">  
+
+                                <p:messages id="submitConfirm" showDetail="true" closable="true" autoUpdate="true" severity="info"/>
+
+                                <fieldset><legend><h4>Profile Details</h4></legend>
+                                    <h:panelGrid columns="2" columnClasses="label, value"> 
+                                        <h:outputText value="Company name/Reg. number: "/>  
+                                        <h:outputText value="Monash South Africa" /> 
+                                    </h:panelGrid>
+
+
+                                    <h:panelGrid columns="2" columnClasses="label, value"> 
+                                        <h:outputText value="Passenger (Full name) : " />  
+                                        <h:outputText value="#{foreignBean.travelerP.firstname}" />
+
+                                        <h:outputText value="Home Address Line 1: " />  
+                                        <h:outputText value="#{foreignBean.travelerP.homeaddress1}" />
+                                        <h:outputText value="Home Address Line 2: " />  
+                                        <h:outputText value="#{foreignBean.travelerP.homeaddress2}" />
+                                        <h:outputText value="City: " />  
+                                        <h:outputText value="#{foreignBean.travelerP.city}" />
+                                        <h:outputText value="Country: " />  
+                                        <h:outputText value="#{foreignBean.travelerP.country}" />
+                                        <h:outputText value="Province: " />  
+                                        <h:outputText value="#{foreignBean.travelerP.province}" />
+                                        <h:outputText value="Postal Code: " />  
+                                        <h:outputText value="#{foreignBean.travelerP.postalcode}" />
+
+                                        <h:outputText value="Telephone number: " />  
+                                        <h:outputText value="#{foreignBean.travelerP.mobilephone}"/> 
+
+                                        <h:outputText value="Fax number: " />  
+                                        <h:outputText value="#{foreignBean.travelerP.businessfax}" />
+
+
+                                        <h:outputText value="I.D. number: " />  
+                                        <h:outputText value="#{foreignBean.travelerP.idnumber}" />
+
+
+                                        <h:outputText value="Nationality of passport: " />  
+                                        <h:outputText value="#{foreignBean.travelD.country}" /> 
+
+
+                                        <h:outputText value="Passport number: " />  
+                                        <h:outputText value="#{foreignBean.travelD.passportnumber}" />
+
+
+                                        <h:outputText value="Company contact name: " />  
+                                        <h:outputText value="#{foreignBean.travelerP.businessphone}" />  
+                                    </h:panelGrid>
+                                </fieldset>
+
+                                <fieldset><legend><h4>Travel Details</h4></legend>
+                                    <h:panelGrid columns="2" columnClasses="label, value"> 
+                                        <h:outputText value="Destination: " />  
+                                        <h:outputText value="#{foreignBean.itinerary.destinationCity}" /> 
+
+
+                                        <h:outputText value="Date of departure: " />  
+                                        <h:outputText id="dateDep" value="#{foreignBean.travel.datedeparture}" >
+                                            <f:convertDateTime type="both" dateStyle="long" />
+                                        </h:outputText>
+
+                                        <h:outputText value="Date of return: " />  
+                                        <h:outputText id="DateReturn" value="#{foreignBean.travel.datereturn}">
+                                            <f:convertDateTime type="both" dateStyle="long" />
+                                        </h:outputText>
+                                        
+                                    </h:panelGrid>
+                                </fieldset>
+
+                                <fieldset><legend><h4>Travel Details</h4></legend>
+                                    <h:panelGrid columns="3" columnClasses="label, value, error">         
+                                        <h:outputText value="Ticket number/ reference number: "  />  
+                                        <p:inputText id="ticketref" value="#{foreignBean.ticketNumber}" validatorMessage="Ticket number required">
+                                            <f:validateLength minimum="1" maximum="30" />
+                                            <p:ajax update="msgTicketref" event="keyup" />
+                                        </p:inputText>
+                                        <p:message for="ticketref" id="msgTicketref"/>
+
+                                        <h:outputText value="Voyager number: "  />  
+                                        <p:inputText id="voynum" value="#{foreignBean.voyagerNum}" validatorMessage="Voyager number required">
+                                            <f:validateLength minimum="1" maximum="30"/>
+                                            <p:ajax update="msgVoynum" event="keyup" />
+                                        </p:inputText>
+                                        <p:message for="voynum" id="msgVoynum"/>
+                                    </h:panelGrid>
+                                </fieldset>
+                            </p:panel>  
+                        </p:tab>  
+
+                        <p:tab id="Forex" title="Forex">  
+
+
+                            <p:panel header="Breakdown of forex required">  
+
+                                <!--                                Travellers Cheque                                 -->                             
+
+                                <fieldset><legend><h4>Foreign Cheque</h4></legend> 
+
+                                    <h:panelGrid columns="3" columnClasses="label, value, error">                                   
+
+                                        <h:outputText value="Using Traveller Cheque"/>
+                                        <p:selectOneRadio id="isUsingCheq" value="#{foreignBean.isUsingCheq}" required="true" >
+                                            <f:selectItem itemLabel="Yes" itemValue="1"/>
+                                            <f:selectItem itemLabel="No" itemValue="2" />
+                                            <p:ajax event="change" update="isUsingCheqGrid"/>
+                                        </p:selectOneRadio>
+                                        <p:message for="isUsingCheq"/>
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="3" id="isUsingCheqGrid" columnClasses="label, value">                                    
+
+
+                                        <p:outputLabel id="CVal" value="Currency:" rendered="#{foreignBean.isUsingCheq eq '1'}" style="margin-left:10%" />
+                                        <p:inputText rendered="#{foreignBean.isUsingCheq eq '1'}" id="currency" onclick="dlgcurrency.show()" value="#{foreignBean.cheqCur}" required="true" requiredMessage="Currency is required" />
+                                        <p:message id="currencyMsg" for="currency" />
+
+
+                                        <p:outputLabel rendered="#{foreignBean.isUsingCheq eq '1'}" for="travelC" value="Cheque Amount: " style="margin-left:10%"/>
+                                        <p:inputText rendered="#{foreignBean.isUsingCheq eq '1'}" id="travelC" value="#{foreignBean.travellerCheque}" 
+                                                     validatorMessage="Amount lengh less then 15" converterMessage="Amount must be a number" 
+                                                     required="true" requiredMessage="Amount is required" >
+                                            
+                                            <f:validateLength minimum="1" maximum="15" />
+                                            <p:ajax update="msgCheque" event="keyup" />
+                                            
+                                        </p:inputText>
+                                        <p:message for="travelC" id="msgCheque" rendered="#{foreignBean.isUsingCheq eq '1'}"/>
+
+                                    </h:panelGrid>
+                                </fieldset>
+
+                                <!--                                foreign Cash                                  -->
+                                <fieldset><legend><h4>Foreign Cash</h4></legend> 
+                                    <h:panelGrid columns="3" columnClasses="label, value, error">
+                                        <h:outputText value="Using Foreign Cash"/>
+                                        <p:selectOneRadio id="isUsingFC" value="#{foreignBean.isUsingFC}" required="true" >
+                                            <f:selectItem itemLabel="Yes" itemValue="1"/>
+                                            <f:selectItem itemLabel="No" itemValue="2" />
+                                            <p:ajax event="change" update="isUsingFCGrid"/>
+                                        </p:selectOneRadio>
+                                        <p:message for="isUsingFC"/>
+                                    </h:panelGrid>
+
+
+                                    <h:panelGrid columns="3" id="isUsingFCGrid" columnClasses="label, value">
+                                        
+                                        <p:outputLabel rendered="#{foreignBean.isUsingFC eq '1'}" for="fcCur" value="Currency: " style="margin-left:10%" />   
+                                        <p:selectOneMenu id="fcCur" value="#{foreignBean.fcCur}" required="true" rendered="#{foreignBean.isUsingFC eq '1'}" filter="true" filterMatchMode="contains">
+                                            <f:selectItem  itemLabel="Select a Currency" itemValue=""/>
+                                            <f:selectItems value="#{dataLookUpBean.currencyStrings}" />
+                                        </p:selectOneMenu>
+                                        <p:message for="fcCur" /> 
+                                        
+                                        <p:outputLabel id="CVal2" value="Currency2:" rendered="#{foreignBean.isUsingFC eq '1'}" style="margin-left:10%"/>
+                                        <p:inputText rendered="#{foreignBean.isUsingFC eq '1'}" id="currency2" onclick="dlgcurrency2.show()" value="#{foreignBean.fcCur}" required="true" requiredMessage="Currency is required" style="margin-left:10%"/>
+                                        <p:message id="currencyMsg2" for="currency2" />
+
+                                        <p:outputLabel rendered="#{foreignBean.isUsingFC eq '1'}" for="fcCur" value="Foreign Cash Amount: " style="margin-left:10%"/>
+                                        <p:inputText rendered="#{foreignBean.isUsingFC eq '1'}" id="fcash" value="#{foreignBean.foreignCash}" 
+                                                     validatorMessage="Amount lengh less then 15" converterMessage="Amount must be a number" 
+                                                     required="true" requiredMessage="Amount is required">
+                                            <f:validateLength minimum="1" maximum="15"/>
+                                            <p:ajax update="fcError" event="keyup" />
+                                        </p:inputText>
+                                        <p:message for="fcash" id="fcError" rendered="#{foreignBean.isUsingFC eq '1'}" />
+                                        
+                                    </h:panelGrid>
+                                </fieldset>
+
+                                <!--                              CC                                                    -->
+                                <fieldset><legend><h4>Credit Card</h4></legend> 
+                                    <h:panelGrid columns="3" columnClasses="label, value, error">
+                                        <h:outputText value="Using Credit Card"/>
+                                        <p:selectOneRadio id="isUsingCC" value="#{foreignBean.isUsingCC}" required="true" >
+                                            <f:selectItem itemLabel="Yes" itemValue="1"/>
+                                            <f:selectItem itemLabel="No" itemValue="2" />
+                                            <p:ajax event="change" update="isUsingCCGrid"/>
+                                        </p:selectOneRadio>
+                                        <p:message for="isUsingCC"/>
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="3" id="isUsingCCGrid" columnClasses="label, value,error">
+
+                                        <h:outputText rendered="#{foreignBean.isUsingCC eq '1'}" value="Type: (Select or Enter)" style="margin-left: 10%"/>  
+                                        <p:selectOneMenu id="typeCC" rendered="#{foreignBean.isUsingCC eq '1'}" value="#{foreignBean.type}" required ="true" editable="true">  
+                                            <f:selectItem itemLabel="Visa" itemValue="Visa" />  
+                                            <f:selectItem itemLabel="MasterCard" itemValue="MasterCard" /> 
+                                            <f:selectItem itemLabel="American Express" itemValue="American Express" /> 
+                                            <f:selectItem itemLabel="Discover" itemValue="Discover" /> 
+                                            <f:selectItem itemLabel="JCB" itemValue="JCB" /> 
+                                        </p:selectOneMenu>  
+                                        <p:message for="typeCC"/>
+
+                                        <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" id="number" value="Number: " style="margin-left: 10%"/>
+                                        <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="number" value="Details to be filled in on printed document."/>                                       
+                                        <p:message for="number"/>
+
+                                        <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" id="last3cc" value="Last 3 Digits on Reverse of Card : " style="margin-left: 10%"/>
+                                        <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="last3cc" value="Details to be filled in on printed document."/>                                        
+                                        <p:message for="last3cc"/>
+
+                                        <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="ExpireDate" value="Expiry Date: " style="margin-left: 10%"/>
+                                        <p:calendar rendered="#{foreignBean.isUsingCC eq '1'}" id="ExpireDate" value="#{foreignBean.expire}" mindate="#{foreignBean.currentDate}" />
+                                        <p:message for="ExpireDate"/>
+
+                                        <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="ccCur" value="Select Currency: " style="margin-left: 10%"/>
+                                        <p:selectOneMenu id="ccCur" value="#{foreignBean.ccCur}" required="true" rendered="#{foreignBean.isUsingCC eq '1'}" filter="true" filterMatchMode="contains">
+                                            <f:selectItem  itemLabel="Select a Currency" itemValue=""/>
+                                            <f:selectItems value="#{dataLookUpBean.currencyStrings}" />
+                                        </p:selectOneMenu>
+                                        <p:message for="ccCur" /> 
+
+                                        <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="amount" value="Credit Card Amount: " style="margin-left: 10%"/>
+                                        <p:inputText rendered="#{foreignBean.isUsingCC eq '1'}" id="amount" value="#{foreignBean.amount}">
+                                            <f:validateLength minimum="1" maximum="15"/>
+                                            <p:ajax update="msgAmount" event="keyup" async="true"/>
+                                        </p:inputText>
+                                        <p:message for="amount" id="msgAmount"/>
+                                    </h:panelGrid>
+
+
+<!-- ============================================================= Cheque Dialog Box Start ======================================================== -->                                     
+
+                                    <p:dialog header="Currency Selector" widgetVar="dlgcurrency">
+
+                                        <div id="DTdivtest" class="divCurrency" >
+
+                                            <p:dataTable id="currencytest" styleClass="dlgCurrency" var="currency" 
+                                                         value="#{dataLookUpBean.currencyList}" rowKey="#{currency.idcurrency}"  
+                                                         filteredValue="#{dataLookUpBean.currencyFilteredList}"
+                                                         widgetVar="currencies"
+                                                         emptyMessage="No data matches your criteria"
+                                                         selection="#{foreignBean.aCurrencySelection}" selectionMode="single" scrollRows="20"  
+                                                         scrollable="true" liveScroll="true" scrollHeight="150"
+
+                                                         >  
+
+                                                <p:ajax event="rowSelect" 
+
+                                                        update=":forexCreate:CVal, :forexCreate:currency"
+                                                        listener="#{foreignBean.CurSel}" />
+                                                <ui:remove> 
+                                                    <!--
+                                                    -->
+                                                </ui:remove>
+                                                <f:facet name="header">  
+                                                    Click to select a row 
+
+                                                    <ui:remove>
+                                                        <p:inputText id="globalFilter" onkeyup="PF('currencies').filter()" />
+                                                    </ui:remove>
+                                                </f:facet>  
+
+
+                                                <p:column headerText="Country Name"
+
+                                                          filterBy="#{currency.countryname}"
+                                                          filterMatchMode="contains"
+                                                          >  
+                                                    #{currency.countryname}  
+                                                </p:column>  
+
+                                                <p:column headerText="Currency Name" 
+
+                                                          filterBy="#{currency.currencyname}"
+                                                          filterMatchMode="contains"
+                                                          >  
+                                                    #{currency.currencyname}  
+                                                </p:column>  
+
+                                                <p:column headerText="Currency Code"
+
+                                                          filterBy="#{currency.currencycode3}"
+                                                          filterMatchMode="contains"
+                                                          >  
+                                                    #{currency.currencycode3}  
+                                                </p:column>  
+
+                                                <ui:remove>
+                                                    <!--
+                                                    
+                                                    -->
+
+
+                                                    <f:facet name="footer">  
+
+                                                        <p:commandButton value="Hide" type="button" 
+                                                                         onclick="dlgcurrency.hide()" 
+                                                                         actionListener="#{foreignBean.CurSel}" update=":forexCreate:CVal">
+
+                                                            <p:ajax update=":forexCreate:CVal" 
+                                                                    listener="#{foreignBean.CurSel}"/>
+                                                        </p:commandButton>
+                                                    </f:facet>  
+                                                </ui:remove>
+                                            </p:dataTable>  
+
+                                        </div>
+
+                                    </p:dialog>   
+<!-- =============================================================== Dialog Box End ========================================================= -->
+
+<!-- ==========================================================  Foreign Cash Dialog Box Start ======================================================== -->                                     
+
+                                    <p:dialog header="Currency Selector" widgetVar="dlgcurrency2">
+
+                                        <div id="DTdivtest" class="divCurrency" >
+
+                                            <p:dataTable id="currencytest2" styleClass="dlgCurrency2" var="currency2" 
+                                                         value="#{dataLookUpBean.currencyList}" rowKey="#{currency2.idcurrency}"  
+                                                         filteredValue="#{dataLookUpBean.currencyFilteredList}"
+                                                         widgetVar="currencies2" 
+                                                         emptyMessage="No data matches your criteria"
+                                                         selection="#{foreignBean.aCurrencySelection2}" selectionMode="single" scrollRows="20"  
+                                                         scrollable="true" liveScroll="true" scrollHeight="150"
+
+                                                         >  
+
+                                                <p:ajax event="rowSelect" 
+
+                                                        update=":forexCreate:CVal2, :forexCreate:currency2"
+                                                        listener="#{foreignBean.CurSel2}" />
+                                                <ui:remove> 
+                                                    <!--
+                                                    -->
+                                                </ui:remove>
+                                                <f:facet name="header">  
+                                                    Click to select a row 
+
+                                                    <ui:remove>
+                                                        <p:inputText id="globalFilter" onkeyup="PF('currencies2').filter()" />
+                                                    </ui:remove>
+                                                </f:facet>  
+
+
+                                                <p:column headerText="Country Name"
+
+                                                          filterBy="#{currency.countryname}"
+                                                          filterMatchMode="contains"
+                                                          >  
+                                                    #{currency.countryname}  
+                                                </p:column>  
+
+                                                <p:column headerText="Currency Name" 
+
+                                                          filterBy="#{currency.currencyname}"
+                                                          filterMatchMode="contains"
+                                                          >  
+                                                    #{currency.currencyname}  
+                                                </p:column>  
+
+                                                <p:column headerText="Currency Code"
+
+                                                          filterBy="#{currency.currencycode3}"
+                                                          filterMatchMode="contains"
+                                                          >  
+                                                    #{currency.currencycode3}  
+                                                </p:column>  
+
+                                                <ui:remove>
+                                                    <!--
+                                                    
+                                                    -->
+
+
+                                                    <f:facet name="footer">  
+
+                                                        <p:commandButton value="Hide" type="button" 
+                                                                         onclick="dlgcurrency2.hide()" 
+                                                                         actionListener="#{foreignBean.CurSel2}" update=":forexCreate:CVal2">
+
+                                                            <p:ajax update=":forexCreate:CVal2" 
+                                                                    listener="#{foreignBean.CurSel2}"/>
+                                                        </p:commandButton>
+                                                    </f:facet>  
+                                                </ui:remove>
+                                            </p:dataTable>  
+                                        </div>
+                                    </p:dialog>   
+<!-- =============================================================== Dialog Box End ========================================================= -->
+
+                                </fieldset>
+                            </p:panel>  
+
+                        </p:tab>  
+
+
+                        <p:tab id="Delivery" title="Delivery">  
+                            <p:panel header="Delivery Information">  
+                                <h:panelGrid columns="3" columnClasses="label, value, error">  
+
+                                    <h:outputText value="Delivery - Date and Time: " />                              
+                                    <p:calendar id="dateRe" value="#{foreignBean.dateRequired}" required="true" pattern="dd/MM/yyyy HH:mm" requiredMessage="required field" >
+                                    </p:calendar>
+
+                                    <p:message for="dateRe" id="msgDT"/>
+
+                                    <h:outputText value="Date and Time: (Will be confirmed by Forex Consultant) " />  
+                                    <p:calendar id="forexCon" value="#{foreignBean.dateForex}" required="true" pattern="dd/MM/yyyy HH:mm" requiredMessage="required field" />
+                                    <p:message for="forexCon"/>
+
+                                </h:panelGrid>  
+                            </p:panel>  
+                        </p:tab>  
+
+                        <p:tab id="Additional" title="Additional Information">  
+                            <p:panel header="Additional Information "> 
+
+                                <h:panelGrid columns="3" columnClasses="label, value, error">  
+
+                                    <h:outputText value="Reason for travel: " />  
+                                    <p:inputTextarea id="reasonTr" value="#{foreignBean.reasonForTravel}" required="true" requiredMessage="required field"/> 
+                                    <p:message for="reasonTr"/>
+
+
+                                </h:panelGrid>                         
+                                <p:commandButton value="Cancel" ajax="false" actionListener="#{foreignBean.toAppHome()}" />
+                                <p:commandButton value="Submit" ajax="false" actionListener="#{foreignBean.createForm()}" />
+
+                            </p:panel>  
+                        </p:tab>  
+
+                    </p:wizard>   
+                </h:form>  
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

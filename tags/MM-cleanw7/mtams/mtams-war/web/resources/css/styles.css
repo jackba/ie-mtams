@@ -1,0 +1,259 @@
+.button-right {
+    float: right;
+    margin-left: 1%;
+}
+
+.login-desc {
+    width: 60%;
+    margin: 50px auto 100px;
+    float: left;
+}
+
+/* LOGIN_ B O X*/
+.form-2 {
+    width: 35%;
+    margin: 50px auto 100px;
+    float: right; 
+    padding: 10px;
+}
+
+
+.form-2 {
+    border-radius: 4px;
+    box-shadow:
+        0 2px 2px rgba(0,0,0,0.2),        
+        0 1px 5px rgba(0,0,0,0.2),        
+        0 0 0 12px rgba(255,255,255,0.4);
+}
+
+.form-2 h1 .log-in {
+    display: inline-block;
+    text-transform: uppercase;
+    color: #6c6763;
+    padding-right: 2px;
+}
+
+.form-2 button {
+    float:right;
+    margin-left: 1%;
+}
+
+.form-2 h1 {
+    font-size: 15px;
+    font-weight: bold;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #EBE6E2;
+    text-shadow: 0 2px 0 rgba(255,255,255,0.8);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.8);
+}
+
+
+/* TINY_ T W E A K S */
+p.legal {
+    font-size: .90em;
+    color: #666;
+}
+
+ul {
+    list-style-image: url(img/arrow.png);
+}
+
+h3 {
+    font-size: 1.3em;
+    margin: 0 0 0.769em;
+    font-weight: normal;
+}
+
+a:link, a:visited {
+    color: #094c93;
+}
+
+.label {
+    vertical-align: top;
+    margin-right: 10%;
+    width:250px;
+}
+
+.value { 
+    float:left;
+}
+
+button {
+    margin: 1.2% 0%;
+}
+
+
+
+
+
+
+
+
+
+
+/* LAYOUT_ G E N E R A L */
+
+html {
+    min-height: 100%;
+}
+body {
+    height: 100%;
+}
+
+body {
+    background: #d0d0d0 url(img/site-background.png) repeat-x 0 0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;	
+    font: normal 87.5%/1.3 Arial, sans-serif;
+    width:75%;
+}
+
+
+/* H E A D E R */
+
+#header {
+    padding-top: 2.6em;
+    position: relative;
+    padding-bottom: 1.3em;
+    width: 100%;
+}	
+
+#header .logo {
+    display: inline;
+}
+
+#header ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: right;
+    width: 95%;
+    font-size: 90%;
+    margin: 0;
+    list-style: none;
+    margin-top: 1.3em;
+}
+
+#header li {
+    border-left: 1px solid #a4a4a4;
+    display: inline-block;
+}
+
+#header li a {
+    padding: .5em;
+    display: inline-block;
+}
+
+#header .skip {
+    float: left;
+    border-width: 0;
+}
+
+#header .skip a {
+    padding-left: 0;
+}
+
+
+/* C O N T E N T */
+#content {
+    margin: 0 auto; 
+    min-height: 100%;
+    margin-bottom: 1%;
+    /* background: red; */
+}
+
+
+/* N A V I G A T I O N */
+#nav {
+    margin-top: 4%;
+    margin-bottom: 2%;
+
+}
+
+.menuBar {
+    background: black;
+    background-color: #9CC4E4;
+    position:relative;
+    z-index:999;
+    left:0px;
+    display:inline-block;
+}
+
+.menuBar_after_detach {
+    /* background-color: #9CC4E4;  Needs IE color fix */
+    position:relative;
+    z-index:999;
+    height:28px;
+    width:100%;
+    left:0px;
+}
+
+.ui-menu-list {
+    margin: 1px 15px !important;
+}
+
+/* F O O T E R */
+#footer {
+    border-top: 1px solid #a4a4a4;
+    padding-top: 1.3em;
+    margin: 5% 0 2em 0;
+
+    overflow: hidden;
+    position: relative;
+    /* margin-top: 40%;         ATENCAO */
+    clear:both;
+}
+
+#footer .col {
+    float: left;
+    width: 219px;
+    border-right: 1px solid #a4a4a4;
+    margin: 0 20px 0 0;
+}
+
+/* Aarons */
+
+/* F I N A L C O S T I N G */
+
+/*
+.noborders tr {
+    border: navy;
+}
+*/
+
+.ui-panelgrid td {
+    border: none;
+    float: left;
+}
+
+.ui-widget-content tr {
+    /*
+    border: navy;
+    border-color: navy;
+    border-width: 5px;
+    */
+    border: none;
+}
+
+td.columnMessage  {
+    width: 30%;
+    border: none;
+}
+
+td.columnLabel  {
+    width: 250px;
+    border: none;
+}
+
+/*
+Over ride need to match department dropdown width
+*/
+.inputWidthDepartment {
+    width: 255px;
+}
+.inputWidth {
+    width: 163px;
+}
