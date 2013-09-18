@@ -187,8 +187,8 @@ public class MailGF implements Serializable {
             logger.log(Level.INFO, "update messages msg : {0}", messages.getMessage());
             daoMessageHandler.updateMessages(messages);
         }
-        FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Application Created"));
-        return "/superHome.xhtml";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Mail templates updated"));
+        return "/messageAdmin.xhtml";
     }
 
     public String toAppHome() {
