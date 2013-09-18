@@ -321,15 +321,15 @@ public class ApplicationBean implements Serializable {
         Approval appr5 = new Approval();
 
 
-        appr1.setAccountIdaccount(accHandler.getAccount(accountID));
+        appr1.setAccountIdaccount(accHandler.getAccount(5));
         appr1.setApplicationIdapplication(appRef);
-        appr2.setAccountIdaccount(accHandler.getAccount(accountID));
+        appr2.setAccountIdaccount(accHandler.getAccount(6));
         appr2.setApplicationIdapplication(appRef);
-        appr3.setAccountIdaccount(accHandler.getAccount(accountID));
+        appr3.setAccountIdaccount(accHandler.getAccount(4));
         appr3.setApplicationIdapplication(appRef);
-        appr4.setAccountIdaccount(accHandler.getAccount(accountID));
+        appr4.setAccountIdaccount(accHandler.getAccount(3));
         appr4.setApplicationIdapplication(appRef);
-        appr5.setAccountIdaccount(accHandler.getAccount(accountID));
+        appr5.setAccountIdaccount(accHandler.getAccount(7));
         appr5.setApplicationIdapplication(appRef);
         
         apprHandler.persistApproval(appr1);
@@ -338,8 +338,7 @@ public class ApplicationBean implements Serializable {
         apprHandler.persistApproval(appr4);
         apprHandler.persistApproval(appr5);
 
-        List<Approval> approvals = new ArrayList<Approval>();
-        approvals = apprHandler.findApprovalbyApplication(appRef.getIdapplication());
+        List<Approval> approvals = apprHandler.findApprovalbyApplication(appRef.getIdapplication());
         
         for(int i=0;i<approvals.size();i++){
             if(i==0){

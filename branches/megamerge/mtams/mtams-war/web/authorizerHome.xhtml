@@ -37,24 +37,25 @@
 
                         </p:dataTable>
                         <br /><br />
-                        <p:dataTable id="approvals" var="appr" value="#{userBean.allApproved}" emptyMessage="No Applications have been created">  
+                        <ui:remove>
+                            <p:dataTable id="approvals" var="appr" value="#{userBean.allApproved}" emptyMessage="No Applications have been created">  
 
-                            <p:column headerText="Application Name" style="width:35%">  
-                                <h:outputText value="#{appr.applicationIdapplication.description}" />  
-                            </p:column>  
+                                <p:column headerText="Application Name" style="width:35%">  
+                                    <h:outputText value="#{appr.applicationIdapplication.description}" />  
+                                </p:column>  
 
-                            <p:column headerText="Approved(1)/Declined (2)" style="width:33%">  
-                                <h:outputText value="#{appr.sectionid}" />  
-                            </p:column>  
+                                <p:column headerText="Approved(1)/Declined (2)" style="width:33%">  
+                                    <h:outputText value="#{appr.sectionid}" />  
+                                </p:column>  
 
-                            <p:column headerText="Approved/Declined By" style="width:32%">  
-                                <h:outputText value="#{appr.fromsection}" />  
-                            </p:column>
+                                <p:column headerText="Approved/Declined By" style="width:32%">  
+                                    <h:outputText value="#{appr.fromsection}" />  
+                                </p:column>
 
 
 
-                        </p:dataTable>
-
+                            </p:dataTable>
+                        </ui:remove>
 
                     </p:panel>
                 </h:form>

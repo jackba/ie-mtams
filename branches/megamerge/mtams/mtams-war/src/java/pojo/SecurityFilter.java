@@ -5,7 +5,12 @@
 package pojo;
 
 import java.io.IOException;
-import javax.faces.context.FacesContext;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.KeySpec;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.Filter;
 
 import javax.servlet.FilterChain;
@@ -50,5 +55,20 @@ public class SecurityFilter implements Filter {
 
     @Override
     public void destroy() {
+//        try {
+//            String text = "bob";
+//            text.getBytes("UTF8");
+//            SecureRandom rand = SecureRandom.getInstance("SHA1PRNG");
+//    byte[] salt = new byte[12];
+//    rand.nextBytes(salt);
+//            MessageDigest md = MessageDigest.getInstance("MD5");
+//            
+//            md.
+//            
+//        } catch (NoSuchAlgorithmException ex) {
+//            Logger.getLogger(SecurityFilter.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
+    
+    
 }
