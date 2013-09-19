@@ -13,5 +13,3 @@ Where to get additional help.
 Have a look at the wiki
 https://code.google.com/p/ie-mtams/wiki/Announcement
 
-
-
