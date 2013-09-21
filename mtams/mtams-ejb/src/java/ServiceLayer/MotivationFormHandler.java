@@ -45,6 +45,7 @@ public class MotivationFormHandler implements MotivationFormHandlerLocal {
         List<Application> allApp = app.findAll();
         for (Application eachApp : allApp) {
             if (eachApp.getAccountIdaccount().getIdaccount().equals(id)) {
+                eachApp.setMotivationcomplete(1);
                 motiID = eachApp.getMotivationIdmotivation().getIdmotivation();
             }
         }

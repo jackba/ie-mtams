@@ -5,6 +5,7 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,12 +17,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -85,10 +87,10 @@ public class Flightquotes implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "QUOTECOST")
     private Double quotecost;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "SELECTED")
-    private short selected;
+    private Integer selected;
+    @OneToMany(mappedBy = "flightquotesIdflightquotes")
+    private Collection<Attachement> attachementCollection;
     @JoinColumn(name = "QUOTES_IDQUOTES", referencedColumnName = "IDQUOTES")
     @ManyToOne(optional = false)
     private Quotes quotesIdquotes;
@@ -98,11 +100,6 @@ public class Flightquotes implements Serializable {
 
     public Flightquotes(Integer idflightquotes) {
         this.idflightquotes = idflightquotes;
-    }
-
-    public Flightquotes(Integer idflightquotes, short selected) {
-        this.idflightquotes = idflightquotes;
-        this.selected = selected;
     }
 
     public Integer getIdflightquotes() {
@@ -201,12 +198,21 @@ public class Flightquotes implements Serializable {
         this.quotecost = quotecost;
     }
 
-    public short getSelected() {
+    public Integer getSelected() {
         return selected;
     }
 
-    public void setSelected(short selected) {
+    public void setSelected(Integer selected) {
         this.selected = selected;
+    }
+
+    @XmlTransient
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
+    }
+
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
     }
 
     public Quotes getQuotesIdquotes() {

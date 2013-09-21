@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author aaron
+ * @author Badger
  */
 @Entity
 @Table(name = "APPROVAL")
@@ -62,6 +62,16 @@ public class Approval implements Serializable {
     private Date date;
     @OneToMany(mappedBy = "approvalIdapproval")
     private Collection<Attachement> attachementCollection;
+    @OneToMany(mappedBy = "schooladminapproved")
+    private Collection<Approvalchain> approvalchainCollection;
+    @OneToMany(mappedBy = "hodapproved")
+    private Collection<Approvalchain> approvalchainCollection1;
+    @OneToMany(mappedBy = "financeapproved")
+    private Collection<Approvalchain> approvalchainCollection2;
+    @OneToMany(mappedBy = "pvcapproved")
+    private Collection<Approvalchain> approvalchainCollection3;
+    @OneToMany(mappedBy = "finalapproved")
+    private Collection<Approvalchain> approvalchainCollection4;
     @JoinColumn(name = "APPLICATION_IDAPPLICATION", referencedColumnName = "IDAPPLICATION")
     @ManyToOne(optional = false)
     private Application applicationIdapplication;
@@ -131,6 +141,51 @@ public class Approval implements Serializable {
 
     public void setAttachementCollection(Collection<Attachement> attachementCollection) {
         this.attachementCollection = attachementCollection;
+    }
+
+    @XmlTransient
+    public Collection<Approvalchain> getApprovalchainCollection() {
+        return approvalchainCollection;
+    }
+
+    public void setApprovalchainCollection(Collection<Approvalchain> approvalchainCollection) {
+        this.approvalchainCollection = approvalchainCollection;
+    }
+
+    @XmlTransient
+    public Collection<Approvalchain> getApprovalchainCollection1() {
+        return approvalchainCollection1;
+    }
+
+    public void setApprovalchainCollection1(Collection<Approvalchain> approvalchainCollection1) {
+        this.approvalchainCollection1 = approvalchainCollection1;
+    }
+
+    @XmlTransient
+    public Collection<Approvalchain> getApprovalchainCollection2() {
+        return approvalchainCollection2;
+    }
+
+    public void setApprovalchainCollection2(Collection<Approvalchain> approvalchainCollection2) {
+        this.approvalchainCollection2 = approvalchainCollection2;
+    }
+
+    @XmlTransient
+    public Collection<Approvalchain> getApprovalchainCollection3() {
+        return approvalchainCollection3;
+    }
+
+    public void setApprovalchainCollection3(Collection<Approvalchain> approvalchainCollection3) {
+        this.approvalchainCollection3 = approvalchainCollection3;
+    }
+
+    @XmlTransient
+    public Collection<Approvalchain> getApprovalchainCollection4() {
+        return approvalchainCollection4;
+    }
+
+    public void setApprovalchainCollection4(Collection<Approvalchain> approvalchainCollection4) {
+        this.approvalchainCollection4 = approvalchainCollection4;
     }
 
     public Application getApplicationIdapplication() {

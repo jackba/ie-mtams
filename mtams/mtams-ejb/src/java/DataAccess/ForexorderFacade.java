@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Riaan
+ * @author Badger
  */
 @Stateless
 public class ForexorderFacade extends AbstractFacade<Forexorder> implements ForexorderFacadeLocal {

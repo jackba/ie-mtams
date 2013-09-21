@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author aaron
+ * @author Badger
  */
 @Stateless
 public class RoleFacade extends AbstractFacade<Role> implements RoleFacadeLocal {

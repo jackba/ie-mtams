@@ -5,8 +5,10 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,15 +16,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Riaan
+ * @author Badger
  */
 @Entity
 @Table(name = "FOREXORDER")
@@ -98,6 +102,10 @@ public class Forexorder implements Serializable {
     @Size(max = 500)
     @Column(name = "REASONFORTRAVEL")
     private String reasonfortravel;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "forexorderIdforexorder")
+    private Collection<Application> applicationCollection;
+    @OneToMany(mappedBy = "forexorderIdforexorder")
+    private Collection<Attachement> attachementCollection;
 
     public Forexorder() {
     }
@@ -240,6 +248,24 @@ public class Forexorder implements Serializable {
 
     public void setReasonfortravel(String reasonfortravel) {
         this.reasonfortravel = reasonfortravel;
+    }
+
+    @XmlTransient
+    public Collection<Application> getApplicationCollection() {
+        return applicationCollection;
+    }
+
+    public void setApplicationCollection(Collection<Application> applicationCollection) {
+        this.applicationCollection = applicationCollection;
+    }
+
+    @XmlTransient
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
+    }
+
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
     }
 
     @Override

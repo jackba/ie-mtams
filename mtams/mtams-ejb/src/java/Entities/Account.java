@@ -41,8 +41,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Account.findByDatecreated", query = "SELECT a FROM Account a WHERE a.datecreated = :datecreated"),
     @NamedQuery(name = "Account.findByDatelogin", query = "SELECT a FROM Account a WHERE a.datelogin = :datelogin")})
 public class Account implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
-    private Collection<Travelerprofile> travelerprofileCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -68,8 +66,30 @@ public class Account implements Serializable {
     @Column(name = "DATELOGIN")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datelogin;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountIdaccount")
+    private Collection<Application> applicationCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idaccount")
     private Collection<Accountdepartment> accountdepartmentCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
+    private Collection<Travelerprofile> travelerprofileCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
+    private Collection<Session> sessionCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
+    private Collection<Approvalchain> approvalchainCollection;
+    @OneToMany(mappedBy = "schooladmin")
+    private Collection<Approvalchain> approvalchainCollection1;
+    @OneToMany(mappedBy = "hod")
+    private Collection<Approvalchain> approvalchainCollection2;
+    @OneToMany(mappedBy = "finance")
+    private Collection<Approvalchain> approvalchainCollection3;
+    @OneToMany(mappedBy = "pvc")
+    private Collection<Approvalchain> approvalchainCollection4;
+    @OneToMany(mappedBy = "finalfinance")
+    private Collection<Approvalchain> approvalchainCollection5;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountIdaccount")
+    private Collection<Approval> approvalCollection;
+    @OneToMany(mappedBy = "accountid")
+    private Collection<Accountrole> accountroleCollection;
 
     public Account() {
     }
@@ -133,12 +153,111 @@ public class Account implements Serializable {
     }
 
     @XmlTransient
+    public Collection<Application> getApplicationCollection() {
+        return applicationCollection;
+    }
+
+    public void setApplicationCollection(Collection<Application> applicationCollection) {
+        this.applicationCollection = applicationCollection;
+    }
+
+    @XmlTransient
     public Collection<Accountdepartment> getAccountdepartmentCollection() {
         return accountdepartmentCollection;
     }
 
     public void setAccountdepartmentCollection(Collection<Accountdepartment> accountdepartmentCollection) {
         this.accountdepartmentCollection = accountdepartmentCollection;
+    }
+
+    @XmlTransient
+    public Collection<Travelerprofile> getTravelerprofileCollection() {
+        return travelerprofileCollection;
+    }
+
+    public void setTravelerprofileCollection(Collection<Travelerprofile> travelerprofileCollection) {
+        this.travelerprofileCollection = travelerprofileCollection;
+    }
+
+    @XmlTransient
+    public Collection<Session> getSessionCollection() {
+        return sessionCollection;
+    }
+
+    public void setSessionCollection(Collection<Session> sessionCollection) {
+        this.sessionCollection = sessionCollection;
+    }
+
+    @XmlTransient
+    public Collection<Approvalchain> getApprovalchainCollection() {
+        return approvalchainCollection;
+    }
+
+    public void setApprovalchainCollection(Collection<Approvalchain> approvalchainCollection) {
+        this.approvalchainCollection = approvalchainCollection;
+    }
+
+    @XmlTransient
+    public Collection<Approvalchain> getApprovalchainCollection1() {
+        return approvalchainCollection1;
+    }
+
+    public void setApprovalchainCollection1(Collection<Approvalchain> approvalchainCollection1) {
+        this.approvalchainCollection1 = approvalchainCollection1;
+    }
+
+    @XmlTransient
+    public Collection<Approvalchain> getApprovalchainCollection2() {
+        return approvalchainCollection2;
+    }
+
+    public void setApprovalchainCollection2(Collection<Approvalchain> approvalchainCollection2) {
+        this.approvalchainCollection2 = approvalchainCollection2;
+    }
+
+    @XmlTransient
+    public Collection<Approvalchain> getApprovalchainCollection3() {
+        return approvalchainCollection3;
+    }
+
+    public void setApprovalchainCollection3(Collection<Approvalchain> approvalchainCollection3) {
+        this.approvalchainCollection3 = approvalchainCollection3;
+    }
+
+    @XmlTransient
+    public Collection<Approvalchain> getApprovalchainCollection4() {
+        return approvalchainCollection4;
+    }
+
+    public void setApprovalchainCollection4(Collection<Approvalchain> approvalchainCollection4) {
+        this.approvalchainCollection4 = approvalchainCollection4;
+    }
+
+    @XmlTransient
+    public Collection<Approvalchain> getApprovalchainCollection5() {
+        return approvalchainCollection5;
+    }
+
+    public void setApprovalchainCollection5(Collection<Approvalchain> approvalchainCollection5) {
+        this.approvalchainCollection5 = approvalchainCollection5;
+    }
+
+    @XmlTransient
+    public Collection<Approval> getApprovalCollection() {
+        return approvalCollection;
+    }
+
+    public void setApprovalCollection(Collection<Approval> approvalCollection) {
+        this.approvalCollection = approvalCollection;
+    }
+
+    @XmlTransient
+    public Collection<Accountrole> getAccountroleCollection() {
+        return accountroleCollection;
+    }
+
+    public void setAccountroleCollection(Collection<Accountrole> accountroleCollection) {
+        this.accountroleCollection = accountroleCollection;
     }
 
     @Override
@@ -164,15 +283,6 @@ public class Account implements Serializable {
     @Override
     public String toString() {
         return "Entities.Account[ idaccount=" + idaccount + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Travelerprofile> getTravelerprofileCollection() {
-        return travelerprofileCollection;
-    }
-
-    public void setTravelerprofileCollection(Collection<Travelerprofile> travelerprofileCollection) {
-        this.travelerprofileCollection = travelerprofileCollection;
     }
     
 }

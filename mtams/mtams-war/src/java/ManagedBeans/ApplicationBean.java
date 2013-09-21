@@ -249,7 +249,8 @@ public class ApplicationBean implements Serializable {
         newAcc.setCity(hQLocation);
         newAcc.setDatecheckin(hQDateIn);
         newAcc.setDatecheckout(hQDateOut);
-
+        
+        newAcc.setSelected(0);
         accQuotes.add(newAcc);
 
         newAcc = new Accomodationquotes();
@@ -260,6 +261,7 @@ public class ApplicationBean implements Serializable {
         newAcc.setCity(hQLocation);
         newAcc.setDatecheckin(hQDateIn);
         newAcc.setDatecheckout(hQDateOut);
+        newAcc.setSelected(0);
 
         accQuotes.add(newAcc);
 
@@ -270,7 +272,7 @@ public class ApplicationBean implements Serializable {
         newCar.setDatereturn(cQDateReturned);
         newCar.setProvider(cQHire1);
         newCar.setQuotecost(Double.parseDouble(cQCost1));
-
+        newCar.setSelected(0);
         carQuotes.add(newCar);
 
         newCar = new Carquotes();
@@ -280,7 +282,7 @@ public class ApplicationBean implements Serializable {
         newCar.setDatereturn(cQDateReturned);
         newCar.setProvider(cQHire2);
         newCar.setQuotecost(Double.parseDouble(cQCost2));
-
+        newCar.setSelected(0);
         carQuotes.add(newCar);
 
         flightQuotes = new ArrayList<Flightquotes>();
@@ -291,7 +293,7 @@ public class ApplicationBean implements Serializable {
         newFlight.setDatedeparture(fQDate);
         newFlight.setQuotesource(fQFlight1);
         newFlight.setQuotecost(Double.parseDouble(fQCost1));
-
+        newFlight.setSelected(0);
         flightQuotes.add(newFlight);
 
         newFlight = new Flightquotes();
@@ -302,7 +304,7 @@ public class ApplicationBean implements Serializable {
         newFlight.setDatedeparture(fQDate);
         newFlight.setQuotesource(fQFlight2);
         newFlight.setQuotecost(Double.parseDouble(fQCost2));
-
+        newFlight.setSelected(0);
         flightQuotes.add(newFlight);
 
         tempItin = new Itinerary();

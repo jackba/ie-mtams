@@ -50,8 +50,18 @@ public class ForexHandler implements ForexHandlerLocal {
         Forexorder forexformNew = forexorder;
         Forexorder forexformOld;
         List<Application> allApp = appf.findAll();
+        
+        ////////////////////////BOBSKI WAS HERE/////////////////////////
+        /*
+        * THIS LOOKS LIKE IT WILL ATTACH THE FOREX TO ANY APPLICATION CREATED
+        * BY THE USER AND NOT THE SPECIFIC APPLICATION.
+        * PLEASE TEST BY CREATING TWO APPLICATIONS FROM THE SAME USER AND
+        * ADDING FOREX ONLY TO THE 2ND ONE.
+        */
+        
         for (Application eachApp : allApp) {
             if (eachApp.getAccountIdaccount().getIdaccount().equals(id)) {
+                eachApp.setFinalcostingcomplete(1);
                 forexID = eachApp.getForexorderIdforexorder().getIdforexorder();
             }
         }

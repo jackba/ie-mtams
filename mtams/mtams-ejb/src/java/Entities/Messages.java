@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author aaron
+ * @author Badger
  */
 @Entity
 @Table(name = "MESSAGES")
@@ -28,19 +28,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Messages.findAll", query = "SELECT m FROM Messages m"),
     @NamedQuery(name = "Messages.findByIdmessage", query = "SELECT m FROM Messages m WHERE m.idmessage = :idmessage"),
+    @NamedQuery(name = "Messages.findByName", query = "SELECT m FROM Messages m WHERE m.name = :name"),
     @NamedQuery(name = "Messages.findByDescrition", query = "SELECT m FROM Messages m WHERE m.descrition = :descrition"),
+    @NamedQuery(name = "Messages.findBySubject", query = "SELECT m FROM Messages m WHERE m.subject = :subject"),
     @NamedQuery(name = "Messages.findByMessage", query = "SELECT m FROM Messages m WHERE m.message = :message")})
 public class Messages implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "NAME")
-    private String name;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "SUBJECT")
-    private String subject;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,8 +42,18 @@ public class Messages implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
+    @Column(name = "NAME")
+    private String name;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "DESCRITION")
     private String descrition;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "SUBJECT")
+    private String subject;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1000)
@@ -65,9 +67,11 @@ public class Messages implements Serializable {
         this.idmessage = idmessage;
     }
 
-    public Messages(Integer idmessage, String descrition, String message) {
+    public Messages(Integer idmessage, String name, String descrition, String subject, String message) {
         this.idmessage = idmessage;
+        this.name = name;
         this.descrition = descrition;
+        this.subject = subject;
         this.message = message;
     }
 
@@ -79,12 +83,28 @@ public class Messages implements Serializable {
         this.idmessage = idmessage;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getDescrition() {
         return descrition;
     }
 
     public void setDescrition(String descrition) {
         this.descrition = descrition;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public String getMessage() {
@@ -118,22 +138,6 @@ public class Messages implements Serializable {
     @Override
     public String toString() {
         return "Entities.Messages[ idmessage=" + idmessage + " ]";
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
     }
     
 }

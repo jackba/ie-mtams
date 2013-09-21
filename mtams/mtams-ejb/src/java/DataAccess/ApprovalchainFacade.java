@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Riaan
+ * @author Badger
  */
 @Stateless
 public class ApprovalchainFacade extends AbstractFacade<Approvalchain> implements ApprovalchainFacadeLocal {

@@ -100,7 +100,7 @@ public String save()
         motiEdit.setBudget(budget);
         
         handler.updateMoti(motiEdit, accountID);
-        return "MotivationalEdit";
+        return "applicationHome";
     }
     
     public Application getAppy() 

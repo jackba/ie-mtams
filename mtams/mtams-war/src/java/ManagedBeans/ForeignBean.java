@@ -49,7 +49,7 @@ public class ForeignBean implements Serializable {
     //======change========change=========change=============change=============
     private Travelerprofile travelerP;
     private Traveldocument travelD;
-    private Forexorder forX;
+    //private Forexorder forX;
     private Forexorder viewForX;
     private Forexorder editForX;
     private Itinerary itinerary;
@@ -198,7 +198,7 @@ public class ForeignBean implements Serializable {
     }
 
     public String createForm() {
-        forX = new Forexorder();
+        Forexorder forX = new Forexorder();
 
         //forX.setDateofdepart(departure);
         //forX.setDateofreturn(returnDate);
@@ -220,12 +220,16 @@ public class ForeignBean implements Serializable {
         forX.setReasonfortravel(reasonForTravel);
 
         csi.updateForex(forX, accountID);
-        FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Changes have been saved"));
-        return "applicationHome";
+        FacesContext.getCurrentInstance().addMessage("appHomeTop", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Changes have been saved"));
+        return "/applicationHome.xhtml";
     }
 
     @PostConstruct
     public void getForm() {
+        //////////////////BOBSKI WAS HERE////////////
+        /*
+         * perhaps find forx based on application instead of account
+         */
         viewForX = csi.findForX(accountID);
         //setDeparture(viewForX.getDateofdepart());
         //setReturnDate(viewForX.getDateofreturn());
