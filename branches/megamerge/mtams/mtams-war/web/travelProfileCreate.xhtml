@@ -198,10 +198,11 @@
                                 <h:panelGrid columns="3" columnClasses="label, value, error">  
 
                                     <h:outputText value="Passport Number: *" />  
-                                    <p:inputText id="passport" required="true" value="#{userBean.passportNo}" requiredMessage="Required Field">
+                                    <p:inputText id="passport" required="true" value="#{userBean.passportNo}" validatorMessage="Max Length of 15 Characters" requiredMessage="Required Field" >
+                                        <f:validateLength minimum="6" maximum="15" />
                                         <p:ajax update="passportM" event="blur" />
                                     </p:inputText>
-                                    <p:message for="passport" id="passportM"/>
+                                    <p:message for="passport" id="passportM" />
 
                                     <h:outputText value="Country: *" />
                                     <p:selectOneMenu required="true" requiredMessage="Required Field" value="#{userBean.country}" id="country" >

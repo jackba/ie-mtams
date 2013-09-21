@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Pattern;
 import org.primefaces.component.api.UIData;
 
@@ -66,10 +67,12 @@ public class AdminBean implements Serializable {
     }
 
     public List<Account> getAllAccounts() {
-        return handler.getAllAccounts();
+        String userName = (String) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("username");
+        
+        return handler.getAllAccounts(userName);
     }
 
-    public void setAllAccounts(List<Account> allAccounts) {
+    public void setAllAccounts(List<Account> allAccounts) {        
         this.allAccounts = allAccounts;
     }
 
@@ -124,11 +127,14 @@ public class AdminBean implements Serializable {
         }        
     }
     
-        public String deactivateAccount(){
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Success.","Account has been Deactivated"));
+    public String deactivateAccount() {
         handler.deactivateAccount(selectedAcc);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Account has been Deactivated"));
         return null;
     }
-    
-    
+
+    public String reactivateAccount() {
+        handler.reactivateAccount(selectedAcc);
+        return null;
+    }
 }

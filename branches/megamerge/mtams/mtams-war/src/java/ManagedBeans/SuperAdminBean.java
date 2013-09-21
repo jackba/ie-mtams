@@ -45,7 +45,6 @@ public class SuperAdminBean implements Serializable {
     private Department departmentRef;
     private UIData dataTable;
     private List<Department> allDepartments = new ArrayList<Department>();
-    
     @EJB
     private AccountHandlerLocal handler;
     @EJB
@@ -54,27 +53,32 @@ public class SuperAdminBean implements Serializable {
     private DepartmentHandlerLocal departmentHandler;
 
     public SuperAdminBean() {
-        
     }
-    public String goToHome(){
+
+    public String goToHome() {
         return "./superHome.xhtml";
     }
-    public String goToCreateAdmin(){
+
+    public String goToCreateAdmin() {
         return "./createAdmin.xhtml";
     }
-    public String goToEditAdmin(){
+
+    public String goToEditAdmin() {
         return "./editAdminSelect.xhtml";
     }
-    public String goToCreateRole(){
+
+    public String goToCreateRole() {
         return "./createRole.xhtml";
     }
-    public String goToDeactivateAccount(){
+
+    public String goToDeactivateAccount() {
         return "./deactivateAccount.xhtml";
     }
-    public String goToDepartmentHandler(){
+
+    public String goToDepartmentHandler() {
         return "./departmentHandler.xhtml";
     }
-    
+
     public String createAdmin() {
         if (handler.checkUsername(getAdminName())) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Input Error", "Username already exists"));
@@ -82,20 +86,15 @@ public class SuperAdminBean implements Serializable {
         } else {
             Account newAccount = new Account();
             newAccount.setUsername(getAdminName());
-            newAccount.setPassword(getAdminPassword());            
+            newAccount.setPassword(getAdminPassword());
 
             handler.registerNewAccountDiv(newAccount, 21, getDepartment());
-            FacesContext.getCurrentInstance().addMessage("superHomeTop", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success.","Administrator Account Created"));
+            FacesContext.getCurrentInstance().addMessage("superHomeTop", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Administrator Account Created"));
             return "./superHome.xhtml";
         }
     }
 
     public String createRole() {
-        
-        return "./superHome.xhtml";
-    }
-
-    public String deactivateAccount() {
 
         return "./superHome.xhtml";
     }
@@ -185,9 +184,9 @@ public class SuperAdminBean implements Serializable {
     }
 
     public void setSelectedDepartment(Department selectedDepartment) {
-        this.selectedDepartment = selectedDepartment;       
+        this.selectedDepartment = selectedDepartment;
     }
-    
+
     public UIData getDataTable() {
         return dataTable;
     }
@@ -195,30 +194,30 @@ public class SuperAdminBean implements Serializable {
     public void setDataTable(UIData dataTable) {
         this.dataTable = dataTable;
     }
-    
-    public void createDepartment(){
+
+    public void createDepartment() {
         departmentRef = new Department();
         departmentRef.setDepartment(departmentName);
         departmentHandler.createDepartment(departmentRef);
-        FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success.","Department Created"));
+        FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Department Created"));
     }
-    
-    public void load(){
+
+    public void load() {
         departmentRef = selectedDepartment;
     }
-    
-    public void editDepartment(){
+
+    public void editDepartment() {
         //Department 
         selectedDepartment.setDepartment(getDepartmentEditName());
         departmentHandler.editDepartment(selectedDepartment);
-        FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success.","Department Edited"));
+        FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Department Edited"));
     }
-    
-    public void deleteDepartment(){        
+
+    public void deleteDepartment() {
         departmentHandler.deleteDepartment(selectedDepartment);
-        FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success.","Department Deleted"));
-        
-    }    
+        FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Department Deleted"));
+
+    }
 
     public List<Department> getAllDepartments() {
         return allDepartments = departmentHandler.getAllDepartments();
@@ -226,5 +225,5 @@ public class SuperAdminBean implements Serializable {
 
     public void setAllDepartments(List<Department> allDepartments) {
         this.allDepartments = allDepartments;
-    }
+    }    
 }
