@@ -17,8 +17,10 @@ import Entities.Department;
 
 import Entities.Role;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -39,6 +41,8 @@ public class AccountHandler implements AccountHandlerLocal {
     private AccountdepartmentFacadeLocal accDepDao;
     @EJB
     private DepartmentFacadeLocal deptsDao;
+    
+    
     private Department dept;
     private int accID;
     private int accDeptID;
@@ -49,7 +53,7 @@ public class AccountHandler implements AccountHandlerLocal {
     private int finalFinanceID;
 
     @Override
-    public void registerNewAccount(Account newAccount, int role) {
+    public void registerNewAccount(Account newAccount, int role ,int departmentRole,int accountID) {
 
         accDao.create(newAccount);
 
@@ -59,8 +63,32 @@ public class AccountHandler implements AccountHandlerLocal {
                 newAccount = each;
             }
         }
+        int departmentId = 0;
+        
+        List<Accountdepartment> listAD = new ArrayList<Accountdepartment>();
+        for(Accountdepartment each : listAD)
+        {
+            if(each.getIdaccount().getIdaccount().equals(accountID))
+            {
+                departmentId = each.getDepartmentrole();
+            }
+        }
+        List<Department> listD = new ArrayList<Department>();
+        for(Department each : listD)
+        {
+            if(each.getIddepartment().equals(departmentId))
+                dept = each;
+        }
+        int accountId = newAccount.getIdaccount();
 
         accRoleDao.create(assignId(newAccount, role));
+        
+        Accountdepartment accDept = new Accountdepartment();
+        accDept.setIdaccount(newAccount);
+        accDept.setIddepartment(dept);
+        accDept.setDepartmentrole(departmentRole);
+        
+        accDepDao.create(accDept);
     }
 
     @Override

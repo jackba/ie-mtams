@@ -16,7 +16,7 @@ import javax.ejb.Local;
 @Local
 public interface AccountHandlerLocal {
 
-    public void registerNewAccount(Account newAccount, int role);
+    public void registerNewAccount(Account newAccount, int role , int departmentRole, int accountID);
 
     public void registerNewAccountDiv(Account newAccount, int role, String department);
 
