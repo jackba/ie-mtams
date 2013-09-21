@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author aaron
+ * @author Badger
  */
 @Stateless
 public class CountryFacade extends AbstractFacade<Country> implements CountryFacadeLocal {

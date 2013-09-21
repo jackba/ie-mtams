@@ -10,7 +10,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author Riaan
+ * @author Badger
  */
 @Local
 public interface ApprovalchainFacadeLocal {

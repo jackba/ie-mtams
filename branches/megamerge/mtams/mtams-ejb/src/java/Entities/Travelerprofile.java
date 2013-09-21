@@ -5,8 +5,10 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,15 +18,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Alexandre Damasio
+ * @author Badger
  */
 @Entity
 @Table(name = "TRAVELERPROFILE")
@@ -227,9 +231,17 @@ public class Travelerprofile implements Serializable {
     @Column(name = "DATEMODIFIED")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datemodified;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelerprofileIdtravelerprofile")
+    private Collection<Rewardsprogram> rewardsprogramCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travelerprofileIdtravelerprofile")
+    private Collection<Application> applicationCollection;
     @JoinColumn(name = "ACCOUNTID", referencedColumnName = "IDACCOUNT")
     @ManyToOne(optional = false)
     private Account accountid;
+    @OneToMany(mappedBy = "travelerprofileIdtravelerprofile")
+    private Collection<Attachement> attachementCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "travlerprofileIdtravlerprofile")
+    private Collection<Traveldocument> traveldocumentCollection;
 
     public Travelerprofile() {
     }
@@ -622,12 +634,48 @@ public class Travelerprofile implements Serializable {
         this.datemodified = datemodified;
     }
 
+    @XmlTransient
+    public Collection<Rewardsprogram> getRewardsprogramCollection() {
+        return rewardsprogramCollection;
+    }
+
+    public void setRewardsprogramCollection(Collection<Rewardsprogram> rewardsprogramCollection) {
+        this.rewardsprogramCollection = rewardsprogramCollection;
+    }
+
+    @XmlTransient
+    public Collection<Application> getApplicationCollection() {
+        return applicationCollection;
+    }
+
+    public void setApplicationCollection(Collection<Application> applicationCollection) {
+        this.applicationCollection = applicationCollection;
+    }
+
     public Account getAccountid() {
         return accountid;
     }
 
     public void setAccountid(Account accountid) {
         this.accountid = accountid;
+    }
+
+    @XmlTransient
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
+    }
+
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
+    }
+
+    @XmlTransient
+    public Collection<Traveldocument> getTraveldocumentCollection() {
+        return traveldocumentCollection;
+    }
+
+    public void setTraveldocumentCollection(Collection<Traveldocument> traveldocumentCollection) {
+        this.traveldocumentCollection = traveldocumentCollection;
     }
 
     @Override

@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Riaan
+ * @author Badger
  */
 @Entity
 @Table(name = "APPROVALCHAIN")

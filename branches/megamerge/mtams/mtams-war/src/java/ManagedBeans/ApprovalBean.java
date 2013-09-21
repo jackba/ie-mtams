@@ -225,10 +225,10 @@ public class ApprovalBean implements Serializable {
                 mail.test();
             }
 
-            short s = 1;
-            selectedAccQte.setSelected(s);
-            selectedCarQte.setSelected(s);
-            selectedFlgQte.setSelected(s);
+            
+            selectedAccQte.setSelected(1);
+            selectedCarQte.setSelected(1);
+            selectedFlgQte.setSelected(1);
             appHandler.selectQuotes(selectedAccQte, selectedCarQte, selectedFlgQte);
             return "authorizerHome.xhtml";
         } else {
