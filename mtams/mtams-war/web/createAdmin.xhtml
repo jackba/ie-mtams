@@ -39,7 +39,7 @@
                             <p:message id="passMessage2" for="adminPasswordConf"/>
 
                             <h:outputText value="Assigned Department:" />
-                            <p:selectOneMenu value="#{superAdminBean.department}" id="dept">
+                            <p:selectOneMenu required="true" requiredMessage="Required Field" value="#{superAdminBean.department}" id="dept">
                                 <f:selectItem  itemLabel="Select a Department" itemValue=""/>
                                 <f:selectItems value="#{dataLookUpBean.departmentStrings}" />
                             </p:selectOneMenu>

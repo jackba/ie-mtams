@@ -251,7 +251,9 @@
 
                                 <h:outputText value="Passport Number: *" />
                                 <p:inplace id="passNum">  
-                                    <p:inputText id="passNumIP" value="#{editTrav.passportNo}" required="true" requiredMessage="Required Field"/>  
+                                    <p:inputText id="passNumIP" value="#{editTrav.passportNo}" required="true" validatorMessage="Max Length of 15 Characters" requiredMessage="Required Field">
+                                        <f:validateLength minimum="6" maximum="15"/>
+                                    </p:inputText>  
                                 </p:inplace>
                                 <p:message for="passNumIP"/>
 

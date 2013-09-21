@@ -90,7 +90,7 @@ public class EditTravelProfileBean implements Serializable {
     @Pattern(message = "Incorrect E-mail format", regexp = "^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String docEmail;
     private String knownMedConditions;
-    @Pattern(message = "Incorrect Passport ID", regexp = "[0-9a-zA-Z]{8,10}")
+    @Pattern(message = "Incorrect Passport ID", regexp = "[0-9a-zA-Z]{8,15}")
     private String passportNo;
     private String country;
     @Past(message = "Date must be further into the past")
