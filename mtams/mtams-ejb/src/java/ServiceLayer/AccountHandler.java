@@ -17,6 +17,7 @@ import Entities.Department;
 
 import Entities.Role;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -115,8 +116,18 @@ public class AccountHandler implements AccountHandlerLocal {
     }
 
     @Override
-    public List<Account> getAllAccounts() {
-        return accDao.findAll();
+    public List<Account> getAllAccounts(String userName) {        
+        List<Account> allAccounts = accDao.findAll();
+        Iterator iter = allAccounts.iterator();
+        
+        while(iter.hasNext()){
+            Account accRef = (Account)iter.next();
+            if(accRef.getUsername().equalsIgnoreCase(userName)){
+                iter.remove();
+            }
+        }
+        return allAccounts;
+        //return accDao.findAll();
     }
 
     @Override
@@ -127,6 +138,19 @@ public class AccountHandler implements AccountHandlerLocal {
             if (each.getAccountid().equals(selAcc)) {
 
                 each.setRoleid(roleDao.find((each.getRoleid().getIdroles() + 900)));
+                accRoleDao.edit(each);
+            }
+        }
+    }
+    
+    @Override
+    public void reactivateAccount(Account selAcc) {
+        List<Accountrole> accRoleList = accRoleDao.findAll();
+
+        for (Accountrole each : accRoleList) {
+            if (each.getAccountid().equals(selAcc)) {
+
+                each.setRoleid(roleDao.find((each.getRoleid().getIdroles() - 900)));
                 accRoleDao.edit(each);
             }
         }
