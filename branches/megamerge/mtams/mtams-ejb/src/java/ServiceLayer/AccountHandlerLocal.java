@@ -25,8 +25,10 @@ public interface AccountHandlerLocal {
     public boolean checkUsername(String username);
 
     public void deactivateAccount(Account selAcc);
+    
+    public void reactivateAccount(Account selAcc);
 
-    public List<Account> getAllAccounts();
+    public List<Account> getAllAccounts(String userName);
 
     public List<Account> getAllAdmins();
 
@@ -38,5 +40,6 @@ public interface AccountHandlerLocal {
     
     public int findPVCAccountID();
     
-    public int findFinalFinanceAccountID();
+    public int findFinalFinanceAccountID(); 
+    
 }
