@@ -80,9 +80,9 @@ public class ForeignBean implements Serializable {
     private String ticketNumber;
     //@Pattern(message = "Incorrect number entered", regexp = "[A-z0-9 -.]{0,}")
     private String voyagerNum;
-    //@Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
+     //@Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
     private double travellerCheque;
-    //@Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
+      //@Pattern(message="Incorrect number entered", regexp="[0-9]{0,}")
     private double foreignCash;
     //@Pattern(message="Incorrect type entered", regexp="[0-9]{0,}")
     private double CashPassportCard;
@@ -103,6 +103,7 @@ public class ForeignBean implements Serializable {
     private Date currentDate = new Date();
     private Currency aCurrencySelection;
     private Currency aCurrencySelection2;
+    private Currency aCurrencySelection3;
 
     public Date getCurrentDate() {
         return currentDate;
@@ -566,4 +567,21 @@ public class ForeignBean implements Serializable {
 //        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
         return "currency2";
     }
+
+    public Currency getaCurrencySelection3() {
+        return aCurrencySelection3;
+    }
+
+    public void setaCurrencySelection3(Currency aCurrencySelection3) {
+        this.aCurrencySelection3 = aCurrencySelection3;
+    }
+    
+    public String CurSel3() {
+//        logger.log(Level.INFO, "CurSel");
+        logger.log(Level.INFO, "selectedCurrencyString3 : {0}", cheqCur);
+        cheqCur = aCurrencySelection3.getCurrencycode3();
+        RequestContext.getCurrentInstance().execute("dlgcurrency3.hide()");
+//        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
+        return "currency3";
+    }    
 }
