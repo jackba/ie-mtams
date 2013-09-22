@@ -56,14 +56,16 @@
                                     <p:message id="nameMsg" for="desc" />
 
                                     <h:outputText value="Date of Initial Departure: *" />
-                                    <p:calendar id="departDate" required="true" requiredMessage="Date Required" value="#{appBean.departureDate}" mindate="#{userBean.currentDate}" >
+                                    <p:calendar id="departDate" required="true" binding="#{depart}" requiredMessage="Date Required" value="#{appBean.departureDate}" mindate="#{userBean.currentDate}" >
 
                                     </p:calendar>
                                     <p:message id="depDateMsg" for="departDate" />
 
                                     <h:outputText value="Date of Final Return: *" />
                                     <p:calendar id="returnDate" required="true" requiredMessage="Date Required" value="#{appBean.returnDate}" mindate="#{userBean.currentDate}" >
-
+                                        <f:attribute name="departDate" value="#{depart.value}" />
+                                        <f:validator validatorId="validator.dateValidator" />
+                                        <p:ajax process="returnDate departDate" update="retDateMsg" />
                                     </p:calendar>
                                     <p:message id="retDateMsg" for="returnDate" />
 
@@ -111,7 +113,7 @@
                         <p:tab id="quotes" title="Quotes">
 
                             <p:panel id="quotePanel" header="Quotes">
-                                <h5>All fields are required on this page</h5>
+                                <h4>Please Note: All fields are required on this page</h4>
                                 <h:panelGrid columns="3" columnClasses="label, value, error">
                                     <h:outputText value="Cost Centre:" />
                                     <p:inputMask mask="999999-9999" id="costCentre" value="#{appBean.costCentre}" required="true" requiredMessage="Cost centre code required" >
