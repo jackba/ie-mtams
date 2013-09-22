@@ -57,6 +57,8 @@ public class ForexHandler implements ForexHandlerLocal {
         * BY THE USER AND NOT THE SPECIFIC APPLICATION.
         * PLEASE TEST BY CREATING TWO APPLICATIONS FROM THE SAME USER AND
         * ADDING FOREX ONLY TO THE 2ND ONE.
+        * it goes to the first application that it found for a user and replaces that forex
+        * we must find the application that is created for the user and replace that forex form
         */
         
         for (Application eachApp : allApp) {
