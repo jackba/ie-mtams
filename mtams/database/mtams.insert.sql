@@ -131,8 +131,9 @@ INSERT INTO "MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE)
 
 -- 
  INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
-        VALUES ('Admin' /*not nullable*/,'admin' /*not nullable*/,'s',current_timestamp,null);
+        VALUES ('ITAdmin' /*not nullable*/,'admin' /*not nullable*/,'s',current_timestamp,null);
  INSERT INTO "ACCOUNTROLE" (ACCOUNTID,ROLEID) VALUES (1,21);
+INSERT INTO "ACCOUNTDEPARTMENT" (IDACCOUNT,IDDEPARTMENT,DEPARTMENTROLE) VALUES (1,1,0);
 -- select idaccount from mtams.account where username = 'admin';
 
 -- first no role user. Similar to creating a user through admin.
