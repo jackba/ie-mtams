@@ -29,7 +29,7 @@ public class AdminBean implements Serializable {
     private String username;
     private String password;
     private int role = 11;
-    private int departmentRole;
+    private int departmentRole = 0;
     private List<Account> allAccounts;
     private Account selectedAcc;
     private UIData dataTable;
@@ -43,7 +43,7 @@ public class AdminBean implements Serializable {
     
     //======change===change=========change============change=========change====
     //-------------------------------------------------------------------------
-    private Integer accountID = 1;//(Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
+    private Integer accountID = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
     //-------------------------------------------------------------------------
     //======change========change=========change=============change=============
             
@@ -74,11 +74,11 @@ public class AdminBean implements Serializable {
         this.role = role;
     }
 
-    public int getdepartmentRole() {
+    public int getDepartmentRole() {
         return departmentRole;
     }
 
-    public void setdepartmentRole(int departmentRole) {
+    public void setDepartmentRole(int departmentRole) {
         this.departmentRole = departmentRole;
     }
 
@@ -135,9 +135,9 @@ public class AdminBean implements Serializable {
         }else{
             Account newAccount = new Account();
             newAccount.setUsername(getUsername());
-            newAccount.setPassword(getPassword());
+            newAccount.setPassword(getPassword());            
 
-            handler.registerNewAccount(newAccount,getRole(),getdepartmentRole(),accountID);
+            handler.registerNewAccount(newAccount,getRole(),departmentRole,accountID);
             
             return "accountAll";
         }        
