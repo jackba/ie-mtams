@@ -90,7 +90,7 @@ public class ApplicationBean implements Serializable {
     private String fQTo;
     @Future
     private Date fQDate;
-    private String fQTime;
+    private Date fQTime;
     @Pattern(message = "Incorrect Entry", regexp = "[0-9a-zA-Z' ]{0,}")
     private String fQFlight1;
     @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
@@ -672,11 +672,11 @@ public class ApplicationBean implements Serializable {
         this.fQDate = fQDate;
     }
 
-    public String getfQTime() {
+    public Date getfQTime() {
         return fQTime;
     }
 
-    public void setfQTime(String fQTime) {
+    public void setfQTime(Date fQTime) {
         this.fQTime = fQTime;
     }
 
