@@ -16,18 +16,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Badger
+ * @author Riaan
  */
 @Entity
 @Table(name = "ACCOUNTDEPARTMENT")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Accountdepartment.findAll", query = "SELECT a FROM Accountdepartment a"),
-    @NamedQuery(name = "Accountdepartment.findByIdaccountdepartment", query = "SELECT a FROM Accountdepartment a WHERE a.idaccountdepartment = :idaccountdepartment")})
+    @NamedQuery(name = "Accountdepartment.findByIdaccountdepartment", query = "SELECT a FROM Accountdepartment a WHERE a.idaccountdepartment = :idaccountdepartment"),
+    @NamedQuery(name = "Accountdepartment.findByDepartmentrole", query = "SELECT a FROM Accountdepartment a WHERE a.departmentrole = :departmentrole")})
 public class Accountdepartment implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -35,6 +37,10 @@ public class Accountdepartment implements Serializable {
     @Basic(optional = false)
     @Column(name = "IDACCOUNTDEPARTMENT")
     private Integer idaccountdepartment;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "DEPARTMENTROLE")
+    private int departmentrole;
     @JoinColumn(name = "IDDEPARTMENT", referencedColumnName = "IDDEPARTMENT")
     @ManyToOne(optional = false)
     private Department iddepartment;
@@ -49,12 +55,25 @@ public class Accountdepartment implements Serializable {
         this.idaccountdepartment = idaccountdepartment;
     }
 
+    public Accountdepartment(Integer idaccountdepartment, int departmentrole) {
+        this.idaccountdepartment = idaccountdepartment;
+        this.departmentrole = departmentrole;
+    }
+
     public Integer getIdaccountdepartment() {
         return idaccountdepartment;
     }
 
     public void setIdaccountdepartment(Integer idaccountdepartment) {
         this.idaccountdepartment = idaccountdepartment;
+    }
+
+    public int getDepartmentrole() {
+        return departmentrole;
+    }
+
+    public void setDepartmentrole(int departmentrole) {
+        this.departmentrole = departmentrole;
     }
 
     public Department getIddepartment() {
