@@ -64,20 +64,21 @@ public class AccountHandler implements AccountHandlerLocal {
             }
         }
         int departmentId = 0;
+        Department depart = null;
         
-        List<Accountdepartment> listAD = new ArrayList<Accountdepartment>();
+        List<Accountdepartment> listAD = accDepDao.findAll();
         for(Accountdepartment each : listAD)
         {
             if(each.getIdaccount().getIdaccount().equals(accountID))
             {
-                departmentId = each.getDepartmentrole();
+                departmentId = each.getIddepartment().getIddepartment();
             }
         }
-        List<Department> listD = new ArrayList<Department>();
+        List<Department> listD = deptsDao.findAll();
         for(Department each : listD)
         {
             if(each.getIddepartment().equals(departmentId))
-                dept = each;
+                depart = each;
         }
         int accountId = newAccount.getIdaccount();
 
@@ -85,7 +86,7 @@ public class AccountHandler implements AccountHandlerLocal {
         
         Accountdepartment accDept = new Accountdepartment();
         accDept.setIdaccount(newAccount);
-        accDept.setIddepartment(dept);
+        accDept.setIddepartment(depart);
         accDept.setDepartmentrole(departmentRole);
         
         accDepDao.create(accDept);
@@ -111,7 +112,6 @@ public class AccountHandler implements AccountHandlerLocal {
         }
         accID = newAccount.getIdaccount();
         accRoleDao.create(assignId(newAccount, role));
-
 
         Accountdepartment accDeptRef = new Accountdepartment();
         accDeptRef.setIdaccount(newAccount);
