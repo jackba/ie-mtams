@@ -48,22 +48,18 @@
                                 <p:selectOneRadio id="roles" label="Role:" required="true" requiredMessage="Role not selected" value="#{adminBean.role}" >  
                                     <f:selectItem itemLabel="Applicant" itemValue="11" />  
                                     <f:selectItem itemLabel="Authorizer" itemValue="12" />
-                                    <p:ajax event="change" update="departmentRoleGrid"/>
                                 </p:selectOneRadio>    
                                 <p:message for="roles"  />
-                                </h:panelGrid> 
-                            
-                                <h:panelGrid columns="3" id="departmentRoleGrid" columnClasses="label, value">  
+                                </h:panelGrid>                             
                                     
-                                <h:outputLabel for="departmentRole" value="Department Role:" rendered="#{adminBean.role eq '12'}"/>
-                                <p:selectOneRadio id="departmentRole" required="true" rendered="#{adminBean.role eq '12'}" value="#{adminBean.departmentRole}">
+                                <h:outputLabel for="departmentRole" value="Department Role:"/>
+                                <p:selectOneRadio id="departmentRole"  value="#{adminBean.departmentRole}">
+                                    <f:selectItem itemLabel="Lecturer" itemValue="0"/>
                                     <f:selectItem itemLabel="School Admin" itemValue="1" />
                                     <f:selectItem itemLabel="Head of Department" itemValue="2" />
+                                    
                                 </p:selectOneRadio>
-                                <p:message for="departmentRole" rendered="#{adminBean.role eq '12'}"/>
-                                
-                                </h:panelGrid>
-                                
+                                <p:message for="departmentRole"/>                               
 
                                 <p:button value="Cancel"  outcome="#{adminBean.goViewAll()}"/> 	
                                 <p:commandButton value="Create"  update="createPanel" action="#{adminBean.createAccount()}"/>
