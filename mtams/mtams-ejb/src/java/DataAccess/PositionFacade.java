@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Badger
+ * @author Riaan
  */
 @Stateless
 public class PositionFacade extends AbstractFacade<Position> implements PositionFacadeLocal {
