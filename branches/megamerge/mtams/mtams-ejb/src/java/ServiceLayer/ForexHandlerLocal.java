@@ -25,9 +25,9 @@ public interface ForexHandlerLocal {
     public Traveldocument findDocument(Integer id);
     //public void createForX(Forexorder forerorder, Integer id);
 
-    public Forexorder findForX(Integer id);
+    public Forexorder findForX(Integer id , Integer appID);
 
-    public void updateForex(Forexorder forexorder, Integer id);
+    public void updateForex(Forexorder forexorder, Integer id ,Integer appid);
 
     public Travel findTravel(Integer id);
 }
