@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+        <div>
+            <ui:remove >
+                <!---
+
+
+<p:dialog header="Header Text" widgetVar="dlgcurrency">
+                -->
+            </ui:remove>
+
+
+            <p:dialog header="Country Selector" widgetVar="#{widgetVarParam}">
+
+                <div id="DTdivtest" class="divCurrency" >
+                    <!--
+    **************************
+    country
+    **************************
+                    -->
+
+                    <h:form id="DTformCountry" styleClass="test" > 
+                        <p:dataTable id="CountrySel" styleClass="dlgCurrency" var="country" 
+                                     value="#{dataLookUpBean.countryList}" rowKey="#{country.code3}"  
+                                     filteredValue="#{dataLookUpBean.countryFilteredList}"
+                                     widgetVar="coutrieswidget"
+                                     emptyMessage="No data matches your criteria"
+                                     selection="#{dataLookUpBean.countrySelectionRef}" 
+                                     selectionMode="single" scrollRows="6"  
+                                     scrollable="true" liveScroll="true" scrollHeight="150"
+                                     >  
+
+                            <p:ajax event="rowSelect" 
+                                    update="#{updateIDParam}" 
+                                    listener="#{dataLookUpBean.CoutrySel()}" />
+
+                            <p:ajax event="rowSelect" 
+                                    update="#{updateIDParam2}" 
+                                    />
+
+
+                            <ui:remove>
+                                <!--
+                       <p:ajax event="rowSelect" 
+                                    update=":DTformRegion:RegionSel" 
+                                    />
+                                -->
+                            </ui:remove>
+                            <p:column headerText="Country Name"
+                                      footerText="contains"
+                                      filterBy="#{country.name}"
+                                      filterMatchMode="contains"
+                                      >  
+                                #{country.name}
+                            </p:column>  
+
+
+
+                            <p:column headerText="Country code3"
+                                      footerText="contains"
+                                      filterBy="#{country.code3}"
+                                      filterMatchMode="contains"
+                                      >  
+                                #{country.code3} 
+                            </p:column>  
+
+                            <f:facet name="footer">                               
+                                <p:commandButton value="Done" type="button" 
+                                                 onclick="#{widgetVarParam}.hide()" 
+                                                 actionListener="#{dataLookUpBean.CoutrySel()}" 
+                                                 update="#{updateIDParam}">
+
+
+                                    <p:ajax update="#{updateIDParam}" 
+                                            listener="#{dataLookUpBean.CoutrySel()}"/>
+
+                                </p:commandButton>
+                            </f:facet>  
+
+                            <ui:remove>
+                                <!--
+                                <p:ajax update=":CRCVal:City" 
+                                            listener="#{dataLookUpBean.CitySel()}"/>
+                                <p:ajax update=":CRCVal:Region" 
+                                            listener="#{dataLookUpBean.RegSel()}"/>
+                                -->
+                            </ui:remove>
+                        </p:dataTable>  
+                    </h:form>
+                </div>
+            </p:dialog>
+        </div>
+    </body>
+</html>
