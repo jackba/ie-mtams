@@ -26,8 +26,6 @@ country
                     -->
 
 
-
-
                     <h:form id="#{updateDLGfromCountryID}" styleClass="test" > 
                         <p:dataTable id="CountrySel" styleClass="dlgCurrency" var="country" 
                                      value="#{dataLookUpBean.countryList}" rowKey="#{country.code3}"  
@@ -37,16 +35,16 @@ country
                                      selection="#{dataLookUpBean.countrySelectionRef}" 
                                      selectionMode="single" scrollRows="6"  
                                      scrollable="true" liveScroll="true" scrollHeight="150"
-                                     
+
                                      >  
 
                             <p:ajax event="rowSelect" 
                                     update="#{updateCountryIDParam}" 
                                     listener="#{dataLookUpBean.CoutrySel()}" />
-                            <p:ajax event="rowSelect" 
-                                    update="#{DLGformRegion}:RegionSel" 
-                                    />
 
+                            <p:ajax event="rowSelect" 
+                                    update=":#{updateDLGfromRegionID}:RegionSel" 
+                                    />
 
 
                             <f:facet name="header">  
@@ -73,24 +71,16 @@ country
                                       >  
                                 #{country.code3} 
                             </p:column>  
-                            <ui:remove>
-                                <!--    
-                                -->
-                            </ui:remove>
-
-
-
 
                             <ui:remove>
                                 <!--
-                              <p:column headerText="Country Regions" 
+                                      <p:column headerText="Country Regions" 
                                       footerText="contains"
                                       filterBy="#{country.regions}"
                                       filterMatchMode="contains"
                                       >  
                                 #{country.regions}  
-                            </p:column>  
-                                
+                            </p:column>                                          
                                                 
                                 -->
                             </ui:remove>    
@@ -105,7 +95,7 @@ country
                     **************************
                     -->
 
-                    <h:form id="#{DLGformRegion}" styleClass="test">
+                    <h:form id="#{updateDLGfromRegionID}" styleClass="test">
                         <p:dataTable id="RegionSel" styleClass="dlgCurrency" var="region" 
                                      value="#{dataLookUpBean.regionList}" 
                                      rowKey="#{region.idregion}"  
@@ -123,7 +113,7 @@ country
                                     listener="#{dataLookUpBean.RegSel()}"
                                     />
                             <p:ajax event="rowSelect" 
-                                    update="#{DLGformCity}:CitySel" 
+                                    update=":#{updateDLGfromCityID}:CitySel" 
                                     />
 
 
@@ -135,37 +125,48 @@ country
                                 #{region.name}
                             </p:column>  
 
-                            <ui:remove> 
-                                <!--
-                           
-                            <p:column headerText="Region Code" 
-                                      footerText="contains"
-                                      filterBy="#{region.code}"
-                                      filterMatchMode="contains"
-                                      >  
-                                #{region.code}
-     <%= request.getParameter("title") %>                       </p:column>  
 
-                            <p:column headerText="Cities "
-                                      footerText="contains"
-                                      filterBy="#{region.cities}}"
-                                      filterMatchMode="contains"
-                                      >  
-                                #{region.cities} 
-                            </p:column>  
- 
-                                -->
-                            </ui:remove>
                         </p:dataTable>  
 
                     </h:form>
+                    <ui:remove> 
+                        <!--
+                                                 
+
+                        -->
+                    </ui:remove>
+
+                    <ui:remove> 
+                        <!--
+                   
+                    <p:column headerText="Region Code" 
+                              footerText="contains"
+                              filterBy="#{region.code}"
+                              filterMatchMode="contains"
+                              >  
+                        #{region.code}
+<%= request.getParameter("title") %>                       </p:column>  
+
+                    <p:column headerText="Cities "
+                              footerText="contains"
+                              filterBy="#{region.cities}}"
+                              filterMatchMode="contains"
+                              >  
+                        #{region.cities} 
+                    </p:column>  
+
+                        -->
+                    </ui:remove>
 
                     <!--
                   **************************
                   CITY
                   **************************
                     -->
-                    <h:form id="#{DLGformCity}" styleClass="test">
+
+
+
+                    <h:form id="#{updateDLGfromCityID}" styleClass="test">
                         <p:dataTable id="CitySel" styleClass="dlgCurrency" var="city" 
                                      value="#{dataLookUpBean.cityList}" 
                                      rowKey="#{city.idcity}"  
@@ -183,11 +184,6 @@ country
                                     listener="#{dataLookUpBean.CitySel()}" />
 
 
-                            <ui:remove> 
-                                <!--
-
-                                -->
-                            </ui:remove>
 
                             <p:column headerText="Region Name"
                                       footerText="contains"
@@ -223,6 +219,10 @@ country
                         </p:dataTable>  
 
                     </h:form>
+                    <ui:remove>
+                        <!--    
+                        -->
+                    </ui:remove>
                 </div>
             </p:dialog>
         </div>
