@@ -949,4 +949,12 @@ public class ApplicationBean implements Serializable {
     public String goViewForex() {
         return "forexView";
     }
+    
+    public String goCreateMotivation(){
+        return "motivational";
+    }
+    
+    public String goViewMotivation(){
+        return "motivationalView";
+    }
 }
