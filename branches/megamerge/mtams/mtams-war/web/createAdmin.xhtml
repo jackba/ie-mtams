@@ -17,6 +17,7 @@
                     <fieldset><legend><h4>Admin Details:</h4></legend>
                         <p:messages autoUpdate="true" closable="true" showDetail="true" globalOnly="true"/>
                         <h:panelGrid columns="3" styleClass="grid">
+                            
                             <h:outputText value="Administrator Username:" />
                             <p:inputText id="adminName" required="true" value="#{superAdminBean.adminName}" requiredMessage="Required Field">
                                 <p:ajax update="adminMIP" event="blur" />
