@@ -90,17 +90,15 @@
                         <p:commandButton value="Show CRC" type="button" onclick="CRCWigit.show()" />
                         <p:commandButton value="Hide CRC" type="button" onclick="CRCWigit.hide()" />
                     </h:form>
-                    <ui:remove>
+
+
+
+
+
+                    <ui:include src="../template/CRCDialog.xhtml" >
                         <!--
-                        Don't know why this is not working will have a look at it again later
-                        --> 
-                         <!--
-                        The ID of the element on which the ajax should update 
+                       The ID of the element on which the ajax should update 
                         -->
-                        <!--
-                        
-                        <ui:include src="../template/CRCDialog.xhtml" >
-                       
                         <ui:param name="updateCountryIDParam" value=":CRCVal:countryID" />
                         <ui:param name="updateCountryIDParam2" value=":CRCVal:countryID2" />
                         <ui:param name="updateRegionIDParam" value=":CRCVal:RegionID" />
@@ -109,17 +107,20 @@
                         <ui:param name="updateCityIDParam2" value=":CRCVal:CityID2" />
                         <ui:param name="updateIDfrom" value=":formID" />
 
-                        
-                        <ui:param name="updateDLGfromCountryID" value="DLGformCountry" />
-                        <ui:param name="updateDLGfromRegionID" value="DLGformRegion" />
-                        <ui:param name="updateDLGfromCityID" value="DLGformCity" />
-                        <ui:param name="widgetVarParam" value="CRCWigit" />
-                        </ui:include>   
-                        -->
                         <!--
                         The java script name of the dialog needs to be unique
                         for each dialog used on a page. 
                         The value for the widgetVarParam needs to be unique 
+                        -->
+                        <ui:param name="updateDLGfromCountryID" value="DLGformCountry" />
+                        <ui:param name="updateDLGfromRegionID" value="DLGformRegion" />
+                        <ui:param name="updateDLGfromCityID" value="DLGformCity" />
+                        <ui:param name="widgetVarParam" value="CRCWigit" />
+                    </ui:include>   
+
+
+                    <ui:remove>
+                        <!--
                         -->
                     </ui:remove>
                 </div>
