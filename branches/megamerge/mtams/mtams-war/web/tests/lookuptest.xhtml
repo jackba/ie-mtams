@@ -391,6 +391,15 @@ country
                 <div><h1>Data Lookup Demo</h1></div>
                 <h:form>
 
+                    <p>Number of elements in country table : #{dataLookUpBean.countryCount}</p>
+                    <h:outputText value="string country object : #{dataLookUpBean.currencyString}" />
+                    <br />
+                    <p:selectOneMenu id="CountryDrop" editable="true" value="#{dataLookUpBean.countrySelectionRef}" filter="true" filterMatchMode="contains">
+                        <f:selectItem  itemLabel="Select a Country" itemValue=""/>
+                        <f:selectItems value="#{dataLookUpBean.countryList}" var="cntry" itemLabel="#{cntry.name}, #{cntry.code3}"  itemValue="#{dataLookUpBean.countryString}" >
+                        </f:selectItems>                        
+                    </p:selectOneMenu>
+
                     <p>Number of elements in Title table : #{dataLookUpBean.titleCount}</p>
 
                     <h:outputText value="test title string : #{dataLookUpBean.titleString}" />
@@ -398,7 +407,7 @@ country
                     <h:outputText value="title object element output : #{dataLookUpBean.getaTitleRef()}" />
                     <br />
                     <p:selectOneMenu id="TitleList" editable="true" value="#{dataLookUpBean.titleList}">
-                        <f:selectItem  itemLabel="Select a Title" itemValue=""/>
+                        <f:selectItem  itemLabel="Select a Title" itemValue="Select a Title"/>
                         <f:selectItems value="#{dataLookUpBean.titleList}" />
                     </p:selectOneMenu>
 
