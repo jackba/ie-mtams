@@ -18,7 +18,7 @@
             <p:dialog header="Currency" widgetVar="#{widgetVarParam}">
                 <div id="DTdivtest" class="divCurrency" >
 
-                    <h:form id="Dcurr" styleClass="test"> 
+                    <h:form id="#{updateDLGfromID}" styleClass="test"> 
                         <p:dataTable id="currencytest" styleClass="dlgCurrency" var="currency" 
                                      value="#{dataLookUpBean.currencyList}" rowKey="#{currency.idcurrency}"  
                                      filteredValue="#{dataLookUpBean.currencyFilteredList}"
@@ -26,6 +26,7 @@
                                      emptyMessage="No data matches your criteria"
                                      selection="#{dataLookUpBean.aCurrencySelection}" selectionMode="single" scrollRows="20"  
                                      scrollable="true" liveScroll="true" scrollHeight="150"
+                                     lazy="true"
                                      > 
 
                             <p:ajax event="rowSelect" 
@@ -49,7 +50,7 @@
                             <f:facet name="header">  
                                 Click to select a row 
                                 <h:outputText value="Search all fields:" />  
-                                <p:inputText id="globalFilter" onkeyup="PF('currencies').filter()" />
+                                <p:inputText id="globalFilter" onkeyup="PF('currencies').filter();" />
                             </f:facet>  
 
 
