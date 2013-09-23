@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+        <div>
+            <ui:remove >
+                <!---
+
+
+<p:dialog header="Header Text" widgetVar="dlgcurrency">
+                -->
+            </ui:remove>
+            <p:dialog header="Header Text" widgetVar="#{widgetVarParam}">
+                <div id="DTdivtest" class="divCurrency" >
+
+                    <h:form id="Dcurr" styleClass="test"> 
+                        <p:dataTable id="currencytest" styleClass="dlgCurrency" var="currency" 
+                                     value="#{dataLookUpBean.currencyList}" rowKey="#{currency.idcurrency}"  
+                                     filteredValue="#{dataLookUpBean.currencyFilteredList}"
+                                     widgetVar="currencies"
+                                     emptyMessage="No data matches your criteria"
+                                     selection="#{dataLookUpBean.aCurrencySelection}" selectionMode="single" scrollRows="20"  
+                                     scrollable="true" liveScroll="true" scrollHeight="150"
+                                     > 
+
+                            <p:ajax event="rowSelect" 
+                                    update="#{updateIDParam}"
+                                    />
+
+                            <p:ajax event="rowSelect" 
+                                    update="#{updateIDParam}" 
+                                    listener="#{dataLookUpBean.CurSel()}" />
+                            <ui:remove> 
+                                <!--
+                                                        <p:ajax event="rowSelect" 
+                                    update=":CurencyVal:CValS"
+                                    />
+
+                            <p:ajax event="rowSelect" 
+                                    update=":CurencyVal:CVal" 
+                                    listener="#{dataLookUpBean.CurSel()}" />
+                                -->
+                            </ui:remove>
+                            <f:facet name="header">  
+                                Click to select a row 
+                                <h:outputText value="Search all fields:" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('currencies').filter()" />
+                            </f:facet>  
+
+
+                            <p:column headerText="countryname"
+                                      footerText="contains"
+                                      filterBy="#{currency.countryname}"
+                                      filterMatchMode="contains"
+                                      >  
+                                #{currency.countryname}  
+                            </p:column>  
+
+                            <p:column headerText="currencyname" 
+                                      footerText="contains"
+                                      filterBy="#{currency.currencyname}"
+                                      filterMatchMode="contains"
+                                      >  
+                                #{currency.currencyname}  
+                            </p:column>  
+
+                            <p:column headerText="currencycode3"
+                                      footerText="contains"
+                                      filterBy="#{currency.currencycode3}"
+                                      filterMatchMode="contains"
+                                      >  
+                                #{currency.currencycode3}  
+                            </p:column>  
+
+                            <ui:remove>
+                                <!--
+                                
+                                -->
+                            </ui:remove>
+
+                            <f:facet name="footer">  
+                                <p>There are this many : #{dataLookUpBean.currencyCount}</p>
+                                <p:commandButton value="Done" type="button" 
+                                                 onclick="#{widgetVarParam}.hide()" 
+                                                 actionListener="#{dataLookUpBean.CurSel()}" 
+                                                 update="#{updateIDParam}">
+
+                                    <p:ajax update="#{updateIDParam}" 
+                                            listener="#{dataLookUpBean.CurSel()}"/>
+                                </p:commandButton>
+                            </f:facet>  
+
+                        </p:dataTable>  
+                    </h:form>
+                </div>
+            </p:dialog>
+        </div>
+    </body>
+</html>
