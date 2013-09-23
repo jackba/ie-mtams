@@ -45,6 +45,7 @@ public class ForeignBean implements Serializable {
     //-------------------------------------------------------------------------
     private Integer accountID = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
     //private Integer accountID = 3;
+    int appnum = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
     //-------------------------------------------------------------------------
     //======change========change=========change=============change=============
     private Travelerprofile travelerP;
@@ -145,7 +146,7 @@ public class ForeignBean implements Serializable {
     }
 
     public Forexorder getViewForX() {
-        viewForX = csi.findForX(accountID);
+        viewForX = csi.findForX(accountID,appnum);
         return viewForX;
     }
 
@@ -220,18 +221,14 @@ public class ForeignBean implements Serializable {
         forX.setDatewillbeconfirmed(dateForex);
         forX.setReasonfortravel(reasonForTravel);
 
-        csi.updateForex(forX, accountID);
+        csi.updateForex(forX, accountID,appnum);
         FacesContext.getCurrentInstance().addMessage("appHomeTop", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Changes have been saved"));
         return "/applicationHome.xhtml";
     }
 
     @PostConstruct
     public void getForm() {
-        //////////////////BOBSKI WAS HERE////////////
-        /*
-         * perhaps find forx based on application instead of account
-         */
-        viewForX = csi.findForX(accountID);
+        viewForX = csi.findForX(accountID , appnum);
         //setDeparture(viewForX.getDateofdepart());
         //setReturnDate(viewForX.getDateofreturn());
         setTicketNumber(viewForX.getTicketnum());
@@ -283,7 +280,7 @@ public class ForeignBean implements Serializable {
         editForX.setDatewillbeconfirmed(dateForex);
         editForX.setReasonfortravel(reasonForTravel);
 
-        csi.updateForex(editForX, accountID);
+        csi.updateForex(editForX, accountID ,appnum);
         FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Changes have been saved"));
         return "/applicationHome.xhtml";
     }
