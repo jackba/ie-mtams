@@ -130,9 +130,9 @@ INSERT INTO "MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE)
 
 
 -- 
- INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
-        VALUES ('ITAdmin' /*not nullable*/,'admin' /*not nullable*/,'s',current_timestamp,null);
- INSERT INTO "ACCOUNTROLE" (ACCOUNTID,ROLEID) VALUES (1,21);
+INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
+    VALUES ('ITAdmin' /*not nullable*/,'admin' /*not nullable*/,'s',current_timestamp,null);
+INSERT INTO "ACCOUNTROLE" (ACCOUNTID,ROLEID) VALUES (1,21);
 INSERT INTO "ACCOUNTDEPARTMENT" (IDACCOUNT,IDDEPARTMENT,DEPARTMENTROLE) VALUES (1,1,0);
 -- select idaccount from mtams.account where username = 'admin';
 
@@ -140,31 +140,12 @@ INSERT INTO "ACCOUNTDEPARTMENT" (IDACCOUNT,IDDEPARTMENT,DEPARTMENTROLE) VALUES (
 --INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 	VALUES ('s' /*not nullable*/,'s' /*not nullable*/,'s',current_timestamp,null);
 
 INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
-	VALUES ('Superadmin' /*not nullable*/,'superadmin' /*not nullable*/,'s',current_timestamp,null);
+    VALUES ('Superadmin' /*not nullable*/,'superadmin' /*not nullable*/,'s',current_timestamp,null);
 INSERT INTO "ACCOUNTROLE" (ACCOUNTID,ROLEID) VALUES (2,22);
 
-INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
-	VALUES ('PVC' /*not nullable*/,'PVC' /*not nullable*/,'s',current_timestamp,null);
-INSERT INTO "ACCOUNTROLE" (ACCOUNTID,ROLEID) VALUES (3,12);
-
-INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
-	VALUES ('Finance' /*not nullable*/,'finance' /*not nullable*/,'s',current_timestamp,null);
-INSERT INTO "ACCOUNTROLE" (ACCOUNTID,ROLEID) VALUES (4,12);
-
-
-INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
-	VALUES ('Claire' /*not nullable*/,'claire' /*not nullable*/,'s',current_timestamp,null);
-INSERT INTO "ACCOUNTROLE" (ACCOUNTID,ROLEID) VALUES (5,12);
-INSERT INTO "ACCOUNTDEPARTMENT" (IDACCOUNT,IDDEPARTMENT,DEPARTMENTROLE) VALUES (5,1,1);
-
-INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
-	VALUES ('HOD' /*not nullable*/,'hod' /*not nullable*/,'s',current_timestamp,null);
-INSERT INTO "ACCOUNTROLE" (ACCOUNTID,ROLEID) VALUES (6,12);
-INSERT INTO "ACCOUNTDEPARTMENT" (IDACCOUNT,IDDEPARTMENT,DEPARTMENTROLE) VALUES (6,1,2);
-
-INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
-	VALUES ('FinalFinance' /*not nullable*/,'finance' /*not nullable*/,'s',current_timestamp,null);
-INSERT INTO "ACCOUNTROLE" (ACCOUNTID,ROLEID) VALUES (7,12);
+-- Other accounts have been moved to mtams.insert.app.sql. 
+-- This script should only contain the minmum need for a work applications.
+-- Additional test data should be in the mtams.insert.app.sql
 
 
 --------------------------------------------------------
