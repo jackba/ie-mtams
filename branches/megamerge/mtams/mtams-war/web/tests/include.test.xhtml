@@ -27,9 +27,7 @@
                     <!--
                     
 
-                <ui:include src="/WEB-INF/jspf/currency.xhtml" >
                     -->
-
                 </ui:remove>
                 <ui:include src="../template/currencyDialog.xhtml" >
                     <!--
@@ -37,10 +35,12 @@
                     -->
                     <ui:param name="updateIDParam" value=":formID:testID" />
                     <ui:param name="updateIDParam2" value=":formID:testID2" />
+
                     <!--
                     The java script name of the dialog needs to be unique
                     for each dialog used on a page. 
                     -->
+                    <ui:param name="updateDLGfromID" value="CurrencyDLG1" />
                     <ui:param name="widgetVarParam" value="testWvar" />
                 </ui:include>
                 <h:form id="formID" styleClass="test"> 
@@ -61,34 +61,67 @@
                         -->
                         <ui:param name="updateIDParam" value=":CRCVal:countryID" />
                         <ui:param name="updateIDParam2" value=":CRCVal:countryID2" />
+
                         <!--
                         The java script name of the dialog needs to be unique
                         for each dialog used on a page. 
                         -->
-                        <ui:param name="widgetVarParam" value="CountryWvar" />
+                        <ui:param name="updateDLGfromID" value="CountryDLG1" />
+                        <ui:param name="widgetVarParam" value="CountryWigit" />
                     </ui:include>
 
                     <h:form id="CRCVal" styleClass="test"> 
-                        <p>Currency List count : #{dataLookUpBean.countryCount}</p>
-                        <p:commandButton value="Show Country" type="button" onclick="CountryWvar.show()" />
-                        <p:commandButton value="Hide Country" type="button" onclick="CountryWvar.hide()" />
+                        <p>Country List count : #{dataLookUpBean.countryCount}</p>
+                        <p:commandButton value="Show Country" type="button" onclick="CountryWigit.show()" />
+                        <p:commandButton value="Hide Country" type="button" onclick="CountryWigit.hide()" />
                         <br />
                         <p:outputLabel id="countryID" value="string Country object : #{dataLookUpBean.countryString}" />
                         <br />
-                        <p:outputLabel id="Region" value="string Region object : #{dataLookUpBean.regionyString}" />
+                        <p:outputLabel id="RegionID" value="string Region object : #{dataLookUpBean.regionyString}" />
                         <br />
-                        <p:outputLabel id="City" value="string City object : #{dataLookUpBean.cityString}" />
+                        <p:outputLabel id="CityID" value="string City object : #{dataLookUpBean.cityString}" />
                         <br />
                         <p:outputLabel id="countryID2" value="string CRCS country object : #{dataLookUpBean.countrySelectionRef}" />
                         <br />
-                        <p:outputLabel id="CCRSregion" value="string CRCS region object : #{dataLookUpBean.regionySelectionRef}" />
+                        <p:outputLabel id="RegionID2" value="string CRCS region object : #{dataLookUpBean.regionySelectionRef}" />
                         <br /> 
-                        <p:outputLabel id="CCRScity" value="string CRCS region object : #{dataLookUpBean.citySelectionRef}" />
+                        <p:outputLabel id="CityID2" value="string CRCS region object : #{dataLookUpBean.citySelectionRef}" />
                         <br /> 
-                        <p:commandButton value="Show" type="button" onclick="dlgCRC.show()" />
-                        <p:commandButton value="Hide" type="button" onclick="dlgCRC.hide()" />
+                        <p:commandButton value="Show CRC" type="button" onclick="CRCWigit.show()" />
+                        <p:commandButton value="Hide CRC" type="button" onclick="CRCWigit.hide()" />
                     </h:form>
+                    <ui:remove>
+                        <!--
+                        Don't know why this is not working will have a look at it again later
+                        --> 
+                         <!--
+                        The ID of the element on which the ajax should update 
+                        -->
+                        <!--
+                        
+                        <ui:include src="../template/CRCDialog.xhtml" >
+                       
+                        <ui:param name="updateCountryIDParam" value=":CRCVal:countryID" />
+                        <ui:param name="updateCountryIDParam2" value=":CRCVal:countryID2" />
+                        <ui:param name="updateRegionIDParam" value=":CRCVal:RegionID" />
+                        <ui:param name="updateRegionIDParam2" value=":CRCVal:RegionID2" />
+                        <ui:param name="updateCityIDParam" value=":CRCVal:CityID" />
+                        <ui:param name="updateCityIDParam2" value=":CRCVal:CityID2" />
+                        <ui:param name="updateIDfrom" value=":formID" />
 
+                        
+                        <ui:param name="updateDLGfromCountryID" value="DLGformCountry" />
+                        <ui:param name="updateDLGfromRegionID" value="DLGformRegion" />
+                        <ui:param name="updateDLGfromCityID" value="DLGformCity" />
+                        <ui:param name="widgetVarParam" value="CRCWigit" />
+                        </ui:include>   
+                        -->
+                        <!--
+                        The java script name of the dialog needs to be unique
+                        for each dialog used on a page. 
+                        The value for the widgetVarParam needs to be unique 
+                        -->
+                    </ui:remove>
                 </div>
             </ui:define>
         </ui:composition>

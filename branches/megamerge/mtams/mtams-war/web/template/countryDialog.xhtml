@@ -26,7 +26,7 @@
     **************************
                     -->
 
-                    <h:form id="DTformCountry" styleClass="test" > 
+                    <h:form id="#{updateDLGfromID}" styleClass="test" > 
                         <p:dataTable id="CountrySel" styleClass="dlgCurrency" var="country" 
                                      value="#{dataLookUpBean.countryList}" rowKey="#{country.code3}"  
                                      filteredValue="#{dataLookUpBean.countryFilteredList}"
@@ -35,6 +35,7 @@
                                      selection="#{dataLookUpBean.countrySelectionRef}" 
                                      selectionMode="single" scrollRows="6"  
                                      scrollable="true" liveScroll="true" scrollHeight="150"
+                                     lazy="true"
                                      >  
 
                             <p:ajax event="rowSelect" 
