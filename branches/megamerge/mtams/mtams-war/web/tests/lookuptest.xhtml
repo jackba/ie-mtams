@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <body>
-        <ui:composition template="./template/template.xhtml">
+        <ui:composition template="/template/template.xhtml">
 
             <ui:define name="content"> 
 
@@ -20,6 +20,8 @@ and open the template in the editor.
 
                 <div><h1>Data Lookup Dialog Demo</h1>
                     <div><p>Currency</p>
+
+
 
                         <h:form id="CurencyVal" styleClass="test"> 
                             <p>Currency List count : #{dataLookUpBean.currencyCount}</p>
@@ -83,10 +85,10 @@ and open the template in the editor.
                 <p:dialog header="Header Text" widgetVar="dlgCountry">
 
                     <div id="DTdivtest" class="divCurrency" >
-                                                <!--
-                        **************************
-                        country
-                        **************************
+                        <!--
+**************************
+country
+**************************
                         -->
 
                         <h:form id="DTformCountry" styleClass="test" > 
@@ -127,7 +129,7 @@ and open the template in the editor.
                                     #{country.name}
                                 </p:column>  
 
- 
+
 
                                 <p:column headerText="Country code3"
                                           footerText="contains"
@@ -204,7 +206,7 @@ and open the template in the editor.
                                           filterMatchMode="contains"
                                           >  
                                     #{region.code}
-                                </p:column>  
+         <%= request.getParameter("title") %>                       </p:column>  
 
                                 <p:column headerText="Cities "
                                           footerText="contains"
@@ -276,7 +278,7 @@ and open the template in the editor.
                                     #{city.region}
                                 </p:column>  
 
-                                
+
 
 
                                 <f:facet name="footer">                               
