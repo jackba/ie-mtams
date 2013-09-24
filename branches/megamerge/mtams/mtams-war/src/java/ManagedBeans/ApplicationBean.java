@@ -33,6 +33,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 
 import javax.faces.component.*;
+import javax.faces.component.html.*;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -136,6 +137,7 @@ public class ApplicationBean implements Serializable {
     private List<Accomodationquotes> accQuotes;
     private Accomodationquotes newAcc;
     private List<Itinerary> hops = new ArrayList<Itinerary>();
+    ///////////////////////DYNAMIC FORM
     private UIData hopTable;
     private UIForm form;
     private UIPanel panel;
@@ -438,7 +440,13 @@ public class ApplicationBean implements Serializable {
 
     private void createNewRow() {
         //List<Object> row = new ArrayList<Object>();
-
+        //org.primefaces.component.row.Row row = 
+        org.primefaces.component.calendar.Calendar cal = new org.primefaces.component.calendar.Calendar();
+        cal.setId("element" + ++idNum);
+        cal.setRequired(true);
+        cal.setMindate(departureDate);
+         //row.getChildren().add(cal);
+        
         input.setRendererType("text");
         input.setRendered(true);
         input.setId("element" + ++idNum);
@@ -449,7 +457,7 @@ public class ApplicationBean implements Serializable {
     }
 
     public String viewThis() {
-        //loadValues();
+        loadValues();
         return "/applicationView.xhtml";
     }
 
@@ -495,8 +503,8 @@ public class ApplicationBean implements Serializable {
 
         profileRef = travelProfileHandler.findTravelProf(accountID);
         //loadValues();
-        Integer id = 12;
-        appRef = appHandler.getApplication(id);//selectedApp;
+        //Integer id = 12;
+        //appRef = appHandler.getApplication(id);//selectedApp;
 
         quoteRef = appRef.getQuotesIdquotes();
 

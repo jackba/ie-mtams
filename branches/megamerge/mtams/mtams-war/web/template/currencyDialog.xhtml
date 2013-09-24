@@ -54,24 +54,24 @@
                             </f:facet>  
 
 
-                            <p:column headerText="countryname"
-                                      footerText="contains"
+                            <p:column headerText="Country Name"
+                                      
                                       filterBy="#{currency.countryname}"
                                       filterMatchMode="contains"
                                       >  
                                 #{currency.countryname}  
                             </p:column>  
 
-                            <p:column headerText="currencyname" 
-                                      footerText="contains"
+                            <p:column headerText="Currency Name" 
+                                      
                                       filterBy="#{currency.currencyname}"
                                       filterMatchMode="contains"
                                       >  
                                 #{currency.currencyname}  
                             </p:column>  
 
-                            <p:column headerText="currencycode3"
-                                      footerText="contains"
+                            <p:column headerText="Currency Code"
+                                      
                                       filterBy="#{currency.currencycode3}"
                                       filterMatchMode="contains"
                                       >  
@@ -85,7 +85,11 @@
                             </ui:remove>
 
                             <f:facet name="footer">  
+                                <ui:remove>
+                                <!--
                                 <p>There are this many : #{dataLookUpBean.currencyCount}</p>
+                                -->
+                            </ui:remove>
                                 <p:commandButton value="Done" type="button" 
                                                  onclick="#{widgetVarParam}.hide()" 
                                                  actionListener="#{dataLookUpBean.CurSel()}" 

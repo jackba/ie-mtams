@@ -169,9 +169,10 @@
                                 </p:dataTable>
                             </fieldset>
                         </fieldset>
-                        <p:button value="Cancel" outcome="#{appBean.viewThis()}" />
+                        <p:commandButton value="Save" update="editApplicationPanel" action="#{appBean.update()}" ajax="false" styleClass="button-right" />
+                        <p:button value="Cancel" outcome="#{appBean.viewThis()}" styleClass="button-right" />
                         
-                        <p:commandButton value="Save" update="editApplicationPanel" action="#{appBean.update()}" ajax="false" />
+                        
 
                     </p:panel>
                 </h:form>
