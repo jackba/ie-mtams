@@ -196,10 +196,15 @@ public class SuperAdminBean implements Serializable {
     }
 
     public void createDepartment() {
-        departmentRef = new Department();
-        departmentRef.setDepartment(departmentName);
-        departmentHandler.createDepartment(departmentRef);
-        FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Department Created"));
+        if (departmentHandler.checkDepartmentName(getAdminName())) {
+            FacesContext.getCurrentInstance().addMessage("createM", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Input Error", "Department already exists"));
+
+        } else {
+            departmentRef = new Department();
+            departmentRef.setDepartment(departmentName);
+            departmentHandler.createDepartment(departmentRef);
+            FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Department Created"));
+        }
     }
 
     public void load() {
@@ -207,10 +212,14 @@ public class SuperAdminBean implements Serializable {
     }
 
     public void editDepartment() {
-        //Department 
-        selectedDepartment.setDepartment(getDepartmentEditName());
-        departmentHandler.editDepartment(selectedDepartment);
-        FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Department Edited"));
+        if (departmentHandler.checkDepartmentName(getAdminName())) {
+            FacesContext.getCurrentInstance().addMessage("editM", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Input Error", "Department already exists"));
+
+        } else {
+            selectedDepartment.setDepartment(getDepartmentEditName());
+            departmentHandler.editDepartment(selectedDepartment);
+            FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Department Edited"));
+        }
     }
 
     public void deleteDepartment() {
@@ -225,5 +234,5 @@ public class SuperAdminBean implements Serializable {
 
     public void setAllDepartments(List<Department> allDepartments) {
         this.allDepartments = allDepartments;
-    }    
+    }
 }

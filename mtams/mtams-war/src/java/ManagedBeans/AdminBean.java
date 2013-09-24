@@ -31,9 +31,12 @@ public class AdminBean implements Serializable {
     private int role = 11;
     private int departmentRole = 0;
     private List<Account> allAccounts;
+    private List<Account> allActiveAccounts;
+    private List<Account> allInactiveAccounts;
     private Account selectedAcc;
     private UIData dataTable;
     private UIData dataTableDetails;
+    private String userName = (String) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("username");
     
     @EJB
     private AccountHandlerLocal handler;
@@ -83,13 +86,27 @@ public class AdminBean implements Serializable {
     }
 
     public List<Account> getAllAccounts() {
-        String userName = (String) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("username");
-        
         return handler.getAllAccounts(userName);
-    }
+    }      
 
     public void setAllAccounts(List<Account> allAccounts) {        
         this.allAccounts = allAccounts;
+    }   
+
+    public List<Account> getAllActiveAccounts() {
+        return handler.getAllActiveAccounts(userName);
+    }
+
+    public void setAllActiveAccounts(List<Account> allActiveAccounts) {
+        this.allActiveAccounts = allActiveAccounts;
+    }
+
+    public List<Account> getAllInactiveAccounts() {
+        return handler.getAllInactiveAccounts(userName);
+    }
+
+    public void setAllInactiveAccounts(List<Account> allInactiveAccounts) {
+        this.allInactiveAccounts = allInactiveAccounts;
     }
 
     public Account getSelectedAcc() {
@@ -151,6 +168,7 @@ public class AdminBean implements Serializable {
 
     public String reactivateAccount() {
         handler.reactivateAccount(selectedAcc);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Account has been Reactivated"));        
         return null;
     }
 }

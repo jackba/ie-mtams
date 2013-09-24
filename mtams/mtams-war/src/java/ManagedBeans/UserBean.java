@@ -91,13 +91,13 @@ public class UserBean implements Serializable {
     private String homePhone;
     @Pattern(message = "Incorrect E-mail format", regexp = "^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String email;
-    @Pattern(message = "Incorrect Name", regexp = "([a-zA-Z]{0,})?")
+    @Pattern(message = "Incorrect Name", regexp = "([a-zA-Z ]{0,})?")
     private String spouseName;
     @Pattern(message = "Incorrect Number", regexp = "([+0-9]{10,16})?")
     private String spouseContactNo;
     @Pattern(message = "Incorrect E-mail format", regexp = "(^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$)?")
     private String spouseEmail;
-    @Pattern(message = "Incorrect Name", regexp = "([a-zA-Z]{0,})?")
+    @Pattern(message = "Incorrect Name", regexp = "([a-zA-Z. ]{0,})?")
     private String docName;
     @Pattern(message = "Incorrect Number", regexp = "[+0-9]{10,16}")
     private String docContactNo;

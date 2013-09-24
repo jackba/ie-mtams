@@ -19,6 +19,7 @@ import Entities.Travelerprofile;
 import ServiceLayer.AccountHandlerLocal;
 import ServiceLayer.ApplicationHandlerLocal;
 import ServiceLayer.ApprovalHandlerLocal;
+import ServiceLayer.DepartmentHandlerLocal;
 import ServiceLayer.TravelProfileHandlerLocal;
 //import java.awt.event.ActionEvent;
 import javax.inject.Named;
@@ -58,6 +59,9 @@ public class ApplicationBean implements Serializable {
     private ApprovalHandlerLocal apprHandler;
     @EJB
     private AccountHandlerLocal accHandler;
+    @EJB
+    private DepartmentHandlerLocal deptHandler;
+    
     private static final Logger logger = Logger.getLogger(ApplicationBean.class.getName());
     private List<Application> allApps;
     private Application selectedApp;
@@ -318,6 +322,7 @@ public class ApplicationBean implements Serializable {
         appRef = appHandler.persistApplication(newApplication, newQuote, accQuotes, carQuotes, flightQuotes, tempItin, newTravel, profileRef);
 
         //ALEX CODE FOR ADVANCED APPROVAL SYSTEM
+        Account accRef = accHandler.getAccount(accountID);
         Approval appr1 = new Approval();
         Approval appr2 = new Approval();
         Approval appr3 = new Approval();
@@ -325,15 +330,15 @@ public class ApplicationBean implements Serializable {
         Approval appr5 = new Approval();
 
 
-        appr1.setAccountIdaccount(accHandler.getAccount(5));
+        appr1.setAccountIdaccount(deptHandler.getAdministratorAccID(accRef,1));
         appr1.setApplicationIdapplication(appRef);
-        appr2.setAccountIdaccount(accHandler.getAccount(6));
+        appr2.setAccountIdaccount(deptHandler.getAdministratorAccID(accRef,2));
         appr2.setApplicationIdapplication(appRef);
-        appr3.setAccountIdaccount(accHandler.getAccount(4));
+        appr3.setAccountIdaccount(accHandler.findSpecificAccount("Finance"));
         appr3.setApplicationIdapplication(appRef);
-        appr4.setAccountIdaccount(accHandler.getAccount(3));
+        appr4.setAccountIdaccount(accHandler.findSpecificAccount("PVC"));
         appr4.setApplicationIdapplication(appRef);
-        appr5.setAccountIdaccount(accHandler.getAccount(7));
+        appr5.setAccountIdaccount(accHandler.findSpecificAccount("FinalFinance"));
         appr5.setApplicationIdapplication(appRef);
         
         apprHandler.persistApproval(appr1);
@@ -365,23 +370,24 @@ public class ApplicationBean implements Serializable {
          
          appComplete = 1;
          //School Admin
-         schoolAdmin = accHandler.getAccount(5);
+         
+         schoolAdmin = deptHandler.getAdministratorAccID(accRef,1);
          schoolAdminComplete = 0;
          schoolAdminApprFK = appr1;
          //HOD
-         HOD = accHandler.getAccount(6);
+         HOD = deptHandler.getAdministratorAccID(accRef, 2);
          HODComplete = 0;
          HODApprFK = appr2;
          //Finance
-         finance = accHandler.getAccount(4);
+         finance = accHandler.findSpecificAccount("Finance");
          financeComplete = 0;
          financeApprFK = appr3;
          //PVC
-         PVC = accHandler.getAccount(3);
+         PVC = accHandler.findSpecificAccount("PVC");
          PVCComplete = 0;
          PVCApprFK = appr4;
          //FinalFinance
-         finalFinance = accHandler.getAccount(7);
+         finalFinance = accHandler.findSpecificAccount("FinalFinance");
          finalComplete = 0;
          finalApprFK = appr5;
          
