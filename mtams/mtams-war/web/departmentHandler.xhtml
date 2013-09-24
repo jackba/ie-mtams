@@ -34,8 +34,8 @@
                             <p:commandButton  id="showDialogButton" type="button" value="Create" icon="ui-icon-plusthick"  
                                               onclick="dlg1.show();" />
 
-                            <p:dialog id="createDialog" header="Enter Department Name" widgetVar="dlg1" resizable="true">                                     
-                                <h:panelGrid columns="3" styleClass="panelGrid">
+                            <p:dialog id="createDialog" header="Enter Department Name" widgetVar="dlg1" resizable="false">                                     
+                                <h:panelGrid columns="3" styleClass="panelGrid-noBorder">
                                     <h:outputLabel for="deptName" value="Name:" />  
                                     <p:inputText id="deptName" required="true" requiredMessage="Required Field" value="#{superAdminBean.departmentName}" >
                                         <p:ajax update="createM" event="keyup" />
@@ -50,8 +50,8 @@
                             <p:commandButton  id="showDialogButton2" type="button" value="Edit" icon="ui-icon-pencil" ajax="false"  
                                               onclick="dlg2.show();" />
 
-                            <p:dialog id="editDialog" header="Enter Department Name" widgetVar="dlg2" resizable="true">                                     
-                                <h:panelGrid columns="3" styleClass="panelGrid">
+                            <p:dialog id="editDialog" header="Enter Department Name" widgetVar="dlg2" resizable="false">                                     
+                                <h:panelGrid columns="3" styleClass="panelGrid-noBorder">
                                     <h:outputLabel for="deptName2" value="Name:" />  
                                     <p:inputText id="deptName2" required="true" requiredMessage="Required Field" value="#{superAdminBean.departmentEditName}">
                                         <p:ajax update="editM" event="keyup" />
