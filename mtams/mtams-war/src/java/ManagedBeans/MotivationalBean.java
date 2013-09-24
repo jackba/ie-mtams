@@ -15,6 +15,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Pattern;
 
 /**
@@ -29,7 +30,8 @@ public class MotivationalBean implements Serializable{
     
     //======change===change=========change============change=========change====
     //-------------------------------------------------------------------------
-    int accountID =1;
+    int accountID = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
+    int appnum = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
     //-------------------------------------------------------------------------
     //======change========change=========change=============change=============
 @Pattern(message="Input in Supplier Field is Incorrect", regexp="[a-zA-Z -]{0,}")    
@@ -63,7 +65,7 @@ public String save()
          motivational.setCostcenter(costCode);
          motivational.setMotivation(motivationLetter);
          motivational.setBudget(budget);
-         handler.updateMoti(motivational, accountID);
+         handler.updateMoti(motivational, accountID ,appnum);
          
          FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Success", "Created"));
          return null;
@@ -71,7 +73,7 @@ public String save()
 
     public Motivation getMotiView() 
     {
-        motiView = handler.findMotivation(accountID);
+        motiView = handler.findMotivation(accountID,appnum);
         return motiView;
     }
 
@@ -99,7 +101,7 @@ public String save()
         motiEdit.setMotivation(motivationLetter);
         motiEdit.setBudget(budget);
         
-        handler.updateMoti(motiEdit, accountID);
+        handler.updateMoti(motiEdit, accountID ,appnum);
         return "applicationHome";
     }
     
