@@ -48,9 +48,9 @@ public class AccountHandler implements AccountHandlerLocal {
     private int accDeptID;
     private List<Account> adminList = new ArrayList<Account>();
     private int callCount = 0;
-    private int financeID;
-    private int PVCID;
-    private int finalFinanceID;
+    private Account account;   
+    private List<Account> allActiveAcc;
+    private List<Account> allInactiveAcc;
 
     @Override
     public void registerNewAccount(Account newAccount, int role ,int departmentRole,int accountID) {
@@ -213,35 +213,39 @@ public class AccountHandler implements AccountHandlerLocal {
     }
     
     @Override
-    public int findFinanceAccountID(){
+    public Account findSpecificAccount(String userName){
         List<Account> accList = accDao.findAll();
         for(Account each : accList){
-            if(each.getUsername().equalsIgnoreCase("Finance")){
-                financeID = each.getIdaccount();
+            if(each.getUsername().equalsIgnoreCase(userName)){
+                account = each;
             }
         }
-        return financeID;
+        return account;
     }
-    
+
     @Override
-    public int findPVCAccountID(){
-        List<Account> accList = accDao.findAll();
-        for(Account each : accList){
-            if(each.getUsername().equalsIgnoreCase("PVC")){
-                PVCID = each.getIdaccount();
+    public List<Account> getAllActiveAccounts(String userName) {
+        allActiveAcc = new ArrayList<Account>();
+        
+        List<Accountrole> allAccRole = accRoleDao.findAll();
+        for(Accountrole each: allAccRole){
+            if(each.getRoleid().getIdroles() < 900 && !(each.getAccountid().getUsername().equalsIgnoreCase(userName))){
+                allActiveAcc.add(each.getAccountid());
             }
         }
-        return PVCID;
+        return allActiveAcc;        
     }
-    
+
     @Override
-    public int findFinalFinanceAccountID(){
-        List<Account> accList = accDao.findAll();
-        for(Account each : accList){
-            if(each.getUsername().equalsIgnoreCase("FinalFinance")){
-                finalFinanceID = each.getIdaccount();
+    public List<Account> getAllInactiveAccounts(String userName) {
+        allInactiveAcc = new ArrayList<Account>();
+        
+        List<Accountrole> allAccRole = accRoleDao.findAll();
+        for(Accountrole each: allAccRole){
+            if(each.getRoleid().getIdroles() > 900 && !(each.getAccountid().getUsername().equalsIgnoreCase(userName))){
+                allInactiveAcc.add(each.getAccountid());
             }
         }
-        return finalFinanceID;
+        return allInactiveAcc;
     }
 }
