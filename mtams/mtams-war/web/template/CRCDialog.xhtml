@@ -34,7 +34,7 @@ country
                                      emptyMessage="No data matches your criteria"
                                      selection="#{dataLookUpBean.countrySelectionRef}" 
                                      selectionMode="single" scrollRows="6"  
-                                     scrollable="true" liveScroll="true" scrollHeight="150"
+                                     scrollable="true" liveScroll="true" scrollHeight="108"
 
                                      >  
 
@@ -47,12 +47,7 @@ country
                                     />
 
 
-                            <f:facet name="header">  
-                                Click to select a row 
-                                listener="#{dataLookUpBean.RegSel()}"
-                                <h:outputText value="Search all fields:" />  
-                                <p:inputText id="globalFilter" onkeyup="PF('coutries').filter();" />
-                            </f:facet>  
+
 
                             <p:column headerText="Country Name"
                                       footerText="contains"
@@ -74,6 +69,14 @@ country
 
                             <ui:remove>
                                 <!--
+                                
+                                                            <f:facet name="header">  
+                                Click to select a row 
+                                listener="#{dataLookUpBean.CoutrySel()}"
+                                <h:outputText value="Search all fields:" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('coutries').filter();" />
+                            </f:facet>
+                                
                                       <p:column headerText="Country Regions" 
                                       footerText="contains"
                                       filterBy="#{country.regions}"
@@ -104,12 +107,19 @@ country
                                      emptyMessage="No data matches your criteria"
                                      selection="#{dataLookUpBean.regionySelectionRef}" 
                                      selectionMode="single" scrollRows="6"  
-                                     scrollable="true" liveScroll="true" scrollHeight="150"
+                                     scrollable="true" liveScroll="true" scrollHeight="108"
                                      lazy="true"
                                      >                 
+                            <ui:remove> 
+                                <!--
+                                                         
+        update="#{updateRegionIDParam}"
+                                -->
+                            </ui:remove>
 
                             <p:ajax event="rowSelect" 
-                                    update="#{updateRegionIDParam}" 
+
+
                                     listener="#{dataLookUpBean.RegSel()}"
                                     />
                             <p:ajax event="rowSelect" 
@@ -119,8 +129,7 @@ country
 
                             <p:column headerText="Region Name"
                                       footerText="contains"
-                                      filterBy="#{region.name}"
-                                      filterMatchMode="contains"
+
                                       >  
                                 #{region.name}
                             </p:column>  
@@ -129,21 +138,24 @@ country
                         </p:dataTable>  
 
                     </h:form>
-                    <ui:remove> 
-                        <!--
-                                                 
 
-                        -->
-                    </ui:remove>
 
                     <ui:remove> 
                         <!--
-                   
-                    <p:column headerText="Region Code" 
-                              footerText="contains"
-                              filterBy="#{region.code}"
-                              filterMatchMode="contains"
-                              >  
+                        
+                                                    <p:column headerText="Region Name"
+                                      footerText="contains"
+                                      filterBy="#{region.name}"
+                                      filterMatchMode="contains"
+                                      >  
+                        #{region.name}
+                    </p:column>  
+           
+            <p:column headerText="Region Code" 
+                      footerText="contains"
+                      filterBy="#{region.code}"
+                      filterMatchMode="contains"
+                      >  
                         #{region.code}
 <%= request.getParameter("title") %>                       </p:column>  
 
@@ -164,8 +176,6 @@ country
                   **************************
                     -->
 
-
-
                     <h:form id="#{updateDLGfromCityID}" styleClass="test">
                         <p:dataTable id="CitySel" styleClass="dlgCurrency" var="city" 
                                      value="#{dataLookUpBean.cityList}" 
@@ -175,7 +185,7 @@ country
                                      emptyMessage="No data matches your criteria"
                                      selection="#{dataLookUpBean.citySelectionRef}" 
                                      selectionMode="single" scrollRows="20"  
-                                     scrollable="true" liveScroll="true" scrollHeight="150"
+                                     scrollable="true" liveScroll="true" scrollHeight="108"
                                      rowIndexVar="#{city.idcity}"
                                      lazy="true"
                                      >  
@@ -185,6 +195,23 @@ country
 
 
 
+                            <p:column headerText="Region Name"
+                                      footerText="contains"
+                         
+                                      >  
+                                #{city.name}
+                            </p:column>  
+
+                            <p:column headerText="Region Code" 
+                                      footerText="contains"
+      
+                                      >  
+                                #{city.region}
+                            </p:column>  
+                            
+                         <ui:remove> 
+                                <!--
+                 
                             <p:column headerText="Region Name"
                                       footerText="contains"
                                       filterBy="#{city.name}"
@@ -199,30 +226,55 @@ country
                                       filterMatchMode="contains"
                                       >  
                                 #{city.region}
-                            </p:column>  
+                            </p:column>                                          
 
-                            <f:facet name="footer">                               
-                                <p:commandButton value="Done" type="button" 
-                                                 onclick="#{widgetVarParam}.hide()" 
-                                                 actionListener="#{dataLookUpBean.CoutrySel()}" 
-                                                 update="#{updateIDfrom}">
+                                -->
+                            </ui:remove>
 
-                                    <p:ajax update="#{updateCountryIDParam}" 
-                                            listener="#{dataLookUpBean.CoutrySel()}"/>
-                                    <p:ajax update="#{updateRegionIDParam}" 
-                                            listener="#{dataLookUpBean.RegSel()}"/>                                 
-                                    <p:ajax update="#{updateCityIDParam}" 
-                                            listener="#{dataLookUpBean.CitySel()}"/>
-                                </p:commandButton>
-                            </f:facet>  
 
+                            <ui:remove>
+                                <!--   
+                    <f:facet name="footer">                               
+                        <p:commandButton value="Done" type="button" 
+                                         onclick="#{widgetVarParam}.hide()" 
+                                         actionListener="#{dataLookUpBean.CoutrySel()}" 
+                                         update="#{updateIDfrom}">
+
+                            <p:ajax update="#{updateCountryIDParam}" 
+                                    listener="#{dataLookUpBean.CoutrySel()}"/>
+                         
+                                <p:ajax update="#{updateRegionIDParam}" 
+                                                    listener="#{dataLookUpBean.RegSel()}"/> 
+                      
+
+                            <p:ajax update="#{updateCityIDParam}" 
+                                    listener="#{dataLookUpBean.CitySel()}"/>
+                        </p:commandButton>
+                    </f:facet>  
+                                -->
+                            </ui:remove>
+   
                         </p:dataTable>  
+                        <p:commandButton value="Done" type="button" 
+                                         styleClass="button-right"
+                                         onclick="#{widgetVarParam}.hide()" 
+                                         actionListener="#{dataLookUpBean.CoutrySel()}" 
+                                         update="#{updateIDfrom}">
 
+                            <p:ajax update="#{updateCountryIDParam}" 
+                                    listener="#{dataLookUpBean.CoutrySel()}"/>
+                            <ui:remove>
+                                <!--    
+                                <p:ajax update="#{updateRegionIDParam}" 
+                                                    listener="#{dataLookUpBean.RegSel()}"/> 
+                                -->
+                            </ui:remove>
+
+                            <p:ajax update="#{updateCityIDParam}" 
+                                    listener="#{dataLookUpBean.CitySel()}"/>
+                        </p:commandButton>
                     </h:form>
-                    <ui:remove>
-                        <!--    
-                        -->
-                    </ui:remove>
+
                 </div>
             </p:dialog>
         </div>
