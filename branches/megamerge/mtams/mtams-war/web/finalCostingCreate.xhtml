@@ -12,108 +12,7 @@
 
             <ui:define name="content">
 
-                <ui:remove> 
-                    <!--
-<p:ajax update=":CRCVal:Region" 
-                                listener="#{dataLookUpBean.RegSel()}"/>
-                    -->
-                    -->
-                </ui:remove>
-                <!--
-              **************************
-              CuRREncy
-              **************************
-                -->
-                <p:dialog header="Header Text" widgetVar="dlgcurrency">
-                    <div id="DTdivtest" class="divCurrency" >
-
-                        <h:form id="Dcurr" styleClass="test"> 
-                            <p:dataTable id="currencytest" styleClass="dlgCurrency" var="currency" 
-                                         value="#{dataLookUpBean.currencyList}" rowKey="#{currency.idcurrency}"  
-                                         filteredValue="#{dataLookUpBean.currencyFilteredList}"
-                                         widgetVar="currencies"
-                                         emptyMessage="No data matches your criteria"
-                                         selection="#{dataLookUpBean.aCurrencySelection}" selectionMode="single" scrollRows="20"  
-                                         scrollable="true" liveScroll="true" scrollHeight="150"
-
-                                         >  
-
-                                <p:ajax event="rowSelect" 
-                                        update=":fcostFrom:SelCurrencyT" 
-                                        listener="#{dataLookUpBean.CurSel}" />
-                                <ui:remove> 
-                                    <!--
-                                                                    <p:ajax event="rowSelect" 
-                                        update=":CurencyVal:CValS"
-                                        />
-                                    -->
-                                </ui:remove>
-                                <f:facet name="header">  
-                                    Click to select a row 
-                                    <h:outputText value="Search all fields:" />  
-                                    <p:inputText id="globalFilter" onkeyup="PF('currencies').filter()" />
-                                </f:facet>  
-
-
-                                <p:column headerText="countryname"
-                                          footerText="contains"
-                                          filterBy="#{currency.countryname}"
-                                          filterMatchMode="contains"
-                                          >  
-                                    #{currency.countryname}  
-                                </p:column>  
-
-                                <p:column headerText="currencyname" 
-                                          footerText="contains"
-                                          filterBy="#{currency.currencyname}"
-                                          filterMatchMode="contains"
-                                          >  
-                                    #{currency.currencyname}  
-                                </p:column>  
-
-                                <p:column headerText="currencycode3"
-                                          footerText="contains"
-                                          filterBy="#{currency.currencycode3}"
-                                          filterMatchMode="contains"
-                                          >  
-                                    #{currency.currencycode3}  
-                                </p:column>  
-
-                                <ui:remove>
-                                    <!--
-                                    :fcostFrom:FinalCostingPanel:wiz:authotabCosting:FC:CurrencyFinalCostin:SelCurrency
-                                    
-                                    :fcostFrom:FinalCostingPanel:wiz:authotabCosting:FC:CurrencyFinalCostin
-                                    <p:component('SelCurrency'); />
-                                    <p:ajax update=":#{p:componet('SelCurrency')}" 
-                                    
-                                    <p:commandButton value="Hide" type="button" 
-                                                     onclick="dlgcurrency.hide()" 
-                                                     actionListener="#{dataLookUpBean.CurSel}" 
-                                                     update=":fcostFrom:wiz:authotabCosting:FC:CurrencyFinalCostin:SelCurrency">
-                                      <p:ajax update=":#{component.namingContainer.parent.namingContainer.clientId}:SelCurrency" 
-                                     update=":#{p:component('SelCurrency')}
-                                    -->
-                                </ui:remove>
-
-                                <f:facet name="footer">  
-                                    <p>There are this many : #{dataLookUpBean.currencyCount}</p>
-                                    <p:commandButton value="Hide" type="button" 
-                                                     onclick="dlgcurrency.hide()" 
-                                                     actionListener="#{dataLookUpBean.CurSel}" 
-                                                     update=":fcostFrom:SelCurrencyT">
-
-                                        <p:ajax update=":fcostFrom:SelCurrencyT" 
-                                                listener="#{dataLookUpBean.CurSel}"/>
-                                    </p:commandButton>
-                                </f:facet>  
-
-                            </p:dataTable>  
-                        </h:form>
-                    </div>
-
-                </p:dialog>
-
+                
                 <!--
                     **************************
                     Rest of the final costing form
@@ -232,7 +131,10 @@
                                                 <p:inputText id="countries" value="#{dataLookUpBean.countryString}" 
                                                              disabled="true"
                                                              required="true" 
-                                                             requiredMessage="Destination countries is a required Field"  styleClass="inputWidthDepartment">
+                                                             requiredMessage="Destination countries is a required Field"  
+                                                             styleClass="inputWidthDepartment"
+                                                             onclick="CRCWigit.show()"
+                                                             >
                                                     <p:ajax update="countries" event="blur" />
                                                 </p:inputText>
                                             </p:column>
@@ -249,7 +151,10 @@
                                             <p:column colspan="1">
                                                 <p:inputText id="cities" value="#{dataLookUpBean.cityString}" 
                                                              disabled="true"
-                                                             required="true" requiredMessage="Destination cities is a required Field" styleClass="inputWidthDepartment">
+                                                             required="true" requiredMessage="Destination cities is a required Field" 
+                                                             styleClass="inputWidthDepartment"
+                                                             onclick="CRCWigit.show()"
+                                                             >
                                                     <p:ajax update="cities" event="blur" />
                                                 </p:inputText>
                                             </p:column>
@@ -274,10 +179,11 @@
 
                                             <p:row>
                                                 <p:column >
-                                                    <p:inputText id="SelCurrencyT" 
+                                                    <p:inputText id="SelCurrency" 
                                                                  value="#{dataLookUpBean.selectedCurrencyString}" 
                                                                  disabled="true"
                                                                  styleClass="inputWidthDepartment"
+                                                                 onclick="CurrencyWigit.show()"
                                                                  />                                                              
 
                                                 </p:column>
@@ -304,7 +210,7 @@
 
 
                                                 <p:column rowspan="1">
-                                                    <p:commandButton value="Select Currency" type="button" onclick="dlgcurrency.show()"/>
+                                                    <p:commandButton value="Select Currency" type="button" onclick="CurrencyWigit.show()"/>
 
                                                 </p:column>
                                             </p:row>
@@ -1012,6 +918,20 @@
                     <ui:param name="updateDLGfromCityID" value="DLGformCity" />
                     <ui:param name="widgetVarParam" value="CRCWigit" />
                 </ui:include> 
+                <ui:include src="./template/currencyDialog.xhtml" >
+                    <!--
+                    The ID of the element on which the ajax should update 
+                    -->
+                    <ui:param name="updateIDParam" value=":fcostFrom:SelCurrency" />
+                    
+
+                    <!--
+                    The java script name of the dialog needs to be unique
+                    for each dialog used on a page. 
+                    -->
+                    <ui:param name="updateDLGfromID" value="CurrencyDLG1" />
+                    <ui:param name="widgetVarParam" value="CurrencyWigit" />
+                </ui:include>
             </ui:define>
 
         </ui:composition>
