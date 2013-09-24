@@ -18,9 +18,9 @@ public interface MotivationFormHandlerLocal {
 
     public void persist(Motivation motivation);
 
-    public Motivation findMotivation(Integer id);
+    public Motivation findMotivation(Integer id, Integer appID);
 
-    public void updateMoti(Motivation MotivEdit, Integer id);
+    public void updateMoti(Motivation MotivEdit, Integer id, Integer appID);
 
     public Quotes findQuotes(Integer id);
 

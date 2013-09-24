@@ -38,15 +38,17 @@ public class MotivationFormHandler implements MotivationFormHandlerLocal {
     }
 
     @Override
-    public void updateMoti(Motivation MotivEdit, Integer id) {
+    public void updateMoti(Motivation MotivEdit, Integer id, Integer appID) {
         Integer motiID = null;
         Motivation motiformNew = MotivEdit;
         Motivation motiformOld = null;
         List<Application> allApp = app.findAll();
         for (Application eachApp : allApp) {
             if (eachApp.getAccountIdaccount().getIdaccount().equals(id)) {
-                eachApp.setMotivationcomplete(1);
-                motiID = eachApp.getMotivationIdmotivation().getIdmotivation();
+                if (eachApp.getIdapplication().equals(appID)) {
+                    eachApp.setMotivationcomplete(1);
+                    motiID = eachApp.getMotivationIdmotivation().getIdmotivation();
+                }
             }
         }
 
@@ -60,7 +62,7 @@ public class MotivationFormHandler implements MotivationFormHandlerLocal {
         }
     }
 
-    public Motivation findMotivation(Integer id) {
+    public Motivation findMotivation(Integer id , Integer appID) {
         Integer motivationId = null;
         Motivation motiForm = null;
         List<Application> allApp = app.findAll();
