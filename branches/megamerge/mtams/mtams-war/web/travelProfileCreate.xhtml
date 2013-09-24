@@ -198,7 +198,7 @@
                                 <h:panelGrid columns="3" columnClasses="label, value, error">  
 
                                     <h:outputText value="Passport Number: *" />  
-                                    <p:inputText id="passport" required="true" value="#{userBean.passportNo}" validatorMessage="Max Length of 15 Characters" requiredMessage="Required Field" >
+                                    <p:inputText id="passport" required="true" value="#{userBean.passportNo}" validatorMessage="Length Must be Between 6-15 Characters" requiredMessage="Required Field" >
                                         <f:validateLength minimum="6" maximum="15" />
                                         <p:ajax update="passportM" event="blur" />
                                     </p:inputText>
@@ -340,7 +340,7 @@
                                         <h:outputText value="Additional Requirements: "/> <p:inputTextarea required ="false" value="#{userBean.hotelAdditionalReq}"/>
                                     </h:panelGrid>
                                 </fieldset>
-                                <p:commandButton value="Submit" update="travelWiz" action="#{userBean.save()}"/>
+                                <p:commandButton value="Submit" update="travelWiz" action="#{userBean.save()}" styleClass="button-right" />
 
                             </p:panel>                
                         </p:tab>

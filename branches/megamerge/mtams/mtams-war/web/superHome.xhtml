@@ -12,7 +12,9 @@
 
             <ui:define name="content">
                 <p:messages id="superHomeTop" closable="true" showDetail="true" autoUpdate="true"/>
-                <p:dataTable id="dataTable" var="account" value="#{adminBean.allAccounts}" binding="#{adminBean.dataTable}">  
+                <p:dataTable id="dataTable" var="account" value="#{editAdminBean.adminAccList}" binding="#{adminBean.dataTable}"
+                             paginator="true" rows="10"  
+                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">  
 
                     <f:facet name="header">  
                         List of Accounts  

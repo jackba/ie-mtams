@@ -15,12 +15,12 @@
                 <div id = "content">
                     <h:form id="deactivateForm">                        
                         <p:messages showDetail="true" closable="true" globalOnly="true" autoUpdate="true"/>
-                        <p:dataTable id="dataTable" var="account" value="#{adminBean.allActiveAccounts}" binding="#{adminBean.dataTable}" rowKey="#{account.idaccount}" selection="#{adminBean.selectedAcc}" selectionMode="single"
+                        <p:dataTable id="dataTable" var="account" value="#{adminBean.allInactiveAccounts}" binding="#{adminBean.dataTable}" rowKey="#{account.idaccount}" selection="#{adminBean.selectedAcc}" selectionMode="single"
                                      paginator="true" rows="10"  
                                      paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">  
 
                             <f:facet name="header">  
-                                Please Select the Account to be Deactivated
+                                Please Select the Account to be Reactivated
                             </f:facet>  
 
                             <p:column headerText="StaffID">  
@@ -34,9 +34,9 @@
                             <p:column headerText="Last Login Date">  
                                 <h:outputText value="#{account.datelogin}" />  
                             </p:column>
-                            <f:facet name="footer">  
-                                <p:commandButton id="deactivateButton" value="Deactivate" icon="ui-icon-closethick"  
-                                                 update=":deactivateForm" action="#{adminBean.deactivateAccount()}"/>                                                                
+                            <f:facet name="footer">                                
+                                <p:commandButton id="reactivateButton" value="Reactivate" icon="ui-icon-arrowreturnthick-1-e"  
+                                                 update=":deactivateForm" action="#{adminBean.reactivateAccount()}"/>                                
                             </f:facet>
                         </p:dataTable>
                     </h:form>
@@ -49,5 +49,3 @@
 
     </body>
 </html>
-
-

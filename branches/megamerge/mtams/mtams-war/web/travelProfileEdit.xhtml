@@ -20,13 +20,10 @@
 
                                 <h:outputText value="Department:* " />
                                 <p:inplace id="selectableInplace" >  
-                                    <p:selectOneMenu id="deptIP" value="#{editTrav.department}">  
-                                        <f:selectItem itemLabel="Financial" itemValue="Financial" />  
-                                        <f:selectItem itemLabel="Information Technology" itemValue="Information Technology" />  
-                                        <f:selectItem itemLabel="Health Sciences" itemValue="Health Sciences" />  
-                                        <f:selectItem itemLabel="Business" itemValue="Business" />
-                                        <f:selectItem itemLabel="Arts" itemValue="Arts" />  
-                                    </p:selectOneMenu>  
+                                    <p:selectOneMenu id="deptIP" required="true" requiredMessage="Required Field" value="#{editTrav.department}">
+                                        <f:selectItem  itemLabel="Please Select" itemValue=""/>
+                                            <f:selectItems value="#{dataLookUpBean.departmentStrings}" />
+                                    </p:selectOneMenu> 
                                 </p:inplace>
                                 <p:message for="deptIP"/>
 
@@ -40,9 +37,10 @@
 
                                 <h:outputText value="Position:* " />
                                 <p:inplace id="posE">  
-                                    <p:inputText id="posIP" value="#{editTrav.position}" required="true" requiredMessage="Required Field">
-                                        <p:ajax update="posIPM" event="blur" />
-                                    </p:inputText>
+                                    <p:selectOneMenu id="posIP" required="true" requiredMessage="Required Field" value="#{editTrav.position}">
+                                            <f:selectItem  itemLabel="Please Select" itemValue=""/>
+                                            <f:selectItems value="#{dataLookUpBean.positionStrings}" />
+                                    </p:selectOneMenu>
                                 </p:inplace>
                                 <p:message for="posIP" id="posIPM"/>
 
@@ -56,12 +54,10 @@
 
                                 <h:outputText value="Title:"/>
                                 <p:inplace id="titleE">  
-                                    <p:selectOneMenu id="titleIP" value="#{editTrav.title}">  
-                                        <f:selectItem itemLabel="Mr." itemValue="Mr" />  
-                                        <f:selectItem itemLabel="Ms." itemValue="Ms" />  
-                                        <f:selectItem itemLabel="Dr." itemValue="Dr" />  
-                                        <f:selectItem itemLabel="Prof." itemValue="Prof" />
-                                    </p:selectOneMenu>                            
+                                    <p:selectOneMenu id="titleIP" required="true" requiredMessage="Required Field" value="#{editTrav.title}">
+                                            <f:selectItem  itemLabel="Please Select" itemValue=""/>
+                                            <f:selectItems value="#{dataLookUpBean.titleStrings}" />
+                                    </p:selectOneMenu>                          
                                 </p:inplace>
                                 <p:message for="titleIP" id="titleIPM"/>
                                 
@@ -251,7 +247,7 @@
 
                                 <h:outputText value="Passport Number: *" />
                                 <p:inplace id="passNum">  
-                                    <p:inputText id="passNumIP" value="#{editTrav.passportNo}" required="true" validatorMessage="Max Length of 15 Characters" requiredMessage="Required Field">
+                                    <p:inputText id="passNumIP" value="#{editTrav.passportNo}" required="true" validatorMessage="Length Must be Between 6-15 Characters" requiredMessage="Required Field">
                                         <f:validateLength minimum="6" maximum="15"/>
                                     </p:inputText>  
                                 </p:inplace>
@@ -419,9 +415,10 @@
                                 <p:message for="smokingIP"/>
                             </h:panelGrid>
 
-                        </fieldset>     
-                        <p:button value="Cancel" outcome="#{userBean.viewProfile()}" />
-                        <p:commandButton value="Submit" action="#{editTrav.update()}" ajax="false"/>
+                        </fieldset>
+                        <p:commandButton value="Submit" action="#{editTrav.update()}" ajax="false" styleClass="button-right" />
+                        <p:button value="Cancel" outcome="#{userBean.viewProfile()}" styleClass="button-right" />
+                        
                     </p:panel>
 
                 </h:form>

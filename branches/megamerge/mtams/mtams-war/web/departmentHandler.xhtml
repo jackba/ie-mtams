@@ -13,7 +13,9 @@
             <ui:define name="content">
                 <h:form id="departmentHandlerForm">
                     <p:messages id="departmentHandlerMessage" globalOnly="true" showDetail="true" closable="true" autoUpdate="true"/>
-                    <p:dataTable id="dataTable" var="department" value="#{superAdminBean.allDepartments}" binding="#{superAdminBean.dataTable}" rowKey="#{department.iddepartment}" selection="#{superAdminBean.selectedDepartment}" selectionMode="single">  
+                    <p:dataTable id="dataTable" var="department" value="#{superAdminBean.allDepartments}" binding="#{superAdminBean.dataTable}" rowKey="#{department.iddepartment}" selection="#{superAdminBean.selectedDepartment}" selectionMode="single"
+                                 paginator="true" rows="10"  
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">  
                         <p:ajax event="rowSelect" listener="#{superAdminBean.load()}" update="dataTable" />
                         <f:facet name="header">  
                             Please Select an Account to Edit or Delete, or Simply Create a New One

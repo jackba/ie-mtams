@@ -117,6 +117,12 @@ public class MenuBean implements Serializable {
             item.setUrl(this.getURL("deactivateAccount"));
             superMenu.getChildren().add(item);
             model.addSubmenu(superMenu);
+            
+            item = new MenuItem();
+            item.setValue("Reactivate Account");
+            item.setUrl(this.getURL("reactivateAccount"));
+            superMenu.getChildren().add(item);
+            model.addSubmenu(superMenu);
 
             item = new MenuItem();
             item.setValue("Department Handler");
