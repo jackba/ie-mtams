@@ -29,7 +29,7 @@ public class LoginHandler implements LoginHandlerLocal {
         List<Account> accounts = accDao.findAll();
 
         for (Account each : accounts) {
-            if (username.equalsIgnoreCase(each.getUsername()) && password.equalsIgnoreCase(each.getPassword())) {
+            if (username.equals(each.getUsername()) && password.equals(each.getPassword())){
                 return each;
             }
         }
