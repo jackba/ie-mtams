@@ -18,23 +18,36 @@
                         <p>Please login with your registered credentials, and begin form completion.</p>
                     </p>
                 </div>
-                <h:form class="form-2" id="loginForm">
+                <h:form styleClass="form-2" id="loginForm">
                     <h1><span class="log-in">Log in</span></h1>
                     <p:messages id="loginMessage" showDetail="true" closable="true" autoUpdate="true" globalOnly="true"/>
-                    <p:focus context="loginPanel">
-                        <h:panelGrid id="loginPanel" columns="3">
+                    <p:focus>
+                        <p:message for="username"/>
+                        <p:inputText id="username" 
+                                     label="username" 
+                                     required="true" 
+                                     requiredMessage="Please enter your username"
+                                     title="e.g - John Doe"
+                                     value="#{sessionBean.username}"/>
+                        <p:watermark for="username" value="Your Username"/>
 
-                            <p:inputText id="username" label="username" required="true" size="40" requiredMessage="Please enter your username" value="#{sessionBean.username}"/>
-                            <p:watermark for="username" value="Username *"/>
-                            <p:message for="username" display="icon"/>
+                        <p:message for="password"/>
+                        <p:password id="password" 
+                                    label="password" 
+                                    required="true"  
+                                    requiredMessage="Please enter your password"
+                                    title="e.g - John123"
+                                    value="#{sessionBean.password}"/>
+                        <p:watermark for="password" value="Your Password"/>
 
-                            <p:password id="password" label="password" required="true" size="40" requiredMessage="Please enter your password" value="#{sessionBean.password}"/>
-                            <p:watermark for="password" value="Type password *"/>
-                            <p:message for="password" display="icon" />
-
-                            <p:commandButton id="loginButton" value="Login" update="loginForm" action="#{sessionBean.validate()}" ajax="false"/>
-
-                        </h:panelGrid>
+                        <p:commandButton id="loginButton" 
+                                         value="Login"
+                                         update="loginForm" 
+                                         ajax="false"
+                                         icon="ui-icon-circle-arrow-e"
+                                         iconPos="right"
+                                         styleClass="button-right"
+                                         action="#{sessionBean.validate()}"/>
                     </p:focus>
                 </h:form>
 
