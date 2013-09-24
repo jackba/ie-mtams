@@ -1,6 +1,7 @@
 .button-right {
     float: right;
     margin-left: 1%;
+    margin: 1.2% 0%;
 }
 
 .login-desc {
@@ -11,10 +12,12 @@
 
 /* LOGIN_ B O X*/
 .form-2 {
-    width: 35%;
+    overflow: hidden;
+    width: 30%; /* CHECK */
     margin: 50px auto 100px;
     float: right; 
     padding: 10px;
+    position: relative;
 }
 
 
@@ -33,9 +36,9 @@
     padding-right: 2px;
 }
 
-.form-2 button {
-    float:right;
-    margin-left: 1%;
+.form-2 input {
+    width: 95%;
+    margin: 1% 0;
 }
 
 .form-2 h1 {
@@ -78,18 +81,9 @@ a:link, a:visited {
     float:left;
 }
 
-button {
-    margin: 1.2% 0%;
+table.panelGrid-noBorder tr, table.panelGrid-noBorder td {
+    border:none;
 }
-
-
-
-
-
-
-
-
-
 
 /* LAYOUT_ G E N E R A L */
 
@@ -223,6 +217,8 @@ body {
     border: navy;
 }
 */
+
+
 
 .ui-panelgrid td {
     border: none;
