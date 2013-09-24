@@ -16,7 +16,7 @@
                 -->
             </ui:remove>
 
-            <p:dialog header="Country Region City" widgetVar="#{widgetVarParam}">
+            <p:dialog header="Setect a country region and city" widgetVar="#{widgetVarParam}">
 
                 <div id="DTdivtest" class="divCurrency" >
                     <!--
@@ -34,7 +34,7 @@ country
                                      emptyMessage="No data matches your criteria"
                                      selection="#{dataLookUpBean.countrySelectionRef}" 
                                      selectionMode="single" scrollRows="6"  
-                                     scrollable="true" liveScroll="true" scrollHeight="108"
+                                     scrollable="true" liveScroll="true" scrollHeight="81"
 
                                      >  
 
@@ -107,7 +107,7 @@ country
                                      emptyMessage="No data matches your criteria"
                                      selection="#{dataLookUpBean.regionySelectionRef}" 
                                      selectionMode="single" scrollRows="6"  
-                                     scrollable="true" liveScroll="true" scrollHeight="108"
+                                     scrollable="true" liveScroll="true" scrollHeight="81"
                                      lazy="true"
                                      >                 
                             <ui:remove> 
@@ -185,7 +185,7 @@ country
                                      emptyMessage="No data matches your criteria"
                                      selection="#{dataLookUpBean.citySelectionRef}" 
                                      selectionMode="single" scrollRows="20"  
-                                     scrollable="true" liveScroll="true" scrollHeight="108"
+                                     scrollable="true" liveScroll="true" scrollHeight="81"
                                      rowIndexVar="#{city.idcity}"
                                      lazy="true"
                                      >  
