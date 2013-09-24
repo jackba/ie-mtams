@@ -12,217 +12,6 @@
 
             <ui:define name="content">
 
-                <p:dialog header="Coutnry Region City" widgetVar="dlgCountry">
-
-                    <div id="DTdivtest" class="divCurrency" >
-                        <!--
-**************************
-country
-**************************
-                        -->
-
-                        <h:form id="DTformCountry" styleClass="test" > 
-                            <p:dataTable id="CountrySel" styleClass="dlgCurrency" var="country" 
-                                         value="#{dataLookUpBean.countryList}" rowKey="#{country.code3}"  
-                                         filteredValue="#{dataLookUpBean.countryFilteredList}"
-                                         widgetVar="coutrieswidget"
-                                         emptyMessage="No data matches your criteria"
-                                         selection="#{dataLookUpBean.countrySelectionRef}" 
-                                         selectionMode="single" scrollRows="6"  
-                                         scrollable="true" liveScroll="true" scrollHeight="150"
-
-                                         >  
-
-                                <p:ajax event="rowSelect" 
-                                        update=":fcostFrom:countries" 
-                                        listener="#{dataLookUpBean.CoutrySel()}" />
-                                <p:ajax event="rowSelect" 
-                                        update=":DTformRegion:RegionSel" 
-                                        />
-                                <ui:remove>
-                                    <!--
-  
-
-                                <f:facet name="header">  
-                                    Click to select a row 
-                                    listener="#{dataLookUpBean.RegSel()}"
-                                    <h:outputText value="Search all fields:" />  
-                                    <p:inputText id="globalFilter" onkeyup="PF('coutries').filter()" />
-                                </f:facet>  
-                                    -->
-                                </ui:remove>
-                                <p:column headerText="Country Name"
-                                          footerText="contains"
-                                          filterBy="#{country.name}"
-                                          filterMatchMode="contains"
-                                          >  
-                                    #{country.name}
-                                </p:column>  
-
-
-
-                                <p:column headerText="Country code3"
-                                          footerText="contains"
-                                          filterBy="#{country.code3}"
-                                          filterMatchMode="contains"
-                                          >  
-                                    #{country.code3} 
-                                </p:column>  
-
-                                <ui:remove>
-                                    <!--
-                                  <p:column headerText="Country Regions" 
-                                          footerText="contains"
-                                          filterBy="#{country.regions}"
-                                          filterMatchMode="contains"
-                                          >  
-                                    #{country.regions}  
-                                </p:column>  
-                                    
-                                <f:facet name="footer">  
-                                    <p>There are this many : #{dataLookUpBean.countryCount}</p>
-                                    <p:commandButton value="Hide" type="button" 
-                                                     onclick="dlgCountry.hide()" 
-                                                     actionListener="#{dataLookUpBean.CRCSel()}" update=":CRCVal:City">
-
-                                        <p:ajax update=":CRCVal:Country" 
-                                                listener="#{dataLookUpBean.CRCSel()}"/>
-                                    </p:commandButton>
-                                </f:facet>  
-                                    -->
-                                </ui:remove>
-                            </p:dataTable>  
-                        </h:form>
-                        <!--
-                        **************************
-                        REGION
-                        **************************
-                        -->
-                        <h:form id="DTformRegion" styleClass="test">
-                            <p:dataTable id="RegionSel" styleClass="dlgCurrency" var="region" 
-                                         value="#{dataLookUpBean.regionList}" rowKey="#{region.idregion}"  
-                                         filteredValue="#{dataLookUpBean.regionFilteredList}"
-                                         widgetVar="regionswidget"
-                                         emptyMessage="No data matches your criteria"
-                                         selection="#{dataLookUpBean.regionySelectionRef}" 
-                                         selectionMode="single" scrollRows="6"  
-                                         scrollable="true" liveScroll="true" scrollHeight="150"
-                                         lazy="true"
-                                         >                 
-
-                                <p:ajax event="rowSelect"                                          
-                                        listener="#{dataLookUpBean.RegSel()}"
-                                        />
-                                <p:ajax event="rowSelect" 
-                                        update=":DTformCity:CitySel" 
-                                        />
-
-
-                                <p:column headerText="Region Name"
-                                          footerText="contains"
-                                          filterBy="#{region.name}"
-                                          filterMatchMode="contains"
-                                          >  
-                                    #{region.name}
-                                </p:column>  
-
-                                <ui:remove> 
-                                    <!--
-                               
-                                <p:column headerText="Region Code" 
-                                          footerText="contains"
-                                          filterBy="#{region.code}"
-                                          filterMatchMode="contains"
-                                          >  
-                                    #{region.code}
-                                </p:column>  
-
-                                <p:column headerText="Cities "
-                                          footerText="contains"
-                                          filterBy="#{region.cities}}"
-                                          filterMatchMode="contains"
-                                          >  
-                                    #{region.cities} 
-                                </p:column>  
-
-                                <f:facet name="footer">  
-                                    <p>There are this many : #{dataLookUpBean.regionList.size()}</p>
-                                    <p:commandButton value="Hide" type="button" 
-                                                     onclick="dlgCountry.hide()" 
-                                                     actionListener="#{dataLookUpBean.RegSel()}" update=":CRCVal:Region">
-
-                                        <p:ajax update=":CRCVal:Region" 
-                                                listener="#{dataLookUpBean.RegSel()}"/>
-                                        <p:ajax update=":CRCVal:Country" 
-                                                listener="#{dataLookUpBean.CoutrySel()}"/>
-                                    </p:commandButton>
-                                </f:facet>  
-                                    -->
-                                </ui:remove>
-                            </p:dataTable>  
-
-                        </h:form>
-
-                        <!--
-                      **************************
-                      CITY
-                      **************************
-                        -->
-                        <h:form id="DTformCity" styleClass="test">
-                            <p:dataTable id="CitySel" styleClass="dlgCurrency" var="city" 
-                                         value="#{dataLookUpBean.cityList}" rowKey="#{city.idcity}"  
-                                         filteredValue="#{dataLookUpBean.cityFilteredList}"
-                                         widgetVar="citywidget"
-                                         emptyMessage="No data matches your criteria"
-                                         selection="#{dataLookUpBean.citySelectionRef}" 
-                                         selectionMode="single" scrollRows="20"  
-                                         scrollable="true" liveScroll="true" scrollHeight="150"
-                                         rowIndexVar="#{city.idcity}"
-                                         lazy="true"
-                                         >  
-                                <p:ajax event="rowSelect" 
-                                        update=":fcostFrom:cities" 
-                                        listener="#{dataLookUpBean.CitySel()}" />
-
-
-                                <p:column headerText="Region Name"
-                                          footerText="contains"
-                                          filterBy="#{city.name}"
-                                          filterMatchMode="contains"
-                                          >  
-                                    #{city.name}
-                                </p:column>  
-
-                                <p:column headerText="Region Code" 
-                                          footerText="contains"
-                                          filterBy="#{city.region}"
-                                          filterMatchMode="contains"
-                                          >  
-                                    #{city.region}
-                                </p:column>  
-
-
-
-
-                                <f:facet name="footer">                               
-                                    <p:commandButton value="Done" type="button" 
-                                                     onclick="dlgCountry.hide()" 
-                                                     actionListener="#{dataLookUpBean.CoutrySel()}" update=":fcostFrom">
-
-
-                                        <p:ajax update=":fcostFrom:countries" 
-                                                listener="#{dataLookUpBean.CoutrySel()}"/>
-                                        <p:ajax update=":fcostFrom:cities" 
-                                                listener="#{dataLookUpBean.CitySel()}"/>
-                                    </p:commandButton>
-                                </f:facet>  
-
-                            </p:dataTable>  
-
-                        </h:form>
-                    </div>
-                </p:dialog>
-
                 <ui:remove> 
                     <!--
 <p:ajax update=":CRCVal:Region" 
@@ -323,8 +112,14 @@ country
                         </h:form>
                     </div>
 
-
                 </p:dialog>
+
+                <!--
+                    **************************
+                    Rest of the final costing form
+                    **************************
+                -->
+
 
                 <h:form id="fcostFrom">
                     <p:growl id="growl" sticky="true" showDetail="true"/>
@@ -442,7 +237,7 @@ country
                                                 </p:inputText>
                                             </p:column>
                                             <p:column>
-                                                <p:commandButton value="Select Country" type="button" onclick="dlgCountry.show()"/>
+                                                <p:commandButton value="Select Country" type="button" onclick="CRCWigit.show()"/>
                                                 <p:message for="countries"/>
                                             </p:column>
                                         </p:row>
@@ -464,9 +259,6 @@ country
                                             </p:column>
                                         </p:row>
                                     </p:panelGrid>
-
-
-
 
                                 </p:panel>
                             </p:tab>
@@ -1201,6 +993,25 @@ country
                     </ui:remove>
 
                 </h:form>
+                <ui:include src="./template/CRCDialog.xhtml" >
+                    <!--
+                   The ID of the element on which the ajax should update 
+                    -->
+                    <ui:param name="updateCountryIDParam" value=":fcostFrom:countries" />                        
+                    <ui:param name="updateRegionIDParam" value=":fcostFrom:RegionID" />                        
+                    <ui:param name="updateCityIDParam" value=":fcostFrom:cities" />                        
+                    <ui:param name="updateIDfrom" value=":fcostFrom" />
+
+                    <!--
+                    The java script name of the dialog needs to be unique
+                    for each dialog used on a page. 
+                    The value for the widgetVarParam needs to be unique 
+                    -->
+                    <ui:param name="updateDLGfromCountryID" value="DLGformCountry" />
+                    <ui:param name="updateDLGfromRegionID" value="DLGformRegion" />
+                    <ui:param name="updateDLGfromCityID" value="DLGformCity" />
+                    <ui:param name="widgetVarParam" value="CRCWigit" />
+                </ui:include> 
             </ui:define>
 
         </ui:composition>

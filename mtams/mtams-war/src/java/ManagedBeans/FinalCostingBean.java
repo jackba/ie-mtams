@@ -33,6 +33,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
@@ -47,10 +48,10 @@ import org.primefaces.event.FlowEvent;
 public class FinalCostingBean implements Serializable {
     ////////////////
 
-    //private Integer accountID = 4;
-    private Integer accountID = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
-    //private Integer appnum = 1;
-    private Integer appnum;
+    private Integer accountID = 8;
+    //private Integer accountID = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
+    private Integer appnum = 1;
+    //private Integer appnum;
     // /////////////////////
     @EJB
     private TravelProfileHandlerLocal travelProfileHandler;
@@ -64,8 +65,8 @@ public class FinalCostingBean implements Serializable {
     private AccountHandlerLocal accHandler;
     @EJB
     private DataLookUpHandlerLocal daoDataLookUp;
-    //@EJB
-    //private ManagedBeans.DataLookUpBean LookupBean;
+    @Inject
+    private ManagedBeans.DataLookUpBean LookupBean;
     
 //    @EJB
 //    private FlightquotesFacadeLocal flightquotesFLHandler;
@@ -168,7 +169,7 @@ public class FinalCostingBean implements Serializable {
     @PostConstruct
     public void initialize() {
         logger.log(Level.INFO, "initialize");
-        //appnum = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
+        //  appnum = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
         logger.log(Level.INFO, "accountID : {0}, appnum: {1}", new Object[]{accountID, appnum});
         //logger.log(Level.INFO, "null == 1 : {0}", (null == 1));
 
@@ -251,14 +252,17 @@ public class FinalCostingBean implements Serializable {
         logger.log(Level.INFO, "flightSelected : {0}", flightSelected);
         if (flightSelected == null) {
             setAirfareCost(((fCostRef.getAirfarecost() == null) ? 0 : fCostRef.getAirfarecost()));
-//            logger.log(Level.INFO, "flightSelected == null : {0}", flightSelected);
+            logger.log(Level.INFO, "flightSelected == null : {0}", flightSelected);
         } else {
             setAirfareCost(flightSelected.getQuotecost());
 //            logger.log(Level.INFO, "flightSelected.getQuotecost() : {0}", flightSelected.getQuotecost());
 //            logger.log(Level.INFO, "AirfareCost : {0}", AirfareCost);
         }
-//        logger.log(Level.INFO, "flightSelected : {0}", flightSelected.toString());
         logger.log(Level.INFO, "AirfareCost : {0}", AirfareCost);
+        logger.log(Level.INFO, "flightSelected : {0}", flightSelected);
+        //logger.log(Level.INFO, "flightSelected : {0}", flightSelected.toString());
+        //logger.log(Level.INFO, "flightSelected : {0}", flightSelected);
+        
 
         carSelected = findcarSelected();
         logger.log(Level.INFO, "carSelected : {0}", carSelected);

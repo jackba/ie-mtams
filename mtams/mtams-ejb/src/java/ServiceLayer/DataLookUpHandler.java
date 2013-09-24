@@ -329,9 +329,9 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
         for (City CityO : daoCity.findAll()) {
             //logger.log(Level.INFO, "1 CityO : {0}", CityO);
             if (CityO.getCode2().getCode2().equalsIgnoreCase(aCountry.getCode2())) {
-                logger.log(Level.INFO, "2 CityO : {0}", CityO);
+                //logger.log(Level.INFO, "2 CityO : {0}", CityO);
                 if (CityO.getRegion().equalsIgnoreCase(aRegion.getCode())) {
-                    logger.log(Level.INFO, "3 CityO : {0}", CityO);
+                    //logger.log(Level.INFO, "3 CityO : {0}", CityO);
                     RegionsCity.add(CityO);
                 }
 
@@ -362,7 +362,7 @@ public class DataLookUpHandler implements DataLookUpHandlerLocal {
 
             if (RegionO.getCode2().getCode2().equalsIgnoreCase(aCountry.getCode2())) {
                 CountryRegions.add(RegionO);
-                logger.log(Level.INFO, "allREgions RegionO : {0}", RegionO);
+                //logger.log(Level.INFO, "allREgions RegionO : {0}", RegionO);
             }
         }
         return CountryRegions;
