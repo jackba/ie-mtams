@@ -8,13 +8,7 @@
 
     <body>
         <div>
-            <ui:remove >
-                <!---
 
-
-<p:dialog header="Header Text" widgetVar="dlgcurrency">
-                -->
-            </ui:remove>
             <p:dialog header="Currency" widgetVar="#{widgetVarParam}">
                 <div id="DTdivtest" class="divCurrency" >
 
@@ -25,26 +19,19 @@
                                      widgetVar="currencies"
                                      emptyMessage="No data matches your criteria"
                                      selection="#{dataLookUpBean.aCurrencySelection}" selectionMode="single" scrollRows="20"  
-                                     scrollable="true" liveScroll="true" scrollHeight="150"
-                                     lazy="true"
-                                     > 
+                                     scrollable="true" liveScroll="true" scrollHeight="162"
 
-                            <p:ajax event="rowSelect" 
-                                    update="#{updateIDParam2}"
-                                    />
+                                     > 
 
                             <p:ajax event="rowSelect" 
                                     update="#{updateIDParam}" 
                                     listener="#{dataLookUpBean.CurSel()}" />
                             <ui:remove> 
                                 <!--
-                                                        <p:ajax event="rowSelect" 
-                                    update=":CurencyVal:CValS"
+                                                            <p:ajax event="rowSelect" 
+                                    update="#{updateIDParam2}"
                                     />
 
-                            <p:ajax event="rowSelect" 
-                                    update=":CurencyVal:CVal" 
-                                    listener="#{dataLookUpBean.CurSel()}" />
                                 -->
                             </ui:remove>
                             <f:facet name="header">  
@@ -55,7 +42,7 @@
 
 
                             <p:column headerText="Country Name"
-                                      
+
                                       filterBy="#{currency.countryname}"
                                       filterMatchMode="contains"
                                       >  
@@ -63,7 +50,7 @@
                             </p:column>  
 
                             <p:column headerText="Currency Name" 
-                                      
+
                                       filterBy="#{currency.currencyname}"
                                       filterMatchMode="contains"
                                       >  
@@ -71,7 +58,7 @@
                             </p:column>  
 
                             <p:column headerText="Currency Code"
-                                      
+
                                       filterBy="#{currency.currencycode3}"
                                       filterMatchMode="contains"
                                       >  
@@ -84,23 +71,18 @@
                                 -->
                             </ui:remove>
 
-                            <f:facet name="footer">  
-                                <ui:remove>
-                                <!--
-                                <p>There are this many : #{dataLookUpBean.currencyCount}</p>
-                                -->
-                            </ui:remove>
-                                <p:commandButton value="Done" type="button" 
-                                                 onclick="#{widgetVarParam}.hide()" 
-                                                 actionListener="#{dataLookUpBean.CurSel()}" 
-                                                 update="#{updateIDParam}">
 
-                                    <p:ajax update="#{updateIDParam}" 
-                                            listener="#{dataLookUpBean.CurSel()}"/>
-                                </p:commandButton>
-                            </f:facet>  
 
                         </p:dataTable>  
+                        <p:commandButton value="Done" type="button" 
+                                         styleClass="button-right"
+                                         onclick="#{widgetVarParam}.hide()" 
+                                         actionListener="#{dataLookUpBean.CurSel()}" 
+                                         update="#{updateIDParam}">
+
+                            <p:ajax update="#{updateIDParam}" 
+                                    listener="#{dataLookUpBean.CurSel()}"/>
+                        </p:commandButton>
                     </h:form>
                 </div>
             </p:dialog>
