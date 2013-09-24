@@ -91,7 +91,13 @@
                         <p:commandButton value="Hide CRC" type="button" onclick="CRCWigit.hide()" />
                     </h:form>
 
-
+                    <ui:remove>
+                        <!--
+                        <ui:param name="updateCountryIDParam2" value=":CRCVal:countryID2" />
+                        <ui:param name="updateRegionIDParam2" value=":CRCVal:RegionID2" />
+                        <ui:param name="updateCityIDParam2" value=":CRCVal:CityID2" />
+                        -->
+                    </ui:remove>
 
 
 
@@ -99,12 +105,9 @@
                         <!--
                        The ID of the element on which the ajax should update 
                         -->
-                        <ui:param name="updateCountryIDParam" value=":CRCVal:countryID" />
-                        <ui:param name="updateCountryIDParam2" value=":CRCVal:countryID2" />
-                        <ui:param name="updateRegionIDParam" value=":CRCVal:RegionID" />
-                        <ui:param name="updateRegionIDParam2" value=":CRCVal:RegionID2" />
-                        <ui:param name="updateCityIDParam" value=":CRCVal:CityID" />
-                        <ui:param name="updateCityIDParam2" value=":CRCVal:CityID2" />
+                        <ui:param name="updateCountryIDParam" value=":CRCVal:countryID" />                        
+                        <ui:param name="updateRegionIDParam" value=":CRCVal:RegionID" />                        
+                        <ui:param name="updateCityIDParam" value=":CRCVal:CityID" />                        
                         <ui:param name="updateIDfrom" value=":formID" />
 
                         <!--
