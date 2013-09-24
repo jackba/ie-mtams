@@ -36,10 +36,9 @@ public interface AccountHandlerLocal {
 
     public Account getAccount(Integer id);
     
-    public int findFinanceAccountID();
+    public Account findSpecificAccount(String userName); 
     
-    public int findPVCAccountID();
+    public List<Account> getAllActiveAccounts(String userName);
     
-    public int findFinalFinanceAccountID(); 
-    
+    public List<Account> getAllInactiveAccounts(String userName);
 }

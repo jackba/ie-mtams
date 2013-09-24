@@ -4,6 +4,7 @@
  */
 package ServiceLayer;
 
+import Entities.Account;
 import Entities.Department;
 import java.util.List;
 import javax.ejb.Local;
@@ -22,4 +23,8 @@ public interface DepartmentHandlerLocal {
     public void editDepartment(Department department);
 
     public void deleteDepartment(Department department);
+    
+    public boolean checkDepartmentName(String deptName);
+    
+    public Account getAdministratorAccID(Account acc, int role);
 }
