@@ -97,18 +97,21 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
         List<Approvalchain> listAC = appcfl.findAll();
         for (Approvalchain eachAC : listAC) {
             if (eachAC.getApplicationid().getIdapplication().equals(appNum)) {
-                if (eachAC.getApplicationcomplete() == 1) {
-                    stage = 0;
-                } else if (eachAC.getApplicationcomplete() == 1 && eachAC.getSchooladmincomplete() == 1) {
+                if(eachAC.getApplicationcomplete() == 0 ){
+                    stage=0;
+                }else
+                if (eachAC.getApplicationcomplete() == 1 && eachAC.getSchooladmincomplete() == 0) {
                     stage = 1;
-                } else if (eachAC.getHodcomplete() == 1) {
+                } else if (eachAC.getApplicationcomplete() == 1 && eachAC.getSchooladmincomplete() == 1 && eachAC.getHodcomplete() == 0) {
                     stage = 2;
-                } else if (eachAC.getFinancecomplete() == 1) {
+                } else if (eachAC.getHodcomplete() == 1 && eachAC.getFinancecomplete() == 0) {
                     stage = 3;
-                } else if (eachAC.getPvccomplete() == 1) {
+                } else if (eachAC.getFinancecomplete() == 1 && eachAC.getPvccomplete() == 0) {
                     stage = 4;
-                } else if (eachAC.getFinalcomplete() == 1) {
+                } else if (eachAC.getPvccomplete() == 1 && eachAC.getFinalcomplete() == 0) {
                     stage = 5;
+                } else if (eachAC.getFinalcomplete() == 1) {
+                    stage = 6;
                 }
             }
         }
@@ -119,7 +122,7 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
     public List<Application> allApp(Integer id) //schoolAdmin id passed in //Code just for schooladmin
     {
         Integer departmentID = null; //remove null if null pointer is given in code
-        String departmentName = null;
+        String departmentName = "";
         List<Application> returnApps = new ArrayList<Application>();
         List<Account> accounts = new ArrayList<Account>();
         
@@ -146,7 +149,7 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
         //Step 3.0 codde
         List<Approvalchain> listAppChain = appcfl.findAll();
         for (Approvalchain eachAppc : listAppChain) {
-            if (departmentName.equalsIgnoreCase(Finance)) {
+            if (departmentName.equals(Finance)) {
                 if (eachAppc.getApplicationcomplete() == 1 && eachAppc.getSchooladmincomplete() == 1 && eachAppc.getHodcomplete() == 1
                         && eachAppc.getFinancecomplete() == 0 && eachAppc.getFinance().getIdaccount().equals(id)) {
                     accounts.add(eachAppc.getAccountid());
