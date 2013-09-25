@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+
+            <ui:define name="content">
+
+                <h:form>
+                    <p:messages autoUpdate="true" id="appHomeTop" closable="true" showDetail="true" />
+                    <p:panel header="Application Name: #{appBean.appRef.description}">
+
+                        <p:button value="Send for Approval" disabled="true" />
+
+                        <fieldset>
+                            <legend><h4>Application Form</h4></legend>
+                            <p:button value="View/Edit Application Form" outcome="#{appBean.viewThis()}" />
+                        </fieldset>
+                        <fieldset>
+                            <legend><h4>Conference Attendance Request</h4></legend>
+                            <p:button value="Create Conference Attendance Request Form" disabled="true" />
+                            <p:button value="View/Edit Conference Attendance Request Form" disabled="true" rendered="false" />
+                        </fieldset>
+                        <fieldset>
+                            <legend><h4>Foreign Exchange Request Form</h4></legend>
+                            <p:button value="Create Foreign Exchange Form" outcome="#{appBean.goCreateForex()}" disabled="false" />
+                            <p:button value="View/Edit Foreign Exchange Form" outcome="#{appBean.goViewForex()}" disabled="false" rendered="true" />
+                        </fieldset>
+                        <fieldset>
+                            <legend><h4>Motivation Form</h4></legend>
+                            <p:button value="Create Motivation Form" outcome="#{appBean.goCreateMotivation()}" disabled="false" />
+                            <p:button value="View/Edit Motivation Form" outcome="#{appBean.goViewMotivation()}" disabled="false" rendered="true" />
+                        </fieldset>
+                    </p:panel>
+
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
