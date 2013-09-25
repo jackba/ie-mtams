@@ -41,4 +41,6 @@ public interface AccountHandlerLocal {
     public List<Account> getAllActiveAccounts(String userName);
     
     public List<Account> getAllInactiveAccounts(String userName);
+    
+    public List<Account> getAllDepartmentAccounts(Integer id);
 }
