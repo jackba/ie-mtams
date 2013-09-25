@@ -968,8 +968,8 @@ public class ApplicationBean implements Serializable {
         return "motivational";
     }
     
-    public String goEditMotivation(){
-        return "motivationalEdit";
+    public String goViewMotivation(){
+        return "motivationalView";
     }
     
 }
