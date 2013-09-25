@@ -13,6 +13,7 @@
                 <h:form id="motivform">
 
                     <p:panel header="Motivational Form">  
+                        <p:button outcome="#{motivBean.goEditMotivation()}" id="editButton"  title="Edit Button" value="Edit" />
                         <fieldset><legend>Motivation View</legend>
 
                             <h:panelGrid id="motivate" columns="2" columnClasses="label, value">  
