@@ -215,7 +215,8 @@ public class UserBean implements Serializable {
                 break;
             case 5: name = "Final Finance";
                 break;
-            
+            case 6: name = "Application Approved";
+                break;            
         }
         
         return name;
