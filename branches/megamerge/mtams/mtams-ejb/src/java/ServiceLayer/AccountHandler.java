@@ -13,6 +13,7 @@ import DataAccess.RoleFacadeLocal;
 import Entities.Account;
 import Entities.Accountdepartment;
 import Entities.Accountrole;
+import Entities.Application;
 import Entities.Department;
 
 import Entities.Role;
@@ -156,6 +157,30 @@ public class AccountHandler implements AccountHandlerLocal {
         }
         return allAccounts;
         //return accDao.findAll();
+    }
+    
+    @Override
+    public List<Account> getAllDepartmentAccounts(Integer id){
+        Integer departmentID = null; //remove null if null pointer is given in code
+        String departmentName = null;
+        List<Account> listAcc = new ArrayList<Account>();
+        
+        List<Accountdepartment> listAD = accDepDao.findAll();
+        
+        for (Accountdepartment eachAD : listAD) {
+            if (eachAD.getIdaccount().getIdaccount().equals(id)) {
+                departmentID = eachAD.getIddepartment().getIddepartment();
+            }            
+        }
+        
+        for(Accountdepartment eachAD : listAD)
+        {
+            if(eachAD.getIddepartment().getIddepartment().equals(departmentID)){
+                listAcc.add(eachAD.getIdaccount());
+            }
+        }   
+        
+        return listAcc;
     }
 
     @Override

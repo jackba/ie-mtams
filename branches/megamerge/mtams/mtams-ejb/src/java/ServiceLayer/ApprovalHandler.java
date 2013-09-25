@@ -32,7 +32,7 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class ApprovalHandler implements ApprovalHandlerLocal {
-
+    
     @EJB
     private AccountFacadeLocal daoAccount;
     @EJB
@@ -74,14 +74,14 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
         String departmentName = null;
         List<Application> returnApps = new ArrayList<Application>();
         List<Account> accounts = new ArrayList<Account>();
-
+        
         List<Accountdepartment> listAD = adfl.findAll();
         for (Accountdepartment eachAD : listAD) {
             if (eachAD.getIdaccount().getIdaccount().equals(id)) {
                 departmentID = eachAD.getIddepartment().getIddepartment();
             }
         }
-
+        
         List<Department> listDepart = dfl.findAll();
         for (Department eachDep : listDepart) {
             if (eachDep.getIddepartment().equals(departmentID)) {
@@ -90,18 +90,16 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
         }
         return departmentName;
     }
-
+    
     @Override
     public int returnStage(Integer appNum) { //psss in the application ID and it will return the stage the applicaton is currently at 
         int stage = 0;
         List<Approvalchain> listAC = appcfl.findAll();
         for (Approvalchain eachAC : listAC) {
             if (eachAC.getApplicationid().getIdapplication().equals(appNum)) {
-                if(eachAC.getApplicationcomplete() == 1)
-                {
+                if (eachAC.getApplicationcomplete() == 1) {
                     stage = 0;
-                }
-                else if (eachAC.getApplicationcomplete() == 1 && eachAC.getSchooladmincomplete() == 1) {
+                } else if (eachAC.getApplicationcomplete() == 1 && eachAC.getSchooladmincomplete() == 1) {
                     stage = 1;
                 } else if (eachAC.getHodcomplete() == 1) {
                     stage = 2;
@@ -116,7 +114,7 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
         }
         return stage;
     }
-
+    
     @Override
     public List<Application> allApp(Integer id) //schoolAdmin id passed in //Code just for schooladmin
     {
@@ -124,21 +122,21 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
         String departmentName = null;
         List<Application> returnApps = new ArrayList<Application>();
         List<Account> accounts = new ArrayList<Account>();
-
+        
         List<Accountdepartment> listAD = adfl.findAll();
         for (Accountdepartment eachAD : listAD) {
             if (eachAD.getIdaccount().getIdaccount().equals(id)) {
                 departmentID = eachAD.getIddepartment().getIddepartment();
             }
         }
-
+        
         List<Department> listDepart = dfl.findAll();
         for (Department eachDep : listDepart) {
             if (eachDep.getIddepartment().equals(departmentID)) {
                 departmentName = eachDep.getDepartment();
             }
         }
-
+        
         String Finance = "Finance";
         String Administration = "Administration";
         String PVC = "PVC";
@@ -179,7 +177,7 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
                 }
             }
         }
-
+        
         List<Application> listApp = daoApplication.findAll();
         {
             for (Application eachApp : listApp) {
@@ -193,7 +191,7 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
         }
         return returnApps;
     }
-
+    
     @Override
     public void persistApproval(Approval approval) {
         // set global references for approval for persistant use 
@@ -221,20 +219,20 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
     //    }
     @Override
     public String updateApproval(Approval approval) {
-
+        
         List<Approvalchain> chainList = appcfl.findAll();
         Approvalchain chain = null;
-
+        
         for (Approvalchain each : chainList) {
             if (approval.getApplicationIdapplication().equals(each.getApplicationid())) {
                 chain = each;
             }
         }
-
+        
         daoApproval.edit(approval);
-
+        
         String nextAcc = "";
-
+        
         if (chain != null) {
             if (chain.getSchooladmincomplete() != 1) {
                 chain.setSchooladmincomplete(1);
@@ -253,11 +251,11 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
                 nextAcc = chain.getApplicationid().getAccountIdaccount().getUsername();
             }
         }
-
-
+        
+        
         return nextAcc;
     }
-
+    
     @Override
     public void updateApproval(Approval approval, Integer ApprovalID) {
         //Integer approvalID = null;
@@ -282,7 +280,7 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
                 daoApproval.edit(newForm);
             }
         }
-
+        
     }
 
 //    @Override
@@ -314,10 +312,10 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
 //    }
     @Override
     public List<Approval> findApprovalbyApplication(Integer id) {
-
+        
         List<Approval> approvals = new ArrayList<Approval>();
         List<Approval> allapprovals = daoApproval.findAll();
-
+        
         for (Approval approval : allapprovals) {
             if (approval.getApplicationIdapplication().getIdapplication().equals(id)) {
                 approvals.add(approval);
@@ -325,6 +323,22 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
         }
         return approvals;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public List<Approvalchain> findAppovalby(Integer id) {
+        
+        List<Approvalchain> returnApproval = new ArrayList<Approvalchain>();
+        List<Approvalchain> applist = appcfl.findAll();
+        for (Approvalchain eachappc : applist) {
+            if (eachappc.getAccountid().getIdaccount().equals(id)) {
+                if (eachappc.getApplicationcomplete() == 1) {
+                    returnApproval.add(eachappc);
+                }
+            }
+            
+        }
+        return returnApproval;
     }
 
 //    @Override
@@ -340,10 +354,10 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
 //    }
     @Override
     public List<Approval> findApprovalbyAccount(Integer id) {
-
+        
         List<Approval> approvals = new ArrayList<Approval>();
         List<Approval> allapprovals = daoApproval.findAll();
-
+        
         for (Approval approval : allapprovals) {
             if (approval.getAccountIdaccount().getIdaccount().equals(id)) {
                 approvals.add(approval);
@@ -353,18 +367,18 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
 
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public Approval findApprovalByAccountAndApplication(Integer appID, Integer accID) {
         List<Approval> approvals = new ArrayList<Approval>();
         List<Approval> allapprovals = daoApproval.findAll();
-
+        
         for (Approval approval : allapprovals) {
             if (approval.getApplicationIdapplication().getIdapplication().equals(appID)) {
                 approvals.add(approval);
             }
         }
-
+        
         for (Approval approval : approvals) {
             if (approval.getAccountIdaccount().getIdaccount().equals(accID)) {
                 return approval;
@@ -372,10 +386,10 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
         }
         return null;
     }
-
+    
     @Override
     public Approval findApproval(Integer id) {
-
+        
         List<Approval> approvals = new ArrayList<Approval>();
         List<Approval> allapprovals = daoApproval.findAll();
         for (Approval approval : allapprovals) {
@@ -387,7 +401,7 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
     }
-
+    
     @Override
     public void persistApprovalChain(Approvalchain apprChain) {
         apprChainDao.create(apprChain);
