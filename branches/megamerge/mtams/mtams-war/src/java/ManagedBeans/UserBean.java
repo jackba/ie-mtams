@@ -59,6 +59,7 @@ public class UserBean implements Serializable {
     @EJB
     private LoginHandlerLocal logHandler;
     private List<Approvalchain> allApproved;
+    private int stage;
     private Application selectedApp;
     private String department;
     @Pattern(message = "Incorrect ID", regexp = "[0-9a-zA-Z ]{8}")
@@ -194,7 +195,30 @@ public class UserBean implements Serializable {
     }
     
     public int returnStage(Application app){
-        return apprHandler.returnStage(app.getIdapplication());
+        stage = apprHandler.returnStage(app.getIdapplication());
+        return stage;
+    }
+    
+    public String returnStageName(Application app){
+        stage = apprHandler.returnStage(app.getIdapplication());
+        String name = "";
+        switch (stage){
+            case 0: name = "Pending submission";
+                break;
+            case 1: name = "school admin";
+                break;
+            case 2: name = "HOD";
+                break;
+            case 3: name = "Finance";
+                break;
+            case 4: name = "PVC";
+                break;
+            case 5: name = "Final Finance";
+                break;
+            
+        }
+        
+        return name;
     }
 
     public String goToProfile() {

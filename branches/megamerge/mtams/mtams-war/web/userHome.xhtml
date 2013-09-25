@@ -50,7 +50,7 @@
                             </p:column>  
 
                             <p:column headerText="Waiting To Be Approved By" style="width:32%">  
-                                <h:outputText value="#{appr.fromsection}" />  
+                                <h:outputText value="#{userBean.returnStageName(appr.applicationid)}" />  
                             </p:column>
                         </p:dataTable>
                     </p:panel>
