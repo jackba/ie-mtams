@@ -211,7 +211,9 @@ public String save()
         return this.budget = i;       
     }
 
-    
+    public String goEditMotivation(){
+        return "motivationalEdit";
+    }
     
 }
 
