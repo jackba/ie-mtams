@@ -12,7 +12,7 @@
 
             <ui:define name="content">
                     <p:button outcome="#{adminBean.goCreate()}" icon="ui-icon-plus" id="createButton"  title="Create Button" value="Create New Account" />
-                    <p:dataTable id="dataTable" var="account" value="#{adminBean.allAccounts}" binding="#{adminBean.dataTable}" paginator="true" rows="10"  >  
+                    <p:dataTable id="dataTable" var="account" value="#{adminBean.allDepartmentAccount}" binding="#{adminBean.dataTable}" paginator="true" rows="10" paginatorAlwaysVisible="false">  
                         <f:facet name="header">  
                             List of Accounts  
                         </f:facet>  
