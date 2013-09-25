@@ -92,6 +92,32 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
     }
 
     @Override
+    public int returnStage(Integer appNum) { //psss in the application ID and it will return the stage the applicaton is currently at 
+        int stage = 0;
+        List<Approvalchain> listAC = appcfl.findAll();
+        for (Approvalchain eachAC : listAC) {
+            if (eachAC.getApplicationid().getIdapplication().equals(appNum)) {
+                if(eachAC.getApplicationcomplete() == 1)
+                {
+                    stage = 0;
+                }
+                else if (eachAC.getApplicationcomplete() == 1 && eachAC.getSchooladmincomplete() == 1) {
+                    stage = 1;
+                } else if (eachAC.getHodcomplete() == 1) {
+                    stage = 2;
+                } else if (eachAC.getFinancecomplete() == 1) {
+                    stage = 3;
+                } else if (eachAC.getPvccomplete() == 1) {
+                    stage = 4;
+                } else if (eachAC.getFinalcomplete() == 1) {
+                    stage = 5;
+                }
+            }
+        }
+        return stage;
+    }
+
+    @Override
     public List<Application> allApp(Integer id) //schoolAdmin id passed in //Code just for schooladmin
     {
         Integer departmentID = null; //remove null if null pointer is given in code
@@ -117,35 +143,42 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
         String Administration = "Administration";
         String PVC = "PVC";
         String ITS = "ITS";
+        String FinalFinance = "FinanceFinal";
 
         //Step 3.0 codde
         List<Approvalchain> listAppChain = appcfl.findAll();
-        if (departmentName.equalsIgnoreCase(Finance)) {
-        } else if (departmentName.equalsIgnoreCase(Administration)) {
-        } else if (departmentName.equalsIgnoreCase(PVC)) {
-        } else if (departmentName.equalsIgnoreCase(ITS)) {
-        } else {
-            for (Approvalchain eachAppc : listAppChain) {
-                //This checks schoolAdmin 
-                if (eachAppc.getApplicationcomplete() == 1 && eachAppc.getSchooladmincomplete() == 0 && eachAppc.getSchooladmin().getIdaccount().equals(id)) {
+        for (Approvalchain eachAppc : listAppChain) {
+            if (departmentName.equalsIgnoreCase(Finance)) {
+                if (eachAppc.getApplicationcomplete() == 1 && eachAppc.getSchooladmincomplete() == 1 && eachAppc.getHodcomplete() == 1
+                        && eachAppc.getFinancecomplete() == 0 && eachAppc.getFinance().getIdaccount().equals(id)) {
                     accounts.add(eachAppc.getAccountid());
-                } else //This check HOD
-                if (eachAppc.getApplicationcomplete() == 1 && eachAppc.getSchooladmincomplete() == 1 && eachAppc.getHodcomplete() == 0
-                        && eachAppc.getHod().getIdaccount().equals(id)) {
+                }
+            } else if (departmentName.equalsIgnoreCase(PVC)) {
+                if (eachAppc.getApplicationcomplete() == 1 && eachAppc.getSchooladmincomplete() == 1 && eachAppc.getHodcomplete() == 1
+                        && eachAppc.getHodcomplete() == 1 && eachAppc.getFinancecomplete() == 1 && eachAppc.getPvccomplete() == 0
+                        && eachAppc.getPvc().getIdaccount().equals(id)) {
                     accounts.add(eachAppc.getAccountid());
+                }
+            } else if (departmentName.equalsIgnoreCase(FinalFinance)) {
+                if (eachAppc.getApplicationcomplete() == 1 && eachAppc.getSchooladmincomplete() == 1 && eachAppc.getHodcomplete() == 1
+                        && eachAppc.getHodcomplete() == 1 && eachAppc.getFinancecomplete() == 1 && eachAppc.getPvccomplete() == 1
+                        && eachAppc.getFinalcomplete() == 0 && eachAppc.getFinalfinance().getIdaccount().equals(id)) {
+                    accounts.add(eachAppc.getAccountid());
+                }
+            } else if (departmentName.equalsIgnoreCase(ITS)) {
+            } else {
+                {
+                    //This checks schoolAdmin 
+                    if (eachAppc.getApplicationcomplete() == 1 && eachAppc.getSchooladmincomplete() == 0 && eachAppc.getSchooladmin().getIdaccount().equals(id)) {
+                        accounts.add(eachAppc.getAccountid());
+                    } else //This check HOD
+                    if (eachAppc.getApplicationcomplete() == 1 && eachAppc.getSchooladmincomplete() == 1 && eachAppc.getHodcomplete() == 0
+                            && eachAppc.getHod().getIdaccount().equals(id)) {
+                        accounts.add(eachAppc.getAccountid());
+                    }
                 }
             }
         }
-        //step 2.0 code
-        /*
-         for(Accountdepartment eachAd :listAD)
-         {
-         if(eachAd.getIddepartment().getIddepartment().equals(departmentID))
-         {
-         accounts.add(eachAd.getIdaccount());
-         }            
-         }     */
-
 
         List<Application> listApp = daoApplication.findAll();
         {
@@ -160,23 +193,7 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
         }
         return returnApps;
     }
-    //get id and check the department do step 2.0 or 3.0
 
-    //Step 2.0
-    //$$ check accountDepartment pass id and return department id (IT) 
-    //go throw accountDepartment and return all the add to List<account> where department = department id        
-    //go to applicationChain for each schoolAdmin table with id in it check => applicationcomplete == 1 && schooladmincomplete ==0 
-    //          add that account to a list<account> accounts
-    // List<Approval> approvals = new ArrayList<Approval>();
-    //return accounts 
-    //Step3.0
-    //get the department 
-    //go to approvalchain go the the right department role (Finance || PVC || FinalFinance) and check 
-    //eg PVC -> check financeComplete == 1 && PVCComplete == 0 
-    //long run 
-    //check the id against accountDepartment
-    //if id is HOD do step 2.0
-    //if id is finance step 3.0
     @Override
     public void persistApproval(Approval approval) {
         // set global references for approval for persistant use 
@@ -213,11 +230,11 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
                 chain = each;
             }
         }
-        
+
         daoApproval.edit(approval);
-        
+
         String nextAcc = "";
-        
+
         if (chain != null) {
             if (chain.getSchooladmincomplete() != 1) {
                 chain.setSchooladmincomplete(1);

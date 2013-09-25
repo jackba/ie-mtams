@@ -43,4 +43,5 @@ public interface ApprovalHandlerLocal {
     public String returnDepartment(Integer id);
     
     public void persistApprovalChain(Approvalchain apprChain);
+    public int returnStage (Integer id);
 }
