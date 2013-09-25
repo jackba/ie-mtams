@@ -33,6 +33,7 @@ public class AdminBean implements Serializable {
     private List<Account> allAccounts;
     private List<Account> allActiveAccounts;
     private List<Account> allInactiveAccounts;
+    private List<Account> allDepartmentAccount;
     private Account selectedAcc;
     private UIData dataTable;
     private UIData dataTableDetails;
@@ -92,6 +93,14 @@ public class AdminBean implements Serializable {
     public void setAllAccounts(List<Account> allAccounts) {        
         this.allAccounts = allAccounts;
     }   
+
+    public List<Account> getAllDepartmentAccount() {
+        return handler.getAllDepartmentAccounts(accountID);
+    }
+
+    public void setAllDepartmentAccount(List<Account> allDepartmentAccount) {
+        this.allDepartmentAccount = allDepartmentAccount;
+    }
 
     public List<Account> getAllActiveAccounts() {
         return handler.getAllActiveAccounts(userName);
