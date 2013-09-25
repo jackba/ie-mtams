@@ -706,4 +706,6 @@ public class ApprovalBean implements Serializable {
     public void setSelectedFlgQte(Flightquotes selectedFlgQte) {
         this.selectedFlgQte = selectedFlgQte;
     }
+    
+    
 }
