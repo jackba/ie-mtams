@@ -575,8 +575,8 @@ public class ForeignBean implements Serializable {
     
     public String CurSel3() {
 //        logger.log(Level.INFO, "CurSel");
-        logger.log(Level.INFO, "selectedCurrencyString3 : {0}", cheqCur);
-        cheqCur = aCurrencySelection3.getCurrencycode3();
+        logger.log(Level.INFO, "selectedCurrencyString3 : {0}", ccCur);
+        ccCur = aCurrencySelection3.getCurrencycode3();
         RequestContext.getCurrentInstance().execute("dlgcurrency3.hide()");
 //        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
         return "currency3";
