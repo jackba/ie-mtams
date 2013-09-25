@@ -13,7 +13,7 @@
             <ui:define name="content">
                 <h:form>
                     <p:panel header="Foreign Exchange Form">  
-                        <p:button outcome="#{foreignBean.goEdit()}" id="editButton"  title="Edit Button" value="Edit" />
+                        <p:button outcome="#{foreignBean.goEdit()}" id="editButton"  title="Edit Button" value="Edit" disabled="true"/>
                         <fieldset><legend>Business Travel</legend>
                             <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">     
                                 <h:outputText value="Company name/Reg. number: "/>  
