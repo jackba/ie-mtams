@@ -10,13 +10,12 @@ import Entities.Motivation;
 import Entities.Quotes;
 import ServiceLayer.MotivationFormHandlerLocal;
 import java.io.Serializable;
-import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Pattern;
 
 /**
@@ -31,13 +30,14 @@ public class MotivationalBean implements Serializable{
     
     //======change===change=========change============change=========change====
     //-------------------------------------------------------------------------
-    int accountID =1;
+    int accountID = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
+    int appnum = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
     //-------------------------------------------------------------------------
     //======change========change=========change=============change=============
 @Pattern(message="Input in Supplier Field is Incorrect", regexp="[a-zA-Z -]{0,}")    
 private String supplier;
 @Pattern(message="Input in Amount Field is Incorrect", regexp="[0-9]{0,}")
-private String amount;
+private Double amount;
 private String costCode;
 private String motivationLetter;
 private Integer budget;
@@ -65,15 +65,15 @@ public String save()
          motivational.setCostcenter(costCode);
          motivational.setMotivation(motivationLetter);
          motivational.setBudget(budget);
-         handler.updateMoti(motivational, accountID);
+         handler.updateMoti(motivational, accountID ,appnum);
          
          FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Success", "Created"));
-         return null;
+         return "applicationHome";
     } 
 
     public Motivation getMotiView() 
     {
-        motiView = handler.findMotivation(accountID);
+        motiView = handler.findMotivation(accountID,appnum);
         return motiView;
     }
 
@@ -101,8 +101,8 @@ public String save()
         motiEdit.setMotivation(motivationLetter);
         motiEdit.setBudget(budget);
         
-        handler.updateMoti(motiEdit, accountID);
-        return "MotivationalEdit";
+        handler.updateMoti(motiEdit, accountID ,appnum);
+        return "applicationHome";
     }
     
     public Application getAppy() 
@@ -156,11 +156,11 @@ public String save()
         this.supplier = supplier;
     }
 
-    public String getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
@@ -211,7 +211,9 @@ public String save()
         return this.budget = i;       
     }
 
-    
+    public String goEditMotivation(){
+        return "motivationalEdit";
+    }
     
 }
 

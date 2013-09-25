@@ -5,7 +5,7 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Badger
+ * @author Riaan
  */
 @Entity
 @Table(name = "FINALCOSTING")
@@ -40,6 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Finalcosting.findByAbsenceprivate", query = "SELECT f FROM Finalcosting f WHERE f.absenceprivate = :absenceprivate"),
     @NamedQuery(name = "Finalcosting.findByCountries", query = "SELECT f FROM Finalcosting f WHERE f.countries = :countries"),
     @NamedQuery(name = "Finalcosting.findByCitys", query = "SELECT f FROM Finalcosting f WHERE f.citys = :citys"),
+    @NamedQuery(name = "Finalcosting.findByCurrency", query = "SELECT f FROM Finalcosting f WHERE f.currency = :currency"),
     @NamedQuery(name = "Finalcosting.findByChecks", query = "SELECT f FROM Finalcosting f WHERE f.checks = :checks"),
     @NamedQuery(name = "Finalcosting.findByAirfarebudget", query = "SELECT f FROM Finalcosting f WHERE f.airfarebudget = :airfarebudget"),
     @NamedQuery(name = "Finalcosting.findByAirfarecost", query = "SELECT f FROM Finalcosting f WHERE f.airfarecost = :airfarecost"),
@@ -87,6 +88,9 @@ public class Finalcosting implements Serializable {
     @Size(max = 45)
     @Column(name = "CITYS")
     private String citys;
+    @Size(max = 45)
+    @Column(name = "CURRENCY")
+    private String currency;
     @Column(name = "CHECKS")
     private Integer checks;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -144,13 +148,13 @@ public class Finalcosting implements Serializable {
     @Size(max = 45)
     @Column(name = "OZEMAIL")
     private String ozemail;
-    @OneToMany(mappedBy = "finalcostingIdfinalcosting")
-    private List<Attachement> attachementList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "finalcostingIdfinalcosting")
-    private List<Application> applicationList;
+    private Collection<Application> applicationCollection;
     @JoinColumn(name = "QUOTES_IDQUOTES", referencedColumnName = "IDQUOTES")
     @ManyToOne(optional = false)
     private Quotes quotesIdquotes;
+    @OneToMany(mappedBy = "finalcostingIdfinalcosting")
+    private Collection<Attachement> attachementCollection;
 
     public Finalcosting() {
     }
@@ -219,6 +223,14 @@ public class Finalcosting implements Serializable {
 
     public void setCitys(String citys) {
         this.citys = citys;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public Integer getChecks() {
@@ -414,21 +426,12 @@ public class Finalcosting implements Serializable {
     }
 
     @XmlTransient
-    public List<Attachement> getAttachementList() {
-        return attachementList;
+    public Collection<Application> getApplicationCollection() {
+        return applicationCollection;
     }
 
-    public void setAttachementList(List<Attachement> attachementList) {
-        this.attachementList = attachementList;
-    }
-
-    @XmlTransient
-    public List<Application> getApplicationList() {
-        return applicationList;
-    }
-
-    public void setApplicationList(List<Application> applicationList) {
-        this.applicationList = applicationList;
+    public void setApplicationCollection(Collection<Application> applicationCollection) {
+        this.applicationCollection = applicationCollection;
     }
 
     public Quotes getQuotesIdquotes() {
@@ -437,6 +440,15 @@ public class Finalcosting implements Serializable {
 
     public void setQuotesIdquotes(Quotes quotesIdquotes) {
         this.quotesIdquotes = quotesIdquotes;
+    }
+
+    @XmlTransient
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
+    }
+
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
     }
 
     @Override

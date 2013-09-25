@@ -5,8 +5,8 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Badger
+ * @author Riaan
  */
 @Entity
 @Table(name = "FOREXORDER")
@@ -38,15 +38,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Forexorder.findByDatewillbeconfirmed", query = "SELECT f FROM Forexorder f WHERE f.datewillbeconfirmed = :datewillbeconfirmed"),
     @NamedQuery(name = "Forexorder.findByTicketnum", query = "SELECT f FROM Forexorder f WHERE f.ticketnum = :ticketnum"),
     @NamedQuery(name = "Forexorder.findByVoyagernum", query = "SELECT f FROM Forexorder f WHERE f.voyagernum = :voyagernum"),
-    @NamedQuery(name = "Forexorder.findByDateofdepart", query = "SELECT f FROM Forexorder f WHERE f.dateofdepart = :dateofdepart"),
-    @NamedQuery(name = "Forexorder.findByDateofreturn", query = "SELECT f FROM Forexorder f WHERE f.dateofreturn = :dateofreturn"),
+    @NamedQuery(name = "Forexorder.findByCurrencycheque", query = "SELECT f FROM Forexorder f WHERE f.currencycheque = :currencycheque"),
     @NamedQuery(name = "Forexorder.findByTravelerscheques", query = "SELECT f FROM Forexorder f WHERE f.travelerscheques = :travelerscheques"),
+    @NamedQuery(name = "Forexorder.findByCurrencycash", query = "SELECT f FROM Forexorder f WHERE f.currencycash = :currencycash"),
     @NamedQuery(name = "Forexorder.findByCash", query = "SELECT f FROM Forexorder f WHERE f.cash = :cash"),
     @NamedQuery(name = "Forexorder.findByCashpassport", query = "SELECT f FROM Forexorder f WHERE f.cashpassport = :cashpassport"),
     @NamedQuery(name = "Forexorder.findByCctype", query = "SELECT f FROM Forexorder f WHERE f.cctype = :cctype"),
     @NamedQuery(name = "Forexorder.findByCcnumber", query = "SELECT f FROM Forexorder f WHERE f.ccnumber = :ccnumber"),
     @NamedQuery(name = "Forexorder.findByCclast3", query = "SELECT f FROM Forexorder f WHERE f.cclast3 = :cclast3"),
     @NamedQuery(name = "Forexorder.findByCcexpirydate", query = "SELECT f FROM Forexorder f WHERE f.ccexpirydate = :ccexpirydate"),
+    @NamedQuery(name = "Forexorder.findByCurrencycc", query = "SELECT f FROM Forexorder f WHERE f.currencycc = :currencycc"),
     @NamedQuery(name = "Forexorder.findByCcpaymentamount", query = "SELECT f FROM Forexorder f WHERE f.ccpaymentamount = :ccpaymentamount"),
     @NamedQuery(name = "Forexorder.findByReasonfortravel", query = "SELECT f FROM Forexorder f WHERE f.reasonfortravel = :reasonfortravel")})
 public class Forexorder implements Serializable {
@@ -68,21 +69,19 @@ public class Forexorder implements Serializable {
     @Size(max = 45)
     @Column(name = "VOYAGERNUM")
     private String voyagernum;
-    @Column(name = "DATEOFDEPART")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateofdepart;
-    @Column(name = "DATEOFRETURN")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateofreturn;
     @Size(max = 45)
+    @Column(name = "CURRENCYCHEQUE")
+    private String currencycheque;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "TRAVELERSCHEQUES")
-    private String travelerscheques;
+    private Double travelerscheques;
     @Size(max = 45)
+    @Column(name = "CURRENCYCASH")
+    private String currencycash;
     @Column(name = "CASH")
-    private String cash;
-    @Size(max = 45)
+    private Double cash;
     @Column(name = "CASHPASSPORT")
-    private String cashpassport;
+    private Double cashpassport;
     @Size(max = 45)
     @Column(name = "CCTYPE")
     private String cctype;
@@ -96,15 +95,17 @@ public class Forexorder implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date ccexpirydate;
     @Size(max = 45)
+    @Column(name = "CURRENCYCC")
+    private String currencycc;
     @Column(name = "CCPAYMENTAMOUNT")
-    private String ccpaymentamount;
+    private Double ccpaymentamount;
     @Size(max = 500)
     @Column(name = "REASONFORTRAVEL")
     private String reasonfortravel;
-    @OneToMany(mappedBy = "forexorderIdforexorder")
-    private List<Attachement> attachementList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "forexorderIdforexorder")
-    private List<Application> applicationList;
+    private Collection<Application> applicationCollection;
+    @OneToMany(mappedBy = "forexorderIdforexorder")
+    private Collection<Attachement> attachementCollection;
 
     public Forexorder() {
     }
@@ -153,43 +154,43 @@ public class Forexorder implements Serializable {
         this.voyagernum = voyagernum;
     }
 
-    public Date getDateofdepart() {
-        return dateofdepart;
+    public String getCurrencycheque() {
+        return currencycheque;
     }
 
-    public void setDateofdepart(Date dateofdepart) {
-        this.dateofdepart = dateofdepart;
+    public void setCurrencycheque(String currencycheque) {
+        this.currencycheque = currencycheque;
     }
 
-    public Date getDateofreturn() {
-        return dateofreturn;
-    }
-
-    public void setDateofreturn(Date dateofreturn) {
-        this.dateofreturn = dateofreturn;
-    }
-
-    public String getTravelerscheques() {
+    public Double getTravelerscheques() {
         return travelerscheques;
     }
 
-    public void setTravelerscheques(String travelerscheques) {
+    public void setTravelerscheques(Double travelerscheques) {
         this.travelerscheques = travelerscheques;
     }
 
-    public String getCash() {
+    public String getCurrencycash() {
+        return currencycash;
+    }
+
+    public void setCurrencycash(String currencycash) {
+        this.currencycash = currencycash;
+    }
+
+    public Double getCash() {
         return cash;
     }
 
-    public void setCash(String cash) {
+    public void setCash(Double cash) {
         this.cash = cash;
     }
 
-    public String getCashpassport() {
+    public Double getCashpassport() {
         return cashpassport;
     }
 
-    public void setCashpassport(String cashpassport) {
+    public void setCashpassport(Double cashpassport) {
         this.cashpassport = cashpassport;
     }
 
@@ -225,11 +226,19 @@ public class Forexorder implements Serializable {
         this.ccexpirydate = ccexpirydate;
     }
 
-    public String getCcpaymentamount() {
+    public String getCurrencycc() {
+        return currencycc;
+    }
+
+    public void setCurrencycc(String currencycc) {
+        this.currencycc = currencycc;
+    }
+
+    public Double getCcpaymentamount() {
         return ccpaymentamount;
     }
 
-    public void setCcpaymentamount(String ccpaymentamount) {
+    public void setCcpaymentamount(Double ccpaymentamount) {
         this.ccpaymentamount = ccpaymentamount;
     }
 
@@ -242,21 +251,21 @@ public class Forexorder implements Serializable {
     }
 
     @XmlTransient
-    public List<Attachement> getAttachementList() {
-        return attachementList;
+    public Collection<Application> getApplicationCollection() {
+        return applicationCollection;
     }
 
-    public void setAttachementList(List<Attachement> attachementList) {
-        this.attachementList = attachementList;
+    public void setApplicationCollection(Collection<Application> applicationCollection) {
+        this.applicationCollection = applicationCollection;
     }
 
     @XmlTransient
-    public List<Application> getApplicationList() {
-        return applicationList;
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
     }
 
-    public void setApplicationList(List<Application> applicationList) {
-        this.applicationList = applicationList;
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
     }
 
     @Override

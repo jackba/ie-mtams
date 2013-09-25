@@ -11,27 +11,6 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-                <div id="header">
-                    <div id="logo">
-                        <h:form>
-                            <h:commandLink action="userHome.xhtml">
-                                <h:graphicImage value="resources/img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
-                            </h:commandLink>
-                        </h:form>
-                    </div>
-
-                    <ul>
-                        <li>Help</li>
-                        <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout</p:commandLink></li>
-                    </ul>
-                </div>
-                <div class="nav"><h:form>
-                        <p:menubar>
-                            <p:menuitem value="Home" icon="ui-icon-home" outcome="#{userBean.goHome()}"/>
-                            <p:menuitem value="Profile" icon="ui-icon-person" outcome="#{userBean.viewProfile()}"/>
-
-                        </p:menubar></h:form>
-                </div>
                 <h:form>
                     <p:panel header="Traveller Profile">
                         <p:button outcome="#{userBean.editProfile()}" id="editButton"  title="Edit Button" value="Edit" />
@@ -46,7 +25,10 @@
                                 <h:outputText value="#{userBean.profileRef.position}"  />                           
 
                                 <h:outputText value="Secretary/Travel Booker: " />  
-                                <h:outputText value="#{userBean.profileRef.travelbooker}" />                            
+                                <h:outputText value="#{userBean.profileRef.travelbooker}" />
+
+                                <h:outputText value="Title:"/>  
+                                <h:outputText value="#{userBean.profileRef.title}"/>
 
                                 <h:outputText value="First Name: " />  
                                 <h:outputText value="#{userBean.profileRef.firstname}" />                           
@@ -55,25 +37,28 @@
                                 <h:outputText value="#{userBean.profileRef.familyname}" />                              
 
                                 <h:outputText value="Middle Name" />  
-                                <h:outputText value="#{userBean.profileRef.middlename}" />                            
-
-                                <h:outputText value="Title:"/>  
-                                <h:outputText value="#{userBean.profileRef.title}"/>
+                                <h:outputText value="#{userBean.profileRef.middlename}" />                                
 
                                 <h:outputText value="Identity Number: " />  
                                 <h:outputText value="#{userBean.profileRef.idnumber}" />
 
-                                <h:outputText value="Business Address: " />  
-                                <h:outputText value="#{userBean.profileRef.businessaddress}" />
+                                <h:outputText value="Home Address Line 1: " />  
+                                <h:outputText value="#{userBean.profileRef.homeaddress1}" />
 
-                                <h:outputText value="Business Phone: " />  
-                                <h:outputText value="#{userBean.profileRef.businessphone}" />  
+                                <h:outputText value="Home Address Line 2: " />  
+                                <h:outputText value="#{userBean.profileRef.homeaddress2}" />
 
-                                <h:outputText value="Business Fax:" />  
-                                <h:outputText value="#{userBean.profileRef.businessfax}"/>  
+                                <h:outputText value="City: " />  
+                                <h:outputText value="#{userBean.profileRef.city}" />
 
-                                <h:outputText value="Home Address: " />  
-                                <h:outputText value="#{userBean.profileRef.homeaddress}" />
+                                <h:outputText value="Country: " />  
+                                <h:outputText value="#{userBean.profileRef.country}" />
+
+                                <h:outputText value="Province: " />  
+                                <h:outputText value="#{userBean.profileRef.province}" />
+
+                                <h:outputText value="Postal Code: " />  
+                                <h:outputText value="#{userBean.profileRef.postalcode}" />
 
                                 <h:outputText value="Mobile Phone: " />  
                                 <h:outputText value="#{userBean.profileRef.mobilephone}" />
@@ -83,7 +68,23 @@
 
                                 <h:outputText value="Email Address: " />  
                                 <h:outputText value="#{userBean.profileRef.homeemail}"/>
+                            </h:panelGrid>
+                        </fieldset>
+                        <fieldset><legend><h4>Business Details</h4></legend>
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="Business Address: " />  
+                                <h:outputText value="#{userBean.profileRef.businessaddress}" />
 
+                                <h:outputText value="Business Phone: " />  
+                                <h:outputText value="#{userBean.profileRef.businessphone}" />  
+
+                                <h:outputText value="Business Fax:" />  
+                                <h:outputText value="#{userBean.profileRef.businessfax}"/>
+
+                            </h:panelGrid>
+                        </fieldset>
+                        <fieldset><legend><h4>Spouse Details</h4></legend>
+                            <h:panelGrid columns="2" columnClasses="label, value">
                                 <h:outputText value="Spouse's Name: " />  
                                 <h:outputText value="#{userBean.profileRef.spousename}" />
 
@@ -92,6 +93,11 @@
 
                                 <h:outputText value="Spouse's Email:" />  
                                 <h:outputText value="#{userBean.profileRef.spouseemail}" />
+
+                            </h:panelGrid>
+                        </fieldset>
+                        <fieldset><legend><h4>Spouse Details</h4></legend>
+                            <h:panelGrid columns="2" columnClasses="label, value">
 
                                 <h:outputText value="Doctor's Name:" />  
                                 <h:outputText value="#{userBean.profileRef.doctorsname}" />

@@ -13,5 +13,6 @@ import javax.ejb.Local;
  */
 @Local
 public interface RoleHandlerLocal {
+
     public void createNewRole(Role newRole);
 }
