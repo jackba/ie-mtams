@@ -7,6 +7,7 @@ package ManagedBeans;
 import Entities.Account;
 import Entities.Application;
 import Entities.Approval;
+import Entities.Approvalchain;
 import javax.inject.Named;
 import Entities.Rewardsprogram;
 import Entities.Traveldocument;
@@ -57,7 +58,7 @@ public class UserBean implements Serializable {
     private AccountHandlerLocal accHandler;
     @EJB
     private LoginHandlerLocal logHandler;
-    private List<Approval> allApproved;
+    private List<Approvalchain> allApproved;
     private Application selectedApp;
     private String department;
     @Pattern(message = "Incorrect ID", regexp = "[0-9a-zA-Z ]{8}")
@@ -183,13 +184,17 @@ public class UserBean implements Serializable {
         this.allApps = allApps;
     }
 
-    public List<Approval> getAllApproved() {
-        allApproved = apprHandler.findApprovalbyAccount(accountID);
+    public List<Approvalchain> getAllApproved() {
+        allApproved = apprHandler.findAppovalby(accountID);
         return allApproved;
     }
 
-    public void setAllApproved(List<Approval> allApproved) {
+    public void setAllApproved(List<Approvalchain> allApproved) {
         this.allApproved = allApproved;
+    }
+    
+    public int returnStage(Application app){
+        return apprHandler.returnStage(app.getIdapplication());
     }
 
     public String goToProfile() {

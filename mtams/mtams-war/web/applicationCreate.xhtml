@@ -30,13 +30,11 @@
                                     <h:outputText value="Title: " />
                                     <h:outputText id="title" value="#{appBean.profileRef.title}" />
 
+                                    <h:outputText value="Given name: " />
+                                    <h:outputText id="givenName" value="#{appBean.profileRef.firstname}" />
 
                                     <h:outputText value="Family name: " />
                                     <h:outputText id="famName" value="#{appBean.profileRef.familyname}" />
-
-
-                                    <h:outputText value="Given name: " />
-                                    <h:outputText id="givenName" value="#{appBean.profileRef.firstname}" />
 
                                 </h:panelGrid>
                             </p:panel>
@@ -44,7 +42,8 @@
                         <p:tab id="travelProgram" title="Travel Details">
 
                             <p:panel id="travelPanel" header="Details of Proposed Travel Program">
-                                <h4>Please Note: All fields are required to be filled in on this page</h4>
+                                <h4>Please fill in the general details of the travel program.</h4>
+                                <h5>Please Note: All fields are required to be filled in on this page</h5>
                                 <p:messages id="travelError" severity="error" autoUpdate="true" globalOnly="true"/>
 
                                 <h:panelGrid columns="3" columnClasses="label, value, error" styleClass="grid">
@@ -81,8 +80,9 @@
                         </p:tab>
                         <p:tab id="itinerary" title="Itinerary">
 
-                            <p:panel id="itinPanel" header="Itinerary">
-                                <h4>Please Note: All fields are required to be filled in on this page</h4>
+                            <p:panel id="itinPanel" header="Travel Itinerary">
+                                <h4>Please fill in the various steps of the journey you wish to take.</h4>
+                                <h5>Please Note: All fields are required to be filled in on this page</h5>
                                 <p:messages id="itineraryError" severity="error" autoUpdate="true"/>
 
 
@@ -116,7 +116,7 @@
                         <p:tab id="quotes" title="Quotes">
 
                             <p:panel id="quotePanel" header="Quotes">
-                                <h4>Please Note: All fields are required to be filled in on this page</h4>
+                                <h5>Please Note: All fields are required to be filled in on this page</h5>
                                 <h:panelGrid columns="3" columnClasses="label, value, error">
                                     <h:outputText value="Cost Centre:" />
                                     <p:inputMask mask="999999-9999" id="costCentre" value="#{appBean.costCentre}" required="true" requiredMessage="Cost centre code required" >
@@ -130,27 +130,12 @@
                                 <h:panelGrid columns="3" columnClasses="label, value, error">
                                     <p:outputLabel id="CVal" value="Currency:" />
                                     <p:inputText id="currency" onclick="dlgcurrency.show()" value="#{appBean.currency}" required="true" requiredMessage="Currency is required" />
-                                    
+
                                     <p:message id="currencyMsg" for="currency" />
                                 </h:panelGrid>
                                 <p:watermark for="currency" value="Click to select currency"/>
 
-                                <ui:include src="./template/currencyDialog.xhtml" >
-                                    <!--
-                                    The ID of the element on which the ajax should update 
-                                    -->
-                                    <ui:param name="updateIDParam" value=":applicationForm:currency" />
-                                    <!--<ui:param name="updateIDParam2" value=":formID:testID2" />
--->
-                                    <!--
-                                    The java script name of the dialog needs to be unique
-                                    for each dialog used on a page. 
-                                    -->
-                                    <ui:param name="updateDLGfromID" value="CurrencyDLG1" />
-                                    <ui:param name="widgetVarParam" value="dlgcurrency" />
-                                </ui:include>
 
-                                <ui:remove>
                                 <p:dialog header="Currency Selector" widgetVar="dlgcurrency">
 
 
@@ -233,13 +218,13 @@
 
 
                                 </p:dialog>
-                                </ui:remove>
-                                
+
+
                                 <ui:remove>
                                     <!--
                                     <p:messages for="flightQuotes" id="flightQuoteError" redisplay="false" closable="true" severity="error" autoUpdate="true"/>
                                     -->
-                                    
+
                                 </ui:remove>
                                 <p:messages id="quoteMessage" autoUpdate="true" closable="true" redisplay="false" globalOnly="true" />
 
@@ -269,10 +254,10 @@
                                     <!--
                                     <p:messages for="carQuotes" id="carQuoteError" severity="error" autoUpdate="true"/>
                                     -->
-                                    
-                                    
+
+
                                 </ui:remove>
-                                
+
                                 <h4>Car Rental Quotes</h4>
                                 <h:panelGrid id="carQuotes" columns="4">
                                     <h:outputText value="From:" />
@@ -295,13 +280,13 @@
                                     <p:inputText id="caH2" value="#{appBean.cQHire2}" required="true" maxlength="20" requiredMessage="Entry required"><p:ajax update="caH2" event="blur"  /></p:inputText>
                                     <p:inputText id="caC2" value="#{appBean.cQCost2}" required="true" maxlength="20" requiredMessage="Entry required"><p:ajax update="caC2" event="blur"  /></p:inputText>
                                 </h:panelGrid>
-                                
+
                                 <ui:remove>
                                     <!--
                                     <p:messages for="hotelQuotes" id="hotelQuoteError" severity="error" autoUpdate="true"/>
                                     -->
                                 </ui:remove>
-                                
+
                                 <h4>Accommodation Quotes</h4>
                                 <h:panelGrid id="hotelQuotes" columns="4">
                                     <h:outputText value="Location:" />
@@ -310,9 +295,13 @@
                                     <h:outputText value="" />
 
                                     <p:inputText id="hoLo" value="#{appBean.hQLocation}" required="true" maxlength="20" requiredMessage="Entry required" ><p:ajax update="hoLo" event="blur"  /></p:inputText>
-                                    <p:calendar id="hoDi" value="#{appBean.hQDateIn}" required="true" maxlength="20" requiredMessage="Entry required" mindate="#{userBean.currentDate}"></p:calendar>
-                                    <p:calendar id="hoDo" value="#{appBean.hQDateOut}" required="true" maxlength="20" requiredMessage="Entry required" mindate="#{userBean.currentDate}"></p:calendar>
-                                    <h:inputHidden />
+                                    <p:calendar id="hoDi" value="#{appBean.hQDateIn}" binding="#{inDate}" required="true" maxlength="20" requiredMessage="Entry required" mindate="#{userBean.currentDate}"></p:calendar>
+                                    <p:calendar id="hoDo" value="#{appBean.hQDateOut}" required="true" maxlength="20" requiredMessage="Entry required" mindate="#{userBean.currentDate}">
+                                        <f:attribute name="departDate" value="#{inDate.value}" />
+                                        <f:validator validatorId="validator.dateValidator" />
+                                        <p:ajax process="hoDi hoDo" update="hoDaMsg"/>
+                                    </p:calendar>
+                                    <p:message id="hoDaMsg" for="hoDo" />
 
                                     <h:outputText value="Hotel Option #1" />
                                     <h:outputText value="Cost of Option #1" />
