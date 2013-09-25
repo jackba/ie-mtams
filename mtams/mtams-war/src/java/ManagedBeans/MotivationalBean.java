@@ -68,7 +68,7 @@ public String save()
          handler.updateMoti(motivational, accountID ,appnum);
          
          FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Success", "Created"));
-         return null;
+         return "applicationHome";
     } 
 
     public Motivation getMotiView() 

@@ -57,7 +57,7 @@ public class MotivationFormHandler implements MotivationFormHandlerLocal {
             if (eachFor.getIdmotivation().equals(motiID)) {
                 motiformOld = eachFor;
             }
-            motiformNew.setIdmotivation(motiformOld.getIdmotivation());
+            motiformNew.setIdmotivation(motiID);
             moti.edit(motiformNew);
         }
     }

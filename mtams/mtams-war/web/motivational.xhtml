@@ -14,6 +14,8 @@
                 <h:form id="motivform">
                     <p:tab id="moti" title="Motivation">  
                         <p:panel header="Motivational Form - All fields are required">  
+                            
+                            <fieldset><legend>Motivation</legend>
                             <p:messages id="submitConfirm" closable="true" autoUpdate="true" severity="info"/>
                             <h:panelGrid id="motivate" columns="3" columnClasses="label, value, error">  
                                 <h:outputText value="Supplier/Service Provider: " />  
@@ -41,8 +43,10 @@
                                 </p:selectOneRadio>
                                 <p:message for="budgetRadio"/>
                             </h:panelGrid>
-
-                            <p:commandButton value="Submit" action="#{motivBean.save()}" ajax="false"/>  
+                            </fieldset>
+                            <p:button value="Cancel" outcome="#{appBean.goApplicationHome()}" styleClass="button-left"/>
+                            <p:commandButton value="Submit" action="#{motivBean.save()}" ajax="false" styleClass="button-right"/>  
+                            
                         </p:panel>  
                     </p:tab>  
                 </h:form>
