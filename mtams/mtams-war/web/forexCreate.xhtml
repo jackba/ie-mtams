@@ -220,7 +220,7 @@
                                         <p:message for="ExpireDate"/>
 
                                         <p:outputLabel id="CVal3" for="currency3" value="Currency:" rendered="#{foreignBean.isUsingCC eq '1'}" style="margin-left:10%"/>
-                                        <p:inputText rendered="#{foreignBean.isUsingCC eq '1'}" id="currency3" onclick="dlgcurrency3.show()" value="#{foreignBean.cheqCur}" required="true" requiredMessage="Currency is required" />
+                                        <p:inputText rendered="#{foreignBean.isUsingCC eq '1'}" id="currency3" onclick="dlgcurrency3.show()" value="#{foreignBean.ccCur}" required="true" requiredMessage="Currency is required" />
                                         <p:message for="currency3" rendered="#{foreignBean.isUsingCC eq '1'}" />
 
                                         <p:outputLabel rendered="#{foreignBean.isUsingCC eq '1'}" for="amount" value="Credit Card Amount: " style="margin-left: 10%"/>
