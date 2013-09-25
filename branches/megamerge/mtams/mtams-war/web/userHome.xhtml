@@ -42,11 +42,11 @@
                         <p:dataTable id="approvals" var="appr" value="#{userBean.allApproved}" paginator="true" rows="10" paginatorAlwaysVisible="false" emptyMessage="No Applications has been send for approval">  
 
                             <p:column headerText="Application Name" style="width:35%">  
-                                <h:outputText value="#{appr.applicationIdapplication.description}" />  
+                                <h:outputText value="#{appr.applicationid.description}" />  
                             </p:column>  
 
                             <p:column headerText="Application Stage" style="width:33%">  
-                                <h:outputText value="#{appr.sectionid}" />  
+                                <h:outputText value="#{userBean.returnStage(appr.applicationid)}" />  
                             </p:column>  
 
                             <p:column headerText="Waiting To Be Approved By" style="width:32%">  

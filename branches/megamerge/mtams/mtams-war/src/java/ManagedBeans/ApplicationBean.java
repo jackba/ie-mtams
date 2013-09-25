@@ -98,11 +98,11 @@ public class ApplicationBean implements Serializable {
     private Date fQTime;
     @Pattern(message = "Incorrect Entry", regexp = "[0-9a-zA-Z' ]{0,}")
     private String fQFlight1;
-    @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
+    @Pattern(message = "Incorrect Number", regexp = "[0-9.', ]{0,10}")
     private String fQCost1;
     @Pattern(message = "Incorrect Entry", regexp = "[0-9a-zA-Z' ]{0,}")
     private String fQFlight2;
-    @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
+    @Pattern(message = "Incorrect Number", regexp = "[0-9.', ]{0,10}")
     private String fQCost2;
     private List<Flightquotes> flightQuotes;
     private Flightquotes newFlight;
@@ -116,11 +116,11 @@ public class ApplicationBean implements Serializable {
     private Date cQDateReturned;
     @Pattern(message = "Incorrect Entry", regexp = "[0-9a-zA-Z' ]{0,}")
     private String cQHire1;
-    @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
+    @Pattern(message = "Incorrect Number", regexp = "[0-9.', ]{0,10}")
     private String cQCost1;
     @Pattern(message = "Incorrect Entry", regexp = "[0-9a-zA-Z' ]{0,}")
     private String cQHire2;
-    @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
+    @Pattern(message = "Incorrect Number", regexp = "[0-9.', ]{0,10}")
     private String cQCost2;
     private List<Carquotes> carQuotes;
     private Carquotes newCar;
@@ -132,11 +132,11 @@ public class ApplicationBean implements Serializable {
     private Date hQDateOut;
     @Pattern(message = "Incorrect Entry", regexp = "[0-9a-zA-Z' ]{0,}")
     private String hQHotel1;
-    @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
+    @Pattern(message = "Incorrect Number", regexp = "[0-9.', ]{0,10}")
     private String hQCost1;
-    @Pattern(message = "Incorrect Entry", regexp = "[0-9a-zA-Z' ]{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[0-9a-zA-Z'. ]{0,}")
     private String hQHotel2;
-    @Pattern(message = "Incorrect Number", regexp = "[0-9]{0,10}")
+    @Pattern(message = "Incorrect Number", regexp = "[0-9.', ]{0,10}")
     private String hQCost2;
     private List<Accomodationquotes> accQuotes;
     private Accomodationquotes newAcc;
@@ -368,7 +368,7 @@ public class ApplicationBean implements Serializable {
         }                
         
          
-         appComplete = 1;
+         appComplete = 0;
          //School Admin
          
          schoolAdmin = deptHandler.getAdministratorAccID(accRef,1);
