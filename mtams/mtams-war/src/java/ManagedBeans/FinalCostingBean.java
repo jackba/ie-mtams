@@ -196,6 +196,8 @@ public class FinalCostingBean implements Serializable {
         fCostRef = finalHandler.findFinalcosting(appRef.getFinalcostingIdfinalcosting().getIdfinalcosting());
         logger.log(Level.INFO, "fCostRef : {0}", fCostRef);
         //aprrovalRef = approvalHandler.findApproval(appRef. appnum)findApprovalbyApplication(appnum);
+//        aprrovalRef = approvalHandler.findApproval(appnum);
+//        aprrovalRef = approvalHandler.findApproval(appnum);
 
         //logger.log(Level.INFO, "fCostRef : {0}", fCostRef);
 
@@ -341,14 +343,14 @@ public class FinalCostingBean implements Serializable {
         setFromsection("Final Costing");
 
         //logger.log(Level.INFO, "bflightSelected : {0}", flightSelected.toString());
-        logger.log(Level.INFO, "bAirfareCost : {0}", AirfareCost);
-
-        logger.log(Level.INFO, "dateStamp : {0}", DateStamp);
-
-        logger.log(Level.INFO, "Itineary : {0}", itinRef.toString());
-        logger.log(Level.INFO, "DestinationCity : {0}", itinRef.getDestinationCity());
-        logger.log(Level.INFO, "getCities() : {0}", getCities());
-        logger.log(Level.INFO, "Department : {0}", profileRef.getDepartment());
+//        logger.log(Level.INFO, "bAirfareCost : {0}", AirfareCost);
+//
+//        logger.log(Level.INFO, "dateStamp : {0}", DateStamp);
+//
+//        logger.log(Level.INFO, "Itineary : {0}", itinRef.toString());
+//        logger.log(Level.INFO, "DestinationCity : {0}", itinRef.getDestinationCity());
+//        logger.log(Level.INFO, "getCities() : {0}", getCities());
+//        logger.log(Level.INFO, "Department : {0}", profileRef.getDepartment());
 
         logger.log(Level.INFO, "acount : {0}", accountID);
         logger.log(Level.INFO, "application : {0}", appnum);
@@ -458,12 +460,12 @@ public class FinalCostingBean implements Serializable {
 
         approvalHandler.persistApproval(newApproval);
 
-        FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Final Costing Created and Authorised"));
+        FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Final Costing Created"));
         //return "finalCostingView";
         return "authorizerHome.xhtml";
     }
 
-    public void update() {
+    public String update() {
         logger.log(Level.INFO, "loadValues");
 
 //        accountRef = accHandler.getAccount(accountID);
@@ -510,21 +512,27 @@ public class FinalCostingBean implements Serializable {
         newFinalCosting.setVisabudget(visabudget);
         newFinalCosting.setVisacost(visacost);
 
-        finalHandler.persistFinalcosting(newFinalCosting);
+//        finalHandler.persistFinalcosting(newFinalCosting);
+        logger.log(Level.INFO, "fCostRef.getIdfinalcosting() : {0}", fCostRef.getIdfinalcosting());
+        finalHandler.updateFinalcosting(newFinalCosting, fCostRef.getIdfinalcosting());
 
 
-        newApproval = new Approval();
+//        newApproval = new Approval();
+//
+//        newApproval.setApplicationIdapplication(appRef);
+//        newApproval.setAccountIdaccount(accountRef);
+//        newApproval.setDate(DateStamp);
+//        newApproval.setNotes(Notes);
+//        newApproval.setFromsection("Final Costing");
+//        newApproval.setSectionid(sectionid);
+//
+////        approvalHandler.persistApproval(newApproval);
+//        logger.log(Level.INFO, "aprrovalRef.getIdapproval() : {0}", aprrovalRef.getIdapproval());
+//        approvalHandler.updateApproval(newApproval, aprrovalRef.getIdapproval());
 
-        newApproval.setApplicationIdapplication(appRef);
-        newApproval.setAccountIdaccount(accountRef);
-        newApproval.setDate(DateStamp);
-        newApproval.setNotes(Notes);
-        newApproval.setFromsection("Final Costing");
-        newApproval.setSectionid(sectionid);
-
-        approvalHandler.persistApproval(newApproval);
-
-
+        FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Final Costing Edited"));
+        //return "finalCostingView";
+        return "authorizerHome.xhtml";
     }
 
     // Used for the tab wizzard <p:wizard

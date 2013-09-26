@@ -1,0 +1,370 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+
+            <ui:define name="content">
+                <h:form id="fcostFromEdit">
+                    <p:messages id="submitConfirm" showDetail="true" closable="true" autoUpdate="true" severity="info"/>
+                    <p:panel id="ViewFinalCostingPanel" header="View Final Costing" >
+
+
+                        <h4>Please click on the value you wish to edit</h4>
+                        <fieldset><legend><h4>Final Costing Details</h4></legend> 
+                            <p:panelGrid id="authoriseTopGrid" styleClass="noborders" columns="3" columnClasses="label, value, error">
+
+                                <h:outputText value="Given name: " />
+                                <p:inplace>
+                                    <p:inputText id="givenName" value="#{finalCBean.profileRef.firstname}" />
+                                </p:inplace>
+                                <h:message for="givenName"/>
+
+                                <h:outputText value="Family name: " />
+                                <p:inplace>
+                                    <p:inputText id="famName" value="#{finalCBean.profileRef.familyname}" />
+                                </p:inplace>
+                                <h:message for="famName"/>
+
+                                <h:outputText value="School / administrative unit: " />
+                                <p:inplace>
+                                    <p:inputText value="#{finalCBean.administrativeunit}" />
+                                </p:inplace>
+                                <h:message for=""/>
+
+                                <h:outputText value="Period of absence business: " />
+                                <p:inplace>
+                                    <p:inputText id="absencebussiness" value="#{finalCBean.absencebussiness}" />
+                                </p:inplace>
+                                <h:message for="absencebussiness"/>
+
+                                <h:outputText value="Period of absence private: " />
+                                <p:inplace>
+                                    <p:inputText id="absenceprivate" value="#{finalCBean.absenceprivate}" />
+                                </p:inplace>
+                                <h:message for="absenceprivate"/>
+
+                                <h:outputText value="Destination countries: " />
+                                <p:inplace>
+                                    <p:inputText id="countries" value="#{finalCBean.countries}" onclick="CRCWigit.show()" />
+                                </p:inplace>
+                                <h:message for="countries"/>
+
+                                <h:outputText value="Destination cities: " />
+                                <p:inplace>
+                                    <p:inputText id="cities" value="#{finalCBean.cities}" onclick="CRCWigit.show()"/>
+                                </p:inplace>
+                                <h:message for="cities"/>
+                            </p:panelGrid>
+                        </fieldset>
+                        <fieldset>
+                            <legend><h4>Currency Costs</h4></legend>
+                            <p:panelGrid id="CurrencyFinalCostin" styleClass="noborders, widthfull" columns="3" columnClasses="label, value, error" >
+
+                                <h:outputText value="Currency: " />
+                                <p:inplace>
+                                    <p:inputText id="SelCurrency" value="#{finalCBean.currency}" onclick="CurrencyWigit.show()"/>
+                                </p:inplace>
+                                <h:message for=""/>
+
+                            </p:panelGrid>
+                        </fieldset>
+
+
+                        <fieldset>
+                            <legend><h4>Travel Costs</h4></legend>
+                            <p:panelGrid id="authoriseFinalCostin" columns="4" columnClasses="label, value, value, error" styleClass="widthfull">
+
+                                <h:outputText value="Final Costing" />
+                                <h:outputText value="Budgeted Costs " />
+                                <h:outputText value="Actual Costs" />
+                                <h:outputText />
+
+                                <h:outputText value="Airfare:" />
+                                <p:inplace>
+                                    <p:inputText id="airfareBudget" value="#{finalCBean.airfareBudget}" />
+                                </p:inplace>
+                                <p:inplace>
+                                    <p:inputText id="airfareCost" value="#{finalCBean.airfareCost}" />
+                                </p:inplace>
+                                <h:message for="airfareBudget"/>
+
+
+
+                                <h:outputText value="Car rental: " />
+                                <p:inplace>
+                                    <p:inputText id="carRentalBudget" value="#{finalCBean.carRentalBudget}" />
+                                </p:inplace>
+                                <p:inplace>
+                                    <p:inputText id="carRentalCost" value="#{finalCBean.carRentalCost}" />
+                                </p:inplace>
+                                <h:message for="carRentalBudget"/>
+
+                                <h:outputText value="Accommodation: " />
+                                <p:inplace>
+                                    <p:inputText id="accomodationBudget" value="#{finalCBean.accommodationBudget}" />
+                                </p:inplace>
+                                <p:inplace>
+                                    <p:inputText id="accomodationCost" value="#{finalCBean.accommodationCost}" />
+                                </p:inplace>
+                                <h:message for="accomodationBudget"/>
+
+                                <h:outputText value="Accommodation number of days: " />
+                                <p:inplace>
+                                    <p:inputText id="accomodationDays" value="#{finalCBean.accommodatedays}" />
+                                </p:inplace>
+                                <h:outputText />
+                                <h:message for="accomodationDays"/>
+
+                                <h:outputText value="Conference: " />
+                                <p:inplace>
+                                    <p:inputText id="ConferenceBudget" value="#{finalCBean.conferencebudget}" />
+                                </p:inplace>
+                                <p:inplace>
+                                    <p:inputText id="ConferenceCost" value="#{finalCBean.conferencecost}" />
+                                </p:inplace>
+                                <h:message for="ConferenceBudget"/>
+
+                                <ui:remove>
+                                    <!--
+                                    -->
+                                </ui:remove>
+                            </p:panelGrid>
+
+                        </fieldset>
+
+
+                        <fieldset>
+                            <legend><h4>Allowance</h4></legend>
+                            <p:panelGrid id="Allowance" columns="4" columnClasses="label, value, value, error" styleClass="widthfull">
+
+                                <h:outputText value="Final Costing" />
+                                <h:outputText value="Budgeted Costs " />
+                                <h:outputText value="Actual Costs" />
+                                <h:outputText />
+
+                                <h:outputText value="Per diem:" />
+                                <p:inplace>
+                                    <p:inputText id="PerdiemBudget" value="#{finalCBean.perdiembudget}" />
+                                </p:inplace>
+                                <p:inplace>
+                                    <p:inputText id="PerdiemCost" value="#{finalCBean.perdiemcost}" />
+                                </p:inplace>
+                                <h:message for="PerdiemBudget"/>
+
+                                <h:outputText value="Per diem number of days: " />
+                                <p:inplace>
+                                    <p:inputText id="PerdiemDays" value="#{finalCBean.perdiemdays}" />
+                                </p:inplace>
+                                <h:outputText />
+                                <h:message for="PerdiemDays"/>
+
+                                <h:outputText value="Visa Cost: " />
+                                <p:inplace>
+                                    <p:inputText id="VisaBudget" value="#{finalCBean.visabudget}" />
+                                </p:inplace>
+                                <p:inplace>
+                                    <p:inputText id="VisaCost" value="#{finalCBean.visacost}" />
+                                </p:inplace>
+                                <h:message for="VisaCost"/>
+
+
+                                <h:outputText value="Other Costs: " />
+                                <p:inplace>
+                                    <p:inputText id="otherBudget" value="#{finalCBean.otherbudget}" />
+                                </p:inplace>
+                                <p:inplace>
+                                    <p:inputText id="otherCost" value="#{finalCBean.othercost}" />
+                                </p:inplace>
+                                <h:message for="otherCost"/>
+
+                                <h:outputText value="Other cost Description: " />
+                                <p:inplace>
+                                    <h:inputTextarea disabled="false" id="otherDescription" value="#{finalCBean.otherdiscription}" />
+                                </p:inplace>
+                                <h:outputText />
+                                <h:message for="otherDescription"/>
+
+                            </p:panelGrid>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend><h4>Total</h4></legend>
+                            <p:panelGrid id="budgetTotal" columns="4" columnClasses="label, value, value, error" styleClass="widthfull">
+
+                                <h:outputText value="Total:" />
+                               
+                                <h:outputText id="TotalBudget" value="#{finalCBean.approvedbudget}" />
+                                <h:outputText id="TotalCost" value="#{finalCBean.approvedcost}" />
+                                <h:outputText />
+
+
+                            </p:panelGrid>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend><h4>Authorisation Cost From Australia</h4></legend>
+                            <p:panelGrid id="authoriseFromOz" columns="2" columnClasses="label, value, error" >
+
+                                <h:outputText value="Recovered cost from Australia: " />
+                                <p:inplace>
+                                    <p:selectOneRadio id="CostFromOz" value="#{finalCBean.fromoz}" required="true" requiredMessage="Recovered cost from Australia" >
+                                        <f:selectItem itemValue="1" itemLabel="Yes" />
+                                        <f:selectItem itemValue="0" itemLabel="No" />
+
+                                    </p:selectOneRadio>
+                                </p:inplace>
+
+
+                                <h:outputText value="Contact Name: " />
+
+                                <p:inplace>
+                                    <p:inputText id="ozname" value="#{finalCBean.ozname}" /><h:message for=""/>
+                                </p:inplace>
+                                <h:message for="ozname"/>
+
+
+                                <h:outputText value="Contact Telephone: " />
+
+                                <p:inplace>
+                                    <p:inputText id="oztel" value="#{finalCBean.oztel}" />
+                                </p:inplace>
+
+                                <h:message for="oztel"/>
+
+
+                                <h:outputText value="Contact email: " />
+
+                                <p:inplace>
+                                    <p:inputText id="ozemail" value="#{finalCBean.ozemail}" />
+                                </p:inplace>
+
+                                <h:message for="ozemail"/>
+
+
+                            </p:panelGrid>
+                        </fieldset>
+
+                        <ui:remove>
+
+                            <!--
+                <fieldset><legend><h4>Authorise Details</h4></legend>
+                    <p:panelGrid id="authoriseFrom" columns="2" columnClasses="label, value, error" >
+  
+
+                        <h:outputText value="Is this form approved:" />
+                        <p:inplace>
+                            <p:selectOneRadio id="approvedCheck" disabled="false" value="#{finalCBean.sectionapproved}">
+                                <f:selectItem itemValue="1" itemLabel="Yes" />
+                                <f:selectItem itemValue="0" itemLabel="No" />
+                            </p:selectOneRadio>
+                        </p:inplace>
+
+                        <h:message for="approvedCheck"/>
+
+
+                        <h:outputText value="Given name: " />
+                        <p:inplace>
+                            <p:inputText id="AuthgivenName" value="#{finalCBean.profileRef.firstname}" />
+                        </p:inplace>
+                        <h:message for="AuthgivenName"/>
+
+                        <h:outputText value="Family name: " />
+                        <p:inplace>
+                            <p:inputText id="AuthfamName" value="#{finalCBean.profileRef.familyname}" />
+                        </p:inplace>
+                        <h:message for="AuthfamName"/>
+
+                        <h:outputText value="Date: " />
+                        <p:inplace>
+                            <p:calendar id="authdate" value="#{finalCBean.dateStamp}" disabled="false"  styleClass="inputWidthDepartment" />  
+                        </p:inplace> 
+                        <h:message for="authdate"/>
+
+
+                        <h:outputText value="Notes: " />
+
+                        <p:inplace>
+                            <h:inputTextarea disabled="false" id="authNotes" value="#{finalCBean.notes}" />
+                        </p:inplace>
+
+                        <h:message for="authNotes"/>
+
+                    </p:panelGrid>
+                </fieldset>
+                <fieldset><legend><h4>Policy Check</h4></legend>
+                    <p:panelGrid id="finalCostingPolicy" styleClass="noborders, widthfull" columns="1" columnClasses="value, error">
+
+
+                        <h:outputText value="I hereby certify that the attached application meets requirements of the MSA travel policy and procedures. " />
+                        <h:outputText value="I hereby certify that the travel costs can be met within the specified budget. " />
+                        <h:outputText value="I hereby authorize the attached travel application." />
+                        <h:outputText />
+                        <p:inplace>
+                            <p:selectOneRadio id="policycheck" disabled="false"  value="#{finalCBean.checks}">
+                                <f:selectItem itemValue="1" itemLabel="Yes" />
+                                <f:selectItem itemValue="0" itemLabel="No" />
+                            </p:selectOneRadio>
+                        </p:inplace>
+                        <h:message for="policycheck"/>
+
+                    </p:panelGrid>
+                </fieldset>
+
+                            -->
+
+                        </ui:remove>
+                        <ui:remove> <!--  
+
+                            --></ui:remove>
+                        <p:commandButton value="Submit" ajax="false" action="#{finalCBean.update()}" styleClass="button-left"/>
+                        <p:commandButton value="Cancel" ajax="false" action="#{finalCBean.goHome()}" styleClass="button-left"/>
+                    </p:panel>
+
+                </h:form>
+
+                <ui:include src="./template/CRCDialog.xhtml" >
+                    <!--
+                   The ID of the element on which the ajax should update 
+                    -->
+                    <ui:param name="updateCountryIDParam" value=":fcostFromEdit:countries" />                        
+                    <ui:param name="updateRegionIDParam" value=":fcostFromEdit:RegionID" />                        
+                    <ui:param name="updateCityIDParam" value=":fcostFromEdit:cities" />                        
+                    <ui:param name="updateIDfrom" value=":fcostFromEdit" />
+
+                    <!--
+                    The java script name of the dialog needs to be unique
+                    for each dialog used on a page. 
+                    The value for the widgetVarParam needs to be unique 
+                    -->
+                    <ui:param name="updateDLGfromCountryID" value="DLGformCountry" />
+                    <ui:param name="updateDLGfromRegionID" value="DLGformRegion" />
+                    <ui:param name="updateDLGfromCityID" value="DLGformCity" />
+                    <ui:param name="widgetVarParam" value="CRCWigit" />
+                </ui:include> 
+                <ui:include src="./template/currencyDialog.xhtml" >
+                    <!--
+                    The ID of the element on which the ajax should update 
+                    -->
+                    <ui:param name="updateIDParam" value=":fcostFromEdit:SelCurrency" />
+
+
+                    <!--
+                    The java script name of the dialog needs to be unique
+                    for each dialog used on a page. 
+                    -->
+                    <ui:param name="updateDLGfromID" value="CurrencyDLG1" />
+                    <ui:param name="widgetVarParam" value="CurrencyWigit" />
+                </ui:include>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

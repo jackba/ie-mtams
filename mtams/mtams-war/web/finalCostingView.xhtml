@@ -40,10 +40,15 @@
                                 <h:outputText value="Destination cities: " />
                                 <h:outputText id="cities" value="#{finalCBean.cities}" />
                             </p:panelGrid>
+                        </fieldset>
 
-                            <p:panelGrid id="CurrencyFinalCostin" >
 
-                                <h:outputText value="#{finalCBean.currency}" />
+                        <fieldset>
+                            <legend><h4>Currency</h4></legend>
+
+                            <p:panelGrid id="CurrencyFinalCostin" styleClass="noborders, widthfull" columns="2" columnClasses="label, value" >
+                                <h:outputText value="Currency: " />
+                                <h:outputText  id="Currency" value="#{finalCBean.currency}" />
 
                             </p:panelGrid>
                         </fieldset>
@@ -51,7 +56,19 @@
 
                         <fieldset>
                             <legend><h4>Travel Costs</h4></legend>
-                            <p:panelGrid id="authoriseFinalCostin" columns="3" columnClasses="label, value value" >
+                            <p:panelGrid id="authoriseFinalCostin" columns="3" columnClasses="label, value, value2" styleClass="widthfull">
+
+                                <ui:remove>
+                                    <!--
+
+                                <f:facet name="header" >
+                                    <h:outputText value="Final Costing" />
+                                    <h:outputText value="Budgeted Costs " />
+                                    <h:outputText value="Actual Costs" />
+
+                                </f:facet>
+                                    -->
+                                </ui:remove>
 
                                 <h:outputText value="Final Costing" />
                                 <h:outputText value="Budgeted Costs " />
@@ -88,7 +105,7 @@
 
                         <fieldset>
                             <legend><h4>Allowance</h4></legend>
-                            <p:panelGrid id="Allowance" columns="3" columnClasses="label, value value">
+                            <p:panelGrid id="Allowance" columns="3" columnClasses="label, value, value2" styleClass="widthfull">
 
                                 <h:outputText value="Final Costing" />
                                 <h:outputText value="Budgeted Costs " />
@@ -120,7 +137,7 @@
 
                         <fieldset>
                             <legend><h4>Total</h4></legend>
-                            <p:panelGrid id="budgetTotal" columns="3" columnClasses="label, value value">
+                            <p:panelGrid id="budgetTotal" columns="3" columnClasses="label, value, value2" styleClass="widthfull">
 
                                 <h:outputText value="Total:" />
                                 <h:outputText id="TotalBudget" value="#{finalCBean.approvedbudget}" />
@@ -161,61 +178,58 @@
 
                             </p:panelGrid>
                         </fieldset>
+                        <ui:remove>
 
-                        <fieldset><legend><h4>Authorise Details</h4></legend>
-                            <p:panelGrid id="authoriseFrom" columns="2" columnClasses="label, value" >
-                                <ui:remove>
+                            <!--
+                <fieldset><legend><h4>Authorise Details</h4></legend>
+                    <p:panelGrid id="authoriseFrom" columns="2" columnClasses="label, value"  >
 
-                                    <!--
-                                    -->
 
-                                </ui:remove>
-                                <h:outputText value="Is this form approved:" />
-                                <p:selectOneRadio id="approvedCheck" disabled="true" value="#{finalCBean.sectionapproved}">
-                                    <f:selectItem itemValue="1" itemLabel="Yes" />
-                                    <f:selectItem itemValue="0" itemLabel="No" />
-                                </p:selectOneRadio>
+                        <h:outputText value="Is this form approved:" />
+                        <p:selectOneRadio id="approvedCheck" disabled="true" value="#{finalCBean.sectionapproved}">
+                            <f:selectItem itemValue="1" itemLabel="Yes" />
+                            <f:selectItem itemValue="0" itemLabel="No" />
+                        </p:selectOneRadio>
 
 
 
 
 
 
-                                <h:outputText value="Given name: " />
-                                <h:outputText id="AuthgivenName" value="#{finalCBean.profileRef.firstname}" />
+                        <h:outputText value="Given name: " />
+                        <h:outputText id="AuthgivenName" value="#{finalCBean.profileRef.firstname}" />
 
-                                <h:outputText value="Family name: " />
-                                <h:outputText id="AuthfamName" value="#{finalCBean.profileRef.familyname}" />
+                        <h:outputText value="Family name: " />
+                        <h:outputText id="AuthfamName" value="#{finalCBean.profileRef.familyname}" />
 
-                                <h:outputText value="Date: " />
-                                <p:calendar id="authdate" value="#{finalCBean.dateStamp}" disabled="true"  styleClass="inputWidthDepartment" />                                                       
+                        <h:outputText value="Date: " />
+                        <p:calendar id="authdate" value="#{finalCBean.dateStamp}" disabled="true"  styleClass="inputWidthDepartment" />                                                       
 
-                                <h:outputText value="Notes: " />
+                        <h:outputText value="Notes: " />
 
-                                <h:inputTextarea disabled="true" id="authNotes" value="#{finalCBean.notes}" />
+                        <h:inputTextarea disabled="true" id="authNotes" value="#{finalCBean.notes}" />
 
-                            </p:panelGrid>
-                        </fieldset>
-                        <fieldset><legend><h4>Policy Check</h4></legend>
-                            <p:panelGrid id="finalCostingPolicy" styleClass="noborders" columns="1" columnClasses="label">
+                    </p:panelGrid>
+                </fieldset>
+                <fieldset><legend><h4>Policy Check</h4></legend>
+                    <p:panelGrid id="finalCostingPolicy" styleClass="noborders" columns="1" columnClasses="label">
 
 
-                                <h:outputText value="I hereby certify that the attached application meets requirements of the MSA travel policy and procedures. " />
-                                <h:outputText value="I hereby certify that the travel costs can be met within the specified budget. " />
-                                <h:outputText value="I hereby authorize the attached travel application." />
-                                <p:selectOneRadio id="policycheck" disabled="true"  value="#{finalCBean.checks}">
-                                    <f:selectItem itemValue="1" itemLabel="Yes" />
-                                    <f:selectItem itemValue="0" itemLabel="No" />
-                                </p:selectOneRadio>
+                        <h:outputText value="I hereby certify that the attached application meets requirements of the MSA travel policy and procedures. " />
+                        <h:outputText value="I hereby certify that the travel costs can be met within the specified budget. " />
+                        <h:outputText value="I hereby authorize the attached travel application." />
+                        <p:selectOneRadio id="policycheck" disabled="true"  value="#{finalCBean.checks}">
+                            <f:selectItem itemValue="1" itemLabel="Yes" />
+                            <f:selectItem itemValue="0" itemLabel="No" />
+                        </p:selectOneRadio>
 
-                            </p:panelGrid>
-                        </fieldset>
+                    </p:panelGrid>
+                </fieldset>
+                            -->
 
+                        </ui:remove>
                         <ui:remove> <!--  
-                        </p:tab>
-                        
-                        
-                        </p:wizard>
+
                             --></ui:remove>
                     </p:panel>
                 </h:form>
