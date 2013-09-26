@@ -46,11 +46,10 @@ import org.primefaces.event.FlowEvent;
 @SessionScoped
 public class FinalCostingBean implements Serializable {
     ////////////////
-
-    private Integer accountID = 8;
-    //private Integer accountID = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
-    private Integer appnum = 1;
-    //private Integer appnum;
+    //private Integer accountID = 8;
+    private Integer accountID = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
+    //private Integer appnum = 1;
+    private Integer appnum;
     // /////////////////////
     @EJB
     private TravelProfileHandlerLocal travelProfileHandler;
@@ -167,7 +166,7 @@ public class FinalCostingBean implements Serializable {
     @PostConstruct
     public void initialize() {
         logger.log(Level.INFO, "initialize");
-        //  appnum = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
+        appnum = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
         logger.log(Level.INFO, "accountID : {0}, appnum: {1}", new Object[]{accountID, appnum});
         //logger.log(Level.INFO, "null == 1 : {0}", (null == 1));
 

@@ -30,7 +30,7 @@ and open the template in the editor.
                             <br />
                             <p:outputLabel id="CVal" value="string currency object : #{dataLookUpBean.selectedCurrencyString}" />
                             <br />
-                            <p:outputLabel id="CValS" value="string currency object : #{dataLookUpBean.aCurrencySelection}" />
+                            <p:outputLabel id="CValS" value="string currency object : #{dataLookUpBean.curSelect}" />
                         </h:form>
 
                     </div>
@@ -317,7 +317,8 @@ country
                                          filteredValue="#{dataLookUpBean.currencyFilteredList}"
                                          widgetVar="currencies"
                                          emptyMessage="No data matches your criteria"
-                                         selection="#{dataLookUpBean.aCurrencySelection}" selectionMode="single" scrollRows="20"  
+                                         selection="#{dataLookUpBean.curSelect}" 
+                                         selectionMode="single" scrollRows="20"  
                                          scrollable="true" liveScroll="true" scrollHeight="150"
 
                                          > 
@@ -374,7 +375,8 @@ country
                                     <p>There are this many : #{dataLookUpBean.currencyCount}</p>
                                     <p:commandButton value="Hide" type="button" 
                                                      onclick="dlgcurrency.hide()" 
-                                                     actionListener="#{dataLookUpBean.CurSel()}" update=":CurencyVal:CVal">
+                                                     actionListener="#{dataLookUpBean.CurSel()}" 
+                                                     update=":CurencyVal:CVal">
 
                                         <p:ajax update=":CurencyVal:CVal" 
                                                 listener="#{dataLookUpBean.CurSel()}"/>
