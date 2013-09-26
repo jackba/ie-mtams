@@ -972,8 +972,8 @@ public class ApplicationBean implements Serializable {
     }
     
     public String sendApproval(){
-        
-        return "./applicationHome.xhtml?faces-redirect=true";
+        apprHandler.beginApproval(appRef.getIdapplication());
+        return "./userHome.xhtml?faces-redirect=true";
     }
 
     public String goCreateForex() {
