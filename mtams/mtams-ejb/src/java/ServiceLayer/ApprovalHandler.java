@@ -409,4 +409,18 @@ public class ApprovalHandler implements ApprovalHandlerLocal {
     public void persistApprovalChain(Approvalchain apprChain) {
         apprChainDao.create(apprChain);
     }
+
+    @Override
+    public void beginApproval(Integer appID) {
+        List<Approvalchain> chain = apprChainDao.findAll();
+        for(Approvalchain each: chain){
+            if(each.getApplicationid().getIdapplication().equals(appID)){
+                each.setApplicationcomplete(1);
+                apprChainDao.edit(each);
+            }
+                
+        }
+    }
+    
+    
 }

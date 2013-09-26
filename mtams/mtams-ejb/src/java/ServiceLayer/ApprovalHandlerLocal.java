@@ -45,4 +45,5 @@ public interface ApprovalHandlerLocal {
     public void persistApprovalChain(Approvalchain apprChain);
     public int returnStage (Integer id);
     public List<Approvalchain> findAppovalby(Integer id);
+    public void beginApproval(Integer appID);
 }
