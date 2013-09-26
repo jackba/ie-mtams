@@ -57,7 +57,7 @@ public MotivationalBean() {
 public String save() 
     {  
         
-        FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"getting there",null));
+        
          motivational = new Motivation();
                  
          motivational.setSupplier(supplier);
@@ -99,6 +99,7 @@ public String save()
         motiEdit.setAmount(amount);
         motiEdit.setCostcenter(costCode);
         motiEdit.setMotivation(motivationLetter);
+        
         motiEdit.setBudget(budget);
         
         handler.updateMoti(motiEdit, accountID ,appnum);
