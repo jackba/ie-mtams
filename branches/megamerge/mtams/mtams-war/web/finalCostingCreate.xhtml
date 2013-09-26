@@ -185,6 +185,8 @@
                                                     <p:inputText id="SelCurrency" 
                                                                  value="#{dataLookUpBean.selectedCurrencyString}" 
                                                                  disabled="false"
+                                                                 required="true"
+                                                                 requiredMessage="Currency is required"
                                                                  styleClass="inputWidthDepartment"
                                                                  onclick="CurrencyWigit.show()"
 
@@ -213,6 +215,7 @@
                                                 <f:selectItems value="#{dataLookUpBean.currencyStrings}" />
                                             </p:selectOneMenu>
                                         </p:column>
+                                                    <p:commandButton value="Select Currency" type="button" onclick="CurrencyWigit.show()"/>
                                                     -->
 
                                                 </ui:remove>
@@ -220,8 +223,8 @@
 
 
                                                 <p:column rowspan="1">
-                                                    <p:commandButton value="Select Currency" type="button" onclick="CurrencyWigit.show()"/>
-
+                                                    
+                                                    <p:message for="SelCurrency"/>
                                                 </p:column>
                                             </p:row>
                                         </p:panelGrid>
