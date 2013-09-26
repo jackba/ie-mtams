@@ -1,3 +1,7 @@
+.ui-selectonemenu {
+    width: 105% !important;
+}
+
 .button-right {
     float: right;
     margin-left: 1%;
@@ -73,12 +77,12 @@ a:link, a:visited {
 
 .label {
     vertical-align: top;
-    margin-right: 10%;
     width:250px;
 }
 
 .value { 
     float:left;
+    width: 100%;
 }
 
 .value2 { 
