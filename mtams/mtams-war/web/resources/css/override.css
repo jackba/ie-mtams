@@ -22,11 +22,19 @@
 
 */
 
-/*
+.fclabel {
+    vertical-align: top;
+    margin-right: 10%;
+    width:250px;s
+}
+
+.fcvalue { 
+    float:left;
+}
 
 .ui-panelgrid td {
     border: none;
-    float: left;
+    
 }
 
 
@@ -63,9 +71,9 @@ td.columnLabel  {
 }
 
 
-Over ride need to match department dropdown width
+/*Over ride need to match department dropdown width*/
 
-.inputWidthDepartment {
+/*.inputWidthDepartment {
     width: 257px;
 }
 
@@ -80,7 +88,7 @@ input {
 
 .inputWidth {
     width: 163px;
-}
+}*/
 
 
 
@@ -93,4 +101,4 @@ input {
 
 .butCalc {
     width: 171px;
-}*/
+}

@@ -81,6 +81,15 @@ a:link, a:visited {
     float:left;
 }
 
+.value2 { 
+    float: right;
+}
+
+.widthfull {
+    width: 90%;
+}
+
+
 table.panelGrid-noBorder tr, table.panelGrid-noBorder td {
     border:none;
 }
