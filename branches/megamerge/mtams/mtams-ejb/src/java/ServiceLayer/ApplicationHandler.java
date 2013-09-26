@@ -6,6 +6,7 @@ package ServiceLayer;
 
 import DataAccess.AccomodationquotesFacadeLocal;
 import DataAccess.ApplicationFacadeLocal;
+import DataAccess.ApprovalchainFacadeLocal;
 import DataAccess.CarquotesFacadeLocal;
 import DataAccess.ConferenceFacadeLocal;
 import DataAccess.FinalcostingFacadeLocal;
@@ -17,6 +18,7 @@ import DataAccess.QuotesFacadeLocal;
 import DataAccess.TravelFacadeLocal;
 import Entities.Accomodationquotes;
 import Entities.Application;
+import Entities.Approvalchain;
 import Entities.Carquotes;
 import Entities.Conference;
 import Entities.Finalcosting;
@@ -42,6 +44,8 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
     @EJB
     private ApplicationFacadeLocal appDao;
     @EJB
+    private ApprovalchainFacadeLocal apprchainDao;
+    @EJB
     private AccomodationquotesFacadeLocal accDao;
     @EJB
     private CarquotesFacadeLocal carDao;
@@ -66,10 +70,16 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
     public List<Application> getAppList(Integer id) {
         List<Application> apps = new ArrayList<Application>();
         List<Application> allApps = appDao.findAll();
+        List<Approvalchain> chain = apprchainDao.findAll();
 
         for (Application each : allApps) {
             if (each.getAccountIdaccount().getIdaccount().equals(id)) {
-                apps.add(each);
+                for(Approvalchain every : chain){
+                    if(every.getApplicationid().equals(each) && every.getApplicationcomplete() == 0){
+                        apps.add(each);
+                    }
+                }
+                
             }
         }
 
@@ -262,4 +272,17 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
         carDao.edit(car);
         flightDao.edit(flg);
     }
+
+    @Override
+    public boolean getApplicationReady(Integer id) {
+        Application app = appDao.find(id);
+        
+        if(app != null && app.getMotivationcomplete() == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    
 }

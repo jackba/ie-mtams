@@ -157,7 +157,11 @@ public class ApplicationBean implements Serializable {
     private Date currentDate = new Date();
     private String reasonForTravel;
     private Application newApplication;
+    ////////BOBSKI VARIABLES
+    
+    private boolean applicationReady;
     // ALEX VARIABLES FOR ADVANCED APPROVAL PROCESS
+    
     
     private int appComplete = 1;
     //School Admin
@@ -939,6 +943,17 @@ public class ApplicationBean implements Serializable {
         this.currency = currency;
     }
 
+    public boolean isApplicationReady() {
+        applicationReady = !appHandler.getApplicationReady(appRef.getIdapplication());
+        return applicationReady;
+    }
+
+    public void setApplicationReady(boolean applicationReady) {
+        this.applicationReady = applicationReady;
+    }
+    
+    
+
     public Currency getaCurrencySelection() {
         return aCurrencySelection;
     }
@@ -954,6 +969,11 @@ public class ApplicationBean implements Serializable {
         RequestContext.getCurrentInstance().execute("dlgcurrency.hide()");
 //        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
         return "currency";
+    }
+    
+    public String sendApproval(){
+        
+        return "./applicationHome.xhtml?faces-redirect=true";
     }
 
     public String goCreateForex() {

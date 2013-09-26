@@ -41,4 +41,6 @@ public interface ApplicationHandlerLocal {
     public Itinerary getItinerary(Integer id);
 
     public void persistApplicationEdit(Application app, Quotes quote, Itinerary itin, Travel trav);
+    
+    public boolean getApplicationReady(Integer id);
 }

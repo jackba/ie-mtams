@@ -16,7 +16,7 @@
                     <p:messages autoUpdate="true" id="appHomeTop" closable="true" showDetail="true" />
                     <p:panel header="Application Name: #{appBean.appRef.description}">
 
-                        <p:button value="Send for Approval" disabled="true" />
+                        <p:commandButton value="Send for Approval" disabled="#{appBean.applicationReady}" action="#{appBean.sendApproval}" />
 
                         <fieldset>
                             <legend><h4>Application Form</h4></legend>
