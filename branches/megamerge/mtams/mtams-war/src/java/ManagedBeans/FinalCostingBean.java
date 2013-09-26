@@ -38,7 +38,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
 
-
 /**
  *
  * @author aaron
@@ -67,7 +66,6 @@ public class FinalCostingBean implements Serializable {
     private DataLookUpHandlerLocal daoDataLookUp;
     @Inject
     private ManagedBeans.DataLookUpBean LookupBean;
-    
 //    @EJB
 //    private FlightquotesFacadeLocal flightquotesFLHandler;
     // logger object for use in this class
@@ -262,7 +260,7 @@ public class FinalCostingBean implements Serializable {
         logger.log(Level.INFO, "flightSelected : {0}", flightSelected);
         //logger.log(Level.INFO, "flightSelected : {0}", flightSelected.toString());
         //logger.log(Level.INFO, "flightSelected : {0}", flightSelected);
-        
+
 
         carSelected = findcarSelected();
         logger.log(Level.INFO, "carSelected : {0}", carSelected);
@@ -461,7 +459,8 @@ public class FinalCostingBean implements Serializable {
         approvalHandler.persistApproval(newApproval);
 
         FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Final Costing Created and Authorised"));
-        return "finalCostingView";
+        //return "finalCostingView";
+        return "authorizerHome.xhtml";
     }
 
     public void update() {
@@ -545,6 +544,20 @@ public class FinalCostingBean implements Serializable {
 
 
         return event.getNewStep();
+    }
+
+    public String goHome() {
+        return "authorizerHome.xhtml";
+    }
+
+    public String cancel() {
+        return "authorizerHome.xhtml";
+    }
+
+    public String goEdit() {
+        //loadValues();
+        initialize();
+        return "finalCostingEdit";
     }
 
     /////////////////////////////////

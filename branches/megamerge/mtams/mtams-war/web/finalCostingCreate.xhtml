@@ -12,14 +12,12 @@
 
             <ui:define name="content">
 
-                
+
                 <!--
                     **************************
                     Rest of the final costing form
                     **************************
                 -->
-
-
                 <h:form id="fcostFrom">
                     <p:growl id="growl" sticky="true" showDetail="true"/>
                     <p:messages id="submitConfirm" showDetail="true" closable="true" autoUpdate="true" severity="info"/>
@@ -99,7 +97,10 @@
                                                 <h:outputText value="Period of absence business: " />
                                             </p:column>
                                             <p:column colspan="1">
-                                                <p:inputText id="absencebussiness" value="#{finalCBean.absencebussiness}" required="true" requiredMessage="Period of absence business is a required Field" styleClass="inputWidthDepartment" >                                        
+                                                <p:inputText id="absencebussiness" value="#{finalCBean.absencebussiness}" 
+                                                             required="true" 
+                                                             requiredMessage="Period of absence business is a required Field" 
+                                                             styleClass="inputWidthDepartment" >                                        
                                                     <p:ajax update="absencebussinessMsg" event="blur" />
                                                 </p:inputText>
                                             </p:column>
@@ -129,7 +130,7 @@
                                             </p:column>
                                             <p:column colspan="1">
                                                 <p:inputText id="countries" value="#{dataLookUpBean.countryString}" 
-                                                             disabled="true"
+                                                             disabled="false"
                                                              required="true" 
                                                              requiredMessage="Destination countries is a required Field"  
                                                              styleClass="inputWidthDepartment"
@@ -139,7 +140,7 @@
                                                 </p:inputText>
                                             </p:column>
                                             <p:column>
-                                                <p:commandButton value="Select Country" type="button" onclick="CRCWigit.show()"/>
+
                                                 <p:message for="countries"/>
                                             </p:column>
                                         </p:row>
@@ -150,12 +151,14 @@
                                             </p:column>
                                             <p:column colspan="1">
                                                 <p:inputText id="cities" value="#{dataLookUpBean.cityString}" 
-                                                             disabled="true"
+                                                             disabled="false"
+
                                                              required="true" requiredMessage="Destination cities is a required Field" 
                                                              styleClass="inputWidthDepartment"
                                                              onclick="CRCWigit.show()"
                                                              >
                                                     <p:ajax update="cities" event="blur" />
+
                                                 </p:inputText>
                                             </p:column>
                                             <p:column>
@@ -181,15 +184,22 @@
                                                 <p:column >
                                                     <p:inputText id="SelCurrency" 
                                                                  value="#{dataLookUpBean.selectedCurrencyString}" 
-                                                                 disabled="true"
+                                                                 disabled="false"
                                                                  styleClass="inputWidthDepartment"
                                                                  onclick="CurrencyWigit.show()"
-                                                                 />                                                              
+
+                                                                 >
+
+
+                                                    </p:inputText>
+
 
                                                 </p:column>
                                                 <ui:remove>
                                                     <!--
-                                                                                                <h:outputText id="SelCurrencyT" 
+                                                                       <p:ajax listener="#{dataLookUpBean.listner}" />       
+                                                    <p:commandButton value="Select Country" type="button" onclick="CRCWigit.show()"/>
+                                                    <h:outputText id="SelCurrencyT" 
                                                           value="Selected Currency: #{dataLookUpBean.selectedCurrencyString}" 
                                                           />
                                             <p:commandButton value="Select Currency" type="button" onclick="dlgcurrency.show()"/>
@@ -881,8 +891,8 @@
                                     </fieldset>
 
 
-                                    <p:commandButton value="Submit" actionListener="#{finalCBean.createFinalCosting()}" />
-
+                                    <p:commandButton value="Submit" ajax="false" action="#{finalCBean.createFinalCosting()}" styleClass="button-left"/>
+                                    <p:commandButton value="Cancel" ajax="false" action="#{finalCBean.goHome()}" styleClass="button-left"/>
 
 
                                 </p:panel>
@@ -923,7 +933,7 @@
                     The ID of the element on which the ajax should update 
                     -->
                     <ui:param name="updateIDParam" value=":fcostFrom:SelCurrency" />
-                    
+
 
                     <!--
                     The java script name of the dialog needs to be unique
