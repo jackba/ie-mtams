@@ -70,7 +70,8 @@ public class DataLookUpBean implements Serializable {
     // Currency lookup vars
     private int currencyCount;
     //private Currency aCurrencyRef;
-    private Currency aCurrencySelection;
+    private Currency CurSelect;
+    //private Currency CurrencySelection;
     private String currencyString;
     private String selectedCurrencyString;
     private List<Currency> currencyList;
@@ -93,6 +94,8 @@ public class DataLookUpBean implements Serializable {
     private String countryString;
     private String regionyString;
     private String cityString;
+    // passing a listner into as a parameter
+    private String listner;
 
     //private String test = "hello world";
     //private String test;
@@ -102,6 +105,9 @@ public class DataLookUpBean implements Serializable {
     @PostConstruct
     public void init() {
         logger.log(Level.INFO, "initialize");
+
+        this.listner = "#{dataLookUpBean.CurSel()}";
+        logger.log(Level.INFO, "this.getListner() : {0}", this.getListner());
 
         //this.titleCount = 10;
         //this.test = "hello world in init";
@@ -159,17 +165,23 @@ public class DataLookUpBean implements Serializable {
         // non case sensitive search for 
 //        this.aCurrencyRef = daoDataLookUp.getCurrency("eur");
 //        this.currencyString = aCurrencyRef.getCurrencycode3();
+        this.setSelectedCurrencyString((null == this.getSelectedCurrencyString()) ? "" : this.getSelectedCurrencyString());
 
-        logger.log(Level.INFO, "aCurrencySelection : {0}", aCurrencySelection);
-        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
-        if (aCurrencySelection != null) {
+//        logger.log(Level.INFO, "CurSelect = null : {0}", CurSelect != null);
+//        logger.log(Level.INFO, "CurSelect : {0}", CurSelect);
+//        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
+        if (CurSelect != null) {
+//            logger.log(Level.INFO, "CurSelect : {0}", true);
             this.setSelectedCurrencyString(("".equals(this.getSelectedCurrencyString())) ? this.CurSel() : this.getSelectedCurrencyString());
         } else {
+//            logger.log(Level.INFO, "CurSelect : {0}", false);
+//            logger.log(Level.INFO, "equals(this.getSelectedCurrencyString() : {0}", "".equals(this.getSelectedCurrencyString()))    ;
+//            logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
             this.setSelectedCurrencyString("".equals(this.getSelectedCurrencyString()) ? "" : this.getSelectedCurrencyString());
         }
         //this.setSelectedCurrencyString((this.selectedCurrencyString == null) ? "test" : this.CurSel());
-        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
-        //logger.log(Level.INFO, "aCurrencySelection.toString : {0}", aCurrencySelection.toString());
+        logger.log(Level.INFO, "CurSelect : {0}", CurSelect);
+        //logger.log(Level.INFO, "CurrencySelection.toString : {0}", CurrencySelection.toString());
 
 
         this.currencyList = new ArrayList<Currency>();
@@ -202,9 +214,12 @@ public class DataLookUpBean implements Serializable {
     }
 
     public String CurSel() {
-//        logger.log(Level.INFO, "CurSel");
+        logger.log(Level.INFO, "CurSel");
         logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
-        selectedCurrencyString = aCurrencySelection.getCurrencycode3() + ", " + aCurrencySelection.getCountryname() + ", " + aCurrencySelection.getCurrencyname();
+        logger.log(Level.INFO, "this.getListner() : {0}", this.getListner());
+//        selectedCurrencyString = CurSelect.getCurrencycode3() + ", " + CurSelect.getCountryname() + ", " + CurSelect.getCurrencyname();
+
+        selectedCurrencyString = CurSelect.getCurrencycode3();
 //        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
         return selectedCurrencyString;
     }
@@ -273,6 +288,11 @@ public class DataLookUpBean implements Serializable {
         return "CitySel test";
 
     }
+
+    public String test() {
+        return "IT worked";
+    }
+    
 
     /**
      * Creates a new instance of DataLookUpBean
@@ -462,14 +482,6 @@ public class DataLookUpBean implements Serializable {
         this.currencyCount = currencyCount;
     }
 
-    public Currency getaCurrencySelection() {
-        return aCurrencySelection;
-    }
-
-    public void setaCurrencySelection(Currency aCurrencySelection) {
-        this.aCurrencySelection = aCurrencySelection;
-    }
-
     public String getCurrencyString() {
         return currencyString;
     }
@@ -636,5 +648,21 @@ public class DataLookUpBean implements Serializable {
 
     public void setCityString(String cityString) {
         this.cityString = cityString;
+    }
+
+    public Currency getCurSelect() {
+        return CurSelect;
+    }
+
+    public void setCurSelect(Currency CurSelect) {
+        this.CurSelect = CurSelect;
+    }
+
+    public String getListner() {
+        return listner;
+    }
+
+    public void setListner(String listner) {
+        this.listner = listner;
     }
 }
