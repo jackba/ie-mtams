@@ -31,40 +31,27 @@
 
                         <f:facet name="footer"> 
                             <!-- ///////////////////Create///////////////////-->
-                            <p:commandButton  id="showDialogButton" type="button" value="Create" icon="ui-icon-plusthick"  
-                                              onclick="dlg1.show();" />
-
-                            <p:dialog id="createDialog" header="Enter Department Name" widgetVar="dlg1" resizable="false">                                     
-                                <h:panelGrid columns="3" styleClass="panelGrid-noBorder">
-                                    <h:outputLabel for="deptName" value="Name:" />  
-                                    <p:inputText id="deptName" required="true" requiredMessage="Required Field" value="#{superAdminBean.departmentName}" >
-                                        <p:ajax update="createM" event="keyup" />
-                                    </p:inputText>
-                                    <p:message for="deptName" id="createM"/>
-                                </h:panelGrid>
-                                <p:commandButton id="submit" value="Submit" actionListener="#{superAdminBean.createDepartment()}" ajax="false" oncomplete="dlg1.hide();" />  
-
-                            </p:dialog>
+                            <p:commandButton  id="showDialogButton" type="button" value="Create" icon="ui-icon-plusthick" action="#{superAdminBean.createVisible()}" >
+                                <p:ajax event="change" update="createGrid"/>
+                            </p:commandButton>
 
                             <!-- ///////////////////Edit///////////////////-->
-                            <p:commandButton  id="showDialogButton2" type="button" value="Edit" icon="ui-icon-pencil" ajax="false"  
-                                              onclick="dlg2.show();" />
-
-                            <p:dialog id="editDialog" header="Enter Department Name" widgetVar="dlg2" resizable="false">                                     
-                                <h:panelGrid columns="3" styleClass="panelGrid-noBorder">
-                                    <h:outputLabel for="deptName2" value="Name:" />  
-                                    <p:inputText id="deptName2" required="true" requiredMessage="Required Field" value="#{superAdminBean.departmentEditName}">
-                                        <p:ajax update="editM" event="keyup" />
-                                    </p:inputText>
-                                    <p:message for="deptName2" id="editM"/>                                      
-                                </h:panelGrid>
-                                <p:commandButton id="submit2" value="Submit" actionListener="#{superAdminBean.editDepartment()}" ajax="false"  oncomplete="dlg2.hide();"/>
-                            </p:dialog>
+                            <p:commandButton  id="showDialogButton2" type="button" value="Edit" icon="ui-icon-pencil" />
 
                             <!-- ///////////////////Delete///////////////////-->
                             <p:commandButton value="Delete" update=":departmentHandlerForm" action="#{superAdminBean.deleteDepartment()}" icon="ui-icon-closethick"/>
                         </f:facet>
-                    </p:dataTable>                       
+                    </p:dataTable>
+                    
+                    <h:panelGrid id="createGrid" columns="3" columnClasses="label, value, error" >  
+
+                        <h:outputText rendered= "#{superAdminBean.showCreate eq '1'}" value="Department Name:" />
+                        <p:inputText rendered= "#{superAdminBean.showCreate eq '1'}" id="departmentName" required="true" value="#{superAdminBean.departmentName}" requiredMessage="Required Field">
+                            <p:ajax update="deptNameM" event="keyup" />
+                        </p:inputText>
+                        <p:message for="departmentName" id="deptNameM"/>
+
+                    </h:panelGrid>
                 </h:form>                    
             </ui:define>
 
