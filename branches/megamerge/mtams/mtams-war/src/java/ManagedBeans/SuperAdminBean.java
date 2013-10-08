@@ -40,8 +40,8 @@ public class SuperAdminBean implements Serializable {
     private String departmentName;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z ]{0,}")
     private String departmentEditName;
-    private int showEdit;
-    private int showCreate;
+    private int showEdit = 2;
+    private int showCreate = 2;
     private int departmentID;
     private Department selectedDepartment;
     private Department departmentRef;
@@ -223,13 +223,13 @@ public class SuperAdminBean implements Serializable {
 
     public void createDepartment() {        
         if (departmentHandler.checkDepartmentName(getDepartmentName())) {
-            //FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Input Error", "Department already exists"));
+            FacesContext.getCurrentInstance().addMessage("departmentHandlerMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Input Error", "Department already exists"));
 
         } else {
             departmentRef = new Department();
             departmentRef.setDepartment(departmentName);
             departmentHandler.createDepartment(departmentRef);
-            FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Department Created"));
+            FacesContext.getCurrentInstance().addMessage("departmentHandlerMessages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Department Created"));
         }
     }
 
@@ -239,17 +239,18 @@ public class SuperAdminBean implements Serializable {
 
     public void editDepartment() {
         if (departmentHandler.checkDepartmentName(getDepartmentEditName())) {
-            //FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Input Error", "Department already exists"));
+            FacesContext.getCurrentInstance().addMessage("departmentHandlerMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Input Error", "Department already exists"));
 
         } else {
             selectedDepartment.setDepartment(getDepartmentEditName());
-            departmentHandler.editDepartment(selectedDepartment);
-            FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Department Edited"));
+            departmentHandler.editDepartment(selectedDepartment);            
+            FacesContext.getCurrentInstance().addMessage("departmentHandlerMessages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Department Edited"));
         }
     }
 
     public void deleteDepartment() {
         departmentHandler.deleteDepartment(selectedDepartment);
+        selectedDepartment = null;
         FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Department Deleted"));
 
     }
