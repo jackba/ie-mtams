@@ -50,23 +50,23 @@ public class ConferenceHandler implements ConferenceHandlerLocal {
 
     @Override
     public Conference findConference(Integer id) {
-        Integer conferenceID = null;
+//        Integer conferenceID = null;
         Conference conferenceForm = null;
         //Start by looking at Application Table. Application -> Travel ID -> ID Conference
         List<Application> allApp = applicationDA.findAll();
         for (Application eachApp : allApp) {
-            if (eachApp.getAccountIdaccount().getIdaccount().equals(id)) {
-                conferenceID = eachApp.getTravelIdtravel().getConferenceIdconference().getIdconference();
+            if (eachApp.getIdapplication().equals(id)) {
+                conferenceForm = eachApp.getTravelIdtravel().getConferenceIdconference();
             }
         }
 
         //Try and match conferenceID to passed id
-        List<Conference> allConferences = conferenceDA.findAll();
-        for (Conference eachConf : allConferences) {
-            if (eachConf.getIdconference().equals(conferenceID)) {
-                conferenceForm = eachConf;
-            }
-        }
+//        List<Conference> allConferences = conferenceDA.findAll();
+//        for (Conference eachConf : allConferences) {
+//            if (eachConf.getIdconference().equals(conferenceID)) {
+//                conferenceForm = eachConf;
+//            }
+//        }
         return conferenceForm;
     }
 

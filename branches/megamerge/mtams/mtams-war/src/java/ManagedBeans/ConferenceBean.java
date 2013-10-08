@@ -42,6 +42,7 @@ public class ConferenceBean implements Serializable {
     private Quotes quotes;
     //int accountID = 1;
     private int accountID = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
+    private int appnum = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("appID");
     //Section B - Conference Details
     private String confName;
     @Pattern(message = "Incorrect Website Format", regexp = "(((ht|f)tp(s)?://)|www.){1}([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&=]*)?")
@@ -49,7 +50,7 @@ public class ConferenceBean implements Serializable {
     private String country;
     @Pattern(message = "Incorrect City Name", regexp = "^[a-zA-Z]+$")
     private String city;
-    private int isPresenting;
+    private Integer isPresenting;
     private String paperTitle;
     private String specialReason;
     private String author;
@@ -58,7 +59,7 @@ public class ConferenceBean implements Serializable {
     private Date fromDate;
     @Future(message = "Date Must Be In The Future")
     private Date toDate;
-    private int diffDays;
+    private Integer diffDays;
     private String coverOptions;
     private String coverDetails;
     //Section D - Funding
@@ -100,28 +101,35 @@ public class ConferenceBean implements Serializable {
 
     @PostConstruct
     public void view() {
-        confView = handler.findConference(accountID);
-        logger.log(Level.INFO, "Conference ID:", confView.getIdconference());
+        confView = handler.findConference(appnum);
+        if (confView != null) {
+            logger.log(Level.INFO, "Conference ID:", confView.getIdconference());
 
-        this.setConfName(confView.getConferencename());
-        this.setWebsite(confView.getWebpage());
-        this.setCountry(confView.getCountry());
-        this.setCity(confView.getCity());
-        this.setIsPresenting(confView.getPresenting());
-        this.setPaperTitle(confView.getPresentationtitle());
-        this.setAuthor(confView.getAuthors());
-        this.setSpecialReason(confView.getOtherreasonattendance());
-        this.setPresentationDate(confView.getDatemsapresentation());
+            this.setConfName(confView.getConferencename());
+            this.setWebsite(confView.getWebpage());
+            this.setCountry(confView.getCountry());
+            this.setCity(confView.getCity());
+            if(confView.getPresenting() == null){
+                this.setIsPresenting(0);
+            }else{
+                this.setIsPresenting(confView.getPresenting());
+            }
+            
+            this.setPaperTitle(confView.getPresentationtitle());
+            this.setAuthor(confView.getAuthors());
+            this.setSpecialReason(confView.getOtherreasonattendance());
+            this.setPresentationDate(confView.getDatemsapresentation());
 
-        this.setFromDate(confView.getDatefrom());
-        this.setToDate(confView.getDateto());
-        this.setDiffDays(confView.getConferenceduration());
-        this.setCoverOptions(confView.getReplacement());
-        this.setCoverDetails(confView.getReplacementarrangments());
+            this.setFromDate(confView.getDatefrom());
+            this.setToDate(confView.getDateto());
+            this.setDiffDays(confView.getConferenceduration());
+            this.setCoverOptions(confView.getReplacement());
+            this.setCoverDetails(confView.getReplacementarrangments());
 
-        this.setFundingOptions(confView.getFundingsources());
-        this.setOtherFunding(confView.getOtherfundingsources());
-        this.setFundName(confView.getFundname());
+            this.setFundingOptions(confView.getFundingsources());
+            this.setOtherFunding(confView.getOtherfundingsources());
+            this.setFundName(confView.getFundname());
+        }
     }
 
     public void update() {
@@ -253,7 +261,7 @@ public class ConferenceBean implements Serializable {
         return diffDays;
     }
 
-    public void setDiffDays(int diffDays) {
+    public void setDiffDays(Integer diffDays) {
         this.diffDays = diffDays;
     }
 
