@@ -40,6 +40,8 @@ public class SuperAdminBean implements Serializable {
     private String departmentName;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z ]{0,}")
     private String departmentEditName;
+    private int showEdit;
+    private int showCreate;
     private int departmentID;
     private Department selectedDepartment;
     private Department departmentRef;
@@ -184,7 +186,23 @@ public class SuperAdminBean implements Serializable {
     }
 
     public void setSelectedDepartment(Department selectedDepartment) {
-        this.selectedDepartment = selectedDepartment;
+        this.selectedDepartment = selectedDepartment;        
+    }
+
+    public int getShowCreate() {
+        return showCreate;
+    }
+
+    public void setShowCreate(int showCreate) {
+        this.showCreate = showCreate;
+    }
+
+    public int getShowEdit() {
+        return showEdit;
+    }
+
+    public void setShowEdit(int showEdit) {
+        this.showEdit = showEdit;
     }
 
     public UIData getDataTable() {
@@ -194,10 +212,18 @@ public class SuperAdminBean implements Serializable {
     public void setDataTable(UIData dataTable) {
         this.dataTable = dataTable;
     }
+    
+    public void createVisible(){
+        showCreate = 1;
+    }
+    
+    public void createInvisible(){
+        showCreate = 0;
+    }
 
-    public void createDepartment() {
-        if (departmentHandler.checkDepartmentName(getAdminName())) {
-            FacesContext.getCurrentInstance().addMessage("createM", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Input Error", "Department already exists"));
+    public void createDepartment() {        
+        if (departmentHandler.checkDepartmentName(getDepartmentName())) {
+            //FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Input Error", "Department already exists"));
 
         } else {
             departmentRef = new Department();
@@ -212,8 +238,8 @@ public class SuperAdminBean implements Serializable {
     }
 
     public void editDepartment() {
-        if (departmentHandler.checkDepartmentName(getAdminName())) {
-            FacesContext.getCurrentInstance().addMessage("editM", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Input Error", "Department already exists"));
+        if (departmentHandler.checkDepartmentName(getDepartmentEditName())) {
+            //FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Input Error", "Department already exists"));
 
         } else {
             selectedDepartment.setDepartment(getDepartmentEditName());
