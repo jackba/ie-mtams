@@ -992,4 +992,7 @@ public class ApplicationBean implements Serializable {
         return "motivationalView";
     }
     
+    public String goConference(){
+        return "conferenceCreate";
+    }
 }

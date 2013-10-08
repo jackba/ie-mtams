@@ -11,7 +11,8 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-                <p:growl id="growl" sticky="true" showDetail="true"/>
+                <h:form>
+                    <p:messages id="growl" autoUpdate="true" showDetail="true"/>
 
                 <p:wizard widgetVar="conf_request"
                           flowListener="#{conference.onFlowProcess}" >
@@ -206,6 +207,7 @@
                     </p:tab>
 
                 </p:wizard>
+                </h:form>
             </ui:define>
 
         </ui:composition>
