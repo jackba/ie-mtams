@@ -8,8 +8,8 @@
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>MSA Travel Application Management System</title>
-        
-        
+
+
         <h:outputScript library="primefaces" name="jquery/jquery.js"/>
         <script type="text/javascript" src="resources/jquery.stickyPanel.min.js"></script>
         <script type="text/javascript">
@@ -21,9 +21,23 @@
                 };
 
                 jQuery("#nav").stickyPanel(stickyPanelOptions);
-                /*
-                 jQuery("#more_panels").stickyPanel(stickyPanelOptions);
-                 */
+            });
+        </script>
+        <script type="text/javascript">
+            jQuery().ready(function() {
+                $(window).scroll(function() {
+                    if ($(this).scrollTop() > 100) {
+                        $('.scrollup').fadeIn();
+                    } else {
+                        $('.scrollup').fadeOut();
+                    }
+                });
+
+                $('.scrollup').click(function() {
+                    $("html, body").animate({scrollTop: 0}, 600);
+                    return false;
+                });
+
             });
         </script>
     </h:head>
@@ -51,6 +65,7 @@
             </div>
 
             <div id="nav">
+                <a href="#" class="scrollup">Scroll Up</a>
                 <h:form>
                     <p:menubar autoDisplay="false" model="#{menuBean.model}" rendered="#{sessionBean.checkMenuActive()}"/>  
                 </h:form>
