@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+
+            <ui:define name="content">                
+                <fieldset>
+                    <legend><h3>Create Account</h3></legend>
+
+                    <h:form id="createAccountForm">
+                        <p:messages id="createMessages" closable="true" showDetail="true" severity="error" autoUpdate="true" globalOnly="true"/>
+                        <p:focus id="createAccountForm">
+                            <h:panelGrid id="createPanel" columns="4"> 
+
+                                <h:outputLabel for="username" value="Username:"/>
+                                <p:inputText id="username" label="Username" required="true" size="30" requiredMessage="Please type a username." value="#{adminBean.username}">
+                                    <f:validateLength minimum="3"/>
+                                    <p:ajax update="msgUser" event="keyup" async="true"/>                            
+                                </p:inputText>
+                                <p:watermark for="username" value="a2314745 *"/>
+                                <p:message for="username" id="msgUser"/>
+
+
+                                <h:outputLabel for="password" value="Password:" />  
+                                <p:password id="password" label="Password:" required="true" size="30" match="confirmPassword" requiredMessage="Please enter your password." value="#{adminBean.password}" feedback="true" 
+                                            weakLabel="Weak :/" goodLabel="Good :)" strongLabel="Strong :D">
+                                    <f:validateLength minimum="5"/>                            
+                                    <p:ajax update="msgPass, msgPass2" event="blur" async="true"/>
+                                </p:password>
+                                <p:watermark for="password" value="Password *"/>
+                                <p:message for="password"  id="msgPass"/>
+
+                                <h:outputLabel for="confirmPassword" value="Verify Password:" />  
+                                <p:password id="confirmPassword" label="Confirm Password:" required="true" size="30" requiredMessage="Please confirm your password." value="#{adminBean.password}">
+                                    <p:ajax update="msgPass2, msgPass" event="blur" async="true"/>
+                                </p:password>
+                                <p:watermark for="confirmPassword" value="Password *"/>
+                                <p:message for="confirmPassword" id="msgPass2" />
+
+                                <h:outputLabel for="roles" value="Select Role:" />  
+                                <p:selectOneRadio id="roles" label="Role:" required="true" requiredMessage="Role not selected" value="#{adminBean.role}" >  
+                                    <f:selectItem itemLabel="Applicant" itemValue="11" />  
+                                    <f:selectItem itemLabel="Authorizer" itemValue="12" />
+                                    <p:ajax event="change" update="departmentRoleGrid"/>
+                                </p:selectOneRadio>    
+                                <p:message for="roles"  />
+                            </h:panelGrid>         
+
+                            <h:panelGrid columns="3" id="departmentRoleGrid" columnClasses="label, value"> 
+
+                                <h:outputLabel for="departmentRole" value="Department Role:" rendered="#{adminBean.role eq '12'}"/>
+                                <p:selectOneRadio id="departmentRole"  value="#{adminBean.departmentRole}" rendered="#{adminBean.role eq '12'}">
+                                    <f:selectItem itemLabel="School Admin" itemValue="1" />
+                                    <f:selectItem itemLabel="Head of Department" itemValue="2"/>                                    
+                                </p:selectOneRadio>
+                                <p:message for="departmentRole" rendered="#{adminBean.role eq '12'}"/>                               
+                            </h:panelGrid>
+
+                            <p:button value="Cancel"  outcome="#{adminBean.goViewAll()}"/> 	
+                            <p:commandButton value="Create"  update="createPanel" action="#{adminBean.createAccount()}"/>
+
+                        </p:focus>
+                    </h:form>
+                </fieldset>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
