@@ -20,26 +20,22 @@
                     <p:tab id="personal" title="Personal">
                         <p:panel header="Personal Details">
 
-                            <h:panelGrid columns="3" columnClasses="label, value">
+                            <h:panelGrid columns="2" columnClasses="label, value">
                                 <h:outputLabel for="schoolUnit" value="School/Administrative Unit:"/>
-                                <p:inputText id="schoolUnit" readonly="true" />
-                                <p:watermark for="schoolUnit" value="#{conference.travelerP.department}"/>
+                                <h:outputText id="schoolUnit" value="#{conference.travelerP.department}" />
 
                                 <p:outputLabel for="staffNum" value="Staff Number:"/>
-                                <p:inputText id="staffNum" readonly="true"/>
-                                <p:watermark for="staffNum" value="#{conference.travelerP.staffid}"/>
+                                <h:outputText id="staffNum" value="#{conference.travelerP.staffid}"/>
 
                                 <h:outputLabel for="staffTitle" value="Title:"/>
-                                <p:inputText id="staffTitle"  readonly="true"/>
-                                <p:watermark for="staffTitle" value="#{conference.travelerP.title}"/>
+                                <h:outputText id="staffTitle"  value="#{conference.travelerP.title}"/>
 
                                 <p:outputLabel for="fName" value="Family Name:"/>
-                                <p:inputText id="fName" readonly="true"/>
-                                <p:watermark for="fName" value="#{conference.travelerP.familyname}"/>
-
+                                <h:outputText id="fName" value="#{conference.travelerP.familyname}"/>
+                    
                                 <p:outputLabel for="lName" value="Given Names:"/>
-                                <p:inputText id="lName" readonly="true"/>
-                                <p:watermark for="lName"  value="#{conference.travelerP.firstname}"/>
+                                <h:outputText id="lName" value="#{conference.travelerP.firstname}"/>
+                             
                             </h:panelGrid>
                         </p:panel>
                     </p:tab>
