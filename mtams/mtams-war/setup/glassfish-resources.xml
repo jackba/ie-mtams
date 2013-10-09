@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+  <mail-resource debug="false" enabled="true" from="mtams.ie@gmail.com" host="smtp.gmail.com" jndi-name="mail/mySession" object-type="user" store-protocol="imap" store-protocol-class="com.sun.mail.imap.IMAPStore" transport-protocol="smtps" transport-protocol-class="com.sun.mail.smtp.SMTPSSLTransport" user="mtams.ie@gmail.com">
+    <description>mtams gmail account</description>
+    <property name="mail-smtps-auth" value="true"/>
+    <property name="mail-smtps-password" value="eismatmg8"/>
+    <property name="mail-smtps-port" value="465"/>
+  </mail-resource>
+</resources>

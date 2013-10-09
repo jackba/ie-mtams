@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="../template/template_1.xhtml">
+
+            <ui:define name="content">
+                <div> 
+                    <p> test </p>
+                    <!--
+                    <p>request.getPathInfo() :#{request.getPathInfo()}</p>
+                    <p>request.getPathTranslated()   :#{request.getPathTranslated()}</p>
+                    <p>request.contextPath :#{request.contextPath}</p>
+                    <p>request.getRealPath("/") :#{request.getRealPath("/")}</p>
+                    <p>request.getRealPath("request.contextPath") :#{request.getRealPath(request.contextPath)}</p>
+                    <p>request.getRealPath("/") :#{request.getRealPath("/")}</p>
+                    <p>request.getServletPath()  :#{request.getServletPath()    }</p>
+                    -->
+                </div>
+                <ui:remove>
+                    <!--
+                               
+                <ui:include src="../template/currencyDialog_1.xhtml" >
+
+                    <ui:param name="updateIDParam" value=":formID:testID" />
+                    <ui:param name="updateIDParam2" value=":formID:testID2" />
+
+                    
+                    <ui:param name="bean" value="#{dataLookUpBean}" />
+                    <ui:param name="SelectionVar2" value="dataLookUpBean" />
+
+                    <ui:param name="SelectionVar" value="curSelect" />
+                    <ui:param name="SelectionListner" value="listner" />
+
+                    <ui:param name="updateDLGfromID" value="CurrencyDLG1" />
+                    <ui:param name="widgetVarParam" value="testWvar" />
+                </ui:include>
+                    -->
+                </ui:remove>
+                <!--
+The ID of the element on which the ajax should update 
+                -->
+
+                <!--
+The following methods need to be placed in side your manage bean
+and to retrieve the
+
+                -->
+                <!--
+The java script name of the dialog needs to be unique
+for each dialog used on a page. 
+                -->
+
+                <ui:include src="../template/currencyDialog.xhtml" >
+                    <!--
+                    The ID of the element on which the ajax should update 
+                    -->
+                    <ui:param name="updateIDParam" value=":formID:testID" />
+                    <ui:param name="updateIDParam2" value=":formID:testID2" />
+                    <!--
+                    The following methods need to be placed in side your manage bean
+                    and to retrieve the
+
+                    -->
+                    
+                    <ui:param name="bean" value="#{dataLookUpBean}" />
+                    <ui:param name="SelectionVar2" value="dataLookUpBean" />
+
+                    <ui:param name="updateDLGfromID" value="CurrencyDLG1" />
+                    <ui:param name="widgetVarParam" value="testWvar" />
+                </ui:include>
+                <h:form id="formID" styleClass="test"> 
+                    <p>Currency List count : #{dataLookUpBean.currencyCount}</p>
+                    <p:commandButton value="Show currency" type="button" onclick="testWvar.show()" />
+                    <p:commandButton value="Hide currency" type="button" onclick="testWvar.hide()" />
+                    <br />
+                    <p:outputLabel  value="string currency object : " />
+                    <p:inputText id="testID" value="#{dataLookUpBean.selectedCurrencyString}" onclick="testWvar.show()" />
+                    <br />
+                    <p:outputLabel id="testID2" value="string currency object : #{dataLookUpBean.curSelect}" />
+                </h:form>
+
+
+                <div><p>Country Region City</p>
+                    <ui:include src="../template/countryDialog.xhtml" >
+                        <!--
+                        The ID of the element on which the ajax should update 
+                        -->
+                        <ui:param name="updateIDParam" value=":CRCVal:countryID" />
+                        <ui:param name="updateIDParam2" value=":CRCVal:countryID2" />
+
+                        <!--
+                        The java script name of the dialog needs to be unique
+                        for each dialog used on a page. 
+                        -->
+                        <ui:param name="updateDLGfromID" value="CountryDLG1" />
+                        <ui:param name="widgetVarParam" value="CountryWigit" />
+                    </ui:include>
+
+                    <h:form id="CRCVal" styleClass="test"> 
+                        <p>Country List count : #{dataLookUpBean.countryCount}</p>
+                        <p:commandButton value="Show Country" type="button" onclick="CountryWigit.show()" />
+                        <p:commandButton value="Hide Country" type="button" onclick="CountryWigit.hide()" />
+                        <br />
+                        <p:outputLabel id="countryID" value="string Country object : #{dataLookUpBean.countryString}" />
+                        <br />
+                        <p:outputLabel id="RegionID" value="string Region object : #{dataLookUpBean.regionyString}" />
+                        <br />
+                        <p:outputLabel id="CityID" value="string City object : #{dataLookUpBean.cityString}" />
+                        <br />
+                        <p:outputLabel id="countryID2" value="string CRCS country object : #{dataLookUpBean.countrySelectionRef}" />
+                        <br />
+                        <p:outputLabel id="RegionID2" value="string CRCS region object : #{dataLookUpBean.regionySelectionRef}" />
+                        <br /> 
+                        <p:outputLabel id="CityID2" value="string CRCS region object : #{dataLookUpBean.citySelectionRef}" />
+                        <br /> 
+                        <p:commandButton value="Show CRC" type="button" onclick="CRCWigit.show()" />
+                        <p:commandButton value="Hide CRC" type="button" onclick="CRCWigit.hide()" />
+                    </h:form>
+
+                    <ui:remove>
+                        <!--
+                        <ui:param name="updateCountryIDParam2" value=":CRCVal:countryID2" />
+                        <ui:param name="updateRegionIDParam2" value=":CRCVal:RegionID2" />
+                        <ui:param name="updateCityIDParam2" value=":CRCVal:CityID2" />
+                        -->
+                    </ui:remove>
+
+
+
+                    <ui:include src="../template/CRCDialog.xhtml" >
+                        <!--
+                       The ID of the element on which the ajax should update 
+                        -->
+                        <ui:param name="updateCountryIDParam" value=":CRCVal:countryID" />                        
+                        <ui:param name="updateRegionIDParam" value=":CRCVal:RegionID" />                        
+                        <ui:param name="updateCityIDParam" value=":CRCVal:CityID" />                        
+                        <ui:param name="updateIDfrom" value=":formID" />
+
+                        <!--
+                        The java script name of the dialog needs to be unique
+                        for each dialog used on a page. 
+                        The value for the widgetVarParam needs to be unique 
+                        -->
+                        <ui:param name="updateDLGfromCountryID" value="DLGformCountry" />
+                        <ui:param name="updateDLGfromRegionID" value="DLGformRegion" />
+                        <ui:param name="updateDLGfromCityID" value="DLGformCity" />
+                        <ui:param name="widgetVarParam" value="CRCWigit" />
+                    </ui:include>   
+                    <ui:remove>
+                        <!--
+                    <ui:include src="./testSRC.xhtml" >
+                        <ui:param name="beanParam" value="dataLookUpBean" />
+                        <ui:param name="listnerParam" value="listner" />
+                        <ui:param name="valueParam" value="titleString" />
+
+                        <ui:param name="updateIDParam" value=":FID:Lable1" />
+                    </ui:include> 
+   
+                    <h:form id="FID">
+                    <p:outputLabel id="Lable1" value="string : #{dataLookUpBean.titleString}" />
+                    </h:form>
+     
+                        -->
+                    </ui:remove>
+                </div>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

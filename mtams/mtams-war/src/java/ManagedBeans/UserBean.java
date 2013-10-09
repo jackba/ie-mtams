@@ -4,14 +4,18 @@
  */
 package ManagedBeans;
 
+import Entities.Account;
 import Entities.Application;
 import Entities.Approval;
+import Entities.Approvalchain;
 import javax.inject.Named;
 import Entities.Rewardsprogram;
 import Entities.Traveldocument;
 import Entities.Travelerprofile;
+import ServiceLayer.AccountHandlerLocal;
 import ServiceLayer.ApplicationHandlerLocal;
 import ServiceLayer.ApprovalHandlerLocal;
+import ServiceLayer.LoginHandlerLocal;
 import ServiceLayer.TravelProfileHandlerLocal;
 import java.io.IOException;
 import java.io.Serializable;
@@ -26,10 +30,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIData;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
-import org.primefaces.model.SelectableDataModelWrapper;
 
 /**
  *
@@ -40,18 +45,24 @@ import org.primefaces.model.SelectableDataModelWrapper;
 public class UserBean implements Serializable {
     //======change===change=========change============change=========change====
 
-    private Integer accountID = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+    private Integer accountID = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
     //======change========change=========change=============change=============
     private static final Logger logger = Logger.getLogger(ManagedBeans.UserBean.class.getName());
     @EJB
     private ApplicationHandlerLocal appHandler;
     private List<Application> allApps;
+    private List<Application> approvalApps;
     @EJB
     private ApprovalHandlerLocal apprHandler;
-    private List<Approval> allApproved;
+    @EJB
+    private AccountHandlerLocal accHandler;
+    @EJB
+    private LoginHandlerLocal logHandler;
+    private List<Approvalchain> allApproved;
+    private int stage;
     private Application selectedApp;
     private String department;
-    @Pattern(message = "Incorrect ID", regexp = "[0-9]{8}")
+    @Pattern(message = "Incorrect ID", regexp = "[0-9a-zA-Z ]{8}")
     private String staffID;
     private String position;
     @Pattern(message = "Incorrect Name", regexp = "[a-zA-Z ]+${0,}")
@@ -71,28 +82,34 @@ public class UserBean implements Serializable {
     @Pattern(message = "Incorrect Number", regexp = "([+0-9]{10,16})?")
     private String busFax;
     private String homeAddress;
+    private String homeAddress2;
+    private String city;
+    private String countryH;
+    private String province;
+    private String postalCode;
     @Pattern(message = "Incorrect Number", regexp = "[+0-9]{10,16}")
     private String mobilePhone;
     @Pattern(message = "Incorrect Number", regexp = "([+0-9]{10,16})?")
     private String homePhone;
     @Pattern(message = "Incorrect E-mail format", regexp = "^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String email;
-    @Pattern(message = "Incorrect Name", regexp = "([a-zA-Z]{0,})?")
+    @Pattern(message = "Incorrect Name", regexp = "([a-zA-Z ]{0,})?")
     private String spouseName;
     @Pattern(message = "Incorrect Number", regexp = "([+0-9]{10,16})?")
     private String spouseContactNo;
     @Pattern(message = "Incorrect E-mail format", regexp = "(^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$)?")
     private String spouseEmail;
-    @Pattern(message = "Incorrect Name", regexp = "([a-zA-Z]{0,})?")
+    @Pattern(message = "Incorrect Name", regexp = "([a-zA-Z. ]{0,})?")
     private String docName;
     @Pattern(message = "Incorrect Number", regexp = "[+0-9]{10,16}")
     private String docContactNo;
     @Pattern(message = "Incorrect E-mail format", regexp = "^[_a-z0-9A-Z-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String docEmail;
     private String knownMedConditions;
-    @Pattern(message = "Incorrect Passport ID", regexp = "[0-9a-zA-Z]{8,10}")
+    @Pattern(message = "Incorrect Passport ID", regexp = "[0-9a-zA-Z]{8,15}")
     private String passportNo;
     private String country;
+    @Past(message = "Date must be further into the past")
     private Date dateOfIssue;
     @Future(message = "Date needs to be further into the future")
     private Date expiryDate;
@@ -140,12 +157,27 @@ public class UserBean implements Serializable {
     private Rewardsprogram reward3;
     @EJB
     private TravelProfileHandlerLocal handler;
+    private Date currentDate = new Date();
+
+    public Date getCurrentDate() {
+        return currentDate;
+    }
 
     public UserBean() {
     }
 
+    public List<Application> getApprovalApps() {
+        approvalApps = apprHandler.allApp(accountID);
+        return approvalApps;
+    }
+
+    public void setApprovalApps(List<Application> approvalApps) {
+        this.approvalApps = approvalApps;
+    }
+
     public List<Application> getAllApps() {
         allApps = appHandler.getAppList(accountID);
+
         return allApps;
     }
 
@@ -153,13 +185,41 @@ public class UserBean implements Serializable {
         this.allApps = allApps;
     }
 
-    public List<Approval> getAllApproved() {
-        allApproved = apprHandler.findApprovalbyAccount(accountID);
+    public List<Approvalchain> getAllApproved() {
+        allApproved = apprHandler.findAppovalby(accountID);
         return allApproved;
     }
 
-    public void setAllApproved(List<Approval> allApproved) {
+    public void setAllApproved(List<Approvalchain> allApproved) {
         this.allApproved = allApproved;
+    }
+    
+    public int returnStage(Application app){
+        stage = apprHandler.returnStage(app.getIdapplication());
+        return stage;
+    }
+    
+    public String returnStageName(Application app){
+        stage = apprHandler.returnStage(app.getIdapplication());
+        String name = "";
+        switch (stage){
+            case 0: name = "Pending submission";
+                break;
+            case 1: name = "school admin";
+                break;
+            case 2: name = "HOD";
+                break;
+            case 3: name = "Finance";
+                break;
+            case 4: name = "PVC";
+                break;
+            case 5: name = "Final Finance";
+                break;
+            case 6: name = "Application Approved";
+                break;            
+        }
+        
+        return name;
     }
 
     public String goToProfile() {
@@ -197,10 +257,15 @@ public class UserBean implements Serializable {
         profile.setMiddlename(middleName);
         profile.setTitle(title);
         profile.setIdnumber(idNo);
-        profile.setBusinessaddress(busAddress);
+        profile.setBusinessaddress("144 Peter Rd, Johannesburg, Gauteng, South Africa");
         profile.setBusinessphone(busPhone);
         profile.setBusinessfax(busFax);
-        profile.setHomeaddress(homeAddress);
+        profile.setHomeaddress1(homeAddress);
+        profile.setHomeaddress2(homeAddress2);
+        profile.setCity(city);
+        profile.setCountry("South Africa");
+        profile.setProvince(province);
+        profile.setPostalcode(postalCode);
         profile.setMobilephone(mobilePhone);
         profile.setHomephone(homePhone);
         profile.setHomeemail(email);
@@ -266,9 +331,11 @@ public class UserBean implements Serializable {
          reward3.setMembershipnumber(cardNum3);
          handler.persistReward(reward3);
          }*/
-
-
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
+        Account user = accHandler.getAccount(accountID);
+        ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).setAttribute("isFirst", false);
+        //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isFirst", false);
+        user.setDatelogin(new Date());
+        logHandler.modifyAccount(user);
         FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Travel Profile active"));
         return "userHome";
     }
@@ -289,7 +356,7 @@ public class UserBean implements Serializable {
         profileEditRef.setBusinessphone(busPhone);
         profileEditRef.setBusinessfax(busFax);
 
-        profileEditRef.setHomeaddress(homeAddress);
+        profileEditRef.setHomeaddress1(homeAddress);
         profileEditRef.setHomephone(homePhone);
         profileEditRef.setHomeemail(email);
         profileEditRef.setMobilephone(mobilePhone);
@@ -357,7 +424,7 @@ public class UserBean implements Serializable {
         setBusPhone(ref.getBusinessphone());
         setBusFax(ref.getBusinessfax());
 
-        setHomeAddress(ref.getHomeaddress());
+        setHomeAddress(ref.getHomeaddress1());
         setHomePhone(ref.getHomephone());
         setMobilePhone(ref.getMobilephone());
         setEmail(ref.getHomeemail());
@@ -545,6 +612,46 @@ public class UserBean implements Serializable {
     public void setHomeAddress(String homeAddress) {
         this.homeAddress = homeAddress;
     }
+
+    public String getHomeAddress2() {
+        return homeAddress2;
+    }
+
+    public void setHomeAddress2(String homeAddress2) {
+        this.homeAddress2 = homeAddress2;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountryH() {
+        return countryH;
+    }
+
+    public void setCountryH(String countryH) {
+        this.countryH = countryH;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }    
 
     public String getMobilePhone() {
         return mobilePhone;
@@ -900,20 +1007,26 @@ public class UserBean implements Serializable {
 
     public void view() {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("appID", selectedApp.getIdapplication());
+            ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).setAttribute("appID", selectedApp.getIdapplication());
+            //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("appID", selectedApp.getIdapplication());
             //return "./applicationApproval.xhtml";
 
             ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-            context.redirect(context.getRequestContextPath() + "/faces/applicationView.xhtml");
+            context.redirect(context.getRequestContextPath() + "/faces/applicationHome.xhtml");
             //FacesContext.getCurrentInstance().addMessage("userTop", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success",(selectedApp.getIdapplication() + "Selected")));
         } catch (IOException ex) {
             Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    public String viewHome() {
+        return "/applicationHome.xhtml";
+    }
+
     public void display() {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("appID", selectedApp.getIdapplication());
+            ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).setAttribute("appID", selectedApp.getIdapplication());
+            //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("appID", selectedApp.getIdapplication());
             //return "./applicationApproval.xhtml";
 
             ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();

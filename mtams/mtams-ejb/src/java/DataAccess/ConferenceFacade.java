@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Badger
+ * @author Riaan
  */
 @Stateless
 public class ConferenceFacade extends AbstractFacade<Conference> implements ConferenceFacadeLocal {

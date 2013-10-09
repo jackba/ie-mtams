@@ -52,7 +52,9 @@
                                     <p:message for="budgetRadio"/>
                                 </h:panelGrid>
                             </fieldset>
-                            <p:commandButton value="Submit" action="#{motivBean.updateMoti()}" ajax="false"/>  
+                            
+                            <p:button value="Cancel" outcome="#{appBean.goApplicationHome()}" styleClass="button-left"/>
+                            <p:commandButton value="Submit" action="#{motivBean.updateMoti()}" ajax="false" styleClass="button-right"/>  
                         </p:panel>  
                     </p:tab>  
                 </h:form>

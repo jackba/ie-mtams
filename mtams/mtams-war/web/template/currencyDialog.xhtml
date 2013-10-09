@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+        <div>
+
+            <p:dialog header="Currency" widgetVar="#{widgetVarParam}">
+                <div id="DTdivtest" class="divCurrency" >
+
+                    <h:form id="#{updateDLGfromID}" styleClass="test"> 
+                        <p:dataTable id="currencytest" styleClass="dlgCurrency" var="currency" 
+                                     value="#{dataLookUpBean.currencyList}" rowKey="#{currency.idcurrency}"  
+                                     filteredValue="#{dataLookUpBean.currencyFilteredList}"
+                                     widgetVar="currencies"
+                                     emptyMessage="No data matches your criteria"
+                                     selection="#{dataLookUpBean.curSelect}" selectionMode="single" scrollRows="20"  
+                                     scrollable="true" liveScroll="true" scrollHeight="162"
+
+                                     > 
+
+                            <p:ajax event="rowSelect" 
+                                    update="#{updateIDParam}" 
+                                    listener="#{dataLookUpBean.CurSel()}" />
+                            <ui:remove> 
+                                <!--
+                                                            <p:ajax event="rowSelect" 
+                                    update="#{updateIDParam2}"
+                                    />
+
+                                -->
+                            </ui:remove>
+                            <f:facet name="header">  
+                                Click to select a row 
+                                <h:outputText value="Search all fields:" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('currencies').filter();" />
+                            </f:facet>  
+
+
+                            <p:column headerText="Country Name"
+
+                                      filterBy="#{currency.countryname}"
+                                      filterMatchMode="contains"
+                                      >  
+                                #{currency.countryname}  
+                            </p:column>  
+
+                            <p:column headerText="Currency Name" 
+
+                                      filterBy="#{currency.currencyname}"
+                                      filterMatchMode="contains"
+                                      >  
+                                #{currency.currencyname}  
+                            </p:column>  
+
+                            <p:column headerText="Currency Code"
+
+                                      filterBy="#{currency.currencycode3}"
+                                      filterMatchMode="contains"
+                                      >  
+                                #{currency.currencycode3}  
+                            </p:column>  
+
+                            <ui:remove>
+                                <!--
+                                
+                                -->
+                            </ui:remove>
+
+
+
+                        </p:dataTable>  
+                        <p:commandButton value="Done" type="button" 
+                                         styleClass="button-right"
+                                         onclick="#{widgetVarParam}.hide()" 
+                                         actionListener="#{dataLookUpBean.CurSel()}" 
+                                         update="#{updateIDParam}">
+
+                            <p:ajax update="#{updateIDParam}" 
+                                    listener="#{dataLookUpBean.CurSel()}"/>
+                        </p:commandButton>
+                    </h:form>
+                </div>
+            </p:dialog>
+        </div>
+    </body>
+</html>

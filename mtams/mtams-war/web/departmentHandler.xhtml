@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+
+            <ui:define name="content">
+                <h:form id="departmentHandlerForm">
+                    <p:messages id="departmentHandlerMessage" showDetail="true" closable="true" autoUpdate="true" globalOnly="true" />
+                    <p:dataTable id="dataTable" var="department" value="#{superAdminBean.allDepartments}" binding="#{superAdminBean.dataTable}" rowKey="#{department.iddepartment}" selection="#{superAdminBean.selectedDepartment}" selectionMode="single"
+                                 paginator="true" rows="10"  
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">  
+                        <p:ajax event="rowSelect" listener="#{superAdminBean.load()}" update=":departmentHandlerForm" />
+                        <f:facet name="header">  
+                            Please Select an Account to Edit or Delete, or Simply Create a New One
+                        </f:facet>  
+
+                        <p:column headerText="Department Number">  
+                            <h:outputText value="#{department.iddepartment}" />
+                        </p:column> 
+
+                        <p:column headerText="Department Name">  
+                            <h:outputText value="#{department.department}" />  
+                        </p:column>
+
+                        <f:facet name="footer"> 
+                            <!-- ///////////////////Delete///////////////////-->
+                            <p:commandButton rendered="#{not empty superAdminBean.selectedDepartment}" value="Delete" update=":departmentHandlerForm" action="#{superAdminBean.deleteDepartment()}" icon="ui-icon-closethick"/>
+                        </f:facet>
+                    </p:dataTable>
+                    <p:messages id="departmentHandleMessages" showDetail="true" closable="true" autoUpdate="true" />
+                    <fieldset><legend>Actions:</legend>
+                        <h:outputText value="Create Department?"/>
+                        <p:selectOneRadio id="isUsingCreate" value="#{superAdminBean.showCreate}" >
+                            <f:selectItem itemLabel="Yes" itemValue="1"/>
+                            <f:selectItem itemLabel="No" itemValue="2" />
+                            <p:ajax event="change" update="createGrid"/>
+                        </p:selectOneRadio>
+
+                        <h:panelGrid id="createGrid" columns="4" columnClasses="label, value, error" >  
+
+                            <h:outputText rendered= "#{superAdminBean.showCreate eq '1'}" value="Department Name:" />
+                            <p:inputText rendered= "#{superAdminBean.showCreate eq '1'}" id="departmentName" value="#{superAdminBean.departmentName}" requiredMessage="Required Field">
+                                <p:ajax update="deptNameM" event="keyup" />
+                            </p:inputText>
+                            <p:message for="departmentName" id="deptNameM"/>
+                            <p:commandButton value="Submit" rendered="#{superAdminBean.showCreate eq '1'}" update="departmentHandlerForm" action="#{superAdminBean.createDepartment()}" />                        
+
+                        </h:panelGrid>
+                        <!-- EDIT -->
+                        <h:outputText rendered="#{not empty superAdminBean.selectedDepartment}" value="Edit Department?"/>
+                        <p:selectOneRadio rendered="#{not empty superAdminBean.selectedDepartment}" id="isUsingEdit" value="#{superAdminBean.showEdit}" >
+                            <f:selectItem itemLabel="Yes" itemValue="1"/>
+                            <f:selectItem itemLabel="No" itemValue="2" />
+                            <p:ajax event="change" update="editGrid"/>
+                        </p:selectOneRadio>
+                        
+                        <h:panelGrid id="editGrid" columns="4" columnClasses="label, value, error" >  
+
+                            <h:outputText rendered= "#{superAdminBean.showEdit eq '1'}" value="Department Name:" />
+                            <p:inputText rendered= "#{superAdminBean.showEdit eq '1'}" id="departmentEditName" value="#{superAdminBean.departmentEditName}" requiredMessage="Required Field">
+                                <p:ajax update="deptEditNameM" event="keyup" />
+                            </p:inputText>
+                            <p:message for="departmentEditName" id="deptEditNameM"/>
+                            <p:commandButton value="Submit" rendered="#{superAdminBean.showEdit eq '1'}" update="departmentHandlerForm" action="#{superAdminBean.editDepartment()}" />                        
+
+                        </h:panelGrid>
+                    </fieldset>
+                </h:form>                    
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

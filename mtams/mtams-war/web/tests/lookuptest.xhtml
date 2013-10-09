@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <body>
+        <ui:composition template="../template/template_1.xhtml">
+
+            <ui:define name="content"> 
+
+                <h:head>
+                    <title>Data Lookup Demo</title>
+                </h:head>
+
+                <div><h1>Data Lookup Dialog Demo</h1>
+                    <div><p>Currency</p>
+
+
+
+                        <h:form id="CurencyVal" styleClass="test"> 
+                            <p>Currency List count : #{dataLookUpBean.currencyCount}</p>
+                            <p:commandButton value="Show" type="button" onclick="dlgcurrency.show()" />
+                            <p:commandButton value="Hide" type="button" onclick="dlgcurrency.hide()" />
+                            <br />
+                            <p:outputLabel id="CVal" value="string currency object : #{dataLookUpBean.selectedCurrencyString}" />
+                            <br />
+                            <p:outputLabel id="CValS" value="string currency object : #{dataLookUpBean.curSelect}" />
+                        </h:form>
+
+                    </div>
+                    <div><p>Country Region City</p>
+
+                        <h:form id="CRCVal" styleClass="test"> 
+                            <p>Currency List count : #{dataLookUpBean.countryCount}</p>
+                            <p:commandButton value="Show" type="button" onclick="dlgCountry.show()" />
+                            <p:commandButton value="Hide" type="button" onclick="dlgCountry.hide()" />
+                            <br />
+                            <p:outputLabel id="Country" value="string Country object : #{dataLookUpBean.countryString}" />
+                            <br />
+                            <p:outputLabel id="Region" value="string Region object : #{dataLookUpBean.regionyString}" />
+                            <br />
+                            <p:outputLabel id="City" value="string City object : #{dataLookUpBean.cityString}" />
+                            <br />
+                            <p:outputLabel id="CCRS" value="string CRCS country object : #{dataLookUpBean.countrySelectionRef}" />
+                            <br />
+                            <p:outputLabel id="CCRSregion" value="string CRCS region object : #{dataLookUpBean.regionySelectionRef}" />
+                            <br /> 
+                            <p:outputLabel id="CCRScity" value="string CRCS region object : #{dataLookUpBean.citySelectionRef}" />
+                            <br /> 
+                            <p:commandButton value="Show" type="button" onclick="dlgCRC.show()" />
+                            <p:commandButton value="Hide" type="button" onclick="dlgCRC.hide()" />
+                        </h:form>
+
+                    </div>
+                </div>
+                <ui:remove>
+                    <!--
+<p:dialog header="Header Text" widgetVar="dlgCRC">
+
+    <div id="CRCdiv" class="divCurrency" >
+
+        <h:form id="DTformCRC" styleClass="test" > 
+            <p:selectOneMenu id="CRC" editable="true" 
+                             value="#{dataLookUpBean.countryList}" 
+                             var="country"
+                             widgetVar="dropCountry"
+                             filter="true" filterMatchMode="contains">
+                <f:selectItem  itemLabel="Select a Title" itemValue=""/>
+                <f:selectItems value="#{country.name}" var="country" itemLabel="#{country.name}"/>
+            </p:selectOneMenu> 
+
+        </h:form>
+    </div>
+</p:dialog>
+                    -->
+                </ui:remove>
+
+
+                <p:dialog header="Header Text" widgetVar="dlgCountry">
+
+                    <div id="DTdivtest" class="divCurrency" >
+                        <!--
+**************************
+country
+**************************
+                        -->
+
+                        <h:form id="DTformCountry" styleClass="test" > 
+                            <p:dataTable id="CountrySel" styleClass="dlgCurrency" var="country" 
+                                         value="#{dataLookUpBean.countryList}" rowKey="#{country.code3}"  
+                                         filteredValue="#{dataLookUpBean.countryFilteredList}"
+                                         widgetVar="coutrieswidget"
+                                         emptyMessage="No data matches your criteria"
+                                         selection="#{dataLookUpBean.countrySelectionRef}" 
+                                         selectionMode="single" scrollRows="6"  
+                                         scrollable="true" liveScroll="true" scrollHeight="150"
+
+                                         >  
+
+                                <p:ajax event="rowSelect" 
+                                        update=":CRCVal:Country" 
+                                        listener="#{dataLookUpBean.CoutrySel()}" />
+                                <p:ajax event="rowSelect" 
+                                        update=":DTformRegion:RegionSel" 
+                                        />
+                                <ui:remove>
+                                    <!--
+  
+
+                                <f:facet name="header">  
+                                    Click to select a row 
+                                    listener="#{dataLookUpBean.RegSel()}"
+                                    <h:outputText value="Search all fields:" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('coutries').filter()" />
+                                </f:facet>  
+                                    -->
+                                </ui:remove>
+                                <p:column headerText="Country Name"
+                                          footerText="contains"
+                                          filterBy="#{country.name}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{country.name}
+                                </p:column>  
+
+
+
+                                <p:column headerText="Country code3"
+                                          footerText="contains"
+                                          filterBy="#{country.code3}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{country.code3} 
+                                </p:column>  
+
+                                <ui:remove>
+                                    <!--
+                                  <p:column headerText="Country Regions" 
+                                          footerText="contains"
+                                          filterBy="#{country.regions}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{country.regions}  
+                                </p:column>  
+                                    
+                                <f:facet name="footer">  
+                                    <p>There are this many : #{dataLookUpBean.countryCount}</p>
+                                    <p:commandButton value="Hide" type="button" 
+                                                     onclick="dlgCountry.hide()" 
+                                                     actionListener="#{dataLookUpBean.CRCSel()}" update=":CRCVal:City">
+
+                                        <p:ajax update=":CRCVal:Country" 
+                                                listener="#{dataLookUpBean.CRCSel()}"/>
+                                    </p:commandButton>
+                                </f:facet>  
+                                    -->
+                                </ui:remove>
+                            </p:dataTable>  
+                        </h:form>
+                        <!--
+                        **************************
+                        REGION
+                        **************************
+                        -->
+                        <h:form id="DTformRegion" styleClass="test">
+                            <p:dataTable id="RegionSel" styleClass="dlgCurrency" var="region" 
+                                         value="#{dataLookUpBean.regionList}" rowKey="#{region.idregion}"  
+                                         filteredValue="#{dataLookUpBean.regionFilteredList}"
+                                         widgetVar="regionswidget"
+                                         emptyMessage="No data matches your criteria"
+                                         selection="#{dataLookUpBean.regionySelectionRef}" 
+                                         selectionMode="single" scrollRows="6"  
+                                         scrollable="true" liveScroll="true" scrollHeight="150"
+                                         lazy="true"
+                                         >                 
+
+                                <p:ajax event="rowSelect" 
+                                        update=":CRCVal:Region" 
+                                        listener="#{dataLookUpBean.RegSel()}"
+                                        />
+                                <p:ajax event="rowSelect" 
+                                        update=":DTformCity:CitySel" 
+                                        />
+
+
+                                <p:column headerText="Region Name"
+                                          footerText="contains"
+                                          filterBy="#{region.name}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{region.name}
+                                </p:column>  
+
+                                <ui:remove> 
+                                    <!--
+                               
+                                <p:column headerText="Region Code" 
+                                          footerText="contains"
+                                          filterBy="#{region.code}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{region.code}
+         <%= request.getParameter("title") %>                       </p:column>  
+
+                                <p:column headerText="Cities "
+                                          footerText="contains"
+                                          filterBy="#{region.cities}}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{region.cities} 
+                                </p:column>  
+
+                                <f:facet name="footer">  
+                                    <p>There are this many : #{dataLookUpBean.regionList.size()}</p>
+                                    <p:commandButton value="Hide" type="button" 
+                                                     onclick="dlgCountry.hide()" 
+                                                     actionListener="#{dataLookUpBean.RegSel()}" update=":CRCVal:Region">
+
+                                        <p:ajax update=":CRCVal:Region" 
+                                                listener="#{dataLookUpBean.RegSel()}"/>
+                                        <p:ajax update=":CRCVal:Country" 
+                                                listener="#{dataLookUpBean.CoutrySel()}"/>
+                                    </p:commandButton>
+                                </f:facet>  
+                                    -->
+                                </ui:remove>
+                            </p:dataTable>  
+
+                        </h:form>
+
+                        <!--
+                      **************************
+                      CITY
+                      **************************
+                        -->
+                        <h:form id="DTformCity" styleClass="test">
+                            <p:dataTable id="CitySel" styleClass="dlgCurrency" var="city" 
+                                         value="#{dataLookUpBean.cityList}" rowKey="#{city.idcity}"  
+                                         filteredValue="#{dataLookUpBean.cityFilteredList}"
+                                         widgetVar="citywidget"
+                                         emptyMessage="No data matches your criteria"
+                                         selection="#{dataLookUpBean.citySelectionRef}" 
+                                         selectionMode="single" scrollRows="20"  
+                                         scrollable="true" liveScroll="true" scrollHeight="150"
+                                         rowIndexVar="#{city.idcity}"
+                                         lazy="true"
+                                         >  
+                                <p:ajax event="rowSelect" 
+                                        update=":CRCVal:City" 
+                                        listener="#{dataLookUpBean.CitySel()}" />
+
+
+                                <ui:remove> 
+                                    <!--
+
+                                    -->
+                                </ui:remove>
+
+                                <p:column headerText="Region Name"
+                                          footerText="contains"
+                                          filterBy="#{city.name}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{city.name}
+                                </p:column>  
+
+                                <p:column headerText="Region Code" 
+                                          footerText="contains"
+                                          filterBy="#{city.region}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{city.region}
+                                </p:column>  
+
+
+
+
+                                <f:facet name="footer">                               
+                                    <p:commandButton value="Done" type="button" 
+                                                     onclick="dlgCountry.hide()" 
+                                                     actionListener="#{dataLookUpBean.CoutrySel()}" update=":CRCVal">
+
+                                        <p:ajax update=":CRCVal:Region" 
+                                                listener="#{dataLookUpBean.RegSel()}"/>
+                                        <p:ajax update=":CRCVal:Country" 
+                                                listener="#{dataLookUpBean.CoutrySel()}"/>
+                                        <p:ajax update=":CRCVal:City" 
+                                                listener="#{dataLookUpBean.CitySel()}"/>
+                                    </p:commandButton>
+                                </f:facet>  
+
+                            </p:dataTable>  
+
+                        </h:form>
+                    </div>
+                </p:dialog>
+                <!--
+              **************************
+              CuRREncy
+              **************************
+                -->
+
+                <p:dialog header="Header Text" widgetVar="dlgcurrency">
+
+
+                    <div id="DTdivtest" class="divCurrency" >
+
+                        <h:form id="Dcurr" styleClass="test"> 
+                            <p:dataTable id="currencytest" styleClass="dlgCurrency" var="currency" 
+                                         value="#{dataLookUpBean.currencyList}" rowKey="#{currency.idcurrency}"  
+                                         filteredValue="#{dataLookUpBean.currencyFilteredList}"
+                                         widgetVar="currencies"
+                                         emptyMessage="No data matches your criteria"
+                                         selection="#{dataLookUpBean.curSelect}" 
+                                         selectionMode="single" scrollRows="20"  
+                                         scrollable="true" liveScroll="true" scrollHeight="150"
+
+                                         > 
+
+                                <p:ajax event="rowSelect" 
+                                        update=":CurencyVal:CValS"
+                                        />
+
+                                <p:ajax event="rowSelect" 
+                                        update=":CurencyVal:CVal" 
+                                        listener="#{dataLookUpBean.CurSel()}" />
+                                <ui:remove> 
+                                    <!--
+                                    -->
+                                </ui:remove>
+                                <f:facet name="header">  
+                                    Click to select a row 
+                                    <h:outputText value="Search all fields:" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('currencies').filter()" />
+                                </f:facet>  
+
+
+                                <p:column headerText="countryname"
+                                          footerText="contains"
+                                          filterBy="#{currency.countryname}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{currency.countryname}  
+                                </p:column>  
+
+                                <p:column headerText="currencyname" 
+                                          footerText="contains"
+                                          filterBy="#{currency.currencyname}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{currency.currencyname}  
+                                </p:column>  
+
+                                <p:column headerText="currencycode3"
+                                          footerText="contains"
+                                          filterBy="#{currency.currencycode3}"
+                                          filterMatchMode="contains"
+                                          >  
+                                    #{currency.currencycode3}  
+                                </p:column>  
+
+                                <ui:remove>
+                                    <!--
+                                    
+                                    -->
+                                </ui:remove>
+
+                                <f:facet name="footer">  
+                                    <p>There are this many : #{dataLookUpBean.currencyCount}</p>
+                                    <p:commandButton value="Hide" type="button" 
+                                                     onclick="dlgcurrency.hide()" 
+                                                     actionListener="#{dataLookUpBean.CurSel()}" 
+                                                     update=":CurencyVal:CVal">
+
+                                        <p:ajax update=":CurencyVal:CVal" 
+                                                listener="#{dataLookUpBean.CurSel()}"/>
+                                    </p:commandButton>
+                                </f:facet>  
+
+                            </p:dataTable>  
+                        </h:form>
+                    </div>
+                </p:dialog>
+
+
+
+                <div><h1>Data Lookup Demo</h1></div>
+                <h:form>
+
+                    <p>Number of elements in country table : #{dataLookUpBean.countryCount}</p>
+                    <h:outputText value="string country object : #{dataLookUpBean.currencyString}" />
+                    <br />
+                    <p:selectOneMenu id="CountryDrop" editable="true" value="#{dataLookUpBean.countrySelectionRef}" filter="true" filterMatchMode="contains">
+                        <f:selectItem  itemLabel="Select a Country" itemValue=""/>
+                        <f:selectItems value="#{dataLookUpBean.countryList}" var="cntry" itemLabel="#{cntry.name}, #{cntry.code3}"  itemValue="#{dataLookUpBean.countryString}" >
+                        </f:selectItems>                        
+                    </p:selectOneMenu>
+
+                    <p>Number of elements in Title table : #{dataLookUpBean.titleCount}</p>
+
+                    <h:outputText value="test title string : #{dataLookUpBean.titleString}" />
+                    <br />
+                    <h:outputText value="title object element output : #{dataLookUpBean.getaTitleRef()}" />
+                    <br />
+                    <p:selectOneMenu id="TitleList" editable="true" value="#{dataLookUpBean.titleList}">
+                        <f:selectItem  itemLabel="Select a Title" itemValue="Select a Title"/>
+                        <f:selectItems value="#{dataLookUpBean.titleList}" />
+                    </p:selectOneMenu>
+
+                    <p:dataList value="#{dataLookUpBean.titleList}" var="Title" type="ordered" >  
+                        #{Title}, #{Title.title}  
+                    </p:dataList> 
+
+                    <h:outputText value="string title object : #{dataLookUpBean.titleString}" />
+                    <br />
+                    <p:selectOneMenu id="TitleString" editable="true" value="#{dataLookUpBean.titleString}">
+                        <f:selectItem  itemLabel="Select a Title" itemValue=""/>
+                        <f:selectItems value="#{dataLookUpBean.titleStrings}" />
+                    </p:selectOneMenu>
+
+                    <p:dataList value="#{dataLookUpBean.titleStrings}" var="Title" type="ordered" itemType="A">  
+                        #{Title}  
+                    </p:dataList> 
+
+                    <p>Number of elements in Position table : #{dataLookUpBean.positionCount}</p>
+                    <h:outputText value="string position object : #{dataLookUpBean.positionString}" />
+                    <br />
+                    <p:selectOneMenu id="PositionString" editable="true" value="#{dataLookUpBean.positionString}">
+                        <f:selectItem  itemLabel="Select a Title" itemValue=""/>
+                        <f:selectItems value="#{dataLookUpBean.positionStrings}" />
+                    </p:selectOneMenu>
+
+                    <p:dataList value="#{dataLookUpBean.positionStrings}" var="Position" type="ordered" itemType="A">  
+                        #{Position}  
+                    </p:dataList>
+
+                    <p>Number of elements in LeaveLookup table : #{dataLookUpBean.leaveCount}</p>
+                    <h:outputText value="string leave object : #{dataLookUpBean.leaveString}" />
+                    <br />
+                    <p:selectOneMenu id="leaveString" editable="true" value="#{dataLookUpBean.leaveString}">
+                        <f:selectItem  itemLabel="Select a Title" itemValue=""/>
+                        <f:selectItems value="#{dataLookUpBean.leaveStrings}" />
+                    </p:selectOneMenu>
+
+                    <p>Searchable / Filter list with filter="ture" attribute</p>
+                    <p:selectOneMenu id="leaveStringfilter" editable="true" value="#{dataLookUpBean.leaveString}" filter="true" filterMatchMode="contains">
+                        <f:selectItem  itemLabel="Select a Title" itemValue=""/>
+                        <f:selectItems value="#{dataLookUpBean.leaveStrings}" />
+                    </p:selectOneMenu>
+
+                    <p:dataList value="#{dataLookUpBean.leaveStrings}" var="Leave" type="ordered" itemType="A">  
+                        #{Leave}  
+                    </p:dataList> 
+
+                    <p>Number of elements in Department table : #{dataLookUpBean.departmentCount}</p>
+                    <h:outputText value="string leave object : #{dataLookUpBean.departmentString}" />
+                    <br />
+                    <p:selectOneMenu id="Departments" editable="true" value="#{dataLookUpBean.departmentString}">
+                        <f:selectItem  itemLabel="Select a Title" itemValue=""/>
+                        <f:selectItems value="#{dataLookUpBean.departmentStrings}" />
+                    </p:selectOneMenu>
+
+                    <p:dataList value="#{dataLookUpBean.departmentStrings}" var="department" type="ordered" itemType="A">  
+                        #{department}  
+                    </p:dataList> 
+
+                    <p>Number of elements in currency table : #{dataLookUpBean.currencyCount}</p>
+                    <h:outputText value="string currency object : #{dataLookUpBean.currencyString}" />
+                    <br />
+                    <p:selectOneMenu id="Currency" editable="true" value="#{dataLookUpBean.currencyString}" filter="true" filterMatchMode="contains">
+                        <f:selectItem  itemLabel="Select a Title" itemValue=""/>
+                        <f:selectItems value="#{dataLookUpBean.currencyStrings}" />
+                    </p:selectOneMenu>
+                    <ui:remove>
+                        <!--
+                    
+                    <p:dataList value="#{dataLookUpBean.currencyStrings}" var="currency" type="ordered" >  
+                        #{currency}  
+                    </p:dataList> 
+                        -->
+                    </ui:remove>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>

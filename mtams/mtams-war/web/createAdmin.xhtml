@@ -11,76 +11,47 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-                <div id="header">
-                    <div id="logo">
-                        <h:form>
-                            <h:commandLink action="superHome.xhtml">
-                                <h:graphicImage value="resources/img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
-                            </h:commandLink>
-                        </h:form>
-                    </div>
 
-                    <ul>
-                        <li>Help</li>
-                        <li><p:commandLink action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}">Logout</p:commandLink></li>
-                    </ul>
-                </div>
-        <div id = "content">
-            <h:form id="createAdmin">
-                <p:menubar>
-                    <p:menuitem value="Home" icon="ui-icon-home" outcome="#{superAdminBean.goToHome()}"/>
-                    <p:submenu label="Actions" icon="ui-icon-document">  
-                        <p:menuitem value="Create Admin" outcome="#{superAdminBean.goToCreateAdmin()}" />
-                        <p:menuitem value="Edit Admin" outcome="#{superAdminBean.goToEditAdmin()}" />
-                        <p:menuitem value="Create Role" outcome="#{superAdminBean.goToCreateRole()}" />
-                        <p:menuitem value="Deactivate Account" outcome="#{superAdminBean.goToDeactivateAccount()}" />
-                    </p:submenu>
-                </p:menubar>
-                <h4>Please Complete All of the Fields Below</h4>
-                <fieldset><legend><h4>Admin Details:</h4></legend>
-                    <p:messages autoUpdate="true" closable="true" showDetail="true" globalOnly="true"/>
-                    <h:panelGrid columns="3" styleClass="grid">
-                        <h:outputText value="Administrator Username:" />
-                        <p:inputText id="adminName" required="true" value="#{superAdminBean.adminName}" requiredMessage="Required Field"/>
-                        <p:message for="adminName"/>
+                <h:form id="createAdmin">
+                    <h4>Please Complete All of the Fields Below</h4>
+                    <fieldset><legend><h4>Admin Details:</h4></legend>
+                        <p:messages autoUpdate="true" closable="true" showDetail="true" globalOnly="true"/>
+                        <h:panelGrid columns="4" columnClasses="label, value, error">
+                            
+                            <h:outputText value="Administrator Username:" />
+                            <p:inputText id="adminName" required="true" value="#{superAdminBean.adminName}" requiredMessage="Required Field">
+                                <p:ajax update="adminMIP" event="blur" />
+                            </p:inputText>
+                            <p:message for="adminName" id="adminMIP"/>
+                            <p:watermark for="adminName" value="a2314745" />
 
-                        <h:outputText value="Password:"/>
-                        <p:password id="adminPassword" label="Password" required="true" match="adminPasswordConf" value="#{superAdminBean.adminPassword}" requiredMessage="Required Field"/>
-                        <p:message id="passMessage1" for="adminPassword"/>
+                            <h:outputText value="Password:"/>
+                            <p:password id="adminPassword" label="Password" required="true" match="adminPasswordConf" value="#{superAdminBean.adminPassword}" requiredMessage="Required Field"
+                                        feedback="true" weakLabel="Weak :/" goodLabel="Good :)" strongLabel="Strong :D">
+                                <f:validateLength minimum="5"/>                            
+                                <p:ajax update="passMessage1,passMessage2" event="blur" async="true"/>
+                            </p:password>
+                            <p:message id="passMessage1" for="adminPassword"/>
+                            <p:watermark for="adminPassword" value="Password *" />
 
-                        <h:outputText value="Confirm Password:"/>
-                        <p:password id="adminPasswordConf" label="Check Password" required="true" value="#{superAdminBean.adminPassword}" requiredMessage="Required Field"/>                            
-                        <p:message id="passMessage2" for="adminPasswordConf"/>
-
-                        <h:outputText value="Assigned Department:" />
-                        <p:selectOneMenu value="#{superAdminBean.department}" id="dept">  
-                            <f:selectItem itemLabel="Financial" itemValue="Financial" />  
-                            <f:selectItem itemLabel="Information Technology" itemValue="Information Technology" />  
-                            <f:selectItem itemLabel="Health Sciences" itemValue="Health Sciences" />  
-                            <f:selectItem itemLabel="Business" itemValue="Business" />
-                            <f:selectItem itemLabel="Arts" itemValue="Arts" />
-                        </p:selectOneMenu>
-                        <p:message for="dept"/>
-                    </h:panelGrid>
-                    <p:commandButton value="Submit" update="createAdmin" action="#{superAdminBean.createAdmin()}"></p:commandButton>
-                </fieldset>
-            </h:form>
-        </div>
-
-        <div id= "footer">
-            <div class="row group">
-                <div class="col">
-                    <h3>Quick links</h3>
-                    <ul>
-                        <li><a href="">Site Map</a></li>
-                        <li><a href="">FAQ</a></li>
-                        <li><a href="">Contact us</a></li>
-                    </ul>
-                </div>
-                <h3>Legal</h3>
-                <p class="legal">Created by School of IT, Monash South Africa</p>		
-            </div>
-        </div>
+                            <h:outputText value="Confirm Password:"/>
+                            <p:password id="adminPasswordConf" label="Check Password" required="true" value="#{superAdminBean.adminPassword}" requiredMessage="Required Field">
+                                <p:ajax update="passMessage2,passMessage1" event="blur" async="true"/>
+                            </p:password>
+                            <p:message id="passMessage2" for="adminPasswordConf"/>
+                            <p:watermark for="adminPasswordConf" value="Password *" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="3" columnClasses="label, value, error">
+                            <h:outputText value="Assigned Department:" />
+                            <p:selectOneMenu required="true" requiredMessage="Required Field" value="#{superAdminBean.department}" id="dept">
+                                <f:selectItem  itemLabel="Select a Department" itemValue=""/>
+                                <f:selectItems value="#{dataLookUpBean.departmentStrings}" />
+                            </p:selectOneMenu>
+                            <p:message for="dept"/>
+                        </h:panelGrid>
+                        <p:commandButton value="Submit" update="createAdmin" action="#{superAdminBean.createAdmin()}"></p:commandButton>
+                    </fieldset>
+                </h:form>
             </ui:define>
 
         </ui:composition>

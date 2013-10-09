@@ -11,20 +11,6 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-                <div id="header">
-                    <div id="logo">
-                        <h:form>
-                            
-                                <h:graphicImage value="resources/img/logo.png" alt="Monash South Africa - A campus of Monash Univeristy Australia"/>
-                            
-                        </h:form>
-                    </div>
-
-                    <ul>
-                        <li>Help</li>
-                        <li>Logout</li>
-                    </ul>
-                </div>
                 <h4>As this is your first time logging in, please fill out your travel profile</h4>
                 <h:form id="travelForm">
 
@@ -33,29 +19,27 @@
                         <p:tab id="personal" title="Personal Details" >  
 
                             <p:panel header="Personal Details"> 
-                                <fieldset><legend>Staff Details</legend>
+                                <fieldset><legend><h4>Staff Details</h4></legend>
                                     <h:panelGrid columns="3" columnClasses="label, value, error" >  
 
                                         <h:outputText value="Department: *" />  
-                                        <p:selectOneMenu value="#{userBean.department}" id="dept">  
-                                            <f:selectItem itemLabel="Financial" itemValue="Financial" />  
-                                            <f:selectItem itemLabel="Information Technology" itemValue="Information Technology" />  
-                                            <f:selectItem itemLabel="Health Sciences" itemValue="Health Sciences" />  
-                                            <f:selectItem itemLabel="Business" itemValue="Business" />
-                                            <f:selectItem itemLabel="Arts" itemValue="Arts" />
+                                        <p:selectOneMenu id="dept" required="true" requiredMessage="Required Field" value="#{userBean.department}">
+                                            <f:selectItem  itemLabel="Please Select" itemValue=""/>
+                                            <f:selectItems value="#{dataLookUpBean.departmentStrings}" />
                                         </p:selectOneMenu>
-                                        <p:message for="dept"/>
+                                        <p:message for="dept" id="deptM"/>
 
                                         <h:outputText value="Staff ID: *" />  
-                                        <p:inputText id="staffID" value="#{userBean.staffID}" required="true" requiredMessage="Required Field">
+                                        <p:inputMask id="staffID" value="#{userBean.staffID}" required="true" requiredMessage="Required Field" mask="a9999999" title="Must be in the format A#######">
                                             <p:ajax update="staffMID" event="blur" />
-                                        </p:inputText>
+                                        </p:inputMask>                                        
                                         <p:message for="staffID" id="staffMID"/>
 
                                         <h:outputText value="Position: *" />  
-                                        <p:inputText id="pos" required="true" value="#{userBean.position}" requiredMessage="Required Field">
-                                            <p:ajax update="posM" event="blur" />
-                                        </p:inputText>
+                                        <p:selectOneMenu id="pos" required="true" requiredMessage="Required Field" value="#{userBean.position}">
+                                            <f:selectItem  itemLabel="Please Select" itemValue=""/>
+                                            <f:selectItems value="#{dataLookUpBean.positionStrings}" />
+                                        </p:selectOneMenu>
                                         <p:message for="pos" id="posM"/>                            
 
                                         <h:outputText value="Travel Booker: *" />  
@@ -63,7 +47,14 @@
                                             <p:ajax update="bookerSM" event="blur" />
                                         </p:inputText>
                                         <p:message for="bookerS" id="bookerSM"/>
-
+                                        
+                                        <h:outputText value="Title:" />  
+                                        <p:selectOneMenu id="ttl" required="true" requiredMessage="Required Field" value="#{userBean.title}">
+                                            <f:selectItem  itemLabel="Please Select" itemValue=""/>
+                                            <f:selectItems value="#{dataLookUpBean.titleStrings}" />
+                                        </p:selectOneMenu>
+                                        <p:message for="ttl" id="ttlM"/>
+                                        
                                         <h:outputText value="First Name: *" />  
                                         <p:inputText id="fn" required="true" value="#{userBean.firstName}" requiredMessage="Required Field">
                                             <p:ajax update="fnErr" event="blur" />
@@ -81,46 +72,43 @@
                                             <p:ajax update="mnM" event="blur" />
                                         </p:inputText>
                                         <p:message for="mn" id="mnM"/>
-
-                                        <h:outputText value="Title:" />  
-                                        <p:selectOneMenu value="#{userBean.title}" id="ttl">  
-                                            <f:selectItem itemLabel="Mr." itemValue="Mr" />  
-                                            <f:selectItem itemLabel="Ms." itemValue="Ms" />  
-                                            <f:selectItem itemLabel="Dr." itemValue="Dr" />  
-                                            <f:selectItem itemLabel="Prof." itemValue="Prof" />
-                                        </p:selectOneMenu>
-                                        <p:message for="ttl" id="ttlM"/>
-
+                                        
                                         <h:outputText value="Identity Number: *" />  
-                                        <p:inputText id="identity" required="true" value="#{userBean.idNo}" requiredMessage="Required Field">
+                                        <p:inputText id="identity" required="true" value="#{userBean.idNo}" requiredMessage="Required Field" title="Must be between 13-15 numbers long">
                                             <p:ajax update="identityM" event="blur" />
                                         </p:inputText>
                                         <p:message for="identity" id="identityM"/>
-
-                                        <h:outputText value="Business Address: *" />  
-                                        <p:inputText id="businessAdd" value="#{userBean.busAddress}" requiredMessage="Required Field" required="true">
-                                            <p:ajax update="businessAddM" event="blur" />
-                                        </p:inputText>
-                                        <p:message for="businessAdd" id="businessAddM"/>
-
-                                        <h:outputText value="Business Phone: *" />  
-                                        <p:inputText id="businessPhone" required="true" value="#{userBean.busPhone}" requiredMessage="Required Field">
-                                            <p:ajax update="bPhoneMes" event="blur" />
-                                        </p:inputText>
-                                        <p:message for="businessPhone" id="bPhoneMes"/>
-
-                                        <h:outputText value="Business Fax:" />  
-                                        <p:inputText id="bFax" value="#{userBean.busFax}">
-                                            <p:ajax update="bFaxM" event="blur" />
-                                        </p:inputText>
-                                        <p:message for="bFax" id="bFaxM"/>
-
-                                        <h:outputText value="Home Address: *" />  
+                                        
+                                        <h:outputText value="Home Address Line 1: *" />  
                                         <p:inputText id="homeAdd" required="true" value="#{userBean.homeAddress}" requiredMessage="Required Field">
                                             <p:ajax update="homeAddM" event="blur" />
                                         </p:inputText>
                                         <p:message for="homeAdd" id="homeAddM"/>
-
+                                        
+                                        <h:outputText value="Home Address Line 2: " />  
+                                        <p:inputText id="homeAdd2" value="#{userBean.homeAddress2}">
+                                            <p:ajax update="homeAddM2" event="blur" />
+                                        </p:inputText>
+                                        <p:message for="homeAdd2" id="homeAddM2"/>
+                                        
+                                        <h:outputText value="City: *" />  
+                                        <p:inputText id="cityA" required="true" value="#{userBean.city}" requiredMessage="Required Field">
+                                            <p:ajax update="cityAddM" event="blur" />
+                                        </p:inputText>
+                                        <p:message for="cityA" id="cityAddM"/>
+                                        
+                                        <h:outputText value="Province: *" />  
+                                        <p:inputText id="province" required="true" value="#{userBean.province}" requiredMessage="Required Field">
+                                            <p:ajax update="provinceM" event="blur" />
+                                        </p:inputText>
+                                        <p:message for="province" id="provinceM"/>
+                                        
+                                        <h:outputText value="Postal Code: *" />  
+                                        <p:inputText id="postalCode" required="true" value="#{userBean.postalCode}" requiredMessage="Required Field">
+                                            <p:ajax update="postalCodeM" event="blur" />
+                                        </p:inputText>
+                                        <p:message for="postalCode" id="postalCodeM"/>
+                                        
                                         <h:outputText value="Mobile Phone: *" />  
                                         <p:inputText id="mobile" required="true" value="#{userBean.mobilePhone}" requiredMessage="Required Field">
                                             <p:ajax update="mobileM" event="blur" />
@@ -140,7 +128,22 @@
                                         <p:message for="perEmail" id="perEmailM"/>
                                     </h:panelGrid>
                                 </fieldset>
-                                <fieldset><legend>Spouse Details</legend>
+                                <fieldset><legend><h4>Business</h4></legend>
+                                    <h:panelGrid columns="3" columnClasses="label, value, error" >
+                                        <h:outputText value="Business Phone: *" />  
+                                        <p:inputText id="businessPhone" required="true" value="#{userBean.busPhone}" requiredMessage="Required Field">
+                                            <p:ajax update="bPhoneMes" event="blur" />
+                                        </p:inputText>
+                                        <p:message for="businessPhone" id="bPhoneMes"/>
+
+                                        <h:outputText value="Business Fax:" />  
+                                        <p:inputText id="bFax" value="#{userBean.busFax}">
+                                            <p:ajax update="bFaxM" event="blur" />
+                                        </p:inputText>
+                                        <p:message for="bFax" id="bFaxM"/>
+                                    </h:panelGrid>
+                                </fieldset>
+                                <fieldset><legend><h4>Spouse Details</h4></legend>
                                     <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid">
                                         <h:outputText value="Spouse's Name: " />  
                                         <p:inputText id="SpN" value="#{userBean.spouseName}">
@@ -161,7 +164,7 @@
                                         <p:message for="SpE" id="SpEM"/>
                                     </h:panelGrid>
                                 </fieldset>
-                                <fieldset><legend>Doctor Details</legend>
+                                <fieldset><legend><h4>Doctor Details</h4></legend>
                                     <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid">
                                         <h:outputText value="Doctor's Name:" />  
                                         <p:inputText id="docN" value="#{userBean.docName}" >
@@ -195,14 +198,15 @@
                                 <h:panelGrid columns="3" columnClasses="label, value, error">  
 
                                     <h:outputText value="Passport Number: *" />  
-                                    <p:inputText id="passport" required="true" value="#{userBean.passportNo}" requiredMessage="Required Field">
+                                    <p:inputText id="passport" required="true" value="#{userBean.passportNo}" validatorMessage="Length Must be Between 6-15 Characters" requiredMessage="Required Field" >
+                                        <f:validateLength minimum="6" maximum="15" />
                                         <p:ajax update="passportM" event="blur" />
                                     </p:inputText>
-                                    <p:message for="passport" id="passportM"/>
+                                    <p:message for="passport" id="passportM" />
 
-                                    <h:outputText value="Country: *" />  
-
-                                    <p:selectOneMenu value="#{userBean.country}" id="country" >  
+                                    <h:outputText value="Country: *" />
+                                    <p:selectOneMenu required="true" requiredMessage="Required Field" value="#{userBean.country}" id="country" >
+                                        <f:selectItem  itemLabel="Please Select" itemValue=""/>
                                         <f:selectItem itemLabel="South Africa" itemValue="South Africa" />  
                                         <f:selectItem itemLabel="Swaziland" itemValue="Swaziland" />  
                                         <f:selectItem itemLabel="France" itemValue="France" />  
@@ -211,12 +215,14 @@
                                     <p:message for="country" id="countryM"/>
 
                                     <h:outputText value="Date of Issue: *" />  
-                                    <p:calendar id="cal" value="#{userBean.dateOfIssue}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field"/>
+                                    <p:calendar id="cal" value="#{userBean.dateOfIssue}" maxdate="#{userBean.currentDate}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field">
+                                        
+                                    </p:calendar>
                                     <p:message for="cal" id="calM"/>
 
                                     <h:outputText value="Expiry Date: *"/>  
-                                    <p:calendar id="calender" value="#{userBean.expiryDate}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field">
-                                        <p:ajax update="calendarM" event="blur" />
+                                    <p:calendar id="calender" value="#{userBean.expiryDate}" mindate="#{userBean.currentDate}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field">
+                                        
                                     </p:calendar>
                                     <p:message for="calender" id="calendarM"/>
 
@@ -231,7 +237,7 @@
                         <p:tab id="airline" title="Airline Details">  
                             <p:panel header="Airline Details">
 
-                                <fieldset><legend>Airline Details</legend>
+                                <fieldset><legend><h4>Airline Details</h4></legend>
                                     <h:panelGrid columns="2" columnClasses="label, value">  
                                         <h:selectOneRadio value="#{userBean.seat}">
                                             <f:selectItem itemValue="Aisle" itemLabel="Aisle" />
@@ -270,7 +276,7 @@
 
                                     </h:panelGrid>
                                 </fieldset>
-                                <fieldset><legend>Reward Program</legend>
+                                <fieldset><legend><h4>Reward Program</h4></legend>
 
                                     <h:panelGrid columns="4" columnClasses="label, value">
                                         <h:outputText value="Name on Membership Card:"/><h:outputText value="Airline Type:"/><h:outputText value="Status:"/><h:outputText value="Number:"/>
@@ -284,7 +290,7 @@
 
                         <p:tab id="carHotel" title="Car and Hotel">  
                             <p:panel header="Car and Hotel Details">  
-                                <fieldset><legend>Car Hire Details</legend>
+                                <fieldset><legend><h4>Car Hire Details</h4></legend>
                                     <h:outputText value="Car Company Preference:"/>
                                     <h:panelGrid columns="2" columnClasses="label, value">
                                         <h:outputText value="1. "/> <p:inputText required ="false" value="#{userBean.carCompPref1}"/>
@@ -315,7 +321,7 @@
                                     </h:panelGrid>
                                 </fieldset>
 
-                                <fieldset><legend>Hotel Details</legend>
+                                <fieldset><legend><h4>Hotel Details</h4></legend>
                                     <h:panelGrid columns="2" columnClasses="label, value">
 
                                         <h:outputText value="Hotel Preference: "/> <p:inputText required ="false" value="#{userBean.hotelPreference}"/>
@@ -334,7 +340,7 @@
                                         <h:outputText value="Additional Requirements: "/> <p:inputTextarea required ="false" value="#{userBean.hotelAdditionalReq}"/>
                                     </h:panelGrid>
                                 </fieldset>
-                                <p:commandButton value="Submit" update="travelWiz" action="#{userBean.save()}"/>
+                                <p:commandButton value="Submit" update="travelWiz" action="#{userBean.save()}" styleClass="button-right" />
 
                             </p:panel>                
                         </p:tab>

@@ -33,7 +33,7 @@
 --role inserts
 --pulled down from netbeans so not optimal
 
-
+--------------------------------- 
 INSERT INTO "ROLE" (IDROLES, "ROLE", DESCRIPTION) 
 	VALUES (11, 'Applicant', DEFAULT);
 INSERT INTO "ROLE" (IDROLES, "ROLE", DESCRIPTION) 
@@ -79,14 +79,14 @@ INSERT INTO "TITLE" (TITLE) VALUES ('Sir' /*not nullable*/);
 
 
 -- Department inserts
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('School of Information Technology' /*not nullable*/,1);
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('School of Social Science' /*not nullable*/,2);
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('Finance' /*not nullable*/,3);
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('Administration' /*not nullable*/,4);
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('School of Business and Economics' /*not nullable*/,5);
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('Student Services' /*not nullable*/,6);
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('School of Health Sciences' /*not nullable*/,7);
-INSERT INTO "DEPARTMENT" (DEPARTMENT,IDDEPARTMENT) VALUES ('Information Technology Services' /*not nullable*/,8);
+INSERT INTO "DEPARTMENT" (DEPARTMENT) VALUES ('School of Information Technology' /*not nullable*/);
+INSERT INTO "DEPARTMENT" (DEPARTMENT) VALUES ('School of Social Science' /*not nullable*/);
+INSERT INTO "DEPARTMENT" (DEPARTMENT) VALUES ('Finance' /*not nullable*/);
+INSERT INTO "DEPARTMENT" (DEPARTMENT) VALUES ('Administration' /*not nullable*/);
+INSERT INTO "DEPARTMENT" (DEPARTMENT) VALUES ('School of Business and Economics' /*not nullable*/);
+INSERT INTO "DEPARTMENT" (DEPARTMENT) VALUES ('Student Services' /*not nullable*/);
+INSERT INTO "DEPARTMENT" (DEPARTMENT) VALUES ('School of Health Sciences' /*not nullable*/);
+INSERT INTO "DEPARTMENT" (DEPARTMENT) VALUES ('Information Technology Services' /*not nullable*/);
 
 -- Leave type inserts
 INSERT INTO "LEAVELOOKUP" (LEAVETYPE) VALUES ('Annual Leave' /*not nullable*/);
@@ -114,18 +114,41 @@ INSERT INTO "LEAVELOOKUP" (LEAVETYPE) VALUES ('Other' /*not nullable*/);
 -- ******************************************************
 --
 
+-- for email notification messages. 
+-- INSERT INTO "MESSAGES" (IDMESSAGE,NAME,DESCRITION,SUBJECT,MESSAGE)   
+--        VALUES (0 /*not nullable*/,'s' /*not nullable*/,'s' /*not nullable*/,'s' /*not nullable*/,'s' /*not nullable*/);
+INSERT INTO "MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE) 
+    VALUES ('Created','Account created','Account created successfully','Your account has been created successfully<div><br/></div><div>You are now ready to begin creating travel applications.</div>');
+INSERT INTO "MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE) 
+    VALUES ('Application','Application created','Application created successfully','Your application has been created successfully<div><br/></div><div>Once you are sure all the forms have been completed correctly you can submit the form for authorisation.&nbsp;</div>');
+INSERT INTO "MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE) 
+    VALUES ('Authorisation','Submitted for authorisation','Application submitted for authorisation','An application is in need of review.<div><br/></div><div>Please log in and check that the application meets all necessary requirements for approval so you can authorise it and submit it up to the next step for final approval.&nbsp;</div>');
+INSERT INTO "MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE) 
+    VALUES ('Authorised','Application authorised','Application has been authorised','Your application has been authorised.<div><br/></div><div>Your application has been authorised and is still being processed. You will be notified once your application has final approval.&nbsp;</div>');
+INSERT INTO "MESSAGES" (NAME,DESCRITION,SUBJECT,MESSAGE) 
+    VALUES ('Approved','Application approved','Application has been approved','Your application has been approved<div><br/></div><div>Your application is approved and you can now claim your finances from the relevant parties to pay for your travels.&nbsp;</div>');
+
+
 -- 
- INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) VALUES ('admin' /*not nullable*/,'admin' /*not nullable*/,'s',current_timestamp,null);
- INSERT INTO "ACCOUNTROLE" (ACCOUNTID,ROLEID) VALUES (1,21);
+INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
+    VALUES ('ITAdmin' /*not nullable*/,'admin' /*not nullable*/,'s',current_timestamp,null);
+INSERT INTO "ACCOUNTROLE" (ACCOUNTID,ROLEID) VALUES (1,21);
+INSERT INTO "ACCOUNTDEPARTMENT" (IDACCOUNT,IDDEPARTMENT,DEPARTMENTROLE) VALUES (1,1,0);
 -- select idaccount from mtams.account where username = 'admin';
 
 -- first no role user. Similar to creating a user through admin.
-INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
-	VALUES ('s' /*not nullable*/,'s' /*not nullable*/,'s',current_timestamp,null);
+--INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 	VALUES ('s' /*not nullable*/,'s' /*not nullable*/,'s',current_timestamp,null);
 
 INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN) 
-	VALUES ('MrT' /*not nullable*/,'mrt' /*not nullable*/,'s',current_timestamp,null);
+    VALUES ('Superadmin' /*not nullable*/,'superadmin' /*not nullable*/,'s',current_timestamp,null);
+INSERT INTO "ACCOUNTROLE" (ACCOUNTID,ROLEID) VALUES (2,22);
 
+-- Other accounts have been moved to mtams.insert.app.sql. 
+-- This script should only contain the minmum need for a work applications.
+-- Additional test data should be in the mtams.insert.app.sql
+
+
+--------------------------------------------------------
 
 
 --INSERT INTO "QUOTES" (AMENDED,COSTCENTER,DESCRIPTION) 	VALUES (0,'s','s');
@@ -144,14 +167,15 @@ INSERT INTO "ACCOUNT" (USERNAME,PASSWORD,SALT,DATECREATED,DATELOGIN)
 --INSERT INTO "TRAVELERPROFILE" (ACCOUNTID,STAFFID,DEPARTMENT,POSITION,TRAVELBOOKER,FIRSTNAME,FAMILYNAME,MIDDLENAME,TITLE,IDNUMBER,BUSINESSADDRESS,BUSINESSPHONE,BUSINESSFAX,HOMEADDRESS,MOBILEPHONE,HOMEPHONE,HOMEEMAIL,SPOUSENAME,SPOUSECONTACTNUMBER,SPOUSEEMAIL,DOCTORSNAME,DOCTORSCONCTACTNUMBER,DOCTORSEMAIL,KNOWNMEDICALCONDITIONS,CARPREFERENCE1,CARPREFERENCE2,CARGROUP,MANUALAUTOMATIC,AIRCON,CARADDITIONALREQUIREMENTS,HOTELPREFRENCE,FREQUENTGUESTNUM,SMOKING,HOTELADDITIONALREQUIREMENTS,SEATINGPOSITION,SEATINGLOCATION,CLASSDOMESTIC,CLASSINTERNATIONAL,MEALREQUIREMENTS,AIRADDITIONALREQUIREMENTS,ATTACHMENTID,DATECREATED,DATEMODIFIED)	VALUES (1 /*not nullable*/,'s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s','s',{ts '2013-05-08 11:46:31.770000'},{ts '2013-05-08 11:46:31.770000'});
 
 
---INSERT INTO "TRAVELERPROFILE" (ACCOUNTID,STAFFID,DEPARTMENT,POSITION,TRAVELBOOKER,FIRSTNAME,FAMILYNAME,MIDDLENAME,TITLE,IDNUMBER,BUSINESSADDRESS,BUSINESSPHONE,BUSINESSFAX,HOMEADDRESS,MOBILEPHONE,HOMEPHONE,HOMEEMAIL,SPOUSENAME,SPOUSECONTACTNUMBER,SPOUSEEMAIL,DOCTORSNAME,DOCTORSCONCTACTNUMBER,DOCTORSEMAIL,KNOWNMEDICALCONDITIONS,CARPREFERENCE1,CARPREFERENCE2,CARGROUP,MANUALAUTOMATIC,AIRCON,CARADDITIONALREQUIREMENTS,HOTELPREFRENCE,FREQUENTGUESTNUM,SMOKING,HOTELADDITIONALREQUIREMENTS,SEATINGPOSITION,SEATINGLOCATION,CLASSDOMESTIC,CLASSINTERNATIONAL,MEALREQUIREMENTS,AIRADDITIONALREQUIREMENTS,ATTACHMENTID,DATECREATED,DATEMODIFIED) 
---    VALUES (2,'12345678','Financial','Lecturer','booker','Mrt','barackus','BA','Mr.','1234567890123','16 Somewhere','1234567890','1234567890','17 Nowhere','1234567890','1234567890','mrt@team.com','mrsT','1234567890','mrst@team.com','murdoc','1234567890','murdoc@team.com','fear of flying','fastcars','slowcars','fast','Manual','Yes','must be a van','ground floor','223344556','No','TV','Aisle','Middle','First','First','beef','lots of beef',null,{ts '2013-05-08 11:46:31'},{ts '2013-05-08 11:46:31'});
+--INSERT INTO "TRAVELERPROFILE" (ACCOUNTID,STAFFID,DEPARTMENT,POSITION,TRAVELBOOKER,FIRSTNAME,FAMILYNAME,MIDDLENAME,TITLE,IDNUMBER,BUSINESSADDRESS,BUSINESSPHONE,BUSINESSFAX,HOMEADDRESS1,HOMEADDRESS2,CITY,COUNTRY,PROVINCE,POSTALCODE,MOBILEPHONE,HOMEPHONE,HOMEEMAIL,SPOUSENAME,SPOUSECONTACTNUMBER,SPOUSEEMAIL,DOCTORSNAME,DOCTORSCONCTACTNUMBER,DOCTORSEMAIL,KNOWNMEDICALCONDITIONS,CARPREFERENCE1,CARPREFERENCE2,CARGROUP,MANUALAUTOMATIC,AIRCON,CARADDITIONALREQUIREMENTS,HOTELPREFRENCE,FREQUENTGUESTNUM,SMOKING,HOTELADDITIONALREQUIREMENTS,SEATINGPOSITION,SEATINGLOCATION,CLASSDOMESTIC,CLASSINTERNATIONAL,MEALREQUIREMENTS,AIRADDITIONALREQUIREMENTS,ATTACHMENTID,DATECREATED,DATEMODIFIED) 
+--    VALUES (2,'12345678','Financial','Lecturer','booker','Mrt','barackus','BA','Mr.','1234567890123','16 Somewhere','1234567890','1234567890','27a 5th Str','Linden','Johannesburg','South Africa','Gauteng','2905','1234567890','1234567890','mrt@team.com','mrsT','1234567890','mrst@team.com','murdoc','1234567890','murdoc@team.com','fear of flying','fastcars','slowcars','fast','Manual','Yes','must be a van','ground floor','223344556','No','TV','Aisle','Middle','First','First','beef','lots of beef',null,{ts '2013-05-08 11:46:31'},{ts '2013-05-08 11:46:31'});
 --INSERT INTO REWARDSPROGRAM (DESCRIPTION,MEMBERSHIPTYPE,PROVIDER,MEMBERSHIPNUMBER,TRAVELERPROFILE_IDTRAVELERPROFILE) 
 --    VALUES ('nofoolsallowed','bus service','goldmember','1234567890',1);
 --INSERT INTO TRAVELDOCUMENT (PASSPORTNUMBER,COUNTRY,DATEOFISSUE,EXPIRYDATE,VALIDVISA,TRAVLERPROFILE_IDTRAVLERPROFILE) 
 --    VALUES ('0123456789','South Africa',{ts '2013-05-08 11:46:31'},{ts '2017-05-08 11:46:31'},'every where',1);
 
---INSERT INTO "FOREXORDER" (DATEOFREQUIRED,DATEWILLBECONFIRMED,TICKETNUM,VOYAGERNUM,DATEOFDEPART,DATEOFRETURN,TRAVELERSCHEQUES,CASH,CASHPASSPORT,CCTYPE,CCNUMBER,CCLAST3,CCEXPIRYDATE,CCPAYMENTAMOUNT,REASONFORTRAVEL) 	VALUES ({ts '2013-05-08 11:54:01.749000'},{ts '2013-05-08 11:54:01.749000'},'s','s',{ts '2013-05-08 11:54:01.749000'},{ts '2013-05-08 11:54:01.749000'},'s','s','s','s','s','s',{ts '2013-05-08 11:54:01.749000'},'s','s');
+--INSERT INTO "FOREXORDER" (DATEOFREQUIRED,DATEWILLBECONFIRMED,TICKETNUM,VOYAGERNUM,TRAVELERSCHEQUES,CURRENCYCHEQUE,CURRENCYCASH,CASH,CCTYPE,CCNUMBER,CCLAST3,CCEXPIRYDATE,CURRENCYCC,CCPAYMENTAMOUNT,REASONFORTRAVEL) 	
+--VALUES ({ts '2013-05-08 11:54:01.749000'},{ts '2013-05-08 11:54:01.749000'},'123456','132465',100,'USD','EURO',200,'Visa','123','132',{ts '2013-05-08 11:54:01.749000'},'ZAR',200,'Business');
 
 -- INSERT INTO "MOTIVATION" (SUPPLIER,AMOUNT,COSTCENTER,MOTIVATION,BUDGET,RECOMMENDED,REQUESTEDBY) 	VALUES ('s','s','s','s',0,'s','s');
 

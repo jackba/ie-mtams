@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Pattern;
 import org.primefaces.component.api.UIData;
 
@@ -24,20 +25,32 @@ import org.primefaces.component.api.UIData;
 @ConversationScoped
 public class AdminBean implements Serializable {
     
-	@Pattern(message="Incorrect username entered", regexp="[a-zA-Z -]{0,}")
+	@Pattern(message="Incorrect username entered", regexp="[a-zA-Z0-9]{0,}")
     private String username;
     private String password;
     private int role = 11;
+    private int departmentRole = 0;
     private List<Account> allAccounts;
+    private List<Account> allActiveAccounts;
+    private List<Account> allInactiveAccounts;
+    private List<Account> allDepartmentAccount;
     private Account selectedAcc;
     private UIData dataTable;
     private UIData dataTableDetails;
+    private String userName = (String) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("username");
     
     @EJB
     private AccountHandlerLocal handler;
     /**
      * Creates a new instance of AdminBean
      */
+    
+    //======change===change=========change============change=========change====
+    //-------------------------------------------------------------------------
+    private Integer accountID = (Integer) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("userID");
+    //-------------------------------------------------------------------------
+    //======change========change=========change=============change=============
+            
     public AdminBean() {
     }
 
@@ -65,12 +78,44 @@ public class AdminBean implements Serializable {
         this.role = role;
     }
 
-    public List<Account> getAllAccounts() {
-        return handler.getAllAccounts();
+    public int getDepartmentRole() {
+        return departmentRole;
     }
 
-    public void setAllAccounts(List<Account> allAccounts) {
+    public void setDepartmentRole(int departmentRole) {
+        this.departmentRole = departmentRole;
+    }
+
+    public List<Account> getAllAccounts() {
+        return handler.getAllAccounts(userName);
+    }      
+
+    public void setAllAccounts(List<Account> allAccounts) {        
         this.allAccounts = allAccounts;
+    }   
+
+    public List<Account> getAllDepartmentAccount() {
+        return handler.getAllDepartmentAccounts(accountID);
+    }
+
+    public void setAllDepartmentAccount(List<Account> allDepartmentAccount) {
+        this.allDepartmentAccount = allDepartmentAccount;
+    }
+
+    public List<Account> getAllActiveAccounts() {
+        return handler.getAllActiveAccounts(userName);
+    }
+
+    public void setAllActiveAccounts(List<Account> allActiveAccounts) {
+        this.allActiveAccounts = allActiveAccounts;
+    }
+
+    public List<Account> getAllInactiveAccounts() {
+        return handler.getAllInactiveAccounts(userName);
+    }
+
+    public void setAllInactiveAccounts(List<Account> allInactiveAccounts) {
+        this.allInactiveAccounts = allInactiveAccounts;
     }
 
     public Account getSelectedAcc() {
@@ -116,19 +161,23 @@ public class AdminBean implements Serializable {
         }else{
             Account newAccount = new Account();
             newAccount.setUsername(getUsername());
-            newAccount.setPassword(getPassword());
+            newAccount.setPassword(getPassword());            
 
-            handler.registerNewAccount(newAccount,getRole());
+            handler.registerNewAccount(newAccount,getRole(),departmentRole,accountID);
             
             return "accountAll";
         }        
     }
     
-        public String deactivateAccount(){
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Success.","Account has been Deactivated"));
+    public String deactivateAccount() {
         handler.deactivateAccount(selectedAcc);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Account has been Deactivated"));
         return null;
     }
-    
-    
+
+    public String reactivateAccount() {
+        handler.reactivateAccount(selectedAcc);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Account has been Reactivated"));        
+        return null;
+    }
 }

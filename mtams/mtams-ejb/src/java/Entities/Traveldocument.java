@@ -5,8 +5,8 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Badger
+ * @author Riaan
  */
 @Entity
 @Table(name = "TRAVELDOCUMENT")
@@ -63,7 +63,7 @@ public class Traveldocument implements Serializable {
     @Column(name = "VALIDVISA")
     private String validvisa;
     @OneToMany(mappedBy = "traveldocumentIdtraveldocuments")
-    private List<Attachement> attachementList;
+    private Collection<Attachement> attachementCollection;
     @JoinColumn(name = "TRAVLERPROFILE_IDTRAVLERPROFILE", referencedColumnName = "IDTRAVELERPROFILE")
     @ManyToOne(optional = false)
     private Travelerprofile travlerprofileIdtravlerprofile;
@@ -124,12 +124,12 @@ public class Traveldocument implements Serializable {
     }
 
     @XmlTransient
-    public List<Attachement> getAttachementList() {
-        return attachementList;
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
     }
 
-    public void setAttachementList(List<Attachement> attachementList) {
-        this.attachementList = attachementList;
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
     }
 
     public Travelerprofile getTravlerprofileIdtravlerprofile() {

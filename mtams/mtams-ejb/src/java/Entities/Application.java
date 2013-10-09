@@ -5,8 +5,8 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,13 +22,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Badger
+ * @author Riaan
  */
 @Entity
 @Table(name = "APPLICATION")
@@ -37,6 +38,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Application.findAll", query = "SELECT a FROM Application a"),
     @NamedQuery(name = "Application.findByIdapplication", query = "SELECT a FROM Application a WHERE a.idapplication = :idapplication"),
     @NamedQuery(name = "Application.findByDescription", query = "SELECT a FROM Application a WHERE a.description = :description"),
+    @NamedQuery(name = "Application.findByFinalcostingcomplete", query = "SELECT a FROM Application a WHERE a.finalcostingcomplete = :finalcostingcomplete"),
+    @NamedQuery(name = "Application.findByConferencecomplete", query = "SELECT a FROM Application a WHERE a.conferencecomplete = :conferencecomplete"),
+    @NamedQuery(name = "Application.findByForexcomplete", query = "SELECT a FROM Application a WHERE a.forexcomplete = :forexcomplete"),
+    @NamedQuery(name = "Application.findByMotivationcomplete", query = "SELECT a FROM Application a WHERE a.motivationcomplete = :motivationcomplete"),
     @NamedQuery(name = "Application.findByDatemodified", query = "SELECT a FROM Application a WHERE a.datemodified = :datemodified")})
 public class Application implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -48,11 +53,25 @@ public class Application implements Serializable {
     @Size(max = 100)
     @Column(name = "DESCRIPTION")
     private String description;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "FINALCOSTINGCOMPLETE")
+    private int finalcostingcomplete;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "CONFERENCECOMPLETE")
+    private int conferencecomplete;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "FOREXCOMPLETE")
+    private int forexcomplete;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MOTIVATIONCOMPLETE")
+    private int motivationcomplete;
     @Column(name = "DATEMODIFIED")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datemodified;
-    @OneToMany(mappedBy = "applicationIdapplication")
-    private List<Attachement> attachementList;
     @JoinColumn(name = "TRAVELERPROFILE_IDTRAVELERPROFILE", referencedColumnName = "IDTRAVELERPROFILE")
     @ManyToOne(optional = false)
     private Travelerprofile travelerprofileIdtravelerprofile;
@@ -74,14 +93,26 @@ public class Application implements Serializable {
     @JoinColumn(name = "ACCOUNT_IDACCOUNT", referencedColumnName = "IDACCOUNT")
     @ManyToOne(optional = false)
     private Account accountIdaccount;
+    @OneToMany(mappedBy = "applicationIdapplication")
+    private Collection<Attachement> attachementCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "applicationid")
+    private Collection<Approvalchain> approvalchainCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "applicationIdapplication")
-    private List<Approval> approvalList;
+    private Collection<Approval> approvalCollection;
 
     public Application() {
     }
 
     public Application(Integer idapplication) {
         this.idapplication = idapplication;
+    }
+
+    public Application(Integer idapplication, int finalcostingcomplete, int conferencecomplete, int forexcomplete, int motivationcomplete) {
+        this.idapplication = idapplication;
+        this.finalcostingcomplete = finalcostingcomplete;
+        this.conferencecomplete = conferencecomplete;
+        this.forexcomplete = forexcomplete;
+        this.motivationcomplete = motivationcomplete;
     }
 
     public Integer getIdapplication() {
@@ -100,21 +131,44 @@ public class Application implements Serializable {
         this.description = description;
     }
 
+    public int getFinalcostingcomplete() {
+        return finalcostingcomplete;
+    }
+
+    public void setFinalcostingcomplete(int finalcostingcomplete) {
+        this.finalcostingcomplete = finalcostingcomplete;
+    }
+
+    public int getConferencecomplete() {
+        return conferencecomplete;
+    }
+
+    public void setConferencecomplete(int conferencecomplete) {
+        this.conferencecomplete = conferencecomplete;
+    }
+
+    public int getForexcomplete() {
+        return forexcomplete;
+    }
+
+    public void setForexcomplete(int forexcomplete) {
+        this.forexcomplete = forexcomplete;
+    }
+
+    public int getMotivationcomplete() {
+        return motivationcomplete;
+    }
+
+    public void setMotivationcomplete(int motivationcomplete) {
+        this.motivationcomplete = motivationcomplete;
+    }
+
     public Date getDatemodified() {
         return datemodified;
     }
 
     public void setDatemodified(Date datemodified) {
         this.datemodified = datemodified;
-    }
-
-    @XmlTransient
-    public List<Attachement> getAttachementList() {
-        return attachementList;
-    }
-
-    public void setAttachementList(List<Attachement> attachementList) {
-        this.attachementList = attachementList;
     }
 
     public Travelerprofile getTravelerprofileIdtravelerprofile() {
@@ -174,12 +228,30 @@ public class Application implements Serializable {
     }
 
     @XmlTransient
-    public List<Approval> getApprovalList() {
-        return approvalList;
+    public Collection<Attachement> getAttachementCollection() {
+        return attachementCollection;
     }
 
-    public void setApprovalList(List<Approval> approvalList) {
-        this.approvalList = approvalList;
+    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
+        this.attachementCollection = attachementCollection;
+    }
+
+    @XmlTransient
+    public Collection<Approvalchain> getApprovalchainCollection() {
+        return approvalchainCollection;
+    }
+
+    public void setApprovalchainCollection(Collection<Approvalchain> approvalchainCollection) {
+        this.approvalchainCollection = approvalchainCollection;
+    }
+
+    @XmlTransient
+    public Collection<Approval> getApprovalCollection() {
+        return approvalCollection;
+    }
+
+    public void setApprovalCollection(Collection<Approval> approvalCollection) {
+        this.approvalCollection = approvalCollection;
     }
 
     @Override
