@@ -12,7 +12,7 @@
 
             <ui:define name="content">
                 <h:form id="departmentHandlerForm">
-                    <p:messages id="departmentHandlerMessage" showDetail="true" closable="true" autoUpdate="true"/>
+                    <p:messages id="departmentHandlerMessage" showDetail="true" closable="true" autoUpdate="true" globalOnly="true" />
                     <p:dataTable id="dataTable" var="department" value="#{superAdminBean.allDepartments}" binding="#{superAdminBean.dataTable}" rowKey="#{department.iddepartment}" selection="#{superAdminBean.selectedDepartment}" selectionMode="single"
                                  paginator="true" rows="10"  
                                  paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">  
@@ -34,7 +34,7 @@
                             <p:commandButton rendered="#{not empty superAdminBean.selectedDepartment}" value="Delete" update=":departmentHandlerForm" action="#{superAdminBean.deleteDepartment()}" icon="ui-icon-closethick"/>
                         </f:facet>
                     </p:dataTable>
-                    <p:messages id="departmentHandlerMessages" showDetail="true" closable="true" autoUpdate="true"/>
+                    <p:messages id="departmentHandleMessages" showDetail="true" closable="true" autoUpdate="true" />
                     <fieldset><legend>Actions:</legend>
                         <h:outputText value="Create Department?"/>
                         <p:selectOneRadio id="isUsingCreate" value="#{superAdminBean.showCreate}" >
