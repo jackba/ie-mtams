@@ -50,6 +50,7 @@ private Quotes quote;
 private Finalcosting finalC;
 @EJB
 private MotivationFormHandlerLocal handler;
+    private Integer stage;
 
 public MotivationalBean() {
     }
@@ -64,7 +65,18 @@ public String save()
          motivational.setAmount(amount);
          motivational.setCostcenter(costCode);
          motivational.setMotivation(motivationLetter);
-         motivational.setBudget(budget);
+         
+         stage = budget;
+        String name = "";
+        switch (stage)
+        {
+            case 0: name = "No";
+                break;
+            case 1: name = "Yes";
+                break;
+        }
+        budget2 = name;
+         motivational.setBudget(name);
          handler.updateMoti(motivational, accountID ,appnum);
          
          FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Success", "Created"));
@@ -74,6 +86,7 @@ public String save()
     public Motivation getMotiView() 
     {
         motiView = handler.findMotivation(accountID,appnum);
+        
         return motiView;
     }
 
@@ -100,7 +113,18 @@ public String save()
         motiEdit.setCostcenter(costCode);
         motiEdit.setMotivation(motivationLetter);
         
-        motiEdit.setBudget(budget);
+        stage = budget;
+        String name = "";
+        switch (stage)
+        {
+            case 0: name = "No";
+                break;
+            case 1: name = "Yes";
+                break;
+        }
+        budget2 = name;
+        motiEdit.setBudget(name);
+        //motiEdit.setBudget2(budget);
         
         handler.updateMoti(motiEdit, accountID ,appnum);
         return "applicationHome";
@@ -136,10 +160,8 @@ public String save()
     public void setFinalC(Finalcosting finalC) 
     {
         this.finalC = finalC;
-    }
-    
-    
-    
+    }    
+     
     public Motivation getMotiEdit() {
         return motiEdit;
     }
@@ -189,20 +211,24 @@ public String save()
         this.budget = budget;
     }
     
-    public void setBudget2(Integer budget) 
+    public String setBudget2(Integer budget) 
     {
-        if(budget==1)
+        stage = budget;
+        String name = "";
+        switch (stage)
         {
-            budget2 = "Yes";        
+            case 0: name = "No";
+                break;
+            case 1: name = "Yes";
+                break;
         }
-        else
-        {
-            budget2= "No";
-        }
+        budget2 = name;
+        return budget2;
     }
     
     public String getBudget2() 
     {
+        
         return budget2;
     }
     
@@ -215,6 +241,6 @@ public String save()
     public String goEditMotivation(){
         return "motivationalEdit";
     }
-    
+          
 }
 

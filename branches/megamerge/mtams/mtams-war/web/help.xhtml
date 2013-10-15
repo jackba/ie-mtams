@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+
+            <ui:define name="content">
+                <h:form id="helpTab">
+                    <p:tab id="helpID" title="Help">  
+                        <p:panel header="Help">  
+                            
+                            <fieldset><legend>Help</legend>
+                              
+                                <h:outputText value = "Creating a New User Account
+                                            If you wish to create a new user within the system, 
+                                            click on the + Create New Account button. 
+                                            In the Create Account screen enter the details of 
+                                            the new user which you wish to enter into the system.
+                                            Ensure their password, is an alphanumerical combination such as a12gh14. 
+                                            You must enter the SAME proposed password into both input fields. 
+                                            Finally select the new user’s role, and click the create button."/>
+                            </fieldset>
+                            <p:button value="Cancel" outcome="#{appBean.goApplicationHome()}" styleClass="button-left"/>
+                            
+                            <p:commandButton value="Submit" action="#{motivBean.save()}" ajax="false" styleClass="button-right"/>  
+                            
+                        </p:panel>  
+                    </p:tab>  
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

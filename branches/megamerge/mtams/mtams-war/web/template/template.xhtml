@@ -58,7 +58,7 @@
                 <h:form>
                     <ul>
                         <li><p:outputLabel value="#{sessionBean.getRole()}" rendered="#{sessionBean.checkActive()}"/></li>
-                        <li><h:link value="">Help</h:link></li>
+                        <li><h:link outcome="help.xhtml">Help</h:link></li>
                         <li><p:commandLink value="Logout (#{sessionBean.getName()})" action="#{sessionBean.invalidate()}" rendered="#{sessionBean.checkActive()}"/></li>
                     </ul>
                 </h:form>
