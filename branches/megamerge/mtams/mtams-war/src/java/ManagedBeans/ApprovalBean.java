@@ -149,7 +149,7 @@ public class ApprovalBean implements Serializable {
     private String reasonForTravel;
     private Application newApplication;
     //--------APPROVAL-------------//
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z']{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z'- ]{0,}")
     private String approvalName;
     private String approvalComment;
     private int approved = 2;

@@ -11,7 +11,7 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-                <h:form id="applicationForm">
+                <h:form id="appForm">
 
                     <p:wizard id="appWizard" widgetVar="wiz" flowListener="#{appBean.onFlowProcess}">
 
@@ -94,7 +94,7 @@
                                     <h:outputText value="" />
 
                                     <p:calendar id="tempDate" value="#{appBean.tempDate}" required="true" requiredMessage="Date required" mindate="#{userBean.currentDate}"></p:calendar> 
-                                    <p:inputText id="tempDest" value="#{appBean.tempDest}" required="true" maxlength="20" requiredMessage="Entry required"><p:ajax update="tempDest" event="blur"  /></p:inputText>
+                                    <p:inputText id="tempDest" value="#{appBean.tempDest}" onclick="dlgCountry.show()" required="true" maxlength="20" requiredMessage="Entry required"></p:inputText>           
                                     <p:selectOneMenu id="tempLeaveType" value="#{appBean.tempLeaveType}" required="true" requiredMessage="Entry required">
                                         <f:selectItem  itemLabel="Select Leave Type" itemValue=""/>
                                         <f:selectItems value="#{dataLookUpBean.leaveStrings}" />
@@ -108,8 +108,150 @@
 
                                     <p:commandButton icon="ui-icon-plus" disabled="true" action="#{appBean.reinit}" />
                                 </h:panelGrid>
+                                <p:watermark for="tempDest" value="Click to Select"/>
+                                <p:dialog header="Header Text" widgetVar="dlgCountry">
+
+                                    <div id="DTdivtest" class="divCurrency" >
+                                        <!--
+                **************************
+                country
+                **************************
+                                        -->
+
+                                        <h:form id="DTformCountry" styleClass="test" > 
+                                            <p:dataTable id="CountrySel" styleClass="dlgCurrency" var="country" 
+                                                         value="#{dataLookUpBean.countryList}" rowKey="#{country.code3}"  
+                                                         filteredValue="#{dataLookUpBean.countryFilteredList}"
+                                                         widgetVar="coutrieswidget"
+                                                         emptyMessage="No data matches your criteria"
+                                                         selection="#{dataLookUpBean.countrySelectionRef}" 
+                                                         selectionMode="single" scrollRows="6"  
+                                                         scrollable="true" liveScroll="true" scrollHeight="150"
+
+                                                         >  
+
+                                                <p:ajax event="rowSelect" 
+                                                        update=":appForm:tempDest" 
+                                                        listener="#{dataLookUpBean.CoutrySel()}" />
+                                                <p:ajax event="rowSelect" 
+                                                        update=":appForm:DTformRegion:RegionSel" 
+                                                        />
+
+                                                <p:column headerText="Country Name"
+
+                                                          filterBy="#{country.name}"
+                                                          filterMatchMode="contains"
+                                                          >  
+                                                    #{country.name}
+                                                </p:column>  
 
 
+
+                                                <p:column headerText="Country code3"
+
+                                                          filterBy="#{country.code3}"
+                                                          filterMatchMode="contains"
+                                                          >  
+                                                    #{country.code3} 
+                                                </p:column>  
+
+                                            </p:dataTable>  
+                                        </h:form>
+                                        <!--
+                                        **************************
+                                        REGION
+                                        **************************
+                                        -->
+                                        <h:form id="DTformRegion" styleClass="test">
+                                            <p:dataTable id="RegionSel" styleClass="dlgCurrency" var="region" 
+                                                         value="#{dataLookUpBean.regionList}" rowKey="#{region.idregion}"  
+                                                         filteredValue="#{dataLookUpBean.regionFilteredList}"
+                                                         widgetVar="regionswidget"
+                                                         emptyMessage="No data matches your criteria"
+                                                         selection="#{dataLookUpBean.regionySelectionRef}" 
+                                                         selectionMode="single" scrollRows="6"  
+                                                         scrollable="true" liveScroll="true" scrollHeight="150"
+                                                         lazy="true"
+                                                         >                 
+
+                                                <p:ajax event="rowSelect" 
+                                                        update=":appForm:tempDest" 
+                                                        listener="#{dataLookUpBean.RegSel()}"
+                                                        />
+                                                <p:ajax event="rowSelect" 
+                                                        update=":appForm:DTformCity:CitySel" 
+                                                        />
+
+
+                                                <p:column headerText="Region Name"
+
+                                                          filterBy="#{region.name}"
+                                                          filterMatchMode="contains"
+                                                          >  
+                                                    #{region.name}
+                                                </p:column>  
+
+                                            </p:dataTable>  
+
+                                        </h:form>
+
+                                        <!--
+                                      **************************
+                                      CITY
+                                      **************************
+                                        -->
+                                        <h:form id="DTformCity" styleClass="test">
+                                            <p:dataTable id="CitySel" styleClass="dlgCurrency" var="city" 
+                                                         value="#{dataLookUpBean.cityList}" rowKey="#{city.idcity}"  
+                                                         filteredValue="#{dataLookUpBean.cityFilteredList}"
+                                                         widgetVar="citywidget"
+                                                         emptyMessage="No data matches your criteria"
+                                                         selection="#{appBean.citySelectionRef}" 
+                                                         selectionMode="single" scrollRows="20"  
+                                                         scrollable="true" liveScroll="true" scrollHeight="150"
+                                                         rowIndexVar="#{city.idcity}"
+                                                         lazy="true"
+                                                         >  
+                                                <p:ajax event="rowSelect" 
+                                                        update=":appForm:tempDest" 
+                                                        listener="#{appBean.CitySel()}" />
+
+
+                                                <p:column headerText="Region Name"
+
+                                                          filterBy="#{city.name}"
+                                                          filterMatchMode="contains"
+                                                          >  
+                                                    #{city.name}
+                                                </p:column>  
+
+                                                <p:column headerText="Region Code" 
+                                                          footerText="contains"
+                                                          filterBy="#{city.region}"
+                                                          filterMatchMode="contains"
+                                                          >  
+                                                    #{city.region}
+                                                </p:column>  
+
+                                                <f:facet name="footer">                               
+                                                    <p:commandButton value="Done" type="button" 
+                                                                     onclick="dlgCountry.hide()" 
+                                                                     actionListener="#{dataLookUpBean.CoutrySel()}" update=":appForm:itinPanel">
+
+                                                        <p:ajax update=":appForm:tempDest" 
+                                                                listener="#{dataLookUpBean.RegSel()}"/>
+                                                        <p:ajax update=":appForm:tempDest" 
+                                                                listener="#{dataLookUpBean.CoutrySel()}"/>
+                                                        <p:ajax update=":appForm:tempDest" 
+                                                                listener="#{dataLookUpBean.CitySel()}"/>
+                                                    </p:commandButton>
+                                                </f:facet>  
+
+                                            </p:dataTable>  
+
+                                        </h:form>
+                                    </div>
+                                </p:dialog>
 
                             </p:panel>
                         </p:tab>
@@ -126,7 +268,7 @@
                                     <p:message for="costCentre" id="ccMsg"/>
                                 </h:panelGrid>
                                 <br />
-                             
+
                                 <h:panelGrid columns="3" columnClasses="label, value, error">
                                     <p:outputLabel id="CVal" value="Currency:" />
                                     <p:inputText id="currency" onclick="dlgcurrency.show()" value="#{appBean.currency}" required="true" requiredMessage="Currency is required" />
@@ -156,7 +298,7 @@
 
                                             <p:ajax event="rowSelect" 
 
-                                                    update=":applicationForm:CVal, :applicationForm:currency"
+                                                    update=":appForm:CVal, :appForm:currency"
                                                     listener="#{appBean.CurSel}" />
                                             <ui:remove> 
                                                 <!--
@@ -205,9 +347,9 @@
 
                                                     <p:commandButton value="Hide" type="button" 
                                                                      onclick="dlgcurrency.hide()" 
-                                                                     actionListener="#{appBean.CurSel}" update=":applicationForm:CVal">
+                                                                     actionListener="#{appBean.CurSel}" update=":appForm:CVal">
 
-                                                        <p:ajax update=":applicationForm:CVal" 
+                                                        <p:ajax update=":appForm:CVal" 
                                                                 listener="#{appBean.CurSel}"/>
                                                     </p:commandButton>
                                                 </f:facet>  
@@ -314,7 +456,7 @@
                                     <p:inputText id="hoC2" value="#{appBean.hQCost2}" required="true" maxlength="20" requiredMessage="Entry required"><p:ajax update="hoC2" event="blur"  /></p:inputText>
                                 </h:panelGrid>
 
-                                <p:commandButton action="#{appBean.createApplication()}" value="Create" update=":applicationForm:quotePanel" styleClass="button-right" />
+                                <p:commandButton action="#{appBean.createApplication()}" value="Create" update=":appForm:quotePanel" styleClass="button-right" />
                             </p:panel>
 
                         </p:tab>

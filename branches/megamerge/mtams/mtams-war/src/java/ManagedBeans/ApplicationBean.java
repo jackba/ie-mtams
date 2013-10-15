@@ -10,15 +10,19 @@ import Entities.Application;
 import Entities.Approval;
 import Entities.Approvalchain;
 import Entities.Carquotes;
+import Entities.City;
+import Entities.Country;
 import Entities.Currency;
 import Entities.Flightquotes;
 import Entities.Itinerary;
 import Entities.Quotes;
+import Entities.Region;
 import Entities.Travel;
 import Entities.Travelerprofile;
 import ServiceLayer.AccountHandlerLocal;
 import ServiceLayer.ApplicationHandlerLocal;
 import ServiceLayer.ApprovalHandlerLocal;
+import ServiceLayer.DataLookUpHandlerLocal;
 import ServiceLayer.DepartmentHandlerLocal;
 import ServiceLayer.TravelProfileHandlerLocal;
 //import java.awt.event.ActionEvent;
@@ -61,6 +65,8 @@ public class ApplicationBean implements Serializable {
     private AccountHandlerLocal accHandler;
     @EJB
     private DepartmentHandlerLocal deptHandler;
+    @EJB
+    private DataLookUpHandlerLocal daoDataLookUp;
     
     private static final Logger logger = Logger.getLogger(ApplicationBean.class.getName());
     private List<Application> allApps;
@@ -186,6 +192,24 @@ public class ApplicationBean implements Serializable {
     private Approval finalApprFK;
     
     private Approvalchain apprChainRef;
+    
+    //Country Region City
+    private int countryCount;
+    private int regionCount;
+    private int cityCount;
+    private List<Country> countryList;
+    private List<Region> regionList;
+    private List<City> cityList;
+    private List<Country> countryFilteredList;
+    private List<Region> regionFilteredList;
+    private List<City> cityFilteredList;
+    private Country CountrySelectionRef;
+    private Country countryRef;
+    private Region RegionySelectionRef;
+    private City CitySelectionRef;
+    private String countryString;
+    private String regionyString;
+    private String cityString;
 
     /**
      * Creates a new instance of ApplicationBean
@@ -962,6 +986,128 @@ public class ApplicationBean implements Serializable {
         this.aCurrencySelection = aCurrencySelection;
     }
 
+    public int getCountryCount() {
+        return countryCount;
+    }
+
+    public void setCountryCount(int countryCount) {
+        this.countryCount = countryCount;
+    }
+
+    public int getRegionCount() {
+        return regionCount;
+    }
+
+    public void setRegionCount(int regionCount) {
+        this.regionCount = regionCount;
+    }
+
+    public List<Country> getCountryList() {
+        return countryList;
+    }
+
+    public void setCountryList(List<Country> countryList) {
+        this.countryList = countryList;
+    }
+
+    public List<Region> getRegionList() {
+        return regionList;
+    }
+
+    public void setRegionList(List<Region> regionList) {
+        this.regionList = regionList;
+    }
+
+    public List<City> getCityList() {
+        return cityList;
+    }
+
+    public void setCityList(List<City> cityList) {
+        this.cityList = cityList;
+    }
+
+    public List<Country> getCountryFilteredList() {
+        return countryFilteredList;
+    }
+
+    public void setCountryFilteredList(List<Country> countryFilteredList) {
+        this.countryFilteredList = countryFilteredList;
+    }
+
+    public List<Region> getRegionFilteredList() {
+        return regionFilteredList;
+    }
+
+    public void setRegionFilteredList(List<Region> regionFilteredList) {
+        this.regionFilteredList = regionFilteredList;
+    }
+
+    public List<City> getCityFilteredList() {
+        return cityFilteredList;
+    }
+
+    public void setCityFilteredList(List<City> cityFilteredList) {
+        this.cityFilteredList = cityFilteredList;
+    }
+
+    public Country getCountryRef() {
+        return countryRef;
+    }
+
+    public void setCountryRef(Country countryRef) {
+        this.countryRef = countryRef;
+    }
+
+    public Region getRegionySelectionRef() {
+        return RegionySelectionRef;
+    }
+
+    public void setRegionySelectionRef(Region RegionySelectionRef) {
+        this.RegionySelectionRef = RegionySelectionRef;
+    }
+
+    public City getCitySelectionRef() {
+        return CitySelectionRef;
+    }
+
+    public void setCitySelectionRef(City CitySelectionRef) {
+        this.CitySelectionRef = CitySelectionRef;
+    }
+
+    public String getCountryString() {
+        return countryString;
+    }
+
+    public void setCountryString(String countryString) {
+        this.countryString = countryString;
+    }
+
+    public String getRegionyString() {
+        return regionyString;
+    }
+
+    public void setRegionyString(String regionyString) {
+        this.regionyString = regionyString;
+    }
+
+    public String getCityString() {
+        return cityString;
+    }
+
+    public void setCityString(String cityString) {
+        this.cityString = cityString;
+    }
+
+    public Country getCountrySelectionRef() {
+        return CountrySelectionRef;
+    }
+
+    public void setCountrySelectionRef(Country CountrySelectionRef) {
+        this.CountrySelectionRef = CountrySelectionRef;
+    }
+
+    
+    
     public String CurSel() {
 //        logger.log(Level.INFO, "CurSel");
         logger.log(Level.INFO, "selectedCurrencyString : {0}", currency);
@@ -969,6 +1115,73 @@ public class ApplicationBean implements Serializable {
         RequestContext.getCurrentInstance().execute("dlgcurrency.hide()");
 //        logger.log(Level.INFO, "selectedCurrencyString : {0}", selectedCurrencyString);
         return "currency";
+    }
+    
+        public String CRCSel() {
+        logger.log(Level.INFO, "CountrySelectionRef : {0}", this.getCountrySelectionRef());
+        //this.setCountryString(CountrySelectionRef.getName());
+        logger.log(Level.INFO, "CountryString : {0}", this.getCountryString());
+        logger.log(Level.INFO, "1 getRegionySelectionRef : {0}", getRegionySelectionRef());
+        if (this.getCountrySelectionRef() != null) {
+            if (getRegionList().isEmpty()) {
+                setRegionList(daoDataLookUp.allRegions(this.getCountrySelectionRef()));
+                logger.log(Level.INFO, "getRegionList : {0}", this.getRegionList());
+                // that it is not the same country
+                // don't need to rebuild the regions list if we allready have it
+            } else if (!(getRegionList().get(0).getCode2().getCode2().equalsIgnoreCase(this.getCountrySelectionRef().getCode2()))) {
+                setRegionList(daoDataLookUp.allRegions(this.getCountrySelectionRef()));
+                logger.log(Level.INFO, "getRegionList : {0}", this.getRegionList());
+            }
+            logger.log(Level.INFO, "2 getRegionySelectionRef : {0}", getRegionySelectionRef());
+            if (this.getRegionySelectionRef() != null) {
+                logger.log(Level.INFO, "3 getRegionySelectionRef : {0}", getRegionySelectionRef());
+                this.setRegionyString(this.getRegionySelectionRef().getName());
+            }
+
+        }
+
+        return "CRC test";
+    }
+
+    public String CoutrySel() {
+        logger.log(Level.INFO, "CountrySelectionRef : {0}", this.getCountrySelectionRef());
+        this.setCountryString(CountrySelectionRef.getName());
+        this.setRegionySelectionRef(null);
+        this.setRegionyString("");
+        logger.log(Level.INFO, "CountryString : {0}", this.getCountryString());
+        setRegionList(daoDataLookUp.allRegions(this.getCountrySelectionRef()));
+        logger.log(Level.INFO, "getRegionList : {0}", this.getRegionList());
+
+
+        logger.log(Level.INFO, "this.setRegionyString(); : {0}", this.getRegionyString());
+
+        return "RegSel test";
+
+    }
+
+    public String RegSel() {
+
+        if (this.getCountrySelectionRef() != null) {
+
+//            this.setRegionyString(this.getRegionySelectionRef().getName());
+            if (this.getRegionySelectionRef() != null) {
+                logger.log(Level.INFO, "3 getRegionySelectionRef : {0}", getRegionySelectionRef());
+                this.setRegionyString(this.getRegionySelectionRef().getName());
+                logger.log(Level.INFO, " getRegionyString : {0}", getRegionyString());
+                setCityList(daoDataLookUp.getCities(RegionySelectionRef, CountrySelectionRef));
+            }
+        }
+
+        return "RegSel test";
+
+    }
+
+    public String CitySel() {
+        RequestContext.getCurrentInstance().execute("dlgCountry.hide()");
+        this.setCityString(this.getCitySelectionRef().getName());
+        this.setTempDest(this.getCitySelectionRef().getName());
+        return "city";
+
     }
     
     public String sendApproval(){
