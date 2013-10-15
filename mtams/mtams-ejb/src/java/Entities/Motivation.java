@@ -5,9 +5,7 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,15 +13,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Riaan
+ * @author Michelle Thornton
  */
 @Entity
 @Table(name = "MOTIVATION")
@@ -61,18 +57,15 @@ public class Motivation implements Serializable {
     @Size(max = 255)
     @Column(name = "MOTIVATION")
     private String motivation;
+    @Size(max = 45)
     @Column(name = "BUDGET")
-    private Integer budget;
+    private String budget;
     @Size(max = 45)
     @Column(name = "RECOMMENDED")
     private String recommended;
     @Size(max = 45)
     @Column(name = "REQUESTEDBY")
     private String requestedby;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "motivationIdmotivation")
-    private Collection<Application> applicationCollection;
-    @OneToMany(mappedBy = "motivationIdmotivation")
-    private Collection<Attachement> attachementCollection;
 
     public Motivation() {
     }
@@ -129,11 +122,11 @@ public class Motivation implements Serializable {
         this.motivation = motivation;
     }
 
-    public Integer getBudget() {
+    public String getBudget() {
         return budget;
     }
 
-    public void setBudget(Integer budget) {
+    public void setBudget(String budget) {
         this.budget = budget;
     }
 
@@ -151,24 +144,6 @@ public class Motivation implements Serializable {
 
     public void setRequestedby(String requestedby) {
         this.requestedby = requestedby;
-    }
-
-    @XmlTransient
-    public Collection<Application> getApplicationCollection() {
-        return applicationCollection;
-    }
-
-    public void setApplicationCollection(Collection<Application> applicationCollection) {
-        this.applicationCollection = applicationCollection;
-    }
-
-    @XmlTransient
-    public Collection<Attachement> getAttachementCollection() {
-        return attachementCollection;
-    }
-
-    public void setAttachementCollection(Collection<Attachement> attachementCollection) {
-        this.attachementCollection = attachementCollection;
     }
 
     @Override
