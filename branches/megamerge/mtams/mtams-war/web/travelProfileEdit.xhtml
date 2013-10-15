@@ -30,6 +30,7 @@
                                 <h:outputText value="Staff ID: *" />  
                                 <p:inplace id="staffID">
                                     <p:inputMask id="staffIDIP" value="#{editTrav.staffID}" required="true" requiredMessage="Required Field" mask="a9999999" title="Must be in the format A#######">
+                                        <f:validateLength maximum="9"/> 
                                         <p:ajax update="staffIDIPM" event="blur" />
                                     </p:inputMask>
                                 </p:inplace>
@@ -46,7 +47,8 @@
 
                                 <h:outputText value="Secretary/Travel Booker:* " />
                                 <p:inplace id="secretary">  
-                                    <p:inputText id="secretaryIP" value="#{editTrav.travelBooker}" required="true" requiredMessage="Required Field">
+                                    <p:inputText id="secretaryIP" value="#{editTrav.travelBooker}" required="true" requiredMessage="Required Field" validatorMessage="Maximum length is 45">
+                                        <f:validateLength maximum="45"/> 
                                         <p:ajax update="secretaryIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
@@ -63,7 +65,8 @@
                                 
                                 <h:outputText value="First Name:* " />  
                                 <p:inplace id="firstN">  
-                                    <p:inputText id="firstNIP" value="#{editTrav.firstName}" required="true" requiredMessage="Required Field">
+                                    <p:inputText id="firstNIP" value="#{editTrav.firstName}" required="true" requiredMessage="Required Field" validatorMessage="Maximum length is 45">
+                                        <f:validateLength maximum="45"/> 
                                         <p:ajax update="firstNIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
@@ -71,7 +74,8 @@
 
                                 <h:outputText value="Surname:* " />
                                 <p:inplace id="sur">  
-                                    <p:inputText id="surIP" value="#{editTrav.surname}" required="true" requiredMessage="Required Field">
+                                    <p:inputText id="surIP" value="#{editTrav.surname}" required="true" requiredMessage="Required Field" validatorMessage="Maximum length is 45">
+                                        <f:validateLength maximum="45"/> 
                                         <p:ajax update="surIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
@@ -79,7 +83,8 @@
 
                                 <h:outputText value="Middle Name" />
                                 <p:inplace id="midn" emptyLabel="Click to Edit">  
-                                    <p:inputText id="midNIP" value="#{editTrav.middleName}">
+                                    <p:inputText id="midNIP" value="#{editTrav.middleName}" validatorMessage="Maximum length is 45">
+                                        <f:validateLength maximum="45"/> 
                                         <p:ajax update="midNIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
@@ -87,7 +92,8 @@
 
                                 <h:outputText value="Identity Number:* " />
                                 <p:inplace id="idNo">  
-                                    <p:inputText id="idNoIP" value="#{editTrav.idNo}" required="true" requiredMessage="Required Field">
+                                    <p:inputText id="idNoIP" value="#{editTrav.idNo}" required="true" requiredMessage="Required Field" validatorMessage="Maximum length is 20">
+                                        <f:validateLength maximum="20"/> 
                                         <p:ajax update="idNoIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
@@ -95,7 +101,8 @@
 
                                 <h:outputText value="Home Address Line 1:" />
                                 <p:inplace id="hAdd">  
-                                    <p:inputText id="hAddIP" value="#{editTrav.homeAddress}" required="true" requiredMessage="Required Field">
+                                    <p:inputText id="hAddIP" value="#{editTrav.homeAddress}" required="true" requiredMessage="Required Field" validatorMessage="Maximum length is 45">
+                                        <f:validateLength maximum="45"/> 
                                         <p:ajax update="hAddIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
@@ -103,7 +110,8 @@
                                 
                                 <h:outputText value="Home Address Line 2:" />
                                 <p:inplace id="hAdd2">  
-                                    <p:inputText id="hAdd2IP" value="#{editTrav.homeAddress2}">
+                                    <p:inputText id="hAdd2IP" value="#{editTrav.homeAddress2}" validatorMessage="Maximum length is 45">
+                                        <f:validateLength maximum="45"/> 
                                         <p:ajax update="hAdd2IPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
@@ -111,7 +119,8 @@
                                 
                                 <h:outputText value="City:" />
                                 <p:inplace id="city">  
-                                    <p:inputText id="cityIP" value="#{editTrav.city}" required="true" requiredMessage="Required Field">
+                                    <p:inputText id="cityIP" value="#{editTrav.city}" required="true" requiredMessage="Required Field" validatorMessage="Maximum length is 20">
+                                        <f:validateLength maximum="20"/> 
                                         <p:ajax update="cityIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
@@ -119,7 +128,8 @@
                                 
                                 <h:outputText value="Province:" />
                                 <p:inplace id="province">  
-                                    <p:inputText id="provinceIP" value="#{editTrav.province}" required="true" requiredMessage="Required Field">
+                                    <p:inputText id="provinceIP" value="#{editTrav.province}" required="true" requiredMessage="Required Field" validatorMessage="Maximum length is 20">
+                                        <f:validateLength maximum="20"/> 
                                         <p:ajax update="provinceIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
@@ -127,7 +137,8 @@
                                 
                                 <h:outputText value="PostalCode:" />
                                 <p:inplace id="pCode">  
-                                    <p:inputText id="postalCodeIP" value="#{editTrav.postalCode}" required="true" requiredMessage="Required Field">
+                                    <p:inputText id="postalCodeIP" value="#{editTrav.postalCode}" required="true" requiredMessage="Required Field" validatorMessage="Maximum length is 6">
+                                        <f:validateLength maximum="6"/> 
                                         <p:ajax update="postalCodeIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
@@ -135,7 +146,8 @@
 
                                 <h:outputText value="Mobile Phone: *" />
                                 <p:inplace id="mobileP">  
-                                    <p:inputText id="mobilePIP" value="#{editTrav.mobilePhone}" required="true" requiredMessage="Required Field"> 
+                                    <p:inputText id="mobilePIP" value="#{editTrav.mobilePhone}" required="true" requiredMessage="Required Field" validatorMessage="Maximum length is 10"> 
+                                        <f:validateLength maximum="10"/> 
                                         <p:ajax update="mobilePIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
@@ -143,7 +155,8 @@
 
                                 <h:outputText value="Home Phone:" /> 
                                 <p:inplace id="homeP" emptyLabel="Click to Edit">  
-                                    <p:inputText id="homePIP" value="#{editTrav.homePhone}">
+                                    <p:inputText id="homePIP" value="#{editTrav.homePhone}" validatorMessage="Maximum length is 10">
+                                        <f:validateLength maximum="10"/> 
                                         <p:ajax update="homePIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
@@ -151,7 +164,8 @@
 
                                 <h:outputText value="Email Address: *" />
                                 <p:inplace id="eMail">  
-                                    <p:inputText id="eMailIP" value="#{editTrav.email}" required="true" requiredMessage="Required Field">
+                                    <p:inputText id="eMailIP" value="#{editTrav.email}" required="true" requiredMessage="Required Field" validatorMessage="Maximum length is 45">
+                                        <f:validateLength maximum="45"/> 
                                         <p:ajax update="eMailIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
@@ -163,7 +177,8 @@
                             <h:panelGrid columns="3" columnClasses="label, value, error"> 
                                 <h:outputText value="Business Phone:* " />
                                 <p:inplace id="bPhone">  
-                                    <p:inputText id="bPhoneIP" value="#{editTrav.busPhone}" required="true" requiredMessage="Required Field">
+                                    <p:inputText id="bPhoneIP" value="#{editTrav.busPhone}" required="true" requiredMessage="Required Field" validatorMessage="Maximum length is 45">
+                                        <f:validateLength maximum="45"/> 
                                         <p:ajax update="bPhoneIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
@@ -171,7 +186,8 @@
 
                                 <h:outputText value="Business Fax:" />
                                 <p:inplace id="bFax" emptyLabel="Click to Edit">  
-                                    <p:inputText id="bFaxIP" value="#{editTrav.busFax}">
+                                    <p:inputText id="bFaxIP" value="#{editTrav.busFax}" validatorMessage="Maximum length is 10">
+                                        <f:validateLength maximum="10"/> 
                                         <p:ajax update="bFaxIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>  
@@ -183,7 +199,8 @@
                             <h:panelGrid columns="3" columnClasses="label, value, error">
                                 <h:outputText value="Spouse's Name: " />  
                                 <p:inplace id="spName" emptyLabel="Click to Edit">  
-                                    <p:inputText id="spNameIP" value="#{editTrav.spouseName}"> 
+                                    <p:inputText id="spNameIP" value="#{editTrav.spouseName}" validatorMessage="Maximum length is 45"> 
+                                        <f:validateLength maximum="45"/> 
                                         <p:ajax update="spNameIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
@@ -191,7 +208,8 @@
 
                                 <h:outputText value="Spouse's Contact Number:" />  
                                 <p:inplace id="spCon" emptyLabel="Click to Edit">  
-                                    <p:inputText id="spConIP" value="#{editTrav.spouseContactNo}">
+                                    <p:inputText id="spConIP" value="#{editTrav.spouseContactNo}" validatorMessage="Maximum length is 10">
+                                        <f:validateLength maximum="10"/> 
                                         <p:ajax update="spConIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
@@ -199,7 +217,8 @@
 
                                 <h:outputText value="Spouse's Email:" />  
                                 <p:inplace id="spEm" emptyLabel="Click to Edit">  
-                                    <p:inputText id="spEmIP" value="#{editTrav.spouseEmail}">
+                                    <p:inputText id="spEmIP" value="#{editTrav.spouseEmail}" validatorMessage="Maximum length is 20">
+                                        <f:validateLength maximum="20"/> 
                                         <p:ajax update="spEmIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
@@ -211,7 +230,8 @@
                             <h:panelGrid columns="3" columnClasses="label, value, error">
                                 <h:outputText value="Doctor's Name:" />
                                 <p:inplace id="DoctN" emptyLabel="Click to Edit">  
-                                    <p:inputText id="doctNIP" value="#{editTrav.docName}">
+                                    <p:inputText id="doctNIP" value="#{editTrav.docName}" validatorMessage="Maximum length is 45">
+                                        <f:validateLength maximum="45"/> 
                                         <p:ajax update="doctNIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>
@@ -219,7 +239,8 @@
 
                                 <h:outputText value="Doctor's Contact Number: *" /> 
                                 <p:inplace id="doctC">  
-                                    <p:inputText id="doctCIP" value="#{editTrav.docContactNo}" required="true" requiredMessage="Required Field">
+                                    <p:inputText id="doctCIP" value="#{editTrav.docContactNo}" required="true" requiredMessage="Required Field" validatorMessage="Maximum length is 10">
+                                        <f:validateLength maximum="10"/> 
                                         <p:ajax update="doctCIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>       
@@ -227,7 +248,8 @@
 
                                 <h:outputText value="Doctor's Email: *" /> 
                                 <p:inplace id="doctEm">  
-                                    <p:inputText id="doctEmIP" value="#{editTrav.docEmail}" required="true" requiredMessage="Required Field">
+                                    <p:inputText id="doctEmIP" value="#{editTrav.docEmail}" required="true" requiredMessage="Required Field" validatorMessage="Maximum length is 45">
+                                        <f:validateLength maximum="45"/> 
                                         <p:ajax update="doctEmIPM" event="blur" />
                                     </p:inputText>
                                 </p:inplace>       
