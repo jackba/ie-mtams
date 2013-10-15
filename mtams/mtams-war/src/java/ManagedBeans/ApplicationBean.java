@@ -995,4 +995,12 @@ public class ApplicationBean implements Serializable {
     public String goConference(){
         return "conferenceCreate";
     }
+    
+    public String goCreateFC() {
+        return "finalCostingCreate";
+    }
+
+    public String goViewFC() {
+        return "finalCostingView";
+    }
 }
