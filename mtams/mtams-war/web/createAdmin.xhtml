@@ -43,7 +43,7 @@
                         </h:panelGrid>
                         <h:panelGrid columns="3" columnClasses="label, value, error">
                             <h:outputText value="Assigned Department:" />
-                            <p:selectOneMenu required="true" requiredMessage="Required Field" value="#{superAdminBean.department}" id="dept">
+                            <p:selectOneMenu required="true" requiredMessage="Required Field" value="#{superAdminBean.department}" id="dept" style="width: 107% !important;">
                                 <f:selectItem  itemLabel="Select a Department" itemValue=""/>
                                 <f:selectItems value="#{dataLookUpBean.departmentStrings}" />
                             </p:selectOneMenu>
