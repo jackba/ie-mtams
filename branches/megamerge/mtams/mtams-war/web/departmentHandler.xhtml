@@ -14,7 +14,7 @@
                 <h:form id="departmentHandlerForm">
                     <p:messages id="departmentHandlerMessage" showDetail="true" closable="true" autoUpdate="true" globalOnly="true" />
                     <p:dataTable id="dataTable" var="department" value="#{superAdminBean.allDepartments}" binding="#{superAdminBean.dataTable}" rowKey="#{department.iddepartment}" selection="#{superAdminBean.selectedDepartment}" selectionMode="single"
-                                 paginator="true" rows="10"  
+                                 paginator="true" paginatorAlwaysVisible="false" rows="10"  
                                  paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">  
                         <p:ajax event="rowSelect" listener="#{superAdminBean.load()}" update=":departmentHandlerForm" />
                         <f:facet name="header">  
@@ -29,11 +29,23 @@
                             <h:outputText value="#{department.department}" />  
                         </p:column>
 
-                        <f:facet name="footer"> 
+                        <f:facet name="footer">
                             <!-- ///////////////////Delete///////////////////-->
-                            <p:commandButton rendered="#{not empty superAdminBean.selectedDepartment}" value="Delete" update=":departmentHandlerForm" action="#{superAdminBean.deleteDepartment()}" icon="ui-icon-closethick"/>
+                            <p:commandButton  id="showDialogButton2" rendered="#{not empty superAdminBean.selectedDepartment}" type="button" value="Delete" icon="ui-icon-closethick" ajax="false"  
+                                              onclick="dlg2.show();" />
+
+                            <p:dialog id="editDialog" header="Confirmation:" widgetVar="dlg2" resizable="false">                                     
+                                <h:panelGrid columns="1" styleClass="panelGrid-noBorder">
+                                    <h:outputText value="Are you sure you wish to delete this department?" />                                       
+                                </h:panelGrid>
+
+                                <p:commandButton id="yes" value="Yes" actionListener="#{superAdminBean.deleteDepartment()}" ajax="false" icon="ui-icon-check" oncomplete="dlg2.hide();"/>
+                                <p:commandButton id="no" value="No" ajax="false" icon="ui-icon-closethick" oncomplete="dlg2.hide();"/>
+
+                            </p:dialog>
                         </f:facet>
-                    </p:dataTable>
+                    </p:dataTable>                    
+
                     <p:messages id="departmentHandleMessages" showDetail="true" closable="true" autoUpdate="true" />
                     <fieldset><legend>Actions:</legend>
                         <h:outputText value="Create Department?"/>
@@ -60,7 +72,7 @@
                             <f:selectItem itemLabel="No" itemValue="2" />
                             <p:ajax event="change" update="editGrid"/>
                         </p:selectOneRadio>
-                        
+
                         <h:panelGrid id="editGrid" columns="4" columnClasses="label, value, error" >  
 
                             <h:outputText rendered= "#{superAdminBean.showEdit eq '1'}" value="Department Name:" />
