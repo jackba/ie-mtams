@@ -235,6 +235,7 @@ public class SuperAdminBean implements Serializable {
 
     public void load() {
         departmentRef = selectedDepartment;
+        this.departmentEditName = selectedDepartment.getDepartment();        
     }
 
     public void editDepartment() {
@@ -243,14 +244,21 @@ public class SuperAdminBean implements Serializable {
 
         } else {
             selectedDepartment.setDepartment(getDepartmentEditName());
-            departmentHandler.editDepartment(selectedDepartment);            
+            departmentHandler.editDepartment(selectedDepartment);
+            selectedDepartment = null;
+            this.departmentEditName = "";
+            this.departmentName = "";
+            this.showEdit = 2;
             FacesContext.getCurrentInstance().addMessage("departmentHandlerMessages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Department Edited"));
         }
     }
 
     public void deleteDepartment() {
         departmentHandler.deleteDepartment(selectedDepartment);
-        selectedDepartment = null;
+        selectedDepartment = null;        
+        this.departmentEditName = "";
+        this.departmentName = "";
+        this.showEdit = 2;
         FacesContext.getCurrentInstance().addMessage("departmentHandlerMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Department Deleted"));
 
     }
