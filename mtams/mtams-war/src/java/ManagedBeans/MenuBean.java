@@ -107,12 +107,6 @@ public class MenuBean implements Serializable {
             model.addSubmenu(superMenu);
 
             item = new MenuItem();
-            item.setValue("Create Role");
-            item.setUrl(this.getURL("createRole"));
-            superMenu.getChildren().add(item);
-            model.addSubmenu(superMenu);
-
-            item = new MenuItem();
             item.setValue("Deactivate Account");
             item.setUrl(this.getURL("deactivateAccount"));
             superMenu.getChildren().add(item);
