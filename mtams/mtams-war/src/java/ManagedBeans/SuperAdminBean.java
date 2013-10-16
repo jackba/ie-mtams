@@ -230,6 +230,7 @@ public class SuperAdminBean implements Serializable {
             departmentRef.setDepartment(departmentName);
             departmentHandler.createDepartment(departmentRef);
             this.departmentName = "";
+            this.showCreate = 2;
             FacesContext.getCurrentInstance().addMessage("departmentHandlerMessages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Department Created"));
         }
     }
