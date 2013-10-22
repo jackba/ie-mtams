@@ -86,12 +86,12 @@
                                 <p:messages id="itineraryError" severity="error" autoUpdate="true"/>
 
 
-                                <h:panelGrid columns="5" >
+                                <h:panelGrid columns="4" columnClasses="label, value, error" styleClass="grid">
                                     <h:outputText value="Date:" />
                                     <h:outputText value="Destination:" />
                                     <h:outputText value="Business Leave/ Other:" />
                                     <h:outputText value="Travel Day/Work Day:" />
-                                    <h:outputText value="" />
+                                    
 
                                     <p:calendar id="tempDate" value="#{appBean.tempDate}" required="true" requiredMessage="Date required" mindate="#{userBean.currentDate}"></p:calendar> 
                                     <p:inputText id="tempDest" value="#{appBean.tempDest}" onclick="dlgCountry.show()" required="true" maxlength="20" requiredMessage="Entry required"></p:inputText>           
@@ -106,8 +106,26 @@
                                         <f:selectItem itemLabel="Work Day" itemValue="Work Day" />
                                     </p:selectOneMenu>
 
-                                    <p:commandButton icon="ui-icon-plus" disabled="true" action="#{appBean.reinit}" />
+                                    
                                 </h:panelGrid>
+                                <h:panelGrid columns="4" rendered="#{appBean.idNum gt 0}" columnClasses="label, value, error" styleClass="grid">
+
+                                    <p:calendar id="tempDate2" value="#{appBean.tempDate}" required="true" requiredMessage="Date required" mindate="#{userBean.currentDate}"></p:calendar> 
+                                    <p:inputText id="tempDest2" value="#{appBean.tempDest}" onclick="dlgCountry.show()" required="true" maxlength="20" requiredMessage="Entry required"></p:inputText>           
+                                    <p:selectOneMenu id="tempLeaveType2" value="#{appBean.tempLeaveType}" required="true" requiredMessage="Entry required">
+                                        <f:selectItem  itemLabel="Select Leave Type" itemValue=""/>
+                                        <f:selectItems value="#{dataLookUpBean.leaveStrings}" />
+                                        <p:ajax event="blur" update="tempLeaveType" />
+                                    </p:selectOneMenu>
+                                    <p:selectOneMenu id="tempTravelDay2" value="#{appBean.tempTravelDay}" required="true" requiredMessage="Entry required">
+                                        <f:selectItem  itemLabel="Select Leave Type" itemValue=""/>
+                                        <f:selectItem itemLabel="Travel Day" itemValue="Travel Day" />
+                                        <f:selectItem itemLabel="Work Day" itemValue="Work Day" />
+                                    </p:selectOneMenu>
+
+                                    
+                                </h:panelGrid>
+                                <p:commandButton icon="ui-icon-plus"  action="#{appBean.reinit}" update="itinPanel" />
                                 <p:watermark for="tempDest" value="Click to Select"/>
                                 <p:dialog header="Header Text" widgetVar="dlgCountry">
 
@@ -147,7 +165,7 @@
 
 
 
-                                                <p:column headerText="Country code3"
+                                                <p:column headerText="Country code"
 
                                                           filterBy="#{country.code3}"
                                                           filterMatchMode="contains"

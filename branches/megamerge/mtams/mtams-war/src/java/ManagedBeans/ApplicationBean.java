@@ -460,15 +460,8 @@ public class ApplicationBean implements Serializable {
     }
 
     public String reinit() {
-        tempItin.setDate(getTempDate());
-        tempItin.setDestinationCity(getTempDest());
-        tempItin.setLeavetype(getTempLeaveType());
-        tempItin.setTravelday(getTempTravelDay());
-        hops.add(tempItin);
-        tempItin = new Itinerary();
-
-        createNewRow();
-
+        idNum++;
+        
         return null;
     }
 
@@ -1104,6 +1097,14 @@ public class ApplicationBean implements Serializable {
 
     public void setCountrySelectionRef(Country CountrySelectionRef) {
         this.CountrySelectionRef = CountrySelectionRef;
+    }
+
+    public int getIdNum() {
+        return idNum;
+    }
+
+    public void setIdNum(int idNum) {
+        this.idNum = idNum;
     }
 
     
