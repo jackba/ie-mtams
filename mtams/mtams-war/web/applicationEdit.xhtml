@@ -105,26 +105,35 @@
 
                             <br /><fieldset><legend><h4>Flight Quotes</h4></legend>
                                 <p:dataTable var="fQ" value="#{appBean.flights}">
-                                    <p:column headerText="From">
-                                        <h:outputText value="#{fQ.flightfromCity}" />
-                                    </p:column>
-                                    <p:column headerText="To">
-                                        <h:outputText value="#{fQ.flighttoCity}" />
-                                    </p:column>
+                                    
                                     <p:column headerText="Departure from">
-                                        <h:outputText value="#{fQ.flightfromCity}" />
+                                        <p:inplace>
+                                            <p:inputText id="flFrom" value="#{fQ.flightfromCity}" required="true" maxlength="20" requiredMessage="Entry required"></p:inputText>
+                                        </p:inplace>
+                                        
                                     </p:column>
                                     <p:column headerText="Arrival to">
-                                        <h:outputText value="#{fQ.flightfromCity}" />
+                                        <p:inplace>
+                                            <p:inputText id="flTo" value="#{fQ.flighttoCity}" required="true" maxlength="20" requiredMessage="Entry required"></p:inputText>
+                                        </p:inplace>
+                                        
                                     </p:column>
+
                                     <p:column headerText="Airline">
-                                        <h:outputText value="#{fQ.quotesource}" />
+                                        <p:inplace>
+                                            <p:inputText id="fl1" value="#{fQ.quotesource}" required="true" maxlength="20" requiredMessage="Entry required"></p:inputText>
+                                        </p:inplace>
+                                        
                                     </p:column>
                                     <p:column headerText="Cost quoted">
-                                        <h:outputText value="#{fQ.quotecost}" />
+                                        <p:inplace>
+                                            <p:inputText id="fc1" value="#{fQ.quotecost}" required="true" maxlength="20" requiredMessage="Entry required"></p:inputText>
+                                        </p:inplace>
+                                        
                                     </p:column>
                                 </p:dataTable>
                             </fieldset>
+          
                             <br /><fieldset><legend><h4>Car Quotes</h4></legend>
                                 <p:dataTable var="cQ" value="#{appBean.cars}">
                                     <p:column headerText="Date collected">

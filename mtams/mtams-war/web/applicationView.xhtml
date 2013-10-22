@@ -93,12 +93,7 @@
                         </fieldset>
                         <br /><fieldset><legend><h4>Flight Quotes</h4></legend>
                             <p:dataTable var="fQ" value="#{appBean.flights}">
-                                <p:column headerText="From">
-                                    <h:outputText value="#{fQ.flightfromCity}" />
-                                </p:column>
-                                <p:column headerText="To">
-                                    <h:outputText value="#{fQ.flighttoCity}" />
-                                </p:column>
+                                
                                 <p:column headerText="Departure from">
                                     <h:outputText value="#{fQ.flightfromCity}" />
                                 </p:column>
@@ -115,16 +110,7 @@
                         </fieldset>
                         <br /><fieldset><legend><h4>Car Quotes</h4></legend>
                             <p:dataTable var="cQ" value="#{appBean.cars}">
-                                <p:column headerText="Collect date">
-                                    <h:outputText value="#{cQ.datecollect}" >
-                                        <f:convertDateTime type="date" dateStyle="long" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column headerText="Return date">
-                                    <h:outputText value="#{cQ.datereturn}" >
-                                        <f:convertDateTime type="date" dateStyle="long" />
-                                    </h:outputText>
-                                </p:column>
+                                
                                 <p:column headerText="Date Collected">
                                     <h:outputText value="#{cQ.datecollect}" >
                                         <f:convertDateTime type="date" dateStyle="long" />
