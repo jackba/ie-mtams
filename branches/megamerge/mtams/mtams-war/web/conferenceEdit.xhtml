@@ -68,12 +68,14 @@
                             <h:panelGrid columns="2" columnClasses="label, value">
                                 <h:outputLabel value="Date From:"/>
                                 <p:inplace editor="true" emptyLabel="Click to Edit"> 
-                                    <p:calendar navigator="true" value="#{conference.fromDate}"/>
+                                    <p:calendar navigator="true" value="#{conference.fromDate}" binding="#{depart}" mindate="#{userBean.currentDate}"/>
                                 </p:inplace>
 
                                 <h:outputLabel value="Date To:"/>
                                 <p:inplace editor="true" emptyLabel="Click to Edit"> 
-                                    <p:calendar navigator="true" value="#{conference.toDate}"/>
+                                    <p:calendar navigator="true" value="#{conference.toDate}" mindate="#{userBean.currentDate}">
+                                        
+                                    </p:calendar>
                                 </p:inplace>
 
                                 <h:outputLabel value="Do You Need Coverage For Teaching Commitments?"/>
