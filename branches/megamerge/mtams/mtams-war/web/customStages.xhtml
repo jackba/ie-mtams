@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+
+            <ui:define name="content">
+                <h:form id="leaveHome">
+                    
+
+                            <p:fieldset legend="Current Stages">  
+                                <p:dataTable id="Availablestages" var="stage" value="#{adminBean.stages}">  
+                                    <p:column style="width:20px">  
+                                        <h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" />  
+                                        <p:draggable for="dragIcon" revert="true" />  
+                                    </p:column>  
+
+                                    <p:column headerText="ID">  
+                                        <h:outputText value="#{stage.idstage}" />  
+                                    </p:column>  
+
+                                    <p:column headerText="Stages">  
+                                        <h:outputText value="#{stage.stage}" />  
+                                    </p:column>  
+
+                                </p:dataTable>  
+                            </p:fieldset>  
+
+                            <p:fieldset id="NewStage" legend="New Selected Stages" style="margin-top:20px">  
+                                <p:outputPanel id="dropArea">  
+                                    <h:outputText value="Drop Stages Here"  
+                                                  rendered="#{empty adminBean.dropStages}"  
+                                                  style="font-size:24px;" />  
+
+                                    <p:dataTable var="stage" value="#{adminBean.dropStages}"   
+                                                 rendered="#{not empty adminBean.dropStages}">  
+
+                                        <p:column headerText="ID">  
+                                            <h:outputText value="#{stage.idstage}" />  
+                                        </p:column>  
+
+                                        <p:column headerText="Stages">  
+                                            <h:outputText value="#{stage.stage}" />  
+                                        </p:column>    
+
+                                    </p:dataTable>  
+                                </p:outputPanel>  
+                            </p:fieldset> 
+
+                            <p:droppable for="NewStage" tolerance="touch" activeStyleClass="ui-state-highlight" 
+                                         datasource="Availablestages" onDrop="handleDrop">  
+                                <p:ajax listener="#{adminBean.onStageDrop}" update="dropArea Availablestages" />  
+                            </p:droppable>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
