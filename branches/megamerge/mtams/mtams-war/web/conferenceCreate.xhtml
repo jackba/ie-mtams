@@ -108,7 +108,7 @@
 
                             <h:panelGrid columns="3" columnClasses="label, value, error">
                                 <p:outputLabel for="presentationDate" value="Date of Internal MSA Presentation:"/>
-                                <p:calendar id="presentationDate" value="#{conference.presentationDate}" navigator="true" showOn="button" required="true" requiredMessage="Required Field">
+                                <p:calendar id="presentationDate" value="#{conference.presentationDate}" navigator="true" required="true" requiredMessage="Required Field">
                                     <p:ajax update="presentationDateError" event="keyup"/>
                                 </p:calendar>
                                 <p:message for="presentationDate" id="presentationDateError"/>
@@ -123,22 +123,17 @@
 
                             <h:panelGrid columns="3" columnClasses="label, value, error">
                                 <p:outputLabel for="fromDate" value="Date From:"/>
-                                <p:calendar id="fromDate" value="#{conference.toDate}" navigator="true" showOn="button" required="true" requiredMessage="Required Field">
+                                <p:calendar id="fromDate" value="#{conference.toDate}" navigator="true" required="true" requiredMessage="Required Field">
                                     <p:ajax update="fromDateError" event="keyup"/>
                                 </p:calendar>
                                 <p:message for="fromDate" id="fromDateError"/>
 
                                 <p:outputLabel for="toDate" value="Date To:"/>
-                                <p:calendar id="toDate" value="#{conference.fromDate}" navigator="true" showOn="button" required="true" requiredMessage="Required Field">
+                                <p:calendar id="toDate" value="#{conference.fromDate}" navigator="true" required="true" requiredMessage="Required Field">
                                     <p:ajax update="toDateError" event="keyup"/>
                                 </p:calendar>
                                 <p:message for="toDate" id="toDateError"/>
-
-                                <p:outputLabel for="diffDays" value="Days:"/>
-                                <p:inputText id="diffDays" value="#{conference.diffDays}" readonly="true">
-                                    <p:ajax update="diffDays" event="change"/>
-                                </p:inputText>
-                                <br />
+                                
 
                                 <h:outputText value="Do You Need Coverage For Teaching Commitments?" />
                                 <p:selectOneRadio id="coverOptions" value="#{conference.coverOptions}" required="true" requiredMessage="Required Field">
