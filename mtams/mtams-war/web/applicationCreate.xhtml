@@ -11,8 +11,8 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-                <h:form id="appForm">
 
+                <h:form id="appForm">
                     <p:wizard id="appWizard" widgetVar="wiz" flowListener="#{appBean.onFlowProcess}">
 
                         <p:tab id="details" title="Details">
@@ -79,19 +79,19 @@
                             </p:panel>
                         </p:tab>
                         <p:tab id="itinerary" title="Itinerary">
-
+ 
                             <p:panel id="itinPanel" header="Travel Itinerary">
                                 <h4>Please fill in the various steps of the journey you wish to take.</h4>
                                 <h5>Please Note: All fields are required to be filled in on this page</h5>
                                 <p:messages id="itineraryError" severity="error" autoUpdate="true"/>
 
 
-                                <h:panelGrid columns="4" columnClasses="label, value, error" styleClass="grid">
+                                <h:panelGrid columns="4" columnClasses=", value, error">
                                     <h:outputText value="Date:" />
                                     <h:outputText value="Destination:" />
                                     <h:outputText value="Business Leave/ Other:" />
                                     <h:outputText value="Travel Day/Work Day:" />
-                                    
+
 
                                     <p:calendar id="tempDate" value="#{appBean.tempDate}" required="true" requiredMessage="Date required" mindate="#{userBean.currentDate}"></p:calendar> 
                                     <p:inputText id="tempDest" value="#{appBean.tempDest}" onclick="dlgCountry.show()" required="true" maxlength="20" requiredMessage="Entry required"></p:inputText>           
@@ -106,9 +106,14 @@
                                         <f:selectItem itemLabel="Work Day" itemValue="Work Day" />
                                     </p:selectOneMenu>
 
-                                    
+
                                 </h:panelGrid>
-                                <h:panelGrid columns="4" rendered="#{appBean.idNum gt 0}" columnClasses="label, value, error" styleClass="grid">
+                                <br/>
+                                <h:panelGrid columns="4" rendered="#{appBean.idNum gt 0}" columnClasses=", value, error" >
+                                    <h:outputText value="Date:" />
+                                    <h:outputText value="Destination:" />
+                                    <h:outputText value="Business Leave/ Other:" />
+                                    <h:outputText value="Travel Day/Work Day:" />
 
                                     <p:calendar id="tempDate2" value="#{appBean.tempDate}" required="true" requiredMessage="Date required" mindate="#{userBean.currentDate}"></p:calendar> 
                                     <p:inputText id="tempDest2" value="#{appBean.tempDest}" onclick="dlgCountry.show()" required="true" maxlength="20" requiredMessage="Entry required"></p:inputText>           
@@ -122,8 +127,6 @@
                                         <f:selectItem itemLabel="Travel Day" itemValue="Travel Day" />
                                         <f:selectItem itemLabel="Work Day" itemValue="Work Day" />
                                     </p:selectOneMenu>
-
-                                    
                                 </h:panelGrid>
                                 <p:commandButton icon="ui-icon-plus"  action="#{appBean.reinit}" update="itinPanel" />
                                 <p:watermark for="tempDest" value="Click to Select"/>
@@ -272,6 +275,7 @@
                                 </p:dialog>
 
                             </p:panel>
+                            <p:resizable for="itinPanel" aspectRatio="true"/>  
                         </p:tab>
                         <p:tab id="quotes" title="Quotes">
 
