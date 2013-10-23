@@ -15,8 +15,12 @@
                     <p:tab id="helpID" title="Help">  
                         <p:panel header="Help">  
                             
-                            <fieldset><legend>Help</legend>
-                                <li><h:link outcome="help.xhtml">Manage Your Account</h:link></li>
+                            <br />
+                            <h:outputText value =  "Please clik on the Area of the system which you require help for."/>
+                            <br />
+                            <br />
+                            <p:growl id="growl" showDetail="true" />
+                                <p:fieldset legend="Manage Your Account" toggleable="true" toggleSpeed="500" collapsed="true">  
                                     <b><u>
                                         <h:outputText value =  "Creating a New User Account"/>
                                     </u></b>
@@ -30,8 +34,10 @@
                                                 Finally select the new user’s role, and click the create button."/>
                                             <br />
                                             <br />
-                                
-                                <li><h:link outcome="help.xhtml">Traveler's Profile Form </h:link></li>
+                                            </p:fieldset>
+                            
+                              <p:growl id="g" showDetail="true" />
+                                  <p:fieldset legend="Traveler's Profile Form" toggleable="true" toggleSpeed="500" collapsed="true"> 
                                     <b><u>
                                        <h:outputText value =  "Traveler’s Profile Form"/>
                                                 </u></b>
@@ -53,7 +59,10 @@
                                <h:outputText value = "The system will guide you through this step-by-step process. Ensure you fill out all the key fields."/>
                                             <br />
                                             <br />
-                                <li><h:link outcome="help.xhtml">Applications</h:link></li>  
+                                  </p:fieldset>
+                              
+                              <p:growl id="r" showDetail="true" />
+                                <p:fieldset legend="applications" toggleable="true" toggleSpeed="500" collapsed="true">  
                                 <b><u>
                                <h:outputText value = "Applications"/>
                                             </u></b> 
@@ -97,8 +106,11 @@
                                             <br />
                                <h:outputText value = "To View or Edit an application which has not yet been sent for approval, simply click the View/Edit Application button, displayed under the Application Form section."/>
                                             <br />
-                                            <br />            
-                                <li><h:link outcome="help.xhtml">Conference Attendance Form</h:link></li>
+                                            <br />
+                                </p:fieldset>
+                              
+                              <p:growl id="o" showDetail="true" />
+                                <p:fieldset legend="Conference Atendance Form" toggleable="true" toggleSpeed="500" collapsed="true"> 
                                             <b><u>
                                        <h:outputText value =  "Conference Attendance Form"/>
                                                 </u></b>
@@ -125,7 +137,10 @@
                                <h:outputText value = "To create a Conference Attendance form for an application which has not yet been sent for approval, simply click the Create Conference Attendance button, displayed under the Conference Attendance Request section."/>
                                             <br />
                                             <br />
-                                <li><h:link outcome="help.xhtml">Final Costing Form</h:link></li>
+                                </p:fieldset>
+                              
+                              <p:growl id="w" showDetail="true" />
+                                <p:fieldset legend="Final Costing Form" toggleable="true" toggleSpeed="500" collapsed="true"> 
                                 <b><u>
                                <h:outputText value = "Final Costing"/>
                                             </u></b> 
@@ -160,7 +175,10 @@
                                <h:outputText value = "To View or Edit a Final Costing form for an application which has not yet been sent for approval, simply click the View/Edit Final Costing Form button, displayed under the Final Costing Form section."/>
                                             <br />
                                             <br />
-                                <li><h:link outcome="help.xhtml">Foreign Exchange Request Form</h:link></li>
+                                </p:fieldset>
+                              
+                                <p:growl id="l" showDetail="true" />
+                                <p:fieldset legend="Foreign Exchange Request Form" toggleable="true" toggleSpeed="500" collapsed="true"> 
                                 <b>
                                <h:outputText value = "Create Foreign Exchange Request Form"/>
                                             </b> 
@@ -175,7 +193,10 @@
                                <h:outputText value = "To View or Edit a Foreign Exchange Request form for an application which has not yet been sent for approval, simply click the View/Edit Foreign Exchange Form button, displayed under the Foreign Exchange Request From section."/>
                                             <br />
                                             <br />
-                                <li><h:link outcome="help.xhtml">Motivation Form</h:link></li>
+                                </p:fieldset>
+                                
+                                <p:growl id="y" showDetail="true" />
+                                <p:fieldset legend="Motivation Form" toggleable="true" toggleSpeed="500" collapsed="true"> 
                                 <b>
                                <h:outputText value = "Create Motivation Form"/>
                                             </b> 
@@ -189,11 +210,8 @@
                                             <br />
                                <h:outputText value = "To View or Edit a Motivation form for an application which has not yet been sent for approval, simply click the View/Edit Motivation Form button, displayed under the Motivation Form section."/>
                                             <br />
-                                            <br />                                      
-                                                                                       
-                            </fieldset>
-                            <p:button value="Back" outcome="#{appBean.goApplicationHome()}" styleClass="button-left"/>
-                            <p:commandButton value="Next" action="#{motivBean.save()}" styleClass="button-right"/>  
+                                            <br />                                         
+                            </p:fieldset>
                         </p:panel>
                     </p:tab>        
                 </h:form>
