@@ -6,6 +6,7 @@ package ServiceLayer;
 
 import Entities.Account;
 import Entities.Accountrole;
+import Entities.Stage;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -43,4 +44,6 @@ public interface AccountHandlerLocal {
     public List<Account> getAllInactiveAccounts(String userName);
     
     public List<Account> getAllDepartmentAccounts(Integer id);
+    
+    public List<Stage> getAllStages();
 }
