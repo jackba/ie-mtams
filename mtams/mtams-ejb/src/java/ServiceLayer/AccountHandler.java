@@ -10,6 +10,7 @@ import DataAccess.AccountroleFacadeLocal;
 import DataAccess.DepartmentFacadeLocal;
 
 import DataAccess.RoleFacadeLocal;
+import DataAccess.StageFacadeLocal;
 import Entities.Account;
 import Entities.Accountdepartment;
 import Entities.Accountrole;
@@ -17,6 +18,7 @@ import Entities.Application;
 import Entities.Department;
 
 import Entities.Role;
+import Entities.Stage;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -42,7 +44,8 @@ public class AccountHandler implements AccountHandlerLocal {
     private AccountdepartmentFacadeLocal accDepDao;
     @EJB
     private DepartmentFacadeLocal deptsDao;
-    
+    @EJB
+    private StageFacadeLocal stageDao;    
     
     private Department dept;
     private int accID;
@@ -272,5 +275,12 @@ public class AccountHandler implements AccountHandlerLocal {
             }
         }
         return allInactiveAcc;
+    }
+    
+    @Override
+    public List<Stage> getAllStages() {
+        List<Stage> allstages = stageDao.findAll();
+        
+        return allstages;
     }
 }
