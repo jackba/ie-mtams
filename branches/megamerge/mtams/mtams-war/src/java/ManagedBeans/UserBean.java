@@ -177,7 +177,7 @@ public class UserBean implements Serializable {
     }
 
     public List<Account> getAllAccount() {
-        return allAccount;
+        return allAccount = accHandler.getAllDepartmentAccounts(accountID);
     }
 
     public void setAllAccount(List<Account> allAccount) {
