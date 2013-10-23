@@ -89,6 +89,23 @@
                                 <p:message for="itinTravelDay" />
 
                             </h:panelGrid>
+                        </fieldset><fieldset>
+                            <legend><h4>Itinerary</h4></legend>
+                            <p:dataTable var="itin" value="#{appBean.hops}" >
+
+                                <p:column headerText="Date">
+                                    <h:outputText value="#{itin.date}" />
+                                </p:column>
+                                <p:column headerText="Destination">
+                                    <h:outputText value="#{itin.destinationCity}" />
+                                </p:column>
+                                <p:column headerText="Business Leave/ Other">
+                                    <h:outputText value="#{itin.leavetype}" />
+                                </p:column>
+                                <p:column headerText="Travel day/work day">
+                                    <h:outputText value="#{itin.travelday}" />
+                                </p:column>
+                            </p:dataTable>
                         </fieldset>
                         <br /><fieldset><legend><h4>Quotes</h4></legend>
                             <h:panelGrid columns="3" columnClasses="label, value, error">

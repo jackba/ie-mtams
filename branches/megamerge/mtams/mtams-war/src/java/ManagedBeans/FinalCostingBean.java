@@ -188,7 +188,10 @@ public class FinalCostingBean implements Serializable {
 
         travelRef = appRef.getTravelIdtravel();
         logger.log(Level.INFO, "travelRef : {0}", travelRef);
-        itinRef = appHandler.getItinerary(travelRef.getIdtravel());
+        //////////// change to use List<Itinerary>
+        //itinRef = appHandler.getItinerary(travelRef.getIdtravel());
+        /////////////
+        
         logger.log(Level.INFO, "itinRef : {0}", itinRef);
 
         //fCostRef = finalHandler.findFinalcosting(1);

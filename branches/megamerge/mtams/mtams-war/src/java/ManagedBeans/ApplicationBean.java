@@ -105,6 +105,24 @@ public class ApplicationBean implements Serializable {
     private String tempLeaveType;
     @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String tempTravelDay;
+    ////////////////////////////////
+    @Future(message = "Date must be in Future")
+    private Date tempDate2;
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
+    private String tempDest2;
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
+    private String tempLeaveType2;
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
+    private String tempTravelDay2;
+    ////////////////////////////////////
+    @Future(message = "Date must be in Future")
+    private Date tempDate3;
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
+    private String tempDest3;
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
+    private String tempLeaveType3;
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
+    private String tempTravelDay3;
     ///////////QUOTES//////////////
     private String costCentre;
     private String currency;
@@ -353,7 +371,7 @@ public class ApplicationBean implements Serializable {
 
 
         for (Itinerary i : hops) {
-            cellList.add(new PdfPCell(new Phrase(df.format(i.getTravelday()))));
+            cellList.add(new PdfPCell(new Phrase(df.format(i.getDate()))));
             cellList.add(new PdfPCell(new Phrase(i.getDestinationCity())));
             cellList.add(new PdfPCell(new Phrase(i.getLeavetype())));
             cellList.add(new PdfPCell(new Phrase(i.getTravelday())));
@@ -494,7 +512,7 @@ public class ApplicationBean implements Serializable {
         cars = appHandler.getCarQuotes(quoteRef.getIdquotes());
         flights = appHandler.getFlightQuotes(quoteRef.getIdquotes());
         travelRef = appRef.getTravelIdtravel();
-        itinRef = appHandler.getItinerary(travelRef.getIdtravel());
+        hops = appHandler.getItinerary(travelRef.getIdtravel());
 
         description = appRef.getDescription();
 
@@ -502,10 +520,10 @@ public class ApplicationBean implements Serializable {
         setReturnDate(travelRef.getDatereturn());
         setReasonForTravel(travelRef.getDescription());
 
-        setTempDate(itinRef.getDate());
-        setTempDest(itinRef.getDestinationCity());
-        setTempLeaveType(itinRef.getLeavetype());
-        setTempTravelDay(itinRef.getTravelday());
+//        setTempDate(itinRef.getDate());
+//        setTempDest(itinRef.getDestinationCity());
+//        setTempLeaveType(itinRef.getLeavetype());
+//        setTempTravelDay(itinRef.getTravelday());
 
         setCostCentre(quoteRef.getCostcenter());
     }
@@ -600,8 +618,16 @@ public class ApplicationBean implements Serializable {
         tempItin.setDestinationCity(getTempDest());
         tempItin.setLeavetype(getTempLeaveType());
         tempItin.setTravelday(getTempTravelDay());
+        hops.add(tempItin);
+        
+        tempItin = new Itinerary();
+        tempItin.setDate(getTempDate2());
+        tempItin.setDestinationCity(getTempDest2());
+        tempItin.setLeavetype(getTempLeaveType2());
+        tempItin.setTravelday(getTempTravelDay2());
+        hops.add(tempItin);
 
-        appRef = appHandler.persistApplication(newApplication, newQuote, accQuotes, carQuotes, flightQuotes, tempItin, newTravel, profileRef);
+        appRef = appHandler.persistApplication(newApplication, newQuote, accQuotes, carQuotes, flightQuotes, hops, newTravel, profileRef);
 
         //ALEX CODE FOR ADVANCED APPROVAL SYSTEM
         Account accRef = accHandler.getAccount(accountID);
@@ -754,7 +780,7 @@ public class ApplicationBean implements Serializable {
         cars = appHandler.getCarQuotes(quoteRef.getIdquotes());
         flights = appHandler.getFlightQuotes(quoteRef.getIdquotes());
         travelRef = appRef.getTravelIdtravel();
-        itinRef = appHandler.getItinerary(travelRef.getIdtravel());
+        hops = appHandler.getItinerary(travelRef.getIdtravel());
 
         appRef.setDescription(description);
 
@@ -777,7 +803,7 @@ public class ApplicationBean implements Serializable {
     //@PostConstruct
 
     public void loadValues() {
-
+        //hops = new ArrayList<Itinerary>();
         profileRef = travelProfileHandler.findTravelProf(accountID);
         //loadValues();
         //Integer id = 12;
@@ -786,7 +812,7 @@ public class ApplicationBean implements Serializable {
         quoteRef = appRef.getQuotesIdquotes();
 
         travelRef = appRef.getTravelIdtravel();
-        itinRef = appHandler.getItinerary(travelRef.getIdtravel());
+        hops = appHandler.getItinerary(travelRef.getIdtravel());
 
         description = appRef.getDescription();
 
@@ -794,10 +820,10 @@ public class ApplicationBean implements Serializable {
         setReturnDate(travelRef.getDatereturn());
         setReasonForTravel(travelRef.getDescription());
 
-        setTempDate(itinRef.getDate());
-        setTempDest(itinRef.getDestinationCity());
-        setTempLeaveType(itinRef.getLeavetype());
-        setTempTravelDay(itinRef.getTravelday());
+//        hopssetTempDate(itinRef.getDate());
+//        setTempDest(itinRef.getDestinationCity());
+//        setTempLeaveType(itinRef.getLeavetype());
+//        setTempTravelDay(itinRef.getTravelday());
 
         setCostCentre(quoteRef.getCostcenter());
 
@@ -1355,6 +1381,72 @@ public class ApplicationBean implements Serializable {
         this.idNum = idNum;
     }
 
+    public Date getTempDate2() {
+        return tempDate2;
+    }
+
+    public void setTempDate2(Date tempDate2) {
+        this.tempDate2 = tempDate2;
+    }
+
+    public String getTempDest2() {
+        return tempDest2;
+    }
+
+    public void setTempDest2(String tempDest2) {
+        this.tempDest2 = tempDest2;
+    }
+
+    public String getTempLeaveType2() {
+        return tempLeaveType2;
+    }
+
+    public void setTempLeaveType2(String tempLeaveType2) {
+        this.tempLeaveType2 = tempLeaveType2;
+    }
+
+    public String getTempTravelDay2() {
+        return tempTravelDay2;
+    }
+
+    public void setTempTravelDay2(String tempTravelDay2) {
+        this.tempTravelDay2 = tempTravelDay2;
+    }
+
+    public Date getTempDate3() {
+        return tempDate3;
+    }
+
+    public void setTempDate3(Date tempDate3) {
+        this.tempDate3 = tempDate3;
+    }
+
+    public String getTempDest3() {
+        return tempDest3;
+    }
+
+    public void setTempDest3(String tempDest3) {
+        this.tempDest3 = tempDest3;
+    }
+
+    public String getTempLeaveType3() {
+        return tempLeaveType3;
+    }
+
+    public void setTempLeaveType3(String tempLeaveType3) {
+        this.tempLeaveType3 = tempLeaveType3;
+    }
+
+    public String getTempTravelDay3() {
+        return tempTravelDay3;
+    }
+
+    public void setTempTravelDay3(String tempTravelDay3) {
+        this.tempTravelDay3 = tempTravelDay3;
+    }
+    
+    
+
     public String CurSel() {
 //        logger.log(Level.INFO, "CurSel");
         logger.log(Level.INFO, "selectedCurrencyString : {0}", currency);
@@ -1426,8 +1518,12 @@ public class ApplicationBean implements Serializable {
     public String CitySel() {
         RequestContext.getCurrentInstance().execute("dlgCountry.hide()");
         this.setCityString(this.getCitySelectionRef().getName());
-        this.setTempDest(this.getCitySelectionRef().getName());
-        return "city";
+        if(idNum == 0){
+            this.setTempDest(this.getCitySelectionRef().getName());
+        }else{
+            this.setTempDest2(this.getCitySelectionRef().getName());
+        }
+        return this.getCitySelectionRef().getName();
 
     }
 

@@ -67,23 +67,24 @@
 
                             </h:panelGrid>
                         </fieldset>
-                        <br /><fieldset><legend><h4>Itinerary</h4></legend>
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Date:" />
-                                <h:outputText value="#{appBean.itinRef.date}">
-                                    <f:convertDateTime type="date" dateStyle="long" />
-                                </h:outputText>
+                        <br />
+                        <fieldset>
+                            <legend><h4>Itinerary</h4></legend>
+                            <p:dataTable var="itin" value="#{appBean.hops}" >
 
-                                <h:outputText value="Destination:" />
-                                <h:outputText value="#{appBean.itinRef.destinationCity}"/>
-
-                                <h:outputText value="Business Leave/ Other:" />
-                                <h:outputText value="#{appBean.itinRef.leavetype}" />
-
-                                <h:outputText value="Travel day/work day:" />
-                                <h:outputText value="#{appBean.itinRef.travelday}" />
-
-                            </h:panelGrid>
+                                <p:column headerText="Date">
+                                    <h:outputText value="#{itin.date}" />
+                                </p:column>
+                                <p:column headerText="Destination">
+                                    <h:outputText value="#{itin.destinationCity}" />
+                                </p:column>
+                                <p:column headerText="Business Leave/ Other">
+                                    <h:outputText value="#{itin.leavetype}" />
+                                </p:column>
+                                <p:column headerText="Travel day/work day">
+                                    <h:outputText value="#{itin.travelday}" />
+                                </p:column>
+                            </p:dataTable>
                         </fieldset>
                         <br /><fieldset><legend><h4>Quotes</h4></legend>
                             <h:panelGrid columns="2" columnClasses="label, value">
@@ -94,7 +95,7 @@
                         </fieldset>
                         <br /><fieldset><legend><h4>Flight Quotes</h4></legend>
                             <p:dataTable var="fQ" value="#{appBean.flights}">
-                                
+
                                 <p:column headerText="Departure from">
                                     <h:outputText value="#{fQ.flightfromCity}" />
                                 </p:column>
@@ -111,7 +112,7 @@
                         </fieldset>
                         <br /><fieldset><legend><h4>Car Quotes</h4></legend>
                             <p:dataTable var="cQ" value="#{appBean.cars}">
-                                
+
                                 <p:column headerText="Date Collected">
                                     <h:outputText value="#{cQ.datecollect}" >
                                         <f:convertDateTime type="date" dateStyle="long" />
