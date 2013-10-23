@@ -56,6 +56,7 @@ public class ConferenceBean implements Serializable {
     private String author;
     private Date presentationDate;
     //Section C - Conference Duration
+    @Future(message = "Date Must Be In The Future")
     private Date fromDate;
     @Future(message = "Date Must Be In The Future")
     private Date toDate;

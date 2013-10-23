@@ -676,11 +676,21 @@ public class ApplicationBean implements Serializable {
         //School Admin
 
         schoolAdmin = deptHandler.getAdministratorAccID(accRef, 1);
-        schoolAdminComplete = 0;
+        if(schoolAdmin.getIdaccount() != accountID){
+            schoolAdminComplete = 0;
+        }else{
+            schoolAdminComplete = 1;
+        }
+        
         schoolAdminApprFK = appr1;
         //HOD
         HOD = deptHandler.getAdministratorAccID(accRef, 2);
-        HODComplete = 0;
+        if(HOD.getIdaccount() != accountID){
+            HODComplete = 0;
+        }else{
+            HODComplete = 1;
+        }
+        
         HODApprFK = appr2;
         //Finance
         finance = accHandler.findSpecificAccount("Finance");
