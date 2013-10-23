@@ -141,18 +141,19 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
     }
 
     @Override
-    public Itinerary getItinerary(Integer id) {
+    public List<Itinerary> getItinerary(Integer id) {
         List<Itinerary> list = itinDao.findAll();
+        List<Itinerary> temp = new ArrayList<Itinerary>();
         for (Itinerary each : list) {
             if (each.getTravelIdtravel().getIdtravel().equals(id)) {
-                return each;
+                temp.add(each);
             }
         }
-        return null;
+        return temp;
     }
 
     @Override
-    public Application persistApplication(Application app, Quotes quote, List<Accomodationquotes> acc, List<Carquotes> car, List<Flightquotes> flight, Itinerary itin, Travel trav, Travelerprofile prof) {
+    public Application persistApplication(Application app, Quotes quote, List<Accomodationquotes> acc, List<Carquotes> car, List<Flightquotes> flight, List<Itinerary> itin, Travel trav, Travelerprofile prof) {
         Conference con = new Conference();
         confDao.create(con);
 
@@ -216,10 +217,12 @@ public class ApplicationHandler implements ApplicationHandlerLocal {
             }
         }
 
-
-        itin.setTravelIdtravel(trav);
-
-        itinDao.create(itin);
+        for(Itinerary each: itin){
+            each.setTravelIdtravel(trav);
+            itinDao.create(each);
+        }
+        
+        
         //quote = quoteDao.find(quote.getIdquotes());
 
         for (Accomodationquotes each : acc) {

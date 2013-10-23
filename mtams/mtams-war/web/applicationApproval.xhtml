@@ -67,25 +67,23 @@
                             </h:panelGrid>
                         </fieldset>
                         <br />
-
                         <fieldset>
                             <legend><h4>Itinerary</h4></legend>
-                            <h:panelGrid columns="2" >
-                                <h:outputText value="Date:" />
-                                <h:outputText value="#{approvalBean.itinRef.date}">
-                                    <f:convertDateTime type="date" dateStyle="long" />
-                                </h:outputText>
+                            <p:dataTable var="itin" value="#{approvalBean.hops}" >
 
-                                <h:outputText value="Destination:" />
-                                <h:outputText value="#{approvalBean.itinRef.destinationCity}"/>
-
-                                <h:outputText value="Business Leave/ Other:" />
-                                <h:outputText value="#{approvalBean.itinRef.leavetype}" />
-
-                                <h:outputText value="Travel day/work day:" />
-                                <h:outputText value="#{approvalBean.itinRef.travelday}" />
-
-                            </h:panelGrid>
+                                <p:column headerText="Date">
+                                    <h:outputText value="#{itin.date}" />
+                                </p:column>
+                                <p:column headerText="Destination">
+                                    <h:outputText value="#{itin.destinationCity}" />
+                                </p:column>
+                                <p:column headerText="Business Leave/ Other">
+                                    <h:outputText value="#{itin.leavetype}" />
+                                </p:column>
+                                <p:column headerText="Travel day/work day">
+                                    <h:outputText value="#{itin.travelday}" />
+                                </p:column>
+                            </p:dataTable>
                         </fieldset>
                         <br />
                         <fieldset>

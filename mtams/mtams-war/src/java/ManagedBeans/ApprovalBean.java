@@ -186,7 +186,7 @@ public class ApprovalBean implements Serializable {
         cars = appHandler.getCarQuotes(quoteRef.getIdquotes());
         flights = appHandler.getFlightQuotes(quoteRef.getIdquotes());
         travelRef = appRef.getTravelIdtravel();
-        itinRef = appHandler.getItinerary(travelRef.getIdtravel());
+        hops = appHandler.getItinerary(travelRef.getIdtravel());
 
         description = appRef.getDescription();
 
@@ -251,7 +251,7 @@ public class ApprovalBean implements Serializable {
         quoteRef = appRef.getQuotesIdquotes();
 
         travelRef = appRef.getTravelIdtravel();
-        itinRef = appHandler.getItinerary(travelRef.getIdtravel());
+        hops = appHandler.getItinerary(travelRef.getIdtravel());
 
         description = appRef.getDescription();
 

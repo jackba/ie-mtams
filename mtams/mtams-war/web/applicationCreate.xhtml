@@ -115,14 +115,14 @@
                                     <h:outputText value="Business Leave/ Other:" />
                                     <h:outputText value="Travel Day/Work Day:" />
 
-                                    <p:calendar id="tempDate2" value="#{appBean.tempDate}" required="true" requiredMessage="Date required" mindate="#{userBean.currentDate}"></p:calendar> 
-                                    <p:inputText id="tempDest2" value="#{appBean.tempDest}" onclick="dlgCountry.show()" required="true" maxlength="20" requiredMessage="Entry required"></p:inputText>           
-                                    <p:selectOneMenu id="tempLeaveType2" value="#{appBean.tempLeaveType}" required="true" requiredMessage="Entry required">
+                                    <p:calendar id="tempDate2" value="#{appBean.tempDate2}" required="true" requiredMessage="Date required" mindate="#{userBean.currentDate}"></p:calendar> 
+                                    <p:inputText id="tempDest2" value="#{appBean.tempDest2}" onclick="dlgCountry.show()" required="true" maxlength="20" requiredMessage="Entry required"></p:inputText>           
+                                    <p:selectOneMenu id="tempLeaveType2" value="#{appBean.tempLeaveType2}" required="true" requiredMessage="Entry required">
                                         <f:selectItem  itemLabel="Select Leave Type" itemValue=""/>
                                         <f:selectItems value="#{dataLookUpBean.leaveStrings}" />
                                         <p:ajax event="blur" update="tempLeaveType" />
                                     </p:selectOneMenu>
-                                    <p:selectOneMenu id="tempTravelDay2" value="#{appBean.tempTravelDay}" required="true" requiredMessage="Entry required">
+                                    <p:selectOneMenu id="tempTravelDay2" value="#{appBean.tempTravelDay2}" required="true" requiredMessage="Entry required">
                                         <f:selectItem  itemLabel="Select Leave Type" itemValue=""/>
                                         <f:selectItem itemLabel="Travel Day" itemValue="Travel Day" />
                                         <f:selectItem itemLabel="Work Day" itemValue="Work Day" />
@@ -168,7 +168,7 @@
 
 
 
-                                                <p:column headerText="Country code"
+                                                <p:column headerText="Country Code"
 
                                                           filterBy="#{country.code3}"
                                                           filterMatchMode="contains"
@@ -253,20 +253,6 @@
                                                           >  
                                                     #{city.region}
                                                 </p:column>  
-
-                                                <f:facet name="footer">                               
-                                                    <p:commandButton value="Done" type="button" 
-                                                                     onclick="dlgCountry.hide()" 
-                                                                     actionListener="#{dataLookUpBean.CoutrySel()}" update=":appForm:itinPanel">
-
-                                                        <p:ajax update=":appForm:tempDest" 
-                                                                listener="#{dataLookUpBean.RegSel()}"/>
-                                                        <p:ajax update=":appForm:tempDest" 
-                                                                listener="#{dataLookUpBean.CoutrySel()}"/>
-                                                        <p:ajax update=":appForm:tempDest" 
-                                                                listener="#{dataLookUpBean.CitySel()}"/>
-                                                    </p:commandButton>
-                                                </f:facet>  
 
                                             </p:dataTable>  
 
