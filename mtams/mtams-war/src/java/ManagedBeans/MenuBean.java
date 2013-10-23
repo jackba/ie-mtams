@@ -136,6 +136,16 @@ public class MenuBean implements Serializable {
 
             model.addMenuItem(item);
         }
+        
+        if (returnRole("21")) {
+            //Go on leave
+            item = new MenuItem();
+            item.setValue("Change Application Stages");
+            item.setIcon("ui-icon-transfer-e-w");
+            item.setUrl(this.getURL("customStages"));
+
+            model.addMenuItem(item);
+        }
     }
 
     public String getURL(String url) {

@@ -233,9 +233,9 @@ public class UserBean implements Serializable {
         stage = apprHandler.returnStage(app.getIdapplication());
         String name = "";
         switch (stage){
-            case 0: name = "Pending submission";
+            case 0: name = "Pending Submission";
                 break;
-            case 1: name = "school admin";
+            case 1: name = "School Admin";
                 break;
             case 2: name = "HOD";
                 break;
