@@ -183,6 +183,9 @@ public class UserBean implements Serializable {
     public void setAllAccount(List<Account> allAccount) {
         this.allAccount = allAccount;
     }
+    public String submitLeave() {
+        return "userHome";
+    }
     
     ////////////////////////////////////
 

@@ -11,7 +11,7 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-                <h:form id="helpTab">
+                <h:form id="leaveHome">
                     <p:tab id="helpID" title="Help">  
                         <p:panel header="Leave Home">  
 
@@ -38,7 +38,7 @@
                             </fieldset>
 
                             <fieldset><legend><h4>Available Replacements</h4></legend>
-                                <p:dataTable id="approvals" var="appr" value="#{UserBean.getAllAccount}" paginator="true" rows="10" paginatorAlwaysVisible="false" emptyMessage="No Applications has been send for approval">  
+                                <p:dataTable id="approvals" var="appr" value="#{UserBean.getAllAccount}" paginator="true" rows="10" paginatorAlwaysVisible="false" emptyMessage="No available replacements">  
 
                                     <p:column headerText="Name" style="width:35%">  
                                         
@@ -55,8 +55,11 @@
                             </fieldset>
 
                         </p:panel> 
+                         <p:commandButton value="Submit" ajax="false" action="#{UserBean.submitLeave()}" styleClass="button-right"/>  
 
-                    </p:tab>  
+                    </p:tab> 
+                    
+                    
                 </h:form>
             </ui:define>
 
