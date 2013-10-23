@@ -108,6 +108,11 @@ INSERT INTO "LEAVELOOKUP" (LEAVETYPE) VALUES ('Outside Studies Program Internati
 INSERT INTO "LEAVELOOKUP" (LEAVETYPE) VALUES ('Outside Studies Program Domestic' /*not nullable*/);
 INSERT INTO "LEAVELOOKUP" (LEAVETYPE) VALUES ('Other' /*not nullable*/);
 
+INSERT INTO "STAGE" (STAGE) VALUES ('School Admin');
+INSERT INTO "STAGE" (STAGE) VALUES ('Head of Department');
+INSERT INTO "STAGE" (STAGE) VALUES ('Finance');
+INSERT INTO "STAGE" (STAGE) VALUES ('PVC');
+INSERT INTO "STAGE" (STAGE) VALUES ('Final Finance');
 
 -- ******************************************************
 --  APPLICATION
