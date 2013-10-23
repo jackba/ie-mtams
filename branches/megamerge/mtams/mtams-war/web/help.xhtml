@@ -16,22 +16,186 @@
                         <p:panel header="Help">  
                             
                             <fieldset><legend>Help</legend>
-                              
-                                <h:outputText value = "Creating a New User Account
-                                            If you wish to create a new user within the system, 
-                                            click on the + Create New Account button. 
-                                            In the Create Account screen enter the details of 
-                                            the new user which you wish to enter into the system.
-                                            Ensure their password, is an alphanumerical combination such as a12gh14. 
-                                            You must enter the SAME proposed password into both input fields. 
-                                            Finally select the new user’s role, and click the create button."/>
+                                <li><h:link outcome="help.xhtml">Manage Your Account</h:link></li>
+                                    <b><u>
+                                        <h:outputText value =  "Creating a New User Account"/>
+                                    </u></b>
+                                        <br />
+                                            <h:outputText value =  "If you wish to create a new user within the system, 
+                                                click on the + Create New Account button. 
+                                                In the Create Account screen enter the details of 
+                                                the new user which you wish to enter into the system.
+                                                Ensure their password, is an alphanumerical combination such as 'a12gh14'. 
+                                                You must enter the SAME proposed password into both input fields. 
+                                                Finally select the new user’s role, and click the create button."/>
+                                            <br />
+                                            <br />
+                                
+                                <li><h:link outcome="help.xhtml">Traveler's Profile Form </h:link></li>
+                                    <b><u>
+                                       <h:outputText value =  "Traveler’s Profile Form"/>
+                                                </u></b>
+                                            <br />
+                                            <b>
+                               <h:outputText value = "Why should I fill this out"/>
+                                            </b> 
+                                            <br />
+                               <h:outputText value = "The Traveler’s profile is designed to gather your information, 
+                                            this is done in order to assist the system when you next apply for travel. 
+                                            It allows the system to automatically generate your details for you, 
+                                            therefore simplifying the process for your next application."/>
+                                            <br />
+                                            <br />
+                                            <b>
+                               <h:outputText value = "How should I fill this out?" />
+                                            </b>
+                                            <br />
+                               <h:outputText value = "The system will guide you through this step-by-step process. Ensure you fill out all the key fields."/>
+                                            <br />
+                                            <br />
+                                <li><h:link outcome="help.xhtml">Applications</h:link></li>  
+                                <b><u>
+                               <h:outputText value = "Applications"/>
+                                            </u></b> 
+                                            <br />
+                                            <b>
+                               <h:outputText value = "Why should I fill this out?"/>
+                                            </b> 
+                                            <br />
+                               <h:outputText value = "The application form is designed to allow users to begin the application process. This will form the backbone of the entire 
+                                             travel application process and contains the itinerary of the journey as well as the quotes gathered for each step 
+                                             of the journey. Information entered into this form provides details for the other forms in the application process 
+                                             and provides for a central point of approval by an authorizer."/>
+                                            <br />
+                                            <br />
+                                            <b>
+                               <h:outputText value = "How should I fill this out?" />
+                                            </b>
+                                            <br />
+                               <h:outputText value = "The system will guide you through this step-by-step process. Ensure you fill out all the key fields."/>
+                                            <br />
+                                            <br />
+                                <b>
+                               <h:outputText value = "Create Application"/>
+                                            </b> 
+                                            <br />
+                               <h:outputText value = "The home screen will display your current applications as well as those 
+                                            already lodged and pending approval. If you wish to create a new application, click on the + Create New button. 
+                                            in the Current Applications section. Ensure all required fields are filled within this form, these are indicated by the asterisk *. Tools are provided, for difficult sections"/>
+                                            <br />
+                                            <br />
+                                            <b>
+                               <h:outputText value = "Selecting an Application"/>
+                                            </b> 
+                                            <br />
+                               <h:outputText value = "To select an application which has not yet been sent for approval, simply click the application displayed under the 'Your application'section."/>
+                                            <br />
+                                            <br />
+                                            <b>
+                               <h:outputText value = "View/Edit an Application"/>
+                                            </b> 
+                                            <br />
+                               <h:outputText value = "To View or Edit an application which has not yet been sent for approval, simply click the View/Edit Application button, displayed under the Application Form section."/>
+                                            <br />
+                                            <br />            
+                                <li><h:link outcome="help.xhtml">Conference Attendance Form</h:link></li>
+                                            <b><u>
+                                       <h:outputText value =  "Conference Attendance Form"/>
+                                                </u></b>
+                                            <br />
+                                            <b>
+                               <h:outputText value = "Why should I fill this out"/>
+                                            </b> 
+                                            <br />
+                               <h:outputText value = "This form is required by applicants wishing to attend a conference/workshop while travelling.
+                                            Conference details such as the conference name, city, date  are saved in the system.
+                                            Sources of funding are also required by the system."/>
+                                            <br />
+                                            <br />
+                                            <b>
+                               <h:outputText value = "How should I fill this out?" />
+                                            </b>
+                                            <br />
+                               <h:outputText value = "The system will guide you through this step-by-step process. Ensure you fill out all the key fields."/>
+                                            <br />
+                                            <br />
+                                            <b>
+                               <h:outputText value = "Create Conference Attendance Request Form"/>
+                                            </b>
+                               <h:outputText value = "To create a Conference Attendance form for an application which has not yet been sent for approval, simply click the Create Conference Attendance button, displayed under the Conference Attendance Request section."/>
+                                            <br />
+                                            <br />
+                                <li><h:link outcome="help.xhtml">Final Costing Form</h:link></li>
+                                <b><u>
+                               <h:outputText value = "Final Costing"/>
+                                            </u></b> 
+                                            <br />
+                                            <b>
+                               <h:outputText value = "Why should I fill this out?"/>
+                                            </b> 
+                                            <br />
+                               <h:outputText value = "Final Costing is used to summarize all the costs associated with the application.This is used by the authorisers to check that the application is with in the Departments budget and that costs are justifiable expenses.
+                                             This from should automatically collect information from various sections of the application where applicable such as accommodation costs, rental costs and flight costs. If this information is incomplete or does not cover all 
+                                             costs associated with application the other costs section is available. Lastly this form includes a section to indicate if funding for this travel application is coming from sources in Australia as part of the operations of the Monash University."/>
+                                            <br />
+                                            <br />
+                                            <b>
+                               <h:outputText value = "How should I fill this out?" />
+                                            </b>
+                                            <br />
+                               <h:outputText value = "The system will guide you through this step-by-step process. Ensure you fill out all the key fields."/>
+                                            <br />
+                                            <br />
+                                            <b>
+                               <h:outputText value = "Create Final Costing Form"/>
+                                            </b> 
+                                            <br />
+                               <h:outputText value = "To create a Final Costing form for an application which has not yet been sent for approval, simply click the Create Final Costing Form button, displayed under the Final Costing Form section."/>
+                                            <br />
+                                            <br />
+                                            <b>
+                               <h:outputText value = "View/Edit Final Costing Form"/>
+                                            </b> 
+                                            <br />
+                               <h:outputText value = "To View or Edit a Final Costing form for an application which has not yet been sent for approval, simply click the View/Edit Final Costing Form button, displayed under the Final Costing Form section."/>
+                                            <br />
+                                            <br />
+                                <li><h:link outcome="help.xhtml">Foreign Exchange Request Form</h:link></li>
+                                <b>
+                               <h:outputText value = "Create Foreign Exchange Request Form"/>
+                                            </b> 
+                                            <br />
+                               <h:outputText value = "To create a Foreign Exchange Request form for an application which has not yet been sent for approval, simply click the Create Foreign Exchange Form button, displayed under the Foreign Exchange Request Form section."/>
+                                            <br />
+                                            <br />
+                                            <b>
+                               <h:outputText value = "View/Edit Foreign Exchange Request Form"/>
+                                            </b> 
+                                            <br />
+                               <h:outputText value = "To View or Edit a Foreign Exchange Request form for an application which has not yet been sent for approval, simply click the View/Edit Foreign Exchange Form button, displayed under the Foreign Exchange Request From section."/>
+                                            <br />
+                                            <br />
+                                <li><h:link outcome="help.xhtml">Motivation Form</h:link></li>
+                                <b>
+                               <h:outputText value = "Create Motivation Form"/>
+                                            </b> 
+                                            <br />
+                               <h:outputText value = "To create a Motivation form for an application which has not yet been sent for approval, simply click the Create Motivation Form button, displayed under the Motivation Form section."/>
+                                            <br />
+                                            <br />
+                                            <b>
+                               <h:outputText value = "View/Edit Motivation Form"/>
+                                            </b> 
+                                            <br />
+                               <h:outputText value = "To View or Edit a Motivation form for an application which has not yet been sent for approval, simply click the View/Edit Motivation Form button, displayed under the Motivation Form section."/>
+                                            <br />
+                                            <br />                                      
+                                                                                       
                             </fieldset>
-                            <p:button value="Cancel" outcome="#{appBean.goApplicationHome()}" styleClass="button-left"/>
-                            
-                            <p:commandButton value="Submit" action="#{motivBean.save()}" ajax="false" styleClass="button-right"/>  
-                            
-                        </p:panel>  
-                    </p:tab>  
+                            <p:button value="Back" outcome="#{appBean.goApplicationHome()}" styleClass="button-left"/>
+                            <p:commandButton value="Next" action="#{motivBean.save()}" styleClass="button-right"/>  
+                        </p:panel>
+                    </p:tab>        
                 </h:form>
             </ui:define>
 
