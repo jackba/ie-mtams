@@ -5,6 +5,7 @@
 package ManagedBeans;
 
 import Entities.Account;
+import Entities.Stage;
 import ServiceLayer.AccountHandlerLocal;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Pattern;
 import org.primefaces.component.api.UIData;
+import org.primefaces.event.DragDropEvent;
 
 /**
  *
@@ -38,6 +40,8 @@ public class AdminBean implements Serializable {
     private UIData dataTable;
     private UIData dataTableDetails;
     private String userName = (String) ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getAttribute("username");
+    private List<Stage> stages;
+    private List<Stage> dropStages;
     
     @EJB
     private AccountHandlerLocal handler;
@@ -180,4 +184,28 @@ public class AdminBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success.", "Account has been Reactivated"));        
         return null;
     }
+
+    public List<Stage> getStages() {
+        return stages = handler.getAllStages();
+    }
+
+    public void setStages(List<Stage> stages) {
+        this.stages = stages;
+    }
+
+    public List<Stage> getDropStages() {
+        return dropStages;
+    }
+
+    public void setDropStages(List<Stage> dropStages) {
+        this.dropStages = dropStages;
+    }  
+    
+    public void onStageDrop(DragDropEvent ddEvent) {  
+        Stage stage = ((Stage) ddEvent.getData());  
+  
+        stages.add(stage);  
+        dropStages.remove(stage);  
+    }  
+    
 }
