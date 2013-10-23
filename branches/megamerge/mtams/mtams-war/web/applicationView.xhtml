@@ -12,11 +12,12 @@
 
             <ui:define name="content">
                 <h:form>
-                    
                     <p:panel id="viewApplicationPanel" header="Your Application">
                         <p:messages id="submitAppConfirm" showDetail="true" closable="true" autoUpdate="true" severity="info"/>
                         <p:button outcome="#{userBean.viewHome()}" id="backButton"  title="Back Button" value="Back" />
                         <p:button outcome="#{appBean.goEdit()}" id="editButton"  title="Edit Button" value="Edit" />
+                        <h:commandButton id="someid" value="PDF" action="#{appBean.generatePDF}" style="float:right;" image="resources/img/pdf.png"/>
+                        <br/>
                         <br /><fieldset><legend><h4>Personal Details</h4></legend>
                             <h:panelGrid columns="2" columnClasses="label, value">
 
