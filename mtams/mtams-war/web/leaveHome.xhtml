@@ -20,7 +20,7 @@
 
                                 <h:panelGrid columns="2" columnClasses="label, value"> 
                                     <h:outputText value="Select leave type: " />  
-                                    <p:selectOneMenu id="tempLeaveType" value="" required="true" requiredMessage="Entry required">
+                                    <p:selectOneMenu id="tempLeaveType" required="true" requiredMessage="Entry required">
                                         <f:selectItem  itemLabel="Select Leave Type" itemValue=""/>
                                         <f:selectItems value="#{dataLookUpBean.leaveStrings}" />
                                         <p:ajax event="blur" update="tempLeaveType" />
@@ -38,24 +38,22 @@
                             </fieldset>
 
                             <fieldset><legend><h4>Available Replacements</h4></legend>
-                                <p:dataTable id="approvals" var="appr" value="#{UserBean.getAllAccount}" paginator="true" rows="10" paginatorAlwaysVisible="false" emptyMessage="No available replacements">  
+                                <p:dataTable id="dataTable" var="leave" value="#{userBean.allAccount}" binding="#{userBean.dataTable}" rowKey="#{leave.idaccount}" selection="#{userBean.selectedAcount}" selectionMode="single"
+                                 paginator="true" paginatorAlwaysVisible="false" rows="10"  
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">  
 
-                                    <p:column headerText="Name" style="width:35%">  
-                                        
+                                    <p:column headerText="Username" style="width:60%">  
+                                         <h:outputText value="#{leave.username}" />
                                     </p:column>  
 
-                                    <p:column headerText="Surname" style="width:33%">  
-                                         
-                                    </p:column>  
-
-                                    <p:column headerText="Available" style="width:32%">  
-                                         
+                                    <p:column headerText="Available" style="width:40%">  
+                                         <h:outputText value="Available" />
                                     </p:column>
                                 </p:dataTable>
                             </fieldset>
 
                         </p:panel> 
-                         <p:commandButton value="Submit" ajax="false" action="#{UserBean.submitLeave()}" styleClass="button-right"/>  
+                         <p:commandButton value="Submit" ajax="false" action="#{userBean.submitLeave()}" styleClass="button-right"/>  
 
                     </p:tab> 
                     
