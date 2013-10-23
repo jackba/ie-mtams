@@ -11,8 +11,7 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-                <h:form id="leaveHome">
-                    
+                <h:form id="leaveHome">                   
 
                             <p:fieldset legend="Current Stages">  
                                 <p:dataTable id="Availablestages" var="stage" value="#{adminBean.stages}">  
@@ -34,7 +33,7 @@
 
                             <p:fieldset id="NewStage" legend="New Selected Stages" style="margin-top:20px">  
                                 <p:outputPanel id="dropArea">  
-                                    <h:outputText value="Drop Stages Here"  
+                                    <h:outputText value="Drop Stages Here" 
                                                   rendered="#{empty adminBean.dropStages}"  
                                                   style="font-size:24px;" />  
 
