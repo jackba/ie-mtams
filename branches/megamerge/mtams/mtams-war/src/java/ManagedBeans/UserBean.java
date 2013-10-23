@@ -59,6 +59,7 @@ public class UserBean implements Serializable {
     @EJB
     private LoginHandlerLocal logHandler;
     private List<Approvalchain> allApproved;
+    private List<Account> allAccount;
     private int stage;
     private Application selectedApp;
     private String department;
@@ -158,6 +159,32 @@ public class UserBean implements Serializable {
     @EJB
     private TravelProfileHandlerLocal handler;
     private Date currentDate = new Date();
+    
+    //////////LeaveHome stuff////////////
+    private Account selectedAcount;
+    private Account accountRef;
+
+    public Account getSelectedAcount() {
+        return selectedAcount;
+    }
+
+    public void setSelectedAcount(Account selectedAcount) {
+        this.selectedAcount = selectedAcount;
+    }
+    
+    public void loadSelected(){
+        accountRef = selectedAcount;
+    }
+
+    public List<Account> getAllAccount() {
+        return allAccount;
+    }
+
+    public void setAllAccount(List<Account> allAccount) {
+        this.allAccount = allAccount;
+    }
+    
+    ////////////////////////////////////
 
     public Date getCurrentDate() {
         return currentDate;
@@ -1044,4 +1071,10 @@ public class UserBean implements Serializable {
     public String goAuthHome() {
         return "authorizerHome";
     }
+    
+    public String goLeaveHome() {
+        return "leaveHome";
+    }
+    
+    
 }

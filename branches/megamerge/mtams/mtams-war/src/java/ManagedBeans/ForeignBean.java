@@ -233,14 +233,14 @@ public class ForeignBean implements Serializable {
         //setReturnDate(viewForX.getDateofreturn());
         setTicketNumber(viewForX.getTicketnum());
         setVoyagerNum(viewForX.getVoyagernum());
-           setTravellerCheque(viewForX.getTravelerscheques());
-           setForeignCash(viewForX.getCash());
+//           setTravellerCheque(viewForX.getTravelerscheques());
+//           setForeignCash(viewForX.getCash());
         //setCashPassportCard(viewForX.getCashpassport());
         setType(viewForX.getCctype());
         setLast3(viewForX.getCclast3());
         setNumber(viewForX.getCcnumber());
         setExpire(viewForX.getCcexpirydate());
-           setAmount(viewForX.getCash());
+//           setAmount(viewForX.getCash());
         setDateRequired(viewForX.getDateofrequired());
         setDateForex(viewForX.getDatewillbeconfirmed());
         setReasonForTravel(viewForX.getReasonfortravel());
