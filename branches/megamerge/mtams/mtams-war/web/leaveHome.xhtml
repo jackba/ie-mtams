@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+
+            <ui:define name="content">
+                <h:form id="helpTab">
+                    <p:tab id="helpID" title="Help">  
+                        <p:panel header="Leave Home">  
+
+
+                            <fieldset><legend><h4>Leave Details</h4></legend>
+
+                                <h:panelGrid columns="2" columnClasses="label, value"> 
+                                    <h:outputText value="Select leave type: " />  
+                                    <p:selectOneMenu id="tempLeaveType" value="" required="true" requiredMessage="Entry required">
+                                        <f:selectItem  itemLabel="Select Leave Type" itemValue=""/>
+                                        <f:selectItems value="#{dataLookUpBean.leaveStrings}" />
+                                        <p:ajax event="blur" update="tempLeaveType" />
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="Leave start date: " />  
+                                    <p:calendar  id="leaveStart" required="true"  
+                                                 mindate="#{userBean.currentDate}" requiredMessage="Leave start date required"/>
+
+                                    <h:outputText value="Leave end date: " />  
+                                    <p:calendar  id="leaveEnd" required="true"  
+                                                 mindate="#{userBean.currentDate}" requiredMessage="Leave start date required"/>
+
+                                </h:panelGrid> 
+                            </fieldset>
+
+                            <fieldset><legend><h4>Available Replacements</h4></legend>
+                                <p:dataTable id="approvals" var="appr" value="#{UserBean.getAllAccount}" paginator="true" rows="10" paginatorAlwaysVisible="false" emptyMessage="No Applications has been send for approval">  
+
+                                    <p:column headerText="Application Name" style="width:35%">  
+                                        
+                                    </p:column>  
+
+                                    <p:column headerText="Application Stage" style="width:33%">  
+                                         
+                                    </p:column>  
+
+                                    <p:column headerText="Waiting To Be Approved By" style="width:32%">  
+                                         
+                                    </p:column>
+                                </p:dataTable>
+                            </fieldset>
+
+                        </p:panel> 
+
+                    </p:tab>  
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
