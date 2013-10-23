@@ -87,6 +87,8 @@ public class MenuBean implements Serializable {
             item.setUrl(this.getURL("authorizerHome"));
             authMenu.getChildren().add(item);
             model.addSubmenu(authMenu);
+
+
         }
 
         if (returnRole("22")) {
@@ -111,7 +113,7 @@ public class MenuBean implements Serializable {
             item.setUrl(this.getURL("deactivateAccount"));
             superMenu.getChildren().add(item);
             model.addSubmenu(superMenu);
-            
+
             item = new MenuItem();
             item.setValue("Reactivate Account");
             item.setUrl(this.getURL("reactivateAccount"));
@@ -125,6 +127,15 @@ public class MenuBean implements Serializable {
             model.addSubmenu(superMenu);
         }
 
+        if (!returnRole("11")) {
+            //Go on leave
+            item = new MenuItem();
+            item.setValue("Go On Leave");
+            item.setIcon("ui-icon-calendar");
+            item.setUrl(this.getURL("leaveHome"));
+
+            model.addMenuItem(item);
+        }
     }
 
     public String getURL(String url) {
