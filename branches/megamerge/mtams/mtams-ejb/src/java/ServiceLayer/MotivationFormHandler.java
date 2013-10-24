@@ -86,7 +86,7 @@ public class MotivationFormHandler implements MotivationFormHandlerLocal {
         Quotes quoteForm = null;
         List<Application> allApp = app.findAll();
         for (Application eachApp : allApp) {
-            if (eachApp.getAccountIdaccount().getIdaccount().equals(id)) {
+            if (eachApp.getIdapplication().equals(id)) {
                 quoteId = eachApp.getQuotesIdquotes().getIdquotes();
             }
         }
@@ -105,7 +105,7 @@ public class MotivationFormHandler implements MotivationFormHandlerLocal {
         Finalcosting finalCForm = null;
         List<Application> allApp = app.findAll();
         for (Application eachApp : allApp) {
-            if (eachApp.getAccountIdaccount().getIdaccount().equals(id)) {
+            if (eachApp.getIdapplication().equals(id)) {
                 finalCId = eachApp.getFinalcostingIdfinalcosting().getIdfinalcosting();
             }
         }

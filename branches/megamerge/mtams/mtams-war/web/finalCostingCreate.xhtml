@@ -765,98 +765,7 @@
 
 
                                     </p:panelGrid>
-
-                                </p:panel>
-                            </p:tab>
-
-
-                            <p:tab id="authotabfinal" title="Authorisation">
-                                <p:panel header="Authorisation">
-                                    <fieldset><legend><h4>Authorise Details</h4></legend>
-                                        <p:panelGrid id="authoriseFrom" >
-                                            <ui:remove>
-
-                                                <!--
-                                                -->
-
-                                            </ui:remove>
-                                            <p:row>
-                                                <p:column styleClass="columnLabel">
-                                                    <h:outputText value="Is this form approved:" />
-                                                </p:column>
-                                                <p:column colspan="1">
-                                                    <p:selectOneRadio id="approvedCheck" required="true" requiredMessage="Is this form approved " value="#{finalCBean.sectionapproved}">
-                                                        <f:selectItem itemValue="1" itemLabel="Yes" />
-                                                        <f:selectItem itemValue="0" itemLabel="No" />
-                                                    </p:selectOneRadio>
-
-                                                </p:column>
-
-
-                                                <p:column>
-                                                    <p:message for="approvedCheck"/>
-                                                </p:column>
-
-                                            </p:row>
-
-
-                                            <p:row>
-                                                <p:column styleClass="columnLabel">
-                                                    <h:outputText value="Given name: "  />
-                                                </p:column>
-                                                <p:column colspan="1">
-                                                    <p:inputText id="AuthgivenName" value="#{finalCBean.profileRef.firstname}" required="true" requiredMessage="Name is a required Field"  styleClass="inputWidthDepartment">
-                                                        <p:ajax update="AuthgivenName" event="blur" />
-                                                    </p:inputText>
-                                                </p:column>
-                                                <p:column>
-                                                    <p:message for="AuthgivenName"/>
-                                                </p:column>
-                                            </p:row>
-
-                                            <p:row >
-                                                <p:column styleClass="columnLabel">
-                                                    <h:outputText value="Family name: "  />
-                                                </p:column>
-                                                <p:column colspan="1">
-                                                    <p:inputText id="AuthfamName" value="#{finalCBean.profileRef.familyname}" required="true" requiredMessage="Name is a required Field" styleClass="inputWidthDepartment">
-                                                        <p:ajax update="AuthfamName" event="blur" />
-                                                    </p:inputText>
-                                                </p:column>
-                                                <p:column>
-                                                    <p:message for="AuthfamName"/>
-                                                </p:column>
-                                            </p:row>
-
-                                            <p:row >
-                                                <p:column styleClass="columnLabel">
-                                                    <h:outputText value="Date: " />
-                                                </p:column>
-                                                <p:column>
-                                                    <p:calendar id="authdate" value="#{finalCBean.dateStamp}" showButtonPanel="true" navigator="true" required="true" requiredMessage="Required Field"  styleClass="inputWidthDepartment" />                                                       
-                                                </p:column>
-                                                <p:column>
-                                                    <p:message for="authdate"/>
-                                                </p:column>
-                                            </p:row>
-
-                                            <p:row >
-                                                <p:column styleClass="columnLabel">
-                                                    <h:outputText value="Notes: " />
-                                                </p:column>
-                                                <p:column>
-
-                                                    <p:inputTextarea id="authNotes" value="#{finalCBean.notes}" required="false"  styleClass="inputWidthDepartment">
-                                                        <p:ajax update="authNotes" event="blur" />
-                                                    </p:inputTextarea>
-                                                </p:column>
-                                                <p:column>
-                                                    <p:message for="authNotes"/>
-                                                </p:column>
-                                            </p:row>
-
-                                        </p:panelGrid>
-                                    </fieldset>
+                                    
                                     <fieldset><legend><h4>Policy Check</h4></legend>
                                         <p:panelGrid id="finalCostingPolicy" styleClass="noborders">
                                             <p:row >
@@ -894,13 +803,11 @@
                                     </fieldset>
 
 
-                                    <p:commandButton value="Submit" ajax="false" action="#{finalCBean.createFinalCosting()}" styleClass="button-left"/>
-                                    <p:commandButton value="Cancel" ajax="false" action="#{finalCBean.goHome()}" styleClass="button-left"/>
-
+                                    <p:commandButton value="Submit" ajax="false" action="#{finalCBean.createFinalCosting()}" styleClass="button-right"/>
+                                    <p:commandButton value="Cancel" ajax="false" action="#{finalCBean.goHome()}" styleClass="button-right"/>
 
                                 </p:panel>
                             </p:tab>
-
 
                         </p:wizard>
 
