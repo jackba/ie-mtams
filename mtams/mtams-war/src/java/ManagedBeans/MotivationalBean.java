@@ -142,7 +142,7 @@ public String save()
 
     public Quotes getQuote() 
     {
-        quote=handler.findQuotes(accountID);
+        quote=handler.findQuotes(appnum);
         return quote;
     }
 
@@ -153,7 +153,7 @@ public String save()
 
     public Finalcosting getFinalC() 
     {
-        finalC=handler.findFinalCosting(accountID);
+        finalC=handler.findFinalCosting(appnum);
         return finalC;
     }
 

@@ -412,43 +412,43 @@ public class FinalCostingBean implements Serializable {
         logger.log(Level.INFO, "newFinalCosting : {0}", "start");
         logger.log(Level.INFO, "newFinalCosting : {0}", newFinalCosting.toString());
 
-        newFinalCosting.setAbsencebussiness(absencebussiness);
-        newFinalCosting.setAbsenceprivate(absenceprivate);
-        newFinalCosting.setAccommodatedays(accommodatedays);
-        newFinalCosting.setAccommodationbudget(AccommodationBudget);
-        newFinalCosting.setAccommodationcost(AccommodationCost);
-        newFinalCosting.setAdministrativeunit(administrativeunit);
-        newFinalCosting.setAirfarebudget(AirfareBudget);
-        newFinalCosting.setAirfarecost(AirfareCost);
-        //newFinalCosting.setApplicationCollection(null);
-        newFinalCosting.setApprovedbudget(calcTotalBudget());
-        newFinalCosting.setApprovedcost(calcTotalCost());
-        newFinalCosting.setCarrentalbudget(CarRentalBudget);
-        newFinalCosting.setCarrentalcost(CarRentalCost);
-        newFinalCosting.setChecks(checks);
-        newFinalCosting.setCitys(cities);
-        newFinalCosting.setConferencebudget(conferencebudget);
-        newFinalCosting.setConferencecost(conferencecost);
-        newFinalCosting.setCountries(countries);
-        newFinalCosting.setCurrency(Currency);
-        newFinalCosting.setFromoz(fromoz);
-        newFinalCosting.setName(Name);
-        newFinalCosting.setOtherbudget(otherbudget);
-        newFinalCosting.setOthercost(othercost);
-        newFinalCosting.setOtherdiscription(otherdiscription);
-        newFinalCosting.setOzemail(ozemail);
-        newFinalCosting.setOzname(ozname);
-        newFinalCosting.setOztel(oztel);
-        newFinalCosting.setPerdiembudget(perdiembudget);
-        newFinalCosting.setPerdiemcost(perdiemcost);
-        newFinalCosting.setPerdiemdays(perdiemdays);
-        newFinalCosting.setQuotesIdquotes(quoteRef);
-        newFinalCosting.setVisabudget(visabudget);
-        newFinalCosting.setVisacost(visacost);
-        logger.log(Level.INFO, "newFinalCosting : {0}", "end");
-        logger.log(Level.INFO, "newFinalCosting : {0}", newFinalCosting.toString());
+        fCostRef.setAbsencebussiness(absencebussiness);
+        fCostRef.setAbsenceprivate(absenceprivate);
+        fCostRef.setAccommodatedays(accommodatedays);
+        fCostRef.setAccommodationbudget(AccommodationBudget);
+        fCostRef.setAccommodationcost(AccommodationCost);
+        fCostRef.setAdministrativeunit(administrativeunit);
+        fCostRef.setAirfarebudget(AirfareBudget);
+        fCostRef.setAirfarecost(AirfareCost);
+        //fCostRef.setApplicationCollection(null);
+        fCostRef.setApprovedbudget(calcTotalBudget());
+        fCostRef.setApprovedcost(calcTotalCost());
+        fCostRef.setCarrentalbudget(CarRentalBudget);
+        fCostRef.setCarrentalcost(CarRentalCost);
+        fCostRef.setChecks(checks);
+        fCostRef.setCitys(cities);
+        fCostRef.setConferencebudget(conferencebudget);
+        fCostRef.setConferencecost(conferencecost);
+        fCostRef.setCountries(countries);
+        fCostRef.setCurrency(Currency);
+        fCostRef.setFromoz(fromoz);
+        fCostRef.setName(Name);
+        fCostRef.setOtherbudget(otherbudget);
+        fCostRef.setOthercost(othercost);
+        fCostRef.setOtherdiscription(otherdiscription);
+        fCostRef.setOzemail(ozemail);
+        fCostRef.setOzname(ozname);
+        fCostRef.setOztel(oztel);
+        fCostRef.setPerdiembudget(perdiembudget);
+        fCostRef.setPerdiemcost(perdiemcost);
+        fCostRef.setPerdiemdays(perdiemdays);
+        fCostRef.setQuotesIdquotes(quoteRef);
+        fCostRef.setVisabudget(visabudget);
+        fCostRef.setVisacost(visacost);
+        logger.log(Level.INFO, "fCostRef : {0}", "end");
+        logger.log(Level.INFO, "fCostRef : {0}", fCostRef.toString());
 
-        finalHandler.persistFinalcosting(newFinalCosting);
+        finalHandler.persistFinalcosting(fCostRef);
 
 
         newApproval = new Approval();
@@ -464,7 +464,7 @@ public class FinalCostingBean implements Serializable {
 
         FacesContext.getCurrentInstance().addMessage("submitConfirm", new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Final Costing Created"));
         //return "finalCostingView";
-        return "authorizerHome.xhtml";
+        return "applicationHome.xhtml";
     }
 
     public String update() {

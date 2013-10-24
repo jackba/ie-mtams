@@ -23,12 +23,12 @@
                                         <p:message for="supplier"/>
 
                                         <h:outputText value="Amount: " />  
-                                        <h:outputText id="amount" value="#{motivBean.finalC.approvedcost}"/> 
-                                        <h:message for="amount"/>
+                                        <h:outputText id="amount" value="#{motivBean.finalC.approvedbudget}"/> 
+                                        <p:message for="amount"/>
 
                                         <h:outputText value="Cost Code: " />  
                                         <h:outputText id="cost" value="#{motivBean.quote.costcenter}"/>  
-                                        <h:message for="cost"/>
+                                        <p:message for="cost"/>
 
                                         <h:outputText value="Motivation: " />  
                                        <p:inputTextarea id="motiv" value="#{motivBean.motivationLetter}" required="true" requiredMessage="Motivation is a required Field" />
@@ -44,10 +44,9 @@
                                 <p:message for="budgetRadio"/>
                             </h:panelGrid>
                             </fieldset>
-                            <p:button value="Cancel" outcome="#{appBean.goApplicationHome()}" styleClass="button-left"/>
                             
                             <p:commandButton value="Submit" action="#{motivBean.save()}" ajax="false" styleClass="button-right"/>  
-                            
+                            <p:button value="Cancel" outcome="#{appBean.goApplicationHome()}" styleClass="button-right"/>
                         </p:panel>  
                     </p:tab>  
                 </h:form>

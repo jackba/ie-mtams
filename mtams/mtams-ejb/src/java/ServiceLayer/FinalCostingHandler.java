@@ -41,7 +41,7 @@ public class FinalCostingHandler implements FinalCostingHandlerLocal {
     @Override
     public void persistFinalcosting(Finalcosting finalcosting) {
 
-        finalDao.create(finalcosting);
+        finalDao.edit(finalcosting);
 
     }
 
