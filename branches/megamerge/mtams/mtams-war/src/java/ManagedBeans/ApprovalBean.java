@@ -194,10 +194,10 @@ public class ApprovalBean implements Serializable {
         setReturnDate(travelRef.getDatereturn());
         setReasonForTravel(travelRef.getDescription());
 
-        setTempDate(itinRef.getDate());
-        setTempDest(itinRef.getDestinationCity());
-        setTempLeaveType(itinRef.getLeavetype());
-        setTempTravelDay(itinRef.getTravelday());
+//        setTempDate(itinRef.getDate());
+//        setTempDest(itinRef.getDestinationCity());
+//        setTempLeaveType(itinRef.getLeavetype());
+//        setTempTravelDay(itinRef.getTravelday());
 
         setCostCentre(quoteRef.getCostcenter());
     }
