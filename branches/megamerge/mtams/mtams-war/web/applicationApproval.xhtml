@@ -101,12 +101,7 @@
                             <legend><h4>Flight Quotes</h4></legend>
                             <p:dataTable var="fQ" value="#{approvalBean.flights}" selectionMode="single" selection="#{approvalBean.selectedFlgQte}" rowKey="#{fQ.idflightquotes}" >
                                 <p:ajax event="rowSelect" update="#{approvalBean.selectedFlgQte}" />
-                                <p:column headerText="From">
-                                    <h:outputText value="#{fQ.flightfromCity}" />
-                                </p:column>
-                                <p:column headerText="To">
-                                    <h:outputText value="#{fQ.flighttoCity}" />
-                                </p:column>
+
                                 <p:column headerText="Departure from">
                                     <h:outputText value="#{fQ.flightfromCity}" />
                                 </p:column>
@@ -128,16 +123,6 @@
                             <legend><h4>Car Quotes</h4></legend>
                             <p:dataTable var="cQ" value="#{approvalBean.cars}" selectionMode="single" selection="#{approvalBean.selectedCarQte}" rowKey="#{cQ.idcarquotes}">
 
-                                <p:column headerText="Collect date">
-                                    <h:outputText value="#{cQ.datecollect}" >
-                                        <f:convertDateTime type="date" dateStyle="long" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column headerText="Return date">
-                                    <h:outputText value="#{cQ.datereturn}" >
-                                        <f:convertDateTime type="date" dateStyle="long" />
-                                    </h:outputText>
-                                </p:column>
                                 <p:column headerText="Date Collected">
                                     <h:outputText value="#{cQ.datecollect}" >
                                         <f:convertDateTime type="date" dateStyle="long" />
@@ -216,8 +201,17 @@
                             </h:panelGrid>
 
                             <p:button value="Cancel" outcome="#{approvalBean.goHome()}" styleClass="button-right" />
-                            <p:commandButton  value="Submit" action="#{approvalBean.approve()}" update="viewApplicationPanel" ajax="false" styleClass="button-right"/>
+                            <p:commandButton  value="Submit" onclick="dlg1.show();" update="viewApplicationPanel" ajax="false" styleClass="button-right"/>
                         </fieldset>
+                        <p:dialog id="approveDialog" header="Confirmation:" widgetVar="dlg1" resizable="false">                                     
+                                <h:panelGrid columns="1" styleClass="panelGrid-noBorder">
+                                    <h:outputText value="Are you sure you wish to approve this application?" />                                       
+                                </h:panelGrid>
+
+                                <p:commandButton id="yes" value="Yes" actionListener="#{approvalBean.approve()}" ajax="false" icon="ui-icon-check" oncomplete="dlg1.hide();"/>
+                                <p:commandButton id="no" value="No" ajax="false" icon="ui-icon-closethick" oncomplete="dlg1.hide();"/>
+
+                            </p:dialog>
                     </p:panel>
                 </h:form>
             </ui:define>
