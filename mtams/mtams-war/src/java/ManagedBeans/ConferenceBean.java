@@ -60,7 +60,7 @@ public class ConferenceBean implements Serializable {
     private Date fromDate;
     @Future(message = "Date Must Be In The Future")
     private Date toDate;
-    private Integer diffDays;
+    //private Integer diffDays;
     private String coverOptions;
     private String coverDetails;
     //Section D - Funding
@@ -87,7 +87,7 @@ public class ConferenceBean implements Serializable {
 
         conf.setDatefrom(this.getFromDate());
         conf.setDateto(this.getToDate());
-        conf.setConferenceduration(this.getDiffDays());
+        //conf.setConferenceduration(this.getDiffDays());
         conf.setReplacement(this.getCoverOptions());
         conf.setReplacementarrangments(this.getCoverDetails());
 
@@ -123,7 +123,7 @@ public class ConferenceBean implements Serializable {
 
             this.setFromDate(confView.getDatefrom());
             this.setToDate(confView.getDateto());
-            this.setDiffDays(confView.getConferenceduration());
+            //this.setDiffDays(confView.getConferenceduration());
             this.setCoverOptions(confView.getReplacement());
             this.setCoverDetails(confView.getReplacementarrangments());
 
@@ -148,7 +148,7 @@ public class ConferenceBean implements Serializable {
 
         confEdit.setDatefrom(this.getFromDate());
         confEdit.setDateto(this.getToDate());
-        confEdit.setConferenceduration(this.getDiffDays());
+        //confEdit.setConferenceduration(this.getDiffDays());
         confEdit.setReplacement(this.getCoverOptions());
         confEdit.setReplacementarrangments(this.getCoverDetails());
 
@@ -258,13 +258,13 @@ public class ConferenceBean implements Serializable {
         this.toDate = toDate;
     }
 
-    public int getDiffDays() {
-        return diffDays;
-    }
-
-    public void setDiffDays(Integer diffDays) {
-        this.diffDays = diffDays;
-    }
+    /*    public int getDiffDays() {
+     * return diffDays;
+     * }
+     * 
+     * public void setDiffDays(Integer diffDays) {
+     * this.diffDays = diffDays;
+     * }*/
 
     public String getCoverOptions() {
         return coverOptions;
