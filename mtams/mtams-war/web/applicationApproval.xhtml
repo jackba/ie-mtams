@@ -83,7 +83,7 @@
                                 <p:column headerText="Travel day/work day">
                                     <h:outputText value="#{itin.travelday}" />
                                 </p:column>
-                                
+
                             </p:dataTable>
                         </fieldset>
                         <br />
@@ -101,7 +101,12 @@
                         <fieldset>
                             <legend><h4>Flight Quotes</h4></legend>
                             <p:dataTable var="fQ" value="#{approvalBean.flights}" selectionMode="single" selection="#{approvalBean.selectedFlgQte}" rowKey="#{fQ.idflightquotes}" >
-                                <p:ajax event="rowSelect" update="#{approvalBean.selectedFlgQte}" />
+                               
+                                <ui:remove>
+                                    <!--
+                                 <p:ajax event="rowSelect" update="#{approvalBean.selectedFlgQte}" />
+                                    -->
+                                </ui:remove>
 
                                 <p:column headerText="Departure from">
                                     <h:outputText value="#{fQ.flightfromCity}" />
@@ -202,17 +207,23 @@
                             </h:panelGrid>
 
                             <p:button value="Cancel" outcome="#{approvalBean.goHome()}" styleClass="button-right" />
-                            <p:commandButton  value="Submit" onclick="dlg1.show();" update="viewApplicationPanel" ajax="false" styleClass="button-right"/>
+                            <ui:remove>
+                                <!--                            
+                        <p:commandButton  value="Submit" onclick="dlg1.show();" update="viewApplicationPanel" ajax="false" styleClass="button-right"/>
+                                -->
+                            </ui:remove>
+                            <p:commandButton  value="Submit" onclick="dlg1.show();return false;" ajax="true" styleClass="button-right"/>
+                            
                         </fieldset>
                         <p:dialog id="approveDialog" header="Confirmation:" widgetVar="dlg1" resizable="false">                                     
-                                <h:panelGrid columns="1" styleClass="panelGrid-noBorder">
-                                    <h:outputText value="Are you sure you wish to approve this application?" />                                       
-                                </h:panelGrid>
+                            <h:panelGrid columns="1" styleClass="panelGrid-noBorder">
+                                <h:outputText value="Are you sure you wish to approve this application?" />                                       
+                            </h:panelGrid>
 
-                                <p:commandButton id="yes" value="Yes" actionListener="#{approvalBean.approve()}" ajax="false" icon="ui-icon-check" oncomplete="dlg1.hide();"/>
-                                <p:commandButton id="no" value="No" ajax="false" icon="ui-icon-closethick" oncomplete="dlg1.hide();"/>
+                            <p:commandButton id="yes" value="Yes" actionListener="#{approvalBean.approve()}" ajax="false" icon="ui-icon-check" oncomplete="dlg1.hide();"/>
+                            <p:commandButton id="no" value="No" ajax="false" icon="ui-icon-closethick" oncomplete="dlg1.hide();"/>
 
-                            </p:dialog>
+                        </p:dialog>
                     </p:panel>
                 </h:form>
             </ui:define>
