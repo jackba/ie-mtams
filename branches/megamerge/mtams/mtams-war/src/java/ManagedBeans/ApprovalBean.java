@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -149,7 +150,7 @@ public class ApprovalBean implements Serializable {
     private String reasonForTravel;
     private Application newApplication;
     //--------APPROVAL-------------//
-    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z'- ]{0,}")
+    @Pattern(message = "Incorrect Entry", regexp = "[a-zA-Z' ]{0,}")
     private String approvalName;
     private String approvalComment;
     private int approved = 2;
@@ -208,12 +209,16 @@ public class ApprovalBean implements Serializable {
     }
 
     public String approve() {
-
+//        logger.log(Level.INFO, "selectedAccQte : {0}", selectedAccQte);
+//        logger.log(Level.INFO, "selectedCarQte : {0}", selectedCarQte);
+//        logger.log(Level.INFO, "selectedFlgQte : {0}", selectedFlgQte);
         if (selectedAccQte != null && selectedCarQte != null && selectedFlgQte != null) {
             String next = "";
 //            approvals = approvalHandler.findApprovalbyApplication(appRef.getIdapplication());
+//            logger.log(Level.INFO, "appRef.getIdapplication() : {0}", appRef.getIdapplication());
 
             Approval appr = approvalHandler.findApprovalByAccountAndApplication(appRef.getIdapplication(), accountID);
+//            logger.log(Level.INFO, "appr : {0}", appr);
 //            appr.setAccountIdaccount(accRef);
 //            appr.setApplicationIdapplication(appRef);
             if (appr != null) {
@@ -225,7 +230,7 @@ public class ApprovalBean implements Serializable {
                 mail.test();
             }
 
-            
+
             selectedAccQte.setSelected(1);
             selectedCarQte.setSelected(1);
             selectedFlgQte.setSelected(1);
@@ -706,6 +711,4 @@ public class ApprovalBean implements Serializable {
     public void setSelectedFlgQte(Flightquotes selectedFlgQte) {
         this.selectedFlgQte = selectedFlgQte;
     }
-    
-    
 }
