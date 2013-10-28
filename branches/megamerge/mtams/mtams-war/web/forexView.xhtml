@@ -14,6 +14,9 @@
                 <h:form>
                     <p:panel header="Foreign Exchange Form">  
                         <p:button outcome="#{foreignBean.goEdit()}" id="editButton"  title="Edit Button" value="Edit" disabled="true"/>
+                        <h:commandButton id="someid" value="PDF" action="#{foreignBean.generatePDF}" style="float:right;" image="resources/img/pdf.png"/>
+                        <br/>
+                        <br/>
                         <fieldset><legend>Business Travel</legend>
                             <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">     
                                 <h:outputText value="Company name/Reg. number: "/>  
@@ -48,7 +51,7 @@
                                 <h:outputText value="Passport Number: " />  
                                 <h:outputText value="#{foreignBean.travelD.passportnumber}" />
 
-                                <h:outputText value="Company contact name: " />  
+                                <h:outputText value="Company contact: " />  
                                 <h:outputText value="#{foreignBean.travelerP.businessphone}" />  
 
                                 <h:outputText value="Destination: " />  
@@ -73,14 +76,14 @@
                             <h:panelGrid columns="3" columnClasses="label, value"> 
 
                                 <h:outputText value="Travellers cheques: "  />  
-                                    <h:outputText id="curcheq" value="#{foreignBean.viewForX.currencycheque}" /> 
+                                <h:outputText id="curcheq" value="#{foreignBean.viewForX.currencycheque}" /> 
                                 <h:outputText id="travelCheq" value="#{foreignBean.viewForX.travelerscheques}" /> 
 
                                 <h:outputText value="Foreign cash: "  />  
-                                    <h:outputText id="curcash" value="#{foreignBean.viewForX.currencycash}" /> 
+                                <h:outputText id="curcash" value="#{foreignBean.viewForX.currencycash}" /> 
                                 <h:outputText id="forCash" value="#{foreignBean.viewForX.cash}" /> 
                             </h:panelGrid>
-                            
+
                             <h:panelGrid columns="2" columnClasses="label, value">
                                 <h:outputText value="Type: (Visa, diners etc): " />  
                                 <h:outputText id="type" value="#{foreignBean.viewForX.cctype}"/>                           
@@ -94,7 +97,7 @@
                                 <h:outputText value="Expiry date: " />  
                                 <h:outputText id="Expire" value="#{foreignBean.viewForX.ccexpirydate}" />     
                             </h:panelGrid>
-                            
+
                             <h:panelGrid columns="3" columnClasses="label, value">
                                 <h:outputText value="Amount: " />  
                                 <h:outputText id="curcc" value="#{foreignBean.viewForX.currencycc}" /> 

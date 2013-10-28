@@ -371,7 +371,8 @@ public class ApplicationBean implements Serializable {
 
 
         for (Itinerary i : hops) {
-            cellList.add(new PdfPCell(new Phrase(df.format(i.getDate()))));
+            //cellList.add(new PdfPCell(new Phrase(df.format(i.getDate()))));
+            cellList.add(new PdfPCell(new Phrase("BLANK")));
             cellList.add(new PdfPCell(new Phrase(i.getDestinationCity())));
             cellList.add(new PdfPCell(new Phrase(i.getLeavetype())));
             cellList.add(new PdfPCell(new Phrase(i.getTravelday())));
