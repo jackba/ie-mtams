@@ -1,3 +1,11 @@
+.fieldsetForm fieldset legend {
+    width: 30%;
+}
+
+.fieldsetForm fieldset {
+    margin-bottom: 2%;
+}
+
 .ui-selectonemenu {
     width: 100% !important;
 }

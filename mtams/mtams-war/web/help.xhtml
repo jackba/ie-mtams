@@ -11,7 +11,7 @@
         <ui:composition template="./template/template.xhtml">
 
             <ui:define name="content">
-                <h:form id="helpTab">
+                <h:form id="helpTab" styleClass="fieldsetForm">
                     <p:tab id="helpID" title="Help">  
                         <p:panel header="Help">  
                             
@@ -20,7 +20,7 @@
                             <br />
                             <br />
                             <p:growl id="growl" showDetail="true" />
-                                <p:fieldset legend="Manage Your Account" toggleable="true" toggleSpeed="500" collapsed="true">  
+                                <p:fieldset legend="Manage Your Account" toggleable="true" toggleSpeed="500" collapsed="false">  
                                     <b><u>
                                         <h:outputText value =  "Creating a New User Account"/>
                                     </u></b>
